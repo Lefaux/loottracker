@@ -64,7 +64,7 @@ class ImportwowheadCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $lastImportedItem = 764;
+        $lastImportedItem = 1529;
         $startAt = $this->findLastImportedItem();
         if ($startAt < $lastImportedItem) {
             $startAt = $lastImportedItem;
@@ -73,7 +73,11 @@ class ImportwowheadCommand extends Command
 //        $this->importItemFromWoWHead(7976, $output);
         while($startAt < $this->maxItemId) {
             $startAt++;
-            $this->importItemFromWoWHead($startAt, $output);
+            try {
+                $this->importItemFromWoWHead($startAt, $output);
+            } catch (Exception $e) {
+                $output->writeln('ERROR IN ITEM '. $startAt);
+            }
         }
 
 

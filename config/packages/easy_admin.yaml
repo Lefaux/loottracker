@@ -1,0 +1,15 @@
+easy_admin:
+    entities:
+#        - App\Entity\User
+        Item:
+            class: App\Entity\Item
+            list:
+                fields: ['id', 'name', 'quality', 'class', 'subClass']
+        Category:
+            class: App\Entity\Category
+            list:
+                fields: ['name', 'sorting']
+        SubCategory:
+            class: App\Entity\SubCategory
+            list:
+                fields: ['name', 'parentClass', 'sorting']
