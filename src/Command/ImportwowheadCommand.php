@@ -10,6 +10,7 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
@@ -64,20 +65,27 @@ class ImportwowheadCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $lastImportedItem = 1529;
+        $lastImportedItem = 29041;
         $startAt = $this->findLastImportedItem();
         if ($startAt < $lastImportedItem) {
             $startAt = $lastImportedItem;
         }
+        $progressSection = $output->section();
+        $outputSection = $output->section();
+        $progressBar = new ProgressBar($progressSection);
+        $progressBar->setFormat(' %current%/%max% [%bar%] %percent:3s%% %elapsed:6s%/%estimated:-6s% %memory:6s%');
+        $progressBar->setMaxSteps($this->maxItemId);
         $output->writeln('Starting at '. $startAt);
+        $progressBar->setProgress($startAt);
 //        $this->importItemFromWoWHead(7976, $output);
         while($startAt < $this->maxItemId) {
             $startAt++;
             try {
-                $this->importItemFromWoWHead($startAt, $output);
+                $this->importItemFromWoWHead($startAt, $outputSection);
             } catch (Exception $e) {
                 $output->writeln('ERROR IN ITEM '. $startAt);
             }
+            $progressBar->advance(1);
         }
 
 
@@ -102,16 +110,16 @@ class ImportwowheadCommand extends Command
         $classicData = file_get_contents('https://classic.wowhead.com/item=' . $itemId . '&xml');
         $crawlerToolTip = new Crawler($classicData);
         if (strpos($liveData, 'Item not found') !== false) {
-            $output->writeln('item '. $itemId . ' not found');
+            $output->overwrite('item '. $itemId . ' not found');
             return;
         }
         if (strpos($classicData, 'Item not found') !== false) {
-            $output->writeln('item '. $itemId . ' not found in classic');
+            $output->overwrite('item '. $itemId . ' not found in classic');
             return;
         }
         $crawler = new Crawler($liveData);
         $name = $crawler->filter('name');
-        $output->writeln('['.$itemId.']-'.$name->html());
+        $output->overwrite(date('d.m.Y h:i:s') . ' ' .$name->html());
 
         $item->setName($name->html());
 
@@ -135,6 +143,9 @@ class ImportwowheadCommand extends Command
         $class = $this->categoryRepository->findOneBy([
             'identifier' => $categoryValue
         ]);
+        if ($class === null) {
+            throw new \RuntimeException('No entry found for class "' . $categoryValue . '"');
+        }
         // Set subcategory
         $subCategory = $crawler->filter('subclass');
         $subCategoryValue = (int)$subCategory->attr('id');
@@ -143,6 +154,9 @@ class ImportwowheadCommand extends Command
             'identifier' => $subCategoryValue,
             'parentClass' => $class->getId()
         ]);
+        if ($subClass === null) {
+            throw new \RuntimeException('No entry found for class "' . $categoryValue . '"');
+        }
 
         $item->setClass($class);
         $item->setSubClass($subClass);
