@@ -104,6 +104,7 @@ class SetupCategoriesCommand extends Command
         $classIdentifiers[3][-13] = 'Bags?';
         $classIdentifiers[3][-14] = 'unclear (fire relic)';
         $classIdentifiers[3][-16] = 'unclear (life relic)';
+        $classIdentifiers[3][-17] = 'unclear (some relic)';
         $classIdentifiers[3][-18] = 'unclear (Amulet)';
         $classIdentifiers[4]['main'] = 'Armor';
         $classIdentifiers[4][0] = 'Miscellaneous';
