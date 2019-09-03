@@ -19,9 +19,26 @@ class User extends BaseUser
      */
     protected $id;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $playername;
+
     public function __construct()
     {
         parent::__construct();
         // your own logic
+    }
+
+    public function getPlayername(): ?string
+    {
+        return $this->playername;
+    }
+
+    public function setPlayername(?string $playername): self
+    {
+        $this->playername = $playername;
+
+        return $this;
     }
 }
