@@ -4,6 +4,20 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    classIdentifiers:
+        '1': 'Warrior'
+        '2': 'Priest'
+        '3': 'Mage'
+        '4': 'Warlock'
+        '5': 'Rogue'
+        '6': 'Druid'
+        '7': 'Hunter'
+        '8': 'Shaman'
+        '9': 'Paladin'
+    specIdentifiers:
+        '1': 'Tank'
+        '2': 'Healer'
+        '3': 'DPS'
 
 services:
     # default configuration for services in *this* file

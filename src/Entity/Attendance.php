@@ -19,6 +19,7 @@ class Attendance
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Character", inversedBy="attendances")
      * @ORM\JoinColumn(nullable=false)
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $player;
 
