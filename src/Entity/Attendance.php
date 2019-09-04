@@ -17,42 +17,42 @@ class Attendance
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Character", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Character", inversedBy="attendances")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $character_id;
+    private $player;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Raid", inversedBy="attendance", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Raid", inversedBy="attendances")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $raid;
+    private $raidnight;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCharacterId(): ?Character
+    public function getPlayer(): ?Character
     {
-        return $this->character_id;
+        return $this->player;
     }
 
-    public function setCharacterId(Character $character_id): self
+    public function setPlayer(?Character $player): self
     {
-        $this->character_id = $character_id;
+        $this->player = $player;
 
         return $this;
     }
 
-    public function getRaid(): ?Raid
+    public function getRaidnight(): ?Raid
     {
-        return $this->raid;
+        return $this->raidnight;
     }
 
-    public function setRaid(Raid $raid): self
+    public function setRaidnight(?Raid $raidnight): self
     {
-        $this->raid = $raid;
+        $this->raidnight = $raidnight;
 
         return $this;
     }

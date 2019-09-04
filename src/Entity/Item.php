@@ -65,6 +65,16 @@ class Item
      */
     private $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Loot", mappedBy="item")
+     */
+    private $loots;
+
+    public function __construct()
+    {
+        $this->loots = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -180,6 +190,37 @@ class Item
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Loot[]
+     */
+    public function getLoots(): Collection
+    {
+        return $this->loots;
+    }
+
+    public function addLoot(Loot $loot): self
+    {
+        if (!$this->loots->contains($loot)) {
+            $this->loots[] = $loot;
+            $loot->setItem($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLoot(Loot $loot): self
+    {
+        if ($this->loots->contains($loot)) {
+            $this->loots->removeElement($loot);
+            // set the owning side to null (unless already changed)
+            if ($loot->getItem() === $this) {
+                $loot->setItem(null);
+            }
+        }
 
         return $this;
     }

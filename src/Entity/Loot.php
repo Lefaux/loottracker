@@ -17,41 +17,53 @@ class Loot
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Character", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="datetime")
      */
-    private $charname;
+    private $date;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Raid", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Character", inversedBy="loots")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Raid", inversedBy="loots")
      * @ORM\JoinColumn(nullable=false)
      */
     private $raid;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Item", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Item", inversedBy="loots")
      * @ORM\JoinColumn(nullable=false)
      */
     private $item;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCharname(): ?Character
+    public function getDate(): ?\DateTimeInterface
     {
-        return $this->charname;
+        return $this->date;
     }
 
-    public function setCharname(Character $charname): self
+    public function setDate(\DateTimeInterface $date): self
     {
-        $this->charname = $charname;
+        $this->date = $date;
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Character
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Character $player): self
+    {
+        $this->player = $player;
 
         return $this;
     }
@@ -61,7 +73,7 @@ class Loot
         return $this->raid;
     }
 
-    public function setRaid(Raid $raid): self
+    public function setRaid(?Raid $raid): self
     {
         $this->raid = $raid;
 
@@ -73,21 +85,9 @@ class Loot
         return $this->item;
     }
 
-    public function setItem(Item $item): self
+    public function setItem(?Item $item): self
     {
         $this->item = $item;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
