@@ -1,0 +1,20 @@
+//
+// Leaderboard
+//
+.leaderboard {
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    .datatable {
+        margin: 0;
+    }
+    .card {
+        height: 100%;
+        margin-bottom: 0;
+    }
+
+    [data-type="title"] {
+        max-width: 171px;
+    }
+}

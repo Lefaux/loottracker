@@ -1,0 +1,81 @@
+{% set card = issue._source %}
+
+{% set issueTypeClass = 'default' %}
+{% if card.tracker.name == 'Bug' %}
+    {% set issueTypeClass = 'bug' %}
+{% elseif card.tracker.name == 'Feature' %}
+    {% set issueTypeClass = 'feature' %}
+{% elseif card.tracker.name == 'Task' %}
+    {% set issueTypeClass = 'task' %}
+{% elseif card.tracker.name == 'Epic' %}
+    {% set issueTypeClass = 'epic' %}
+{% elseif card.tracker.name == 'Story' %}
+    {% set issueTypeClass = 'story' %}
+{% endif %}
+
+<div class="issue">
+    <div class="issue-type issue-type-{{ issueTypeClass }}">
+        <span class="issue-type-title">{{ card.tracker.name }}</span>
+    </div>
+    <div class="issue-content">
+        <div class="issue-status">
+            {% if card.status.name == 'New' %}
+                <span class="badge badge-danger">NEW</span>
+            {% else %}
+                <span class="badge badge-secondary">{{ card.status.name }}</span>
+            {% endif %}
+            {% if card.category.name is defined %}
+                <span class="badge badge-light">{{ card.category.name }}</span>
+            {% endif %}
+            {% if card.typo3_version is defined %}
+                <span class="badge badge-primary">TYPO3 CMS {{ card.typo3_version }}</span>
+            {% endif %}
+            {% if issue.score is defined %}
+                <span class="badge badge-secondary">Score: {{ issue.score }}</span>
+            {% endif %}
+        </div>
+        <h4 class="issue-headline">
+            <a href="http://forge.typo3.org/issues/{{ card.id }}" target="issue{{ card.id }}">
+                <span class="issue-id">#{{ card.id }}</span>
+                <span class="issue-title">{{ card.subject }}</span>
+            </a>
+        </h4>
+        {{ text_expand(textile(card.description)) }}
+    </div>
+
+    <div class="issue-meta">
+        <div class="issue-meta-group">
+            <div class="issue-meta-item issue-meta-author">
+                {% if card.author.email is defined %}
+                    <span class="issue-meta-item-avatar">
+                        {{ avatar(card.author.email) }}
+                    </span>
+                {% endif %}
+                <span class="issue-meta-item-body">
+                    <span class="issue-meta-item-label">Author</span>
+                    <span class="issue-meta-item-value">{{ card.author.name }}</span>
+                </span>
+            </div>
+        </div>
+        <div class="issue-meta-group issue-meta-group-stacked ">
+                <div class="issue-meta-item issue-meta-created">
+                    <span class="issue-meta-item-icon">
+                        <i class="fal fa-fw fa-calendar-day"></i>
+                    </span>
+                    <span class="issue-meta-item-body">
+                        <span class="issue-meta-item-label">Created</span>
+                        <span class="issue-meta-item-value">{{ relativetime(to_datetime(card.created_on)) }}</span>
+                    </span>
+                </div>
+                <div class="issue-meta-item issue-meta-updated">
+                    <span class="issue-meta-item-icon">
+                        <i class="fal fa-fw fa-sync"></i>
+                    </span>
+                    <span class="issue-meta-item-body">
+                        <span class="issue-meta-item-label">Updated</span>
+                        <span class="issue-meta-item-value">{{ relativetime(to_datetime(card.updated_on)) }}</span>
+                    </span>
+                </div>
+            </div>
+    </div>
+</div>

@@ -1,0 +1,94 @@
+{% import '_macros/buttons.html.twig' as buttons %}
+{% if card is not defined or card is null %}
+
+    {% include '_partials/alert.html.twig' with {message: 'Review is missing.', style: 'danger'} %}
+
+{% else %}
+
+    {% set reviewTypeClass = 'default' %}
+    {% if card.reviewtags.0 == 'FEATURE' %}
+        {% set reviewTypeClass = 'feature' %}
+    {% elseif card.reviewtags.0 == 'TASK' %}
+        {% set reviewTypeClass = 'task' %}
+    {% elseif card.reviewtags.0 == 'BUGFIX' %}
+        {% set reviewTypeClass = 'bugfix' %}
+    {% endif %}
+    <div class="review review-card review-type-{{ reviewTypeClass }}">
+        {% if card.mergeable is defined and card.mergeable == 'no' %}
+            <div class="review-note review-note-danger">Merge conflict</div>
+        {% endif %}
+        {% if mode == 'backport' %}
+            {% if not card.reviewstatus %}
+                <div class="review-note review-note-warning">Backport missing</div>
+            {% elseif card.reviewstatus == 'MERGED' %}
+                <div class="review-note review-note-success">Merged</div>
+            {% elseif card.reviewstatus == 'ABANDONED' %}
+                <div class="review-note review-note-info">Abandoned</div>
+            {% endif %}
+        {% endif %}
+        <div class="review-header">
+            <div class="review-issue">
+                #{{card.id}}
+            </div>
+            <div class="review-title">
+                <a href="https://review.typo3.org/c/Packages/TYPO3.CMS/+/{{ card.id }}/" target="gerrit{}{{ card.id }}">{{card.subject}}</a>
+            </div>
+            {% if card.branch != 'master' %}
+                <div class="review-branch">
+                    <span class="badge badge-danger">{{ card.branch }}</span>
+                </div>
+            {% endif %}
+        </div>
+        <div class="review-data">
+            <div class="review-data-item">
+                <span class="review-data-item-label">Author</span>
+                <span class="review-data-item-value">{{ card.owner }}</span>
+            </div>
+            <div class="review-data-item">
+                <span class="review-data-item-label">Updated</span>
+                <span class="review-data-item-value">{{ relativetime(to_datetime(card.updated_on)) }}</span>
+            </div>
+            <div class="review-data-item">
+                <span class="review-data-item-label">Affected Files</span>
+                <span class="review-data-item-value">{{ card.affected_files }}</span>
+            </div>
+            <div class="review-data-item">
+                <span class="review-data-item-label">Patchsets</span>
+                <span class="review-data-item-value">{{ card.patchsets }}</span>
+            </div>
+            <div class="review-data-item">
+                <span class="review-data-item-label">Reviews</span>
+                <span class="review-data-item-value">
+                    {% if card.positive_reviews %}
+                        <span class="badge badge-success">{{card.positive_reviews}}</span>
+                    {% endif %}
+                    {% if card.negative_reviews %}
+                        <span class="badge badge-danger">{{card.negative_reviews}}</span>
+                    {% endif %}
+                </span>
+            </div>
+            <div class="review-data-item">
+                <span class="review-data-item-label">Verifies</span>
+                <span class="review-data-item-value">
+                    {% if card.positive_verifications %}
+                        <span class="badge badge-success">{{card.positive_verifications}}</span>
+                    {% endif %}
+                    {% if card.negative_verifications %}
+                        <span class="badge badge-danger">{{card.negative_verifications}}</span>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+        {% if mode == 'backport' and is_granted('ROLE_ADMIN') %}
+            <div class="review-actions">
+                {{ buttons.link(
+                    path('utilities_backport_quickcreate', {'changeId': card.change_id}),
+                    'Add to blacklist',
+                    'danger btn-sm',
+                    'trash'
+                ) }}
+            </div>
+        {% endif %}
+    </div>
+
+{% endif %}

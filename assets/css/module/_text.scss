@@ -1,0 +1,17 @@
+//
+// Text
+//
+h4, .h4 {
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+.text-inherit {
+    color: inherit !important;
+    &:hover {
+        color: inherit !important;
+    }
+}
+.text-underline {
+    text-decoration: underline;
+}

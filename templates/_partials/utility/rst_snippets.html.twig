@@ -1,0 +1,44 @@
+<div class="row">
+    <div class="col-lg-6">
+        <h4>Links</h4>
+        {% include '_partials/utility/code_snippet.html.twig' with {
+            identifier: 'rst-links',
+            language: 'rest',
+            code: 'Some linked_ text&#13;&#10;&#13;&#10;.. _linked: https://typo3.org'
+            } only %}
+        <h4 class="mt-4">Code Block</h4>
+        {% include '_partials/utility/code_snippet.html.twig' with {
+            identifier: 'rst-block',
+            language: 'rest',
+            code: '.. code-block:: php|html|typoscript|javascript&#13;&#10;&#13;&#10;&nbsp;&nbsp;&nbsp;Your code indented by three spaces.'
+        } only %}
+    </div>
+    <div class="col-lg-6 mt-4 mt-lg-0">
+        <h4>Inline Code</h4>
+        {% include '_partials/utility/code_snippet.html.twig' with {
+            identifier: 'rst-generic',
+            language: 'rest',
+            code: '`Your code wrapped in ticks.`'
+            } only %}
+        {% include '_partials/utility/code_snippet.html.twig' with {
+            identifier: 'rst-file',
+            language: 'rest',
+            code: ':file:`filename`'
+            } only %}
+        {% include '_partials/utility/code_snippet.html.twig' with {
+            identifier: 'rst-php',
+            language: 'rest',
+            code: ':php:`$result = $a + 23;`'
+            } only %}
+        {% include '_partials/utility/code_snippet.html.twig' with {
+            identifier: 'rst-js',
+            language: 'rest',
+            code: ':js:`var f = function () {return 1;}`'
+            } only %}
+        {% include '_partials/utility/code_snippet.html.twig' with {
+            identifier: 'rst-typoscript',
+            language: 'rest',
+            code: ':ts:`lib.hello.value = Hello World!`'
+            } only %}
+    </div>
+</div>

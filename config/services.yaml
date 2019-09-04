@@ -36,6 +36,17 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+    App\Menu\MenuBuilder:
+        tags:
+            - name: 'knp_menu.menu_builder'
+              method: 'mainDefault'
+              alias: 'main-default'
+            - name: 'knp_menu.menu_builder'
+              method: 'mainProfile'
+              alias: 'main-profile'
+            - name: 'knp_menu.menu_builder'
+              method: 'mainFooter'
+              alias: 'main-footer'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

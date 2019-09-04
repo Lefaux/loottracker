@@ -1,0 +1,31 @@
+<div class="section">
+    {% if results is defined %}
+        <div class="section-filter">
+            {% include '_partials/aggregations.html.twig' with {'aggregations': aggregations, 'query': query} only %}
+        </div>
+        <div class="section-main">
+            {% include '_partials/pagination.html.twig' with {
+                'pages': pagesToLinkTo,
+                'current': currentPage,
+                'routeName': routeName,
+                'resultsTotal': totalResults,
+                'resultsFrom': startingAtItem,
+                'resultsTo': endingAtItem,
+                'arguments': {'query': query, 'filters': filters}
+            } only %}
+            {% for result in results %}
+                {% include '_partials/review.html.twig' with {'review': result.hit} only %}
+            {% endfor %}
+            {% include '_partials/pagination.html.twig' with {
+                'pages': pagesToLinkTo,
+                'current': currentPage,
+                'routeName': routeName,
+                'resultsTotal': totalResults,
+                'resultsFrom': startingAtItem,
+                'resultsTo': endingAtItem,
+                'arguments': {'query': query, 'filters': filters}
+            } only %}
+        </div>
+    {% endif %}
+</div>
+

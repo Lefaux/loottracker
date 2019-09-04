@@ -1,23 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello RaidController!{% endblock %}
+{% block title %}Show Raid Details!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <div style="float:left;width: 50%;">
+    <div class="content-section bg-transparent">
+        <div class="container">
         <ul>
             <li><b>Loots</b></li>
             {% for item in raid.loots %}
                 <li>{{ item.item.name }} > {{ item.player.name }}</li>
             {% endfor %}
         </ul>
-    </div>
-    <div style="float:left;width: 50%;">
         <ul>
             <li><b>Attendees</b></li>
             {% for attendance in raid.attendances %}

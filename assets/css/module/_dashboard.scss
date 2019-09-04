@@ -1,0 +1,80 @@
+//
+// Dashboard
+//
+$dashboard-shadow: $theme-shadow;
+$dashboard-bg: #ffffff;
+$dashboard-border-radius: 2px;
+$dashboard-color: color-yiq($issue-bg);
+$dashboard-padding: 1rem;
+
+.container-dashboard {
+    max-width: 2000px;
+}
+
+.dashboard {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+        "d00"
+        "d01"
+        "d02"
+        "d03"
+        "d04"
+        "d05"
+        "d06"
+        "d07";
+
+    @include media-breakpoint-up('sm') {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-areas:
+            "d00 d01"
+            "d02 d02"
+            "d03 d03"
+            "d04 d04"
+            "d05 d05"
+            "d06 d06"
+            "d07 d07";
+    }
+    @include media-breakpoint-up('md') {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        grid-template-areas:
+            "d00 d00 d02 d02 d03 d03"
+            "d01 d01 d02 d02 d03 d03"
+            "d04 d04 d04 d05 d05 d05"
+            "d06 d06 d06 d07 d07 d07";
+    }
+}
+@each $name, $area in $dashboard-areas {
+    .dashboard-item-#{$name} {
+        grid-area: $area;
+    }
+}
+.dashboard-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: $dashboard-border-radius;
+    color: $dashboard-color;
+    background-color: $dashboard-bg;
+    overflow: hidden;
+    box-shadow: $dashboard-shadow;
+}
+.dashboard-item-title {
+    padding: $dashboard-padding;
+    background-color: darken($issue-bg, 2.5%);
+    margin-bottom: 0;
+}
+.dashboard-item-body {
+    flex-grow: 1;
+    padding: $dashboard-padding;
+
+    canvas {
+        height: 100%;
+        min-height: 300px;
+        max-height: 500px;
+    }
+}
+.dashboard-item-mergeable {
+    canvas {
+        min-height: 200px;
+    }
+}
