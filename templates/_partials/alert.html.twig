@@ -1,8 +1,0 @@
-{% if message %}
-    <div class="alert alert-{{ (style is defined) ? style : 'info' }}" role="alert">
-        <div class="alert-inner">
-            {% if title is defined %}<h4 class="alert-heading">{{ title|raw }}</h4>{% endif %}
-            <p class="mb-0">{{ message|raw }}</p>
-        </div>
-    </div>
-{% endif %}
