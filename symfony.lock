@@ -1,4 +1,10 @@
 {
+    "deployer/deployer": {
+        "version": "v6.5.0"
+    },
+    "deployer/phar-update": {
+        "version": "v2.1.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -117,6 +123,9 @@
     },
     "pagerfanta/pagerfanta": {
         "version": "v2.1.3"
+    },
+    "pimple/pimple": {
+        "version": "v3.2.3"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -266,6 +275,9 @@
     },
     "symfony/polyfill-php73": {
         "version": "v1.12.0"
+    },
+    "symfony/process": {
+        "version": "v4.3.4"
     },
     "symfony/property-access": {
         "version": "v4.3.4"
