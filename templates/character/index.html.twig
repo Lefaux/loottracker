@@ -17,10 +17,17 @@
                     <th>Date</th>
                     <th>Loots</th>
                 </tr>
-                {% for attended in character.attendances %}
+                {% for attended in raids %}
                     <tr>
-                        <td><a href="{{ path('raid_show', {'raidId': attended.raidnight.id}) }}">{{ attended.raidnight.note }}</td>
-                        <td>{{ attended.raidnight.date|date('d.m.Y H:i') }}</td>
+                        <td><a href="{{ path('raid_show', {'raidId': attended.raid.id}) }}">{{ attended.raid.note }}</td>
+                        <td>{{ attended.raid.date|date('d.m.Y H:i') }}</td>
+                        <td>
+                            {% for loot in attended.loots %}
+                                <span class="guildbank-item-icon">
+                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                </span>
+                            {% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
