@@ -3,20 +3,43 @@
 {% block title %}Show Raid Details!{% endblock %}
 
 {% block body %}
-    <div class="content-section bg-transparent">
-        <div class="container">
-        <ul>
-            <li><b>Loots</b></li>
-            {% for item in raid.loots %}
-                <li>{{ item.item.name }} > {{ item.player.name }}</li>
-            {% endfor %}
-        </ul>
-        <ul>
-            <li><b>Attendees</b></li>
-            {% for attendance in raid.attendances %}
-                <li>{{ attendance.player.name }}</li>
-            {% endfor %}
-        </ul>
+<div class="content-section bg-transparent">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <h3>Attendees</h3>
+                <ul class="list-group">
+                    {% for attendance in raid.attendances %}
+                        <li class="list-group-item">
+                            <span class="wow-class-icon"><img src="/assets/icons/class_{{ attendance.player.class }}.gif" width="44" height="44" /></span>
+                            <a href="{{ path('character', {'charId': attendance.player.id}) }}">{{ attendance.player.name }}</a>
+                            <span class="float-right">
+                            {% if attendance.player.spec == 1 %}
+                                <i class="fal fa-fw fa-shield"></i>
+                            {% elseif attendance.player.spec == 2 %}
+                                <i class="fal fa-fw fa-band-aid"></i>
+                            {% elseif attendance.player.spec == 3 %}
+                                <i class="fal fa-fw fa-skull-crossbones"></i>
+                            {% endif %}
+                            </span>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-9">
+                <h3>Loot</h3>
+                <ul class="list-group">
+                    {% for item in raid.loots %}
+                        <li class="list-group-item">
+                            <span class="guildbank-item-icon">
+                                <a href="#" data-wowhead="item={{ item.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                            </span>
+                            {{ item.item.name }} > <a href="{{ path('character', {'charId': item.player.id}) }}">{{ item.player.name }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

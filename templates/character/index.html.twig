@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CharacterController!{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>{{character.name}}</h1>
+        </div>
+    </div>
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <h3>Raid Attendance</h3>
+            <table class="table table-sm">
+                <tr>
+                    <th>Note</th>
+                    <th>Date</th>
+                    <th>Loots</th>
+                </tr>
+                {% for attended in character.attendances %}
+                    <tr>
+                        <td><a href="{{ path('raid_show', {'raidId': attended.raidnight.id}) }}">{{ attended.raidnight.note }}</td>
+                        <td>{{ attended.raidnight.date|date('d.m.Y H:i') }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <h3>Loot</h3>
+            <ul class="list-group">
+                {% for loot in character.loots %}
+                    <li class="list-group-item">
+                                <span class="guildbank-item-icon">
+                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                </span>
+                        {{ loot.item.name }} > <a href="{{ path('raid_show', {'raidId': loot.raid.id}) }}">{{ loot.raid.note }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

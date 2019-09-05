@@ -62,19 +62,9 @@ class MenuBuilder
             'raids',
             [
                 'label' => 'Raids',
-                'uri' => '#',
-                'extras' => [
-                    'icon' => 'tools',
-                ],
-            ]
-        );
-        $menu['raids']->addChild(
-            'raids_show',
-            [
-                'label' => 'Raids',
                 'route' => 'raid',
                 'extras' => [
-                    'icon' => 'chevron-double-left',
+                    'icon' => 'axe-battle',
                 ],
             ]
         );
@@ -85,7 +75,7 @@ class MenuBuilder
                     'label' => 'Admin Area',
                     'uri' => '/admin',
                     'extras' => [
-                        'icon' => 'times',
+                        'icon' => 'clipboard-list',
                     ],
                 ]
             );
@@ -131,6 +121,16 @@ class MenuBuilder
                     ],
                 ]
             )->setLinkAttribute('class', 'btn btn-primary');
+            $menu->addChild(
+                'register',
+                [
+                    'route' => 'fos_user_registration_register',
+                    'label' => 'Sign Up',
+                    'extras' => [
+                        'icon' => 'sign-in',
+                    ],
+                ]
+            )->setLinkAttribute('class', 'btn btn-outline-primary');
         }
         return $menu;
     }
