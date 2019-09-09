@@ -19,7 +19,7 @@ set('keep_releases', '3');
 set('allow_anonymous_stats', false);
 
 // Shared files/dirs between deploys
-add('shared_files', ['.env', 'var/guildbank.sqlite']);
+add('shared_files', ['.env.local']);
 add('shared_dirs', []);
 
 // Writable dirs by web server
