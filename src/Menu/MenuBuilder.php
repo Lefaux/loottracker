@@ -64,7 +64,7 @@ class MenuBuilder
                 'label' => 'Raids',
                 'route' => 'raid',
                 'extras' => [
-                    'icon' => 'axe-battle',
+                    'icon' => 'biohazard',
                 ],
             ]
         );
@@ -87,7 +87,7 @@ class MenuBuilder
                     'label' => 'Upload Raidtracker File',
                     'route' => 'page_upload',
                     'extras' => [
-                        'icon' => 'clipboard-list',
+                        'icon' => 'angle-double-up',
                     ],
                 ]
             );

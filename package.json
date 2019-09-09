@@ -1,23 +1,23 @@
 {
     "devDependencies": {
-        "@fortawesome/fontawesome-pro": "^5.8.1",
+        "@fortawesome/fontawesome": "^5.8.1",
+        "@fortawesome/fontawesome-free": "^5.10.2",
         "@symfony/webpack-encore": "^0.27.0",
         "autoprefixer": "^9.5.1",
+        "blueimp-file-upload": "^9.30.0",
+        "blueimp-load-image": "^2.21.0",
+        "blueimp-tmpl": "^3.11.0",
         "bootstrap": "^4.3.1",
+        "canvas-to-blob": "^0.0.0",
+        "copy-webpack-plugin": "^5.0.3",
         "core-js": "^3.0.1",
         "jquery": "^3.3.1",
+        "jquery.ui.widget": "^1.10.3",
         "node-sass": "^4.11.0",
         "popper.js": "^1.15.0",
         "postcss-loader": "^3.0.0",
         "sass-loader": "^7.1.0",
-        "webpack-notifier": "^1.6.0",
-        "blueimp-file-upload": "^9.30.0",
-        "blueimp-load-image": "^2.21.0",
-        "blueimp-tmpl": "^3.11.0",
-        "copy-webpack-plugin": "^5.0.3",
-        "jquery.ui.widget": "^1.10.3",
-        "canvas-to-blob": "^0.0.0"
-
+        "webpack-notifier": "^1.6.0"
     },
     "license": "UNLICENSED",
     "browserslist": [
@@ -38,4 +38,3 @@
         "sprintf-js": "^1.1.2"
     }
 }
-

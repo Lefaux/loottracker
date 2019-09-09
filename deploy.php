@@ -33,8 +33,7 @@ set('rsync',[
         '.ddev',
         'node_modules',
         '.npmrc',
-        '.idea',
-        'assets',
+        '.idea'
     ],
     'exclude-file' => false,
     'include'      => [],
