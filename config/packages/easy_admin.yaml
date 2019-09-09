@@ -1,6 +1,8 @@
 easy_admin:
     entities:
 #        - App\Entity\User
+        User:
+            class: App\Entity\User
         Item:
             class: App\Entity\Item
             list:

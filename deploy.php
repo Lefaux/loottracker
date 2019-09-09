@@ -10,6 +10,7 @@
 namespace Deployer;
 
 require 'recipe/common.php';
+require 'recipe/rsync.php';
 
 // Configuration
 set('application', 'loottracker');
@@ -25,6 +26,28 @@ add('shared_dirs', []);
 // Writable dirs by web server
 set('allow_anonymous_stats', false);
 
+set('rsync',[
+    'exclude'      => [
+        '.git',
+        'deploy.php',
+        '.ddev',
+        'node_modules',
+        '.npmrc',
+        '.idea',
+        'assets',
+    ],
+    'exclude-file' => false,
+    'include'      => [],
+    'include-file' => false,
+    'filter'       => [],
+    'filter-file'  => false,
+    'filter-perdir'=> false,
+    'flags'        => 'rz', // Recursive, with compress
+    'options'      => ['delete'],
+    'timeout'      => 60,
+]);
+set('rsync_src', __DIR__);
+set('rsync_dest','{{release_path}}');
 // Hosts
 host('p523984.webspaceconfig.de')
     ->user('p523984')
@@ -34,13 +57,24 @@ host('p523984.webspaceconfig.de')
     ->set('bin/composer', 'composer')
     ->set('deploy_path', '~/html/application/{{application}}');
 
+
+task('yarn', function () {
+    run('composer install');
+    run('yarn install');
+    run('yarn build');
+})->local();
+
+//task('upload', function () {
+//    upload(__DIR__ . '/', '{{release_path}}');
+//});
+
 // Tasks
 task('deploy', [
     'deploy:info',
     'deploy:prepare',
     'deploy:lock',
     'deploy:release',
-    'deploy:update_code',
+    'rsync',
     'deploy:shared',
     'deploy:vendors',
     'deploy:symlink',

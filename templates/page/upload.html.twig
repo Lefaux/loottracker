@@ -1,0 +1,145 @@
+{% extends "base.html.twig" %}
+{% block title %}TABC{% endblock %}
+{% block head %}{% endblock %}
+{% block body %}
+
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>Upload Raidtracker file</h1>
+        </div>
+    </div>
+
+    <div class="content-section bg-transparent">
+        <div class="container">
+
+            <h1>Update raid data</h1>
+            <ol>
+                <li>Upload the file "[YourTurtleClient]\WTF\Account\[YOURCHARNAME]\SavedVariables\CT_RaidTracker.lua</li>
+                <li>Enjoy ;-)</li>
+            </ol>
+            <form id="fileupload" method="POST" enctype="multipart/form-data" data-url="/storedata" data-maxNumberOfFiles="1">
+                <div class="row fileupload-buttonbar">
+                    <div class="col-lg-7">
+                        <div class="custom-file">
+                            <input type="file" name="files[]" class="custom-file-input" multiple id="photos">
+                            <label class="custom-file-label" for="photos">Choose file</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary start">
+                            <span class="btn-icon">
+                                <i class="fal fa-upload"></i>
+                            </span>
+                            <span class="btn-text">Start upload</span>
+                        </button>
+                        <button type="reset" class="btn btn-warning cancel">
+                            <span class="btn-icon">
+                                <i class="fal fa-ban"></i>
+                            </span>
+                            <span class="btn-text">Cancel upload</span>
+                        </button>
+                        <span class="fileupload-process"></span>
+                    </div>
+                    <!-- The global progress state -->
+                    <div class="col-lg-5 fileupload-progress fade">
+                        <!-- The global progress bar -->
+                        <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                            <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                        </div>
+                        <!-- The extended global progress state -->
+                        <div class="progress-extended">&nbsp;</div>
+                    </div>
+                </div>
+                <!-- The table listing the files available for upload/download -->
+                <table role="presentation" class="table table-striped"><tbody class="files"></tbody></table>
+            </form>
+            {% verbatim %}
+            <script id="template-upload" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-upload">
+        <td>
+            <span class="preview"></span>
+        </td>
+        <td>
+            {% if (window.orientation === undefined || !o.options.loadImageFileTypes.test(file.type)) { %}
+                <p class="name">{%=file.name%}</p>
+            {% } %}
+            <strong class="error text-danger"></strong>
+        </td>
+        <td>
+            <p class="size">Processing...</p>
+            <div class="progress">
+                <div class="progress-bar bg-success" style="width:0%;"></div>
+            </div>
+        </td>
+        <td>
+            {% if (!i && !o.options.autoUpload) { %}
+                <button class="btn btn-primary start" disabled>
+                    <span class="btn-icon">
+                        <i class="fal fa-upload"></i>
+                    </span>
+                    <span class="btn-text">Start</span>
+                </button>
+            {% } %}
+            {% if (!i) { %}
+                <button class="btn btn-warning cancel">
+                    <span class="btn-icon">
+                        <i class="fal fa-ban"></i>
+                    </span>
+                    <span class="btn-text">Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+            <!-- The template to display files available for download -->
+            <script id="template-download" type="text/x-tmpl">
+{% for (var i=0, file; file=o.files[i]; i++) { %}
+    <tr class="template-download">
+        <td>
+            <span class="preview">
+                {% if (file.thumbnailUrl) { %}
+                    <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" data-gallery><img src="{%=file.thumbnailUrl%}"></a>
+                {% } %}
+            </span>
+        </td>
+        <td>
+            {% if (window.orientation === undefined || !file.thumbnailUrl) { %}
+                <p class="name">
+                    {% if (file.url) { %}
+                        <a href="{%=file.url%}" title="{%=file.name%}" download="{%=file.name%}" {%=file.thumbnailUrl?'data-gallery':''%}>{%=file.name%}</a>
+                    {% } else { %}
+                        <span>{%=file.name%}</span>
+                    {% } %}
+                </p>
+            {% } %}
+            {% if (file.error) { %}
+                <div><span class="badge badge-danger">Error</span> {%=file.error%}</div>
+            {% } %}
+        </td>
+        <td>
+            <span class="size">{%=o.formatFileSize(file.size)%}</span>
+        </td>
+        <td>
+            {% if (file.deleteUrl) { %}
+                <button class="btn btn-danger delete" data-type="{%=file.deleteType%}" data-url="{%=file.deleteUrl%}"{% if (file.deleteWithCredentials) { %} data-xhr-fields='{"withCredentials":true}'{% } %}>
+                    <i class="glyphicon glyphicon-trash"></i>
+                    <span>Delete</span>
+                </button>
+                <input type="checkbox" name="delete" value="1" class="toggle">
+            {% } else { %}
+                <button class="btn btn-warning cancel">
+                    <span class="btn-icon">
+                        <i class="fal fa-ban"></i>
+                    </span>
+                    <span class="btn-text">Cancel</span>
+                </button>
+            {% } %}
+        </td>
+    </tr>
+{% } %}
+</script>
+            {% endverbatim %}
+        </div>
+    </div>
+
+{% endblock %}

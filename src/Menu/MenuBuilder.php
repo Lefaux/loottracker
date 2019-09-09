@@ -80,6 +80,18 @@ class MenuBuilder
                 ]
             );
         }
+        if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
+            $menu->addChild(
+                'upload',
+                [
+                    'label' => 'Upload Raidtracker File',
+                    'route' => 'page_upload',
+                    'extras' => [
+                        'icon' => 'clipboard-list',
+                    ],
+                ]
+            );
+        }
         return $menu;
     }
 
