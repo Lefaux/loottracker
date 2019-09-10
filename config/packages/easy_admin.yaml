@@ -1,4 +1,5 @@
 easy_admin:
+    site_name: '<a href="/">Thunder Ale Brewing Admin</a>'
     entities:
 #        - App\Entity\User
         User:
@@ -26,8 +27,8 @@ easy_admin:
                       label: 'Spec'
                       type: choice
                       type_options:
+                          expanded: true
                           choices:
-                              'Select': 0
                               'Tank': 1
                               'Healer': 2
                               'DPS': 3
@@ -35,14 +36,14 @@ easy_admin:
                       label: 'Class'
                       type: choice
                       type_options:
+                          expanded: true
                           choices:
-                              'Select': 0
-                              'Warrior': 1
-                              'Priest': 2
-                              'Mage': 3
-                              'Warlock': 4
-                              'Rogue': 5
                               'Druid': 6
                               'Hunter': 7
-                              'Shaman': 8
+                              'Mage': 3
                               'Paladin': 9
+                              'Priest': 2
+                              'Rogue': 5
+                              'Shaman': 8
+                              'Warlock': 4
+                              'Warrior': 1
