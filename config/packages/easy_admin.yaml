@@ -4,6 +4,11 @@ easy_admin:
 #        - App\Entity\User
         User:
             class: App\Entity\User
+        Raids:
+            class: App\Entity\Raid
+            form:
+                fields:
+                    - {property: note}
         Item:
             class: App\Entity\Item
             list:
