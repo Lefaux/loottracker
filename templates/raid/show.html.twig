@@ -11,15 +11,15 @@
                 <ul class="list-group">
                     {% for attendance in raid.attendances %}
                         <li class="list-group-item">
-                            <span class="wow-class-icon"><img src="/assets/icons/class_{{ attendance.player.class }}.gif" width="44" height="44" /></span>
+                            <span class="wow-class-icon"><img src="/assets/icons/class_{{ attendance.player.class }}.png" width="44" height="44" /></span>
                             <a href="{{ path('character', {'charId': attendance.player.id}) }}">{{ attendance.player.name }}</a>
-                            <span class="float-right">
+                            <span class="float-right class-spec">
                             {% if attendance.player.spec == 1 %}
-                                <i class="fal fa-fw fa-shield"></i>
+                                <i class="fa fa-fw fa-shield-alt"></i>
                             {% elseif attendance.player.spec == 2 %}
-                                <i class="fal fa-fw fa-band-aid"></i>
+                                <i class="fa fa-fw fa-band-aid"></i>
                             {% elseif attendance.player.spec == 3 %}
-                                <i class="fal fa-fw fa-skull-crossbones"></i>
+                                <i class="fa fa-fw fa-skull-crossbones"></i>
                             {% endif %}
                             </span>
                         </li>
