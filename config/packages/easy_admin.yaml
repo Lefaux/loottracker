@@ -24,7 +24,11 @@ easy_admin:
         Character:
             class: App\Entity\Character
             list:
-                fields: ['name', 'spec', 'class']
+                sort: ['class', 'ASC']
+                fields:
+                    - { property: "name" }
+                    - { property: "class", template: "admin/character/class.html.twig" }
+                    - { property: "spec", template: "admin/character/spec.html.twig" }
             form:
                 fields:
                     - { property: "name" }
