@@ -6,7 +6,7 @@
 <div class="content-section bg-transparent">
     <div class="container">
         <div class="row">
-            <div class="col-3">
+            <div class="col-sm-6 col-lg-3">
                 <h3>Attendees</h3>
                 <ul class="list-group">
                     {% for attendance in raid.attendances %}
@@ -26,7 +26,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-9">
+            <div class="col-sm-6 col-lg-9">
                 <h3>Loot</h3>
                 <ul class="list-group">
                     {% for item in raid.loots %}
