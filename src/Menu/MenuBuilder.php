@@ -68,26 +68,36 @@ class MenuBuilder
                 ],
             ]
         );
-        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
             $menu->addChild(
+                'management',
+                [
+                    'label' => 'Management Tools',
+                    'uri' => '#',
+                    'extras' => [
+                        'icon' => 'tools',
+                    ],
+                ]
+            );
+            $menu['management']->addChild(
+                'upload',
+                [
+                    'label' => 'Upload Raidtracker File',
+                    'route' => 'page_upload',
+                    'extras' => [
+                        'icon' => 'upload',
+                    ],
+                ]
+            );
+        }
+        if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $menu['management']->addChild(
                 'admin',
                 [
                     'label' => 'Admin Area',
                     'uri' => '/admin',
                     'extras' => [
                         'icon' => 'clipboard-list',
-                    ],
-                ]
-            );
-        }
-        if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
-            $menu->addChild(
-                'upload',
-                [
-                    'label' => 'Upload Raidtracker File',
-                    'route' => 'page_upload',
-                    'extras' => [
-                        'icon' => 'angle-double-up',
                     ],
                 ]
             );
