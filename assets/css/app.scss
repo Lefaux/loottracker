@@ -12,7 +12,6 @@
 @import 'module/page';
 @import 'module/header';
 @import 'module/text';
-@import 'module/status';
 @import 'module/text';
 @import 'module/content';
 @import 'module/navbar';
@@ -24,4 +23,5 @@
 
 .class-spec {
   font-size: 29px;
+  color: $secondary;
 }

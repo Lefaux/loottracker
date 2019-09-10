@@ -13,8 +13,8 @@ $gray-800:  #424242;
 $gray-900:  #2D2D2D;
 $black:     #191919;
 
-$primary: #67805a;
-$secondary: #333333;
+$primary: #207561;
+$secondary: #589167;
 $success:   #37BD74;
 $danger:    #FF304F;
 $info:      #27A2FC;
@@ -32,43 +32,10 @@ $theme-colors: (
     light: $gray-100,
     shaded: $gray-200,
     dark: $gray-900,
-    darkest: $black
+    darkest: $secondary
 );
 
-$issue-colors: (
-    default: $secondary,
-    bug: $danger,
-    feature: $success,
-    task: $info,
-    epic: #6610f2,
-    story: #ffc107
-);
 
-$review-colors: (
-    default: $secondary,
-    bugfix: $danger,
-    feature: $success,
-    task: $info,
-);
-
-$status-colors: (
-    new: #AE4A32,
-    accepted: #D1C4B1,
-    underreview: #8DB173,
-    onhold: #F38725,
-    needsfeedback: #F38725,
-    nextup: #7373b1,
-    inprogress: #62C0DC,
-    done: #696969
-);
-
-$progress-colors: (
-    default: $secondary,
-    blocked: $danger,
-    open: $info,
-    wip: $secondary,
-    done: $success
-);
 
 $theme-shadow: 0 2px 1px rgba(0, 0, 0, 0.15);
 $theme-shadow-hover: 0 2px 1px rgba(0, 0, 0, 0.25);
@@ -81,8 +48,8 @@ $spacer: 1rem;
 //
 // Fonts
 //
-$font-family-sans-serif:     'Source Sans Pro', sans-serif;
-$font-family-serif:          'Source Serif Pro', serif;
+$font-family-sans-serif:     'Marcellus', sans-serif;
+$font-family-serif:          'Marcellus', serif;
 $headings-margin-bottom:     $spacer;
 $headings-font-weight:       300;
 $lead-font-size:             1.5rem;
@@ -106,21 +73,8 @@ $border-radius-sm:          2px;
 $pagination-color:          #616161;
 $pagination-hover-color:    #313131;
 
-
 // Cards
 $card-border-width:         0;
 $card-spacer:               1.5rem;
 $card-spacer-y:             $card-spacer;
 $card-spacer-x:             $card-spacer;
-
-// Dashboard Mapping
-$dashboard-areas: (
-    quickstats: d00,
-    mergeable: d01,
-    openreviews: d02,
-    openclosed: d03,
-    openticketsovertime: d04,
-    openreviewsovertime: d05,
-    reviewprogress: d06,
-    ticketprogress: d07
-);
