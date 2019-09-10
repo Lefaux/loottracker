@@ -159,7 +159,7 @@ class MenuBuilder
                     'route' => 'fos_user_registration_register',
                     'label' => 'Sign Up',
                     'extras' => [
-                        'icon' => 'sign-in',
+                        'icon' => 'sign-in-alt',
                     ],
                 ]
             )->setLinkAttribute('class', 'btn btn-outline-primary');
