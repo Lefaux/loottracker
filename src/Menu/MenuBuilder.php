@@ -68,6 +68,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu->addChild(
+            'roster',
+            [
+                'label' => 'Roster',
+                'route' => 'roster',
+                'extras' => [
+                    'icon' => 'user',
+                ],
+            ]
+        );
         if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
             $menu->addChild(
                 'management',

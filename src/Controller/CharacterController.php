@@ -29,11 +29,25 @@ class CharacterController extends AbstractController
     }
 
     /**
+     * @Route("/roster", name="roster")
+     * @return Response
+     */
+    public function indexAction(): Response
+    {
+        $roster = [];
+        $fullRoster = $this->characterRepository->findAll();
+        foreach ($fullRoster as $item) {
+            $roster[$item->getClass()][] = $item;
+        }
+        return $this->render('character/index.html.twig', ['roster' => $roster]);
+    }
+
+    /**
      * @Route("/character/{charId}", name="character")
      * @param int $charId
      * @return Response
      */
-    public function index(int $charId): Response
+    public function characterDetailsAction(int $charId): Response
     {
         $raids = [];
         $char = $this->characterRepository->find($charId);
@@ -43,7 +57,7 @@ class CharacterController extends AbstractController
         foreach ($char->getAttendances() as $attendance) {
             $raids[] = $this->compileRaidData($attendance);
         }
-        return $this->render('character/index.html.twig', [
+        return $this->render('character/detail.html.twig', [
             'character' => $char,
             'raids' => $raids
         ]);

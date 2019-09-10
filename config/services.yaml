@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     classIdentifiers:
+        '0': 'Unspecified'
         '1': 'Warrior'
         '2': 'Priest'
         '3': 'Mage'
@@ -15,6 +16,7 @@ parameters:
         '8': 'Shaman'
         '9': 'Paladin'
     specIdentifiers:
+        '0': 'Unspecified'
         '1': 'Tank'
         '2': 'Healer'
         '3': 'DPS'

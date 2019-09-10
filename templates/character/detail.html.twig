@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Character Overview{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>
+                <span class="wow-class-icon"><img class="rounded" src="/assets/icons/class_{{ character.class }}.png" width="44" height="44" /></span>
+                <span class="class-spec">
+                            {% if character.spec == 1 %}
+                                <i class="fa fa-fw fa-shield-alt"></i>
+                            {% elseif character.spec == 2 %}
+                                <i class="fa fa-fw fa-band-aid"></i>
+                            {% elseif character.spec == 3 %}
+                                <i class="fa fa-fw fa-skull-crossbones"></i>
+                            {% endif %}
+                            </span>
+                {{character.name}}
+            </h1>
+        </div>
+    </div>
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <h3>Raid Attendance</h3>
+            <table class="table table-sm">
+                <tr>
+                    <th>Note</th>
+                    <th>Date</th>
+                    <th>Loots</th>
+                </tr>
+                {% for attended in raids %}
+                    <tr>
+                        <td><a href="{{ path('raid_show', {'raidId': attended.raid.id}) }}">{{ attended.raid.note }}</td>
+                        <td>{{ attended.raid.date|date('d.m.Y H:i') }}</td>
+                        <td>
+                            {% for loot in attended.loots %}
+                                <span class="guildbank-item-icon">
+                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                </span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+            <h3>Loot</h3>
+            <ul class="list-group">
+                {% for loot in character.loots %}
+                    <li class="list-group-item">
+                                <span class="guildbank-item-icon">
+                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                </span>
+                        {{ loot.item.name }} > <a href="{{ path('raid_show', {'raidId': loot.raid.id}) }}">{{ loot.raid.note }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}
