@@ -5,9 +5,29 @@
 {% block body %}
 <div class="content-section bg-transparent">
     <div class="container">
-    {% for raid in raids %}
-            <p><a href="{{ path('raid_show', {'raidId': raid.id}) }}">{{ raid.note }}</a></p>
-    {% endfor %}
+        <div class="row">
+            {% for raid in raids %}
+                <div class="col-3">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">{{ raid.note }}</h5>
+                            <h6 class="card-subtitle">{{ raid.date|date('d.m.Y H:i') }}</h6>
+                        </div>
+                        <div class="card-body">
+                            <p>{{ raid.attendances|length }} Players</p>
+                            {% for loots in raid.loots %}
+                                <span class="guildbank-item-icon">
+                                    <a href="#" data-wowhead="item={{ loots.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                </span>
+                            {% endfor %}
+                            <p>
+                                <a href="{{ path('raid_show', {'raidId': raid.id}) }}" class="btn btn-primary">Details</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %}
