@@ -23,7 +23,7 @@ class RaidController extends AbstractController
      */
     public function indexAction(): Response
     {
-        $raids = $this->raidRepository->findAll();
+        $raids = $this->raidRepository->findBy([], ['date' => 'DESC']);
         return $this->render('raid/index.html.twig', [
             'raids' => $raids,
         ]);
@@ -31,6 +31,8 @@ class RaidController extends AbstractController
 
     /**
      * @Route("/raid/show/{raidId}", name="raid_show")
+     * @param $raidId
+     * @return Response
      */
     public function showAction($raidId): Response
     {
