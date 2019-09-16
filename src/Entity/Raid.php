@@ -45,6 +45,11 @@ class Raid
         $this->loots = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        return (string) $this->getNote() . ' (' . $this->getDate()->format('d.m.Y') . ')';
+    }
+
     public function getId(): ?int
     {
         return $this->id;
