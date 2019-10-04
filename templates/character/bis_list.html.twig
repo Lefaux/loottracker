@@ -10,15 +10,15 @@
                     <h3>Title</h3>
                     {{ character.name }}
                     <img id="itemMap" src="{{ asset('assets/bistracker/charscreen.jpg') }}" width="640" height="686" usemap="#charmap" alt="" />
-                    <map name="charMap" id="charmap">
-                        <area alt="" title="Belt" href="{{ path('character_bislist', {'charId': character.id, 'slots': ''}) }}#belt" shape="rect" coords="548,90,624,163" />
+                    <map name="charmap" id="charmap">
+                        <area alt="" title="Belt" href="{{ path('character_bislist', {'charId': character.id, 'slots': ''}) }}" shape="rect" coords="548,90,624,163" />
                         <area alt="" title="Legs" href="#legs" shape="rect" coords="548,166,627,238" />
                         <area alt="" title="" href="#feet" shape="rect" coords="554,243,627,314" />
                         <area alt="" title="" href="#finger1" shape="rect" coords="554,318,626,393" />
                         <area alt="" title="" href="#finger2" shape="rect" coords="549,396,621,466" />
                         <area alt="" title="" href="#trinket1" shape="rect" coords="552,471,624,546" />
                         <area alt="" title="" href="#trinket2" shape="rect" coords="558,549,625,612" />
-                        <area alt="" title="" href="#hands" shape="rect" coords="550,7,628,83" />
+                        <area alt="Hands" title="Hands" href="{{ path('character_bislist', {'charId': character.id, 'slots': '10'}) }}" shape="rect" coords="550,7,628,83" />
                         <area alt="" title="" href="#head" shape="rect" coords="14,7,95,82" />
                         <area alt="" title="" href="#neck" shape="rect" coords="16,90,90,163" />
                         <area alt="" title="" href="#shoulders" shape="rect" coords="17,171,95,234" />
