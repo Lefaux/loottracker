@@ -135,10 +135,10 @@ class MenuBuilder
             $menu['username']->addChild(
                 'add_character',
                 [
-                    'label' => 'Add character',
-                    'route' => 'character_create',
+                    'label' => 'My characters',
+                    'route' => 'profile_character',
                     'extras' => [
-                        'icon' => 'plus',
+                        'icon' => 'users',
                     ],
                 ]
             );

@@ -72,6 +72,17 @@ class CharacterController extends AbstractController
     }
 
     /**
+     * @Route("/profile/characters", name="profile_character")
+     * @return Response
+     */
+    public function myCharactersAction(): Response
+    {
+        $characters = $this->characterRepository->findBy(['account' => $this->getUser()]);
+
+        return $this->render('user/my_characters.html.twig', ['characters' => $characters]);
+    }
+
+    /**
      * @Route("/characters/create", name="character_create")
      * @param Request $request
      * @return Response
@@ -91,7 +102,7 @@ class CharacterController extends AbstractController
 
                 $this->addFlash('success', 'Character saved.');
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('profile_character');
             }
 
             $this->addFlash('danger', 'That character name is already taken.');
@@ -127,7 +138,7 @@ class CharacterController extends AbstractController
 
                 $this->addFlash('success', 'Character saved.');
 
-                return $this->redirectToRoute('home');
+                return $this->redirectToRoute('profile_character');
             }
 
             $this->addFlash('danger', 'That character name is already taken.');
