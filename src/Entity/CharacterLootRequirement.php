@@ -109,7 +109,7 @@ class CharacterLootRequirement
         return $this;
     }
 
-    public function getSlot(): int
+    public function getSlot(): ?int
     {
         return $this->slot;
     }
