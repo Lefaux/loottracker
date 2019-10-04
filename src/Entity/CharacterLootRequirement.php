@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class CharacterLootRequirement
 {
+    public const PRIORITIES = [1 => 'A', 2 => 'B', 3 => 'C'];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -42,6 +44,12 @@ class CharacterLootRequirement
      * @var bool
      */
     private $hasItem;
+
+    /**
+     * @ORM\Column(type="integer")
+     * @var int
+     */
+    private $slot;
 
     public function getId(): ?int
     {
@@ -99,5 +107,15 @@ class CharacterLootRequirement
         $this->hasItem = $hasItem;
 
         return $this;
+    }
+
+    public function getSlot(): int
+    {
+        return $this->slot;
+    }
+
+    public function setSlot(int $slot): void
+    {
+        $this->slot = $slot;
     }
 }
