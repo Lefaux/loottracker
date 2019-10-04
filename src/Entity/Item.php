@@ -70,6 +70,11 @@ class Item
      */
     private $loots;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $name_de;
+
     public function __construct()
     {
         $this->loots = new ArrayCollection();
@@ -226,6 +231,18 @@ class Item
                 $loot->setItem(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNameDe(): ?string
+    {
+        return $this->name_de;
+    }
+
+    public function setNameDe(?string $name_de): self
+    {
+        $this->name_de = $name_de;
 
         return $this;
     }
