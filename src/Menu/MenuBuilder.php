@@ -132,6 +132,16 @@ class MenuBuilder
                     ],
                 ]
             );
+            $menu['username']->addChild(
+                'add_character',
+                [
+                    'label' => 'Add character',
+                    'route' => 'character_create',
+                    'extras' => [
+                        'icon' => 'plus',
+                    ],
+                ]
+            );
             $menu->addChild(
                 'logout',
                 [

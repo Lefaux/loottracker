@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Attendance;
 use App\Entity\Character;
 use App\Entity\Raid;
+use App\Form\CharacterType;
 use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,11 +24,16 @@ class CharacterController extends AbstractController
      * @var LootRepository
      */
     private $lootRepository;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
 
-    public function __construct(CharacterRepository $characterRepository, LootRepository $lootRepository)
+    public function __construct(CharacterRepository $characterRepository, LootRepository $lootRepository, EntityManagerInterface $entityManager)
     {
         $this->characterRepository = $characterRepository;
         $this->lootRepository = $lootRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -61,6 +69,57 @@ class CharacterController extends AbstractController
             'character' => $char,
             'raids' => $raids
         ]);
+    }
+
+    /**
+     * @Route("/characters/create", name="character_create")
+     * @param Request $request
+     * @return Response
+     */
+    public function createAction(Request $request): Response
+    {
+        $character = new Character();
+        $form = $this->createForm(CharacterType::class, $character);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $character->setAccount($this->getUser());
+            $this->entityManager->persist($character);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Character saved.');
+        }
+
+        return $this->render('loot_requirement/form.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     * @Route("/character/{charId}/update", name="character_update")
+     * @param int $charId
+     * @param Request $request
+     * @return Response
+     */
+    public function updateAction(int $charId, Request $request): Response
+    {
+        $character = $this->characterRepository
+        ->findOneBy(['account' => $this->getUser(), 'id' => $charId]);
+
+        if (null === $character) {
+            return $this->redirectToRoute('character_create');
+        }
+
+        $form = $this->createForm(CharacterType::class, $character);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $character->setAccount($this->getUser());
+            $this->entityManager->persist($character);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Character saved.');
+        }
+
+        return $this->render('loot_requirement/form.html.twig', ['form' => $form->createView()]);
     }
 
     private function findLootsPerRaidAndChar(Raid $raid, Character $character): array
