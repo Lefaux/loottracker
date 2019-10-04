@@ -29,7 +29,7 @@ Encore
 
 const thunderAleConfig = Encore.getWebpackConfig();
 
-thunderAleConfig.name = 'thunderAle';
+thunderAleConfig.name = 'thunderale';
 thunderAleConfig.resolve.alias = {
   'jquery-ui/ui/widget': path.resolve(__dirname, 'node_modules/jquery.ui.widget/jquery.ui.widget.js'),
   'load-image': path.resolve(__dirname, 'node_modules/blueimp-load-image/js/load-image.js'),

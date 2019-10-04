@@ -4,7 +4,7 @@ webpack_encore:
     output_path: false
     builds:
         askeria: '%kernel.project_dir%/public/build/askeria'
-        thunderAle: '%kernel.project_dir%/public/build/thunderAle'
+        thunderale: '%kernel.project_dir%/public/build/thunderale'
     # If multiple builds are defined (as shown below), you can disable the default build:
     # output_path: false
 
