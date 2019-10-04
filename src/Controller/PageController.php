@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Twig\Environment;
+use Twig\Loader\LoaderInterface;
 
 class PageController extends AbstractController
 {
@@ -21,11 +23,16 @@ class PageController extends AbstractController
      * @var ParameterBagInterface
      */
     private $params;
+    /**
+     * @var LoaderInterface
+     */
+    private $loader;
 
-    public function __construct(RaidTrackerParsingService $raidTrackerParsingService, ParameterBagInterface $params)
+    public function __construct(RaidTrackerParsingService $raidTrackerParsingService, ParameterBagInterface $params, Environment $twig)
     {
         $this->parser = $raidTrackerParsingService;
         $this->params = $params;
+        $this->loader = $twig->getLoader();
     }
 
     /**
@@ -34,7 +41,7 @@ class PageController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->render('page/index.html.twig');
+        return $this->renderTemplate('page/index.html.twig');
     }
 
     /**
@@ -42,7 +49,7 @@ class PageController extends AbstractController
      */
     public function uploadAction(): Response
     {
-        return $this->render('page/upload.html.twig');
+        return $this->renderTemplate('page/upload.html.twig');
     }
 
     /**
@@ -102,7 +109,7 @@ class PageController extends AbstractController
      */
     public function privacyAction(): Response
     {
-        return $this->render('page/privacy.html.twig');
+        return $this->renderTemplate('page/privacy.html.twig');
     }
 
     /**
@@ -111,6 +118,14 @@ class PageController extends AbstractController
      */
     public function legalAction(): Response
     {
-        return $this->render('page/legal.html.twig');
+        return $this->renderTemplate('page/legal.html.twig');
+    }
+
+    private function renderTemplate(string $name): Response
+    {
+        if ($this->loader->exists($this->params->get('layout') . '/' . $name)) {
+            return $this->render($this->params->get('layout') . '/' . $name);
+        }
+        return $this->render($name);
     }
 }

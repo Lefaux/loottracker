@@ -4,6 +4,7 @@ twig:
     globals:
         layout: '%env(LAYOUT)%'
         siteName: '%env(SITENAME)%'
+        footer: '%env(FOOTER)%'
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'bootstrap_4_layout.html.twig'
