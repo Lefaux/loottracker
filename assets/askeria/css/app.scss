@@ -1,0 +1,31 @@
+// Variables
+@import 'variables';
+
+// Include Dependencies
+@import '~bootstrap/scss/bootstrap';
+
+// Mixins
+@import '../../css/mixins/function';
+@import '../../css/mixins/svg';
+
+// Modules
+@import '../../css/module/page';
+@import '../../css/module/header';
+@import '../../css/module/text';
+@import '../../css/module/text';
+@import '../../css/module/content';
+@import '../../css/module/navbar';
+@import '../../css/module/alert';
+@import '../../css/module/form';
+@import '../../css/module/btn';
+@import "../../css/module/section";
+
+
+.class-spec {
+  font-size: 29px;
+  color: $secondary;
+}
+
+.card {
+  margin-top: 1em;
+}

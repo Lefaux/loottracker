@@ -20,6 +20,7 @@ parameters:
         '1': 'Tank'
         '2': 'Healer'
         '3': 'DPS'
+    layout: '%env(LAYOUT)%'
 
 services:
     # default configuration for services in *this* file

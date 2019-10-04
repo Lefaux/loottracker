@@ -7,7 +7,6 @@ webserver_type: nginx-fpm
 router_http_port: "80"
 router_https_port: "443"
 xdebug_enabled: false
-additional_hostnames: []
 additional_fqdns: []
 mariadb_version: "10.2"
 nfs_mount_enabled: false
@@ -61,8 +60,8 @@ timezone: ""
 # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 # For example Europe/Dublin or MST7MDT
 
-# additional_hostnames:
-#  - somename
+additional_hostnames:
+  - askeria
 #  - someothername
 # would provide http and https URLs for "somename.ddev.site"
 # and "someothername.ddev.site".

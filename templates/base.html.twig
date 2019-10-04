@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Welcome{% endblock %} - TABC</title>
+    <title>{% block title %}Welcome{% endblock %} - {{ layout|upper }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Marcellus:300,400,600&display=swap">
-    {{ encore_entry_link_tags('app') }}
+    {{ encore_entry_link_tags('app', null, layout) }}
     <script>var wowhead_tooltips = {colorLinks: true, iconizeLinks: false, renameLinks: false, iconSize: 'medium'};</script>
     <script src="https://wow.zamimg.com/widgets/power.js"></script>
 </head>
@@ -15,7 +15,7 @@
     <div class="page-wrapper">
         <header class="page-header">
             <nav class="navbar navbar-mainnavigation navbar-dark bg-darkest navbar-expand-md" role="banner">
-                <a class="navbar-brand" href="/"><strong>Thunder Ale Brewing Co RaidTracker</strong></a>
+                <a class="navbar-brand" href="/"><strong>{{ siteName }} RaidTracker</strong></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainnavigation" aria-controls="mainnavigation" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -75,7 +75,7 @@
         </footer>
     </div>
 
-    {{ encore_entry_script_tags('app') }}
+    {{ encore_entry_script_tags('app', null, layout) }}
     <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
 </body>
 </html>

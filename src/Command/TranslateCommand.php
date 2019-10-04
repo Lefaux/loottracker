@@ -69,7 +69,7 @@ class TranslateCommand extends Command
         $classicData = file_get_contents('https://de.classic.wowhead.com/item=' . $item->getId() . '&xml');
         $crawlerToolTip = new Crawler($classicData);
         if (strpos($classicData, 'Item not found') !== false) {
-            $output->overwrite('item '. $item->getName() . ' not found in classic');
+            $output->writeln('item '. $item->getName() . ' not found in classic');
             return;
         }
         $crawler = new Crawler($classicData);
