@@ -139,6 +139,9 @@
     "psr/log": {
         "version": "1.1.0"
     },
+    "roave/security-advisories": {
+        "version": "dev-master"
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
     },
@@ -416,6 +419,9 @@
     },
     "symfony/yaml": {
         "version": "v4.3.4"
+    },
+    "tetranz/select2entity-bundle": {
+        "version": "v3.0.0"
     },
     "twig/extensions": {
         "version": "1.0",

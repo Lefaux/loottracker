@@ -3,9 +3,10 @@ require('@fortawesome/fontawesome-free/css/all.min.css');
 require('../css/app.scss');
 
 // Load the JS stuff
-let $ = require('jquery');
+global.$ = global.jQuery = require('jquery');
 require('bootstrap');
 require('./libs/navbar.js');
+require('select2');
 
 require('blueimp-tmpl');
 require('blueimp-file-upload/js/jquery.fileupload');

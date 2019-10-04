@@ -49,10 +49,16 @@ class Character
      */
     private $loots;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CharacterLootRequirement", mappedBy="playerCharacter", orphanRemoval=true)
+     */
+    private $lootRequirements;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
         $this->loots = new ArrayCollection();
+        $this->lootRequirements = new ArrayCollection();
     }
 
     public function __toString()
@@ -169,6 +175,37 @@ class Character
             // set the owning side to null (unless already changed)
             if ($loot->getPlayer() === $this) {
                 $loot->setPlayer(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CharacterLootRequirement[]
+     */
+    public function getLootRequirements(): Collection
+    {
+        return $this->lootRequirements;
+    }
+
+    public function addLootRequirement(CharacterLootRequirement $lootRequirement): self
+    {
+        if (!$this->lootRequirements->contains($lootRequirement)) {
+            $this->lootRequirements[] = $lootRequirement;
+            $lootRequirement->setPlayerCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLootRequirement(CharacterLootRequirement $lootRequirement): self
+    {
+        if ($this->lootRequirements->contains($lootRequirement)) {
+            $this->lootRequirements->removeElement($lootRequirement);
+            // set the owning side to null (unless already changed)
+            if ($lootRequirement->getPlayerCharacter() === $this) {
+                $lootRequirement->setPlayerCharacter(null);
             }
         }
 
