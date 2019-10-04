@@ -83,11 +83,18 @@ class CharacterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $character->setAccount($this->getUser());
-            $this->entityManager->persist($character);
-            $this->entityManager->flush();
+            $exists = $this->characterRepository->findOneBy(['name' => $character->getName()]);
+            if (null === $exists) {
+                $character->setAccount($this->getUser());
+                $this->entityManager->persist($character);
+                $this->entityManager->flush();
 
-            $this->addFlash('success', 'Character saved.');
+                $this->addFlash('success', 'Character saved.');
+
+                return $this->redirectToRoute('home');
+            }
+
+            $this->addFlash('danger', 'That character name is already taken.');
         }
 
         return $this->render('loot_requirement/form.html.twig', ['form' => $form->createView()]);
@@ -112,11 +119,18 @@ class CharacterController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $character->setAccount($this->getUser());
-            $this->entityManager->persist($character);
-            $this->entityManager->flush();
+            $exists = $this->characterRepository->findOneBy(['name' => $character->getName()]);
+            if (null === $exists || $exists->getId() === $character->getId()) {
+                $character->setAccount($this->getUser());
+                $this->entityManager->persist($character);
+                $this->entityManager->flush();
 
-            $this->addFlash('success', 'Character saved.');
+                $this->addFlash('success', 'Character saved.');
+
+                return $this->redirectToRoute('home');
+            }
+
+            $this->addFlash('danger', 'That character name is already taken.');
         }
 
         return $this->render('loot_requirement/form.html.twig', ['form' => $form->createView()]);
