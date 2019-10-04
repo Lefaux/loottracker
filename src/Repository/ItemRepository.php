@@ -33,4 +33,14 @@ class ItemRepository extends ServiceEntityRepository
         }
         return (int)$result['idMax'];
     }
+
+    public function searchByName(string $query)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.name LIKE :word')
+            ->setParameter('word', '%'.addcslashes($query, '%_').'%')
+            ->orderBy('a.name', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
 }

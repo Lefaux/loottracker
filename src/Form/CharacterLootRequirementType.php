@@ -13,6 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Tetranz\Select2EntityBundle\Form\Type\Select2EntityType;
 
 class CharacterLootRequirementType extends AbstractType
 {
@@ -37,10 +38,20 @@ class CharacterLootRequirementType extends AbstractType
                     'choices' => array_flip(Slots::SLOTS)
                 ]
             )
-            ->add('item', EntityType::class,
+            ->add('item', Select2EntityType::class,
                 [
                     'required' => true,
                     'class' => Item::class,
+                    'multiple' => false,
+                    'minimum_input_length' => 2,
+                    'primary_key' => 'id',
+                    'text_property' => 'name',
+                    'allow_clear' => true,
+                    'delay' => 250,
+                    'cache' => true,
+                    'cache_timeout' => 60000, // if 'cache' is true
+                    'placeholder' => 'Select an item',
+                    'remote_route' => 'api_select_items',
                 ]
             )
             ->add('playerCharacter', EntityType::class,
