@@ -106,6 +106,8 @@ class Character
 
     public function setName(string $name): self
     {
+        $name = str_replace(' ', '', $name);
+        $name = ucfirst(strtolower($name));
         $this->name = $name;
 
         return $this;
