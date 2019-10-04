@@ -147,6 +147,19 @@ class CharacterController extends AbstractController
         return $this->render('loot_requirement/form.html.twig', ['form' => $form->createView()]);
     }
 
+    /**
+     * @Route("/character/{charId}/bislist", name="character_bislist")
+     *
+     * @param int $charId
+     * @return Response
+     */
+    public function bisListViewAction(int $charId): Response
+    {
+        $character = $this->characterRepository->find($charId);
+
+        return $this->render('character/bis_list.html.twig', ['character' => $character]);
+    }
+
     private function findLootsPerRaidAndChar(Raid $raid, Character $character): array
     {
         $lootsPerRaid = $this->lootRepository->findBy([
