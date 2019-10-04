@@ -75,6 +75,11 @@ class Item
      */
     private $name_de;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $inventorySlot;
+
     public function __construct()
     {
         $this->loots = new ArrayCollection();
@@ -243,6 +248,18 @@ class Item
     public function setNameDe(?string $name_de): self
     {
         $this->name_de = $name_de;
+
+        return $this;
+    }
+
+    public function getInventorySlot(): ?int
+    {
+        return $this->inventorySlot;
+    }
+
+    public function setInventorySlot(?int $inventorySlot): self
+    {
+        $this->inventorySlot = $inventorySlot;
 
         return $this;
     }
