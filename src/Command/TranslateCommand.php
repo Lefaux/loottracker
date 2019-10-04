@@ -40,16 +40,6 @@ class TranslateCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $queryBuilder = $this->entityManager->createQueryBuilder();
-//        $itemsToTranslaste = $queryBuilder
-//            ->select('id')
-//            ->from('item', 'i')
-//            ->where(
-//                $queryBuilder->expr()->isNull('i.name_de')
-//            )
-//            ->setMaxResults(5)
-//            ->getQuery()
-//            ->getResult();
         $itemsToTranslaste = $this->itemRepository->findBy(
             ['name_de' => null],
             ['quality' => 'DESC'],
