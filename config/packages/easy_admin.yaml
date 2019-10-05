@@ -1,5 +1,5 @@
 easy_admin:
-    site_name: '<a href="/">Thunder Ale Brewing Admin</a>'
+    site_name: '<a href="/">Admin</a>'
     entities:
 #        - App\Entity\User
         User:
@@ -34,11 +34,13 @@ easy_admin:
                 sort: ['class', 'ASC']
                 fields:
                     - { property: "name" }
+                    - { property: "account" }
                     - { property: "class", template: "admin/character/class.html.twig" }
                     - { property: "spec", template: "admin/character/spec.html.twig" }
             form:
                 fields:
                     - { property: "name" }
+                    - property: "account"
                     - property: "spec"
                       label: 'Spec'
                       type: choice
