@@ -18,6 +18,8 @@ easy_admin:
                     - {property: note}
         Item:
             class: App\Entity\Item
+            show:
+                max_results: 10
             list:
                 fields: ['id', 'name', 'quality', 'class', 'subClass']
         Category:
@@ -69,8 +71,8 @@ easy_admin:
             class: App\Entity\CharacterLootRequirement
             form:
                 fields:
-                    - { property: "playerCharacter" }
-                    - { property: "item" }
+                    - { property: 'playerCharacter', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
+                    - { property: 'item', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
                     - property: "hasItem"
                     - property: "slot"
                       label: 'Slot'
