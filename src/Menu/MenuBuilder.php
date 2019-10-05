@@ -78,6 +78,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu->addChild(
+            'bis',
+            [
+                'label' => 'Best In Slot',
+                'route' => 'best_in_slot',
+                'extras' => [
+                    'icon' => 'check-circle',
+                ],
+            ]
+        );
         if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
             $menu->addChild(
                 'management',
@@ -132,16 +142,6 @@ class MenuBuilder
                     ],
                 ]
             );
-            $menu['username']->addChild(
-                'add_character',
-                [
-                    'label' => 'My characters',
-                    'route' => 'profile_character',
-                    'extras' => [
-                        'icon' => 'users',
-                    ],
-                ]
-            );
             $menu->addChild(
                 'logout',
                 [
@@ -173,6 +173,18 @@ class MenuBuilder
                     ],
                 ]
             )->setLinkAttribute('class', 'btn btn-outline-primary');
+        }
+        if ($this->authorizationChecker->isGranted('ROLE_RAIDER')) {
+            $menu['username']->addChild(
+                'add_character',
+                [
+                    'label' => 'My characters',
+                    'route' => 'profile_character',
+                    'extras' => [
+                        'icon' => 'users',
+                    ],
+                ]
+            );
         }
         return $menu;
     }

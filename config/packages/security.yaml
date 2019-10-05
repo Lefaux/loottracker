@@ -34,3 +34,4 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/upload, role: ROLE_RAIDMANAGER }
+        - { path: ^/profile/characters, role: ROLE_RAIDER }

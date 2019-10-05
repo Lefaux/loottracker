@@ -1,0 +1,98 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/macros.html.twig' as macros %}
+{% block title %}Character Overview{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>Best In Slot List</h1>
+        </div>
+    </div>
+    <div class="content-section bg-transparent">
+        <div class="container-fluid">
+            <div class="row">
+                <table class="bis-list-table">
+                {% for classId,class in bis %}
+                    <tr>
+                        <th>{{ classUtility.className(classId)}}</th>
+                        <th colspan="3">Head</th>
+                        <th colspan="3">Neck</th>
+                        <th colspan="3">Shoulder</th>
+                        <th colspan="3">Back</th>
+                        <th colspan="3">Chest</th>
+                        <th colspan="3">Wrist</th>
+                        <th colspan="3">Hands</th>
+                        <th colspan="3">Legs</th>
+                        <th colspan="3">Feet</th>
+                        <th colspan="3">Ring</th>
+                        <th colspan="3">Trinket</th>
+                        <th colspan="3">Main Hand</th>
+                        <th colspan="3">Off-Hand</th>
+                        <th colspan="3">Ranged</th>
+                    </tr>
+                    {% for name, slots in class %}
+                        <tr>
+                            <th>{{ name }}</th>
+                            <td>{{ macros.itemicon(slots, 1, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 1, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 1, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 2, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 2, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 2, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 3, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 3, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 3, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 16, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 16, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 16, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 5, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 5, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 5, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 9, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 9, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 9, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 10, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 10, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 10, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 7, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 7, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 7, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 8, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 8, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 8, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 11, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 11, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 11, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 12, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 12, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 12, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 13, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 13, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 13, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 14, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 14, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 14, 3) }}</td>
+
+                            <td>{{ macros.itemicon(slots, 15, 1) }}</td>
+                            <td>{{ macros.itemicon(slots, 15, 2) }}</td>
+                            <td>{{ macros.itemicon(slots, 15, 3) }}</td>
+                        </tr>
+                    {% endfor %}
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% macro itemicon(slot, slotNumber, priority) %}
+    {% if slot[slotNumber][priority] is defined %}
+        {% if slot[slotNumber][priority].has_item %}
+            <div class="bis-list-icon-hasitem">
+                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item_id }}&amp;domain=classic" data-wh-icon-size="small"></a>
+            </div>
+        {% else %}
+            <div class="bis-list-icon-missesitem">
+                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item_id }}&amp;domain=classic" data-wh-icon-size="small"></a>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="bis-list-icon-blank">
+&nbsp;
+        </div>
+    {% endif %}
+{% endmacro %}

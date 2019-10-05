@@ -65,3 +65,39 @@ easy_admin:
                               'Shaman': 8
                               'Warlock': 4
                               'Warrior': 1
+        BestInSlot:
+            class: App\Entity\CharacterLootRequirement
+            form:
+                fields:
+                    - { property: "playerCharacter" }
+                    - { property: "item" }
+                    - property: "hasItem"
+                    - property: "slot"
+                      label: 'Slot'
+                      type: choice
+                      type_options:
+                          expanded: true
+                          choices:
+                              'Head': 1
+                              'Neck': 2
+                              'Shoulder': 3
+                              'Back': 16
+                              'Chest': 5
+                              'Wrist': 9
+                              'Hands': 10
+                              'Legs': 7
+                              'Feet': 8
+                              'Ring': 11
+                              'Trinket': 12
+                              'Main Hand': 13
+                              'Off Hand': 14
+                              'Ranged': 15
+                    - property: "priority"
+                      label: 'Priority'
+                      type: choice
+                      type_options:
+                          expanded: true
+                          choices:
+                              'Best': 1
+                              'Option A': 2
+                              'Option B': 3
