@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Attendance;
 use App\Entity\Character;
+use App\Entity\CharacterLootRequirement;
 use App\Entity\Raid;
+use App\Form\CharacterLootRequirementType;
 use App\Form\CharacterType;
 use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
@@ -148,16 +150,37 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/character/{charId}/bislist", name="character_bislist")
+     * @Route("/character/{charId}/bislist/{slots?}", name="character_bislist")
      *
+     * @param Request $request
      * @param int $charId
+     * @param string $slots
      * @return Response
      */
-    public function bisListViewAction(int $charId): Response
+    public function bisListViewAction(Request $request, int $charId, $slots): Response
     {
         $character = $this->characterRepository->find($charId);
+        $requirement = new CharacterLootRequirement();
+        $form = $this->createForm(
+            CharacterLootRequirementType::class,
+            $requirement,
+            [
+                'user' => $this->getUser()
+            ]
+        );
+        $form->handleRequest($request);
 
-        return $this->render('character/bis_list.html.twig', ['character' => $character]);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($requirement);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', 'Requirement saved.');
+        }
+        return $this->render('character/bis_list.html.twig', [
+            'character' => $character,
+            'slots' => $this->mapSlots($slots),
+            'form' => $form->createView()
+        ]);
     }
 
     private function findLootsPerRaidAndChar(Raid $raid, Character $character): array
@@ -179,5 +202,16 @@ class CharacterController extends AbstractController
             ];
         }
         return $output;
+    }
+
+    private function mapSlots($slots): string
+    {
+        if (!$slots) {
+            return 'Please Select A slot';
+        }
+        $slotMapping = [
+            '10' => 'Hands'
+        ];
+        return $slotMapping[$slots];
     }
 }
