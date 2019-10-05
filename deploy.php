@@ -55,6 +55,13 @@ host('p523984.webspaceconfig.de')
     ->set('bin/php', 'php')
     ->set('bin/composer', 'composer')
     ->set('deploy_path', '~/html/application/{{application}}');
+host('p523984.webspaceconfig.de')
+    ->user('p523984')
+    ->port('22')
+    ->addSshOption('StrictHostKeyChecking', 'no')
+    ->set('bin/php', 'php')
+    ->set('bin/composer', 'composer')
+    ->set('deploy_path', '~/html/application/askeria-tracker');
 
 
 task('yarn', function () {
