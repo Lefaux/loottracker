@@ -68,6 +68,7 @@ easy_admin:
                               'Warlock': 4
                               'Warrior': 1
         BestInSlot:
+            label: Best In Slot Items
             class: App\Entity\CharacterLootRequirement
             form:
                 fields:
