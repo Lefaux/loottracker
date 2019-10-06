@@ -23,11 +23,12 @@ class SelectController extends AbstractController
      */
     public function items(Request $request, ItemRepository $itemRepository): Response
     {
-        $items = $itemRepository->searchByName($request->get('q'));
+        $items = $itemRepository->searchByName($request->get('q'), $request->get('slots'));
         $return = [];
         foreach ($items as $item) {
-            $return[] = ['id' => $item->getId(), 'text' => $item->getName()];
+            $return[] = ['data' => $item->getId(), 'value' => $item->getName()];
         }
-        return $this->json($return);
+
+        return $this->json(['suggestions' => $return]);
     }
 }

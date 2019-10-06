@@ -36,15 +36,25 @@ class ItemRepository extends ServiceEntityRepository
 
     /**
      * @param string $query
+     * @param string $slots
      * @return array|Item[]
      */
-    public function searchByName(string $query): array
+    public function searchByName(string $query, string $slots): array
     {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.name LIKE :word')
-            ->setParameter('word', '%'.addcslashes($query, '%_').'%')
+        $slotArray = explode(',', $slots);
+        $searchSlots = [];
+        foreach ($slotArray as $item) {
+            $searchSlots[] = (int)$item;
+        }
+        $slots = implode(',', $searchSlots);
+        $query1 = $this->createQueryBuilder('a')
+            ->andWhere('a.name LIKE :word AND a.inventorySlot IN ('.$slots.')')
+            ->setParameter('word', '%' . addcslashes($query, '%_') . '%')
             ->orderBy('a.name', 'ASC')
-            ->getQuery()
+            ->getQuery();
+        $sql = $query1->getSQL();
+        $foo = '';
+        return $query1
             ->getResult();
     }
 }

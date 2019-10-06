@@ -30,112 +30,68 @@
                     </map>
                 </div>
                 <div class="col-6">
-                    <h3>{{ slots }}</h3>
-                    <h4>Main Spec</h4>
-                    <div class="card-deck">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Best</h5>
-                                <div class="bis-list">
-                                    <div class="bis-list-icon">
-                                        <span class="guildbank-item-icon">
-                                            <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
-                                        </span>
+                    {% if slots == '' %}
+                        <h1>Please select a slot</h1>
+                    {% else %}
+                        <h3 id="slots" data-slotids="{{ slotIds }}">{{ slots }}</h3>
+                        <h4>Main Spec</h4>
+                        <div class="card-deck">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Best</h5>
+                                    <div class="bis-list">
+                                        <div class="bis-list-icon">
+                                            <span class="guildbank-item-icon">
+                                                <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                            </span>
+                                        </div>
+                                        <div class="bis-list-remove">
+                                            <a class="btn btn-outline-primary" href="#">X</a>
+                                        </div>
                                     </div>
-                                    <div class="bis-list-remove">
-                                        <a class="btn btn-outline-primary" href="#">X</a>
+                                    <div class="bis-list-name">
+                                        <p>Bloodrazor</p>
                                     </div>
-                                </div>
-                                <div class="bis-list-name">
-                                    <p>Bloodrazor</p>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1">has Item</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1">has Item</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Option A</h5>
-                                <div class="bis-list">
-                                    <div class="bis-list-icon">
-                                        <span class="guildbank-item-icon">
-                                            <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
-                                        </span>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Option A</h5>
+                                    <div class="bis-list">
+                                        <div class="bis-list-icon">
+                                            <span class="guildbank-item-icon">
+                                                <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                            </span>
+                                        </div>
+                                        <div class="bis-list-remove">
+                                            <a class="btn btn-outline-primary" href="#">X</a>
+                                        </div>
                                     </div>
-                                    <div class="bis-list-remove">
-                                        <a class="btn btn-outline-primary" href="#">X</a>
+                                    <div class="bis-list-name">
+                                        <p>Bloodrazor</p>
                                     </div>
-                                </div>
-                                <div class="bis-list-name">
-                                    <p>Bloodrazor</p>
-                                </div>
-                                <div class="custom-control custom-switch">
-                                    <input type="checkbox" checked="checked" class="custom-control-input" id="customSwitch1">
-                                    <label class="custom-control-label" for="customSwitch1">has Item</label>
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" checked="checked" class="custom-control-input" id="customSwitch1">
+                                        <label class="custom-control-label" for="customSwitch1">has Item</label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Option B</h5>
-                                <input type="text" class="form-control" placeholder="autocomplete goes here">
-                                <p class="card-text">
-                                    <small class="text-muted">The autocomplete needs to be pre-filled with the slot variable, so only items are selected that have the corresponding value in the column "inventory_slot"</small>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
-                    <h4>Off Spec (offspecs are priorities D, E and F)</h4>
-                    <div class="card-deck">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Best</h5>
-                                <div class="bis-list">
-                                    <div class="bis-list-icon">
-                                        <span class="guildbank-item-icon">
-                                            <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
-                                        </span>
-                                    </div>
-                                    <div class="bis-list-remove">
-                                        <a class="btn btn-outline-primary" href="#">X</a>
-                                    </div>
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Option B</h5>
+                                    <input type="text" class="form-control typeahead" placeholder="autocomplete goes here">
+                                    <p class="card-text">
+                                        <small class="text-muted">The autocomplete needs to be pre-filled with the slot variable, so only items are selected that have the corresponding value in the column "inventory_slot"</small>
+                                    </p>
                                 </div>
-                                <div class="bis-list-name">
-                                    <p>Bloodrazor</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Option A</h5>
-                                <div class="bis-list">
-                                    <div class="bis-list-icon">
-                                        <span class="guildbank-item-icon">
-                                            <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
-                                        </span>
-                                    </div>
-                                    <div class="bis-list-remove">
-                                        <a class="btn btn-outline-primary" href="#">X</a>
-                                    </div>
-                                </div>
-                                <div class="bis-list-name">
-                                    <p>Bloodrazor</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title">Option B</h5>
-                                <input type="text" class="form-control" placeholder="autocomplete goes here">
                             </div>
                         </div>
                     </div>
-                    <hr>
-                    <a href="#" class="btn btn-success">SAVE</a>
-                </div>
+                {% endif %}
             </div>
 
         </div>

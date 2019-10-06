@@ -14,6 +14,7 @@ require('blueimp-file-upload/js/jquery.fileupload-image');
 require('blueimp-file-upload/js/jquery.fileupload-process');
 require('blueimp-file-upload/js/jquery.fileupload-validate');
 require('blueimp-file-upload/js/jquery.fileupload-ui');
+require('devbridge-autocomplete/dist/jquery.autocomplete.min');
 
 $(function () {
   'use strict';
@@ -32,6 +33,18 @@ $(function () {
     maxFileSize: 999000,
     acceptFileTypes: /(\.)(lua)$/i
   });
+
+  $('.typeahead').autocomplete({
+    serviceUrl: '/api/select/items',
+    paramName: 'q',
+    params: {
+      'slots': $('#slots').data('slotids')
+    },
+    onSelect: function (suggestion) {
+      alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+    }
+  });
+
 });
 
 document.onreadystatechange = function () {

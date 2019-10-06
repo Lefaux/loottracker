@@ -6,6 +6,7 @@ use App\Entity\Attendance;
 use App\Entity\Character;
 use App\Entity\CharacterLootRequirement;
 use App\Entity\Raid;
+use App\Form\BisItemType;
 use App\Form\CharacterLootRequirementType;
 use App\Form\CharacterType;
 use App\Repository\CharacterRepository;
@@ -160,26 +161,28 @@ class CharacterController extends AbstractController
     public function bisListViewAction(Request $request, int $charId, $slots): Response
     {
         $character = $this->characterRepository->find($charId);
-        $requirement = new CharacterLootRequirement();
-        $form = $this->createForm(
-            CharacterLootRequirementType::class,
-            $requirement,
-            [
-                'user' => $this->getUser()
-            ]
-        );
-        $form->handleRequest($request);
+//        $requirement = new CharacterLootRequirement();
+//        $form = $this->createForm(
+//            CharacterLootRequirementType::class,
+//            $requirement,
+//            [
+//                'user' => $this->getUser()
+//            ]
+//        );
+//        $itemForm = $this->createForm(BisItemType::class);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($requirement);
-            $this->entityManager->flush();
+//        $form->handleRequest($request);
 
-            $this->addFlash('success', 'Requirement saved.');
-        }
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->entityManager->persist($requirement);
+//            $this->entityManager->flush();
+//
+//            $this->addFlash('success', 'Requirement saved.');
+//        }
         return $this->render('character/bis_list.html.twig', [
             'character' => $character,
             'slots' => $this->mapSlots($slots),
-            'form' => $form->createView()
+            'slotIds' => $slots
         ]);
     }
 
@@ -207,9 +210,22 @@ class CharacterController extends AbstractController
     private function mapSlots($slots): string
     {
         if (!$slots) {
-            return 'Please Select A slot';
+            return '';
         }
         $slotMapping = [
+            '1' => 'Head',
+            '2' => 'Neck',
+            '3' => 'Shoulder',
+            '6' => 'Belt',
+            '7' => 'Legs',
+            '11' => 'Ring',
+            '12' => 'Trinket',
+            '5' => 'Chest',
+            '9' => 'Wrist',
+            '16' => 'Back',
+            '13,17,21' => 'Main Hand',
+            '13,14,22,23' => 'Off Hand',
+            '15,28' => 'Ranged',
             '10' => 'Hands'
         ];
         return $slotMapping[$slots];
