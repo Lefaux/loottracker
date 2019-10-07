@@ -20,7 +20,7 @@ class CharacterLootRequirementRepository extends ServiceEntityRepository
         parent::__construct($registry, CharacterLootRequirement::class);
     }
 
-    public function getBisList()
+    public function getBisList(): array
     {
         $output = [];
         $conn = $this->getEntityManager()->getConnection();
