@@ -36,7 +36,7 @@ SELECT
 FROM
     character_loot_requirement bis
     INNER JOIN characters c on bis.player_character_id = c.id
-ORDER BY c.class, c.spec
+ORDER BY c.name
             ';
         try {
             $stmt = $conn->prepare($sql);
