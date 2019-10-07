@@ -21,10 +21,10 @@ class WowRaceUtility
     ];
 
     /**
-     * @param int $raceId
+     * @param $raceId
      * @return string
      */
-    public static function getRaceName(int $raceId): string
+    public static function getRaceName($raceId): string
     {
         switch ($raceId) {
             case self::RACE_NIGHTELF:
