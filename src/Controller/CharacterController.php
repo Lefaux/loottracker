@@ -166,7 +166,8 @@ class CharacterController extends AbstractController
 //            CharacterLootRequirementType::class,
 //            $requirement,
 //            [
-//                'user' => $this->getUser()
+//                'user' => $this->getUser(),
+//                'slots' => explode(',', $slots),
 //            ]
 //        );
 //        $itemForm = $this->createForm(BisItemType::class);
