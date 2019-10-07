@@ -277,6 +277,7 @@ class CharacterController extends AbstractController
             5 => 'Chest',
             6 => 'Belt',
             7 => 'Legs',
+            8 => 'Feet',
             9 => 'Wrist',
             10 => 'Hands',
             11 => 'Ring',
