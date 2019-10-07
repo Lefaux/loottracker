@@ -249,6 +249,8 @@ class CharacterController extends AbstractController
         if ($bisEntry->getPlayerCharacter() === $character && $bisEntry->getPlayerCharacter()->getAccount() === $this->getUser()) {
             $this->entityManager->remove($bisEntry);
             $this->entityManager->flush();
+            $character->setLastUpdate(new \DateTime());
+            $this->entityManager->persist($character);
         }
         return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
     }
@@ -316,6 +318,8 @@ class CharacterController extends AbstractController
                 if ($lootEntry[0]->hasItem() === false && $processInfo['hasItem'] === 'on') {
                     $lootEntry[0]->setHasItem(true);
                     $this->entityManager->persist($lootEntry[0]);
+                    $character->setLastUpdate(new \DateTime());
+                    $this->entityManager->persist($character);
                 }
 
             } elseif ($index === 'itemId' && (int)$processInfo > 0) {
@@ -332,6 +336,8 @@ class CharacterController extends AbstractController
                     $bisEntry->setHasItem(false);
                     $bisEntry->setPriority($priority);
                     $this->entityManager->persist($bisEntry);
+                    $character->setLastUpdate(new \DateTime());
+                    $this->entityManager->persist($character);
                 }
             }
         }

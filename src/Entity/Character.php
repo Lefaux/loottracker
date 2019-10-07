@@ -58,6 +58,16 @@ class Character
      */
     private $lootRequirements;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $race;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastUpdate;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -214,6 +224,30 @@ class Character
                 $lootRequirement->setPlayerCharacter(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRace(): ?int
+    {
+        return $this->race;
+    }
+
+    public function setRace(?int $race): self
+    {
+        $this->race = $race;
+
+        return $this;
+    }
+
+    public function getLastUpdate(): ?\DateTimeInterface
+    {
+        return $this->lastUpdate;
+    }
+
+    public function setLastUpdate(?\DateTimeInterface $lastUpdate): self
+    {
+        $this->lastUpdate = $lastUpdate;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Character;
 use App\Utility\WowClassUtility;
+use App\Utility\WowRaceUtility;
 use App\Utility\WowSpecUtility;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -27,6 +28,12 @@ class CharacterType extends AbstractType
                 [
                     'required' => true,
                     'choices' => array_flip(WowSpecUtility::toArray())
+                ]
+            )
+            ->add('race', ChoiceType::class,
+                [
+                    'required' => true,
+                    'choices' => array_flip(WowRaceUtility::toArray())
                 ]
             )
             ->add('name', TextType::class, ['required' => true])
