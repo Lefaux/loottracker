@@ -19,7 +19,9 @@
         "symfony/translation": "4.3.*",
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "4.3.*",
-        "tetranz/select2entity-bundle": "^3.0"
+        "tetranz/select2entity-bundle": "^3.0",
+        "ext-simplexml": "*",
+        "ext-json": "*"
     },
     "require-dev": {
         "deployer/deployer": "^6.5",

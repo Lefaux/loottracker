@@ -41,7 +41,11 @@ $(function () {
       'slots': $('#slots').data('slotids')
     },
     onSelect: function (suggestion) {
-      alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
+      let priorityId = this.id.split('_').pop();
+      let formField = $('#priority_' + priorityId);
+      //console.log(formField);
+      formField.val(suggestion.data);
+      //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
     }
   });
 

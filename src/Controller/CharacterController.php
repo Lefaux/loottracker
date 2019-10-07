@@ -9,7 +9,9 @@ use App\Entity\Raid;
 use App\Form\BisItemType;
 use App\Form\CharacterLootRequirementType;
 use App\Form\CharacterType;
+use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
+use App\Repository\ItemRepository;
 use App\Repository\LootRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,11 +33,26 @@ class CharacterController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var CharacterLootRequirementRepository
+     */
+    private $lootRequirementRepository;
+    /**
+     * @var ItemRepository
+     */
+    private $itemRepository;
 
-    public function __construct(CharacterRepository $characterRepository, LootRepository $lootRepository, EntityManagerInterface $entityManager)
+    public function __construct(
+        CharacterRepository $characterRepository,
+        LootRepository $lootRepository,
+        CharacterLootRequirementRepository $lootRequirementRepository,
+        ItemRepository $itemRepository,
+        EntityManagerInterface $entityManager)
     {
         $this->characterRepository = $characterRepository;
         $this->lootRepository = $lootRepository;
+        $this->lootRequirementRepository = $lootRequirementRepository;
+        $this->itemRepository = $itemRepository;
         $this->entityManager = $entityManager;
     }
 
@@ -160,28 +177,24 @@ class CharacterController extends AbstractController
      */
     public function bisListViewAction(Request $request, int $charId, $slots): Response
     {
+        $slot = $slots;
         $character = $this->characterRepository->find($charId);
-//        $requirement = new CharacterLootRequirement();
-//        $form = $this->createForm(
-//            CharacterLootRequirementType::class,
-//            $requirement,
-//            [
-//                'user' => $this->getUser()
-//            ]
-//        );
-//        $itemForm = $this->createForm(BisItemType::class);
-
-//        $form->handleRequest($request);
-
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $this->entityManager->persist($requirement);
-//            $this->entityManager->flush();
-//
-//            $this->addFlash('success', 'Requirement saved.');
-//        }
+        $items = $this->lootRequirementRepository->findBy([
+            'playerCharacter' => $character,
+            'slot' => $slot
+        ]);
+        $bisItems = [
+            1 => null,
+            2 => null,
+            3 => null,
+        ];
+        foreach ($items as $item) {
+            $bisItems[$item->getPriority()] = $item;
+        }
         return $this->render('character/bis_list.html.twig', [
             'character' => $character,
             'slots' => $this->mapSlots($slots),
+            'bisItems' => $bisItems,
             'slotIds' => $slots
         ]);
     }
@@ -193,6 +206,51 @@ class CharacterController extends AbstractController
             'player' => $character
         ]);
         return $lootsPerRaid;
+    }
+
+    /**
+     * @Route("/save-bis/{charId}/{slot}", name="save_bis")
+     * @param Request $request
+     * @param int $charId
+     * @param int $slot
+     * @return Response
+     */
+    public function saveBisAction(Request $request, int $charId, int $slot): Response
+    {
+        $bisItem = $request->request->get('bisItem');
+        $this->processBisItem($bisItem[1], 1, $charId, $slot);
+        $this->processBisItem($bisItem[2], 2, $charId, $slot);
+        $this->processBisItem($bisItem[3], 3, $charId, $slot);
+        return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+    }
+
+    /**
+     * @Route("/delete-bis/{charId}/{slot}", name="delete_bis")
+     * @param Request $request
+     * @param int $charId
+     * @param int $slot
+     * @return Response
+     */
+    public function deleteBis(Request $request, int $charId, int $slot): Response
+    {
+        $this->addFlash('success', 'BiS Item removed');
+        $bis = $request->get('bis');
+        $character = $this->characterRepository->find($charId);
+        if ($character === null) {
+            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+        }
+        if ($character->getAccount() !== $this->getUser()) {
+            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+        }
+        $bisEntry = $this->lootRequirementRepository->find((int)$bis);
+        if ($bisEntry === null) {
+            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+        }
+        if ($bisEntry->getPlayerCharacter() === $character && $bisEntry->getPlayerCharacter()->getAccount() === $this->getUser()) {
+            $this->entityManager->remove($bisEntry);
+            $this->entityManager->flush();
+        }
+        return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
     }
 
     private function compileRaidData(Attendance $attendance): array
@@ -213,21 +271,69 @@ class CharacterController extends AbstractController
             return '';
         }
         $slotMapping = [
-            '1' => 'Head',
-            '2' => 'Neck',
-            '3' => 'Shoulder',
-            '6' => 'Belt',
-            '7' => 'Legs',
-            '11' => 'Ring',
-            '12' => 'Trinket',
-            '5' => 'Chest',
-            '9' => 'Wrist',
-            '16' => 'Back',
-            '13,17,21' => 'Main Hand',
-            '13,14,22,23' => 'Off Hand',
-            '15,28' => 'Ranged',
-            '10' => 'Hands'
+            1 => 'Head',
+            2 => 'Neck',
+            3 => 'Shoulder',
+            5 => 'Chest',
+            6 => 'Belt',
+            7 => 'Legs',
+            9 => 'Wrist',
+            10 => 'Hands',
+            11 => 'Ring',
+            12 => 'Trinket',
+            13 => 'Main Hand',
+            14 => 'Off Hand',
+            15 => 'Ranged',
+            16 => 'Back',
         ];
         return $slotMapping[$slots];
+    }
+
+    private function processBisItem(array $item, int $priority, int $charId, int $slot): void
+    {
+        $character = $this->characterRepository->find($charId);
+        if ($character === null) {
+            throw new \RuntimeException('No character found for id');
+        }
+        foreach ($item as $index => $processInfo) {
+            if (is_int($index)) {
+                $lootEntry = $this->lootRequirementRepository->findBy([
+                    'playerCharacter' => $character,
+                    'slot' => $slot,
+                    'item' => $index
+                ]);
+                if (count($lootEntry) > 1) {
+                    throw new \RuntimeException('Duplicate Item per slot');
+                }
+                if (count($lootEntry) === 0) {
+                    throw new \RuntimeException('Hacking attempt');
+                }
+                if ($lootEntry[0]->hasItem() === true && $processInfo['hasItem'] === '0') {
+                    $lootEntry[0]->setHasItem(false);
+                    $this->entityManager->persist($lootEntry[0]);
+                }
+                if ($lootEntry[0]->hasItem() === false && $processInfo['hasItem'] === 'on') {
+                    $lootEntry[0]->setHasItem(true);
+                    $this->entityManager->persist($lootEntry[0]);
+                }
+
+            } elseif ($index === 'itemId' && (int)$processInfo > 0) {
+                // todo insert
+                $itemFromDb = $this->itemRepository->find((int)$processInfo);
+                if ($character->getAccount() !== $this->getUser()) {
+                    throw new \RuntimeException('Hacking attempt... trying to add item to foreign character');
+                }
+                if ($item) {
+                    $bisEntry = new CharacterLootRequirement();
+                    $bisEntry->setSlot($slot);
+                    $bisEntry->setPlayerCharacter($character);
+                    $bisEntry->setItem($itemFromDb);
+                    $bisEntry->setHasItem(false);
+                    $bisEntry->setPriority($priority);
+                    $this->entityManager->persist($bisEntry);
+                }
+            }
+        }
+        $this->entityManager->flush();
     }
 }

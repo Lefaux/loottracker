@@ -15,3 +15,46 @@
         </div>
     {% endif %}
 {% endmacro %}
+
+{% macro itemDisplay(priority, bisEntry, slotId, character) %}
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">
+                {% if priority == 1 %}
+                  Best
+                {% elseif priority == 2 %}
+                  Option A
+                {% elseif priority == 3 %}
+                  Option B
+                {% endif %}
+            </h5>
+            {% if bisEntry is not null %}
+                <div class="item-view-with-item">
+                    <div class="bis-list">
+                        <div class="bis-list-icon">
+                            <span class="guildbank-item-icon">
+                                <a href="#" data-wowhead="item={{ bisEntry.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                            </span>
+                        </div>
+                        <div class="bis-list-remove">
+                            <a class="btn btn-outline-primary" href="{{ path('delete_bis', {bis: bisEntry.id, charId: character, slot: slotId}) }}">X</a>
+                        </div>
+                    </div>
+                    <div class="bis-list-name">
+                        <p>{{ bisEntry.item.name }}</p>
+                    </div>
+                    <div class="custom-control custom-switch">
+                        <input type="hidden" name="bisItem[{{ priority }}][{{ bisEntry.item.id }}][hasItem]" value="0">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch_{{ priority }}" name="bisItem[{{ priority }}][{{ bisEntry.item.id }}][hasItem]" {% if bisEntry.hasItem %} checked="checked"{% endif %}>
+                        <label class="custom-control-label" for="customSwitch_{{ priority }}">has Item</label>
+                    </div>
+                </div>
+            {% else %}
+                <div class="item-view-without-item">
+                    <input type="text" class="form-control typeahead" id="autocomplete_{{ priority }}" placeholder="Type to search">
+                    <input type="hidden" id="priority_{{ priority }}" name="bisItem[{{ priority }}][itemId]" value="0">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}

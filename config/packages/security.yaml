@@ -35,3 +35,4 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/upload, role: ROLE_RAIDMANAGER }
         - { path: ^/profile/characters, role: ROLE_RAIDER }
+        - { path: /bislist/, role: ROLE_RAIDER }

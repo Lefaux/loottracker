@@ -41,12 +41,25 @@ class ItemRepository extends ServiceEntityRepository
      */
     public function searchByName(string $query, string $slots): array
     {
-        $slotArray = explode(',', $slots);
-        $searchSlots = [];
-        foreach ($slotArray as $item) {
-            $searchSlots[] = (int)$item;
+        switch ($slots) {
+            case '13':
+                $searchSlots = [
+                    13,17,21
+                ];
+                break;
+            case '14':
+                $searchSlots = [
+                    13,14,22,23
+                ];
+                break;
+            case '15':
+                $searchSlots = [
+                    15,28
+                ];
+                break;
+            default:
+                $searchSlots = (int)$slots;
         }
-        $slots = implode(',', $searchSlots);
         $query1 = $this->createQueryBuilder('a')
             ->andWhere('a.name LIKE :word AND a.inventorySlot IN ('.$slots.')')
             ->setParameter('word', '%' . addcslashes($query, '%_') . '%')

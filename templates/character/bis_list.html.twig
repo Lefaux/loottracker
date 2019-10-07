@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-
+{% import 'macros/macros.html.twig' as macros %}
 {% block title %}BiS for {{ character.name }}{% endblock %}
 
 {% block body %}
@@ -23,9 +23,9 @@
                         <area alt="Hands" title="Hands" href="{{ path('character_bislist', {'charId': character.id, 'slots': '10'}) }}" shape="rect" coords="550,7,628,83" />
                         <area alt="Chest" title="Chest" href="{{ path('character_bislist', {'charId': character.id, 'slots': '5'}) }}" shape="rect" coords="16,319,94,390" />
                         <area alt="Wrist" title="Wrist" href="{{ path('character_bislist', {'charId': character.id, 'slots': '9'}) }}" shape="rect" coords="15,546,93,621" />
-                        <area alt="Main Hand" title="Main Hand" href="{{ path('character_bislist', {'charId': character.id, 'slots': '13,17,21'}) }}" shape="rect" coords="200,590,278,663" />
-                        <area alt="Offhand" title="Offhand" href="{{ path('character_bislist', {'charId': character.id, 'slots': '13,14,22,23'}) }}" shape="rect" coords="285,591,363,663" />
-                        <area alt="Ranged" title="Ranged" href="{{ path('character_bislist', {'charId': character.id, 'slots': '15,28'}) }}" shape="rect" coords="365,592,435,666" />
+                        <area alt="Main Hand" title="Main Hand" href="{{ path('character_bislist', {'charId': character.id, 'slots': '13'}) }}" shape="rect" coords="200,590,278,663" />
+                        <area alt="Offhand" title="Offhand" href="{{ path('character_bislist', {'charId': character.id, 'slots': '13'}) }}" shape="rect" coords="285,591,363,663" />
+                        <area alt="Ranged" title="Ranged" href="{{ path('character_bislist', {'charId': character.id, 'slots': '15'}) }}" shape="rect" coords="365,592,435,666" />
                         <area alt="Back" title="Back" href="{{ path('character_bislist', {'charId': character.id, 'slots': '16'}) }}" shape="rect" coords="19,240,97,311" />
                     </map>
                 </div>
@@ -33,67 +33,19 @@
                     {% if slots == '' %}
                         <h1>Please select a slot</h1>
                     {% else %}
+                        <form action="{{ path('save_bis', {charId: character.id, slot: slotIds}) }}" method="post">
                         <h3 id="slots" data-slotids="{{ slotIds }}">{{ slots }}</h3>
                         <h4>Main Spec</h4>
                         <div class="card-deck">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Best</h5>
-                                    <div class="bis-list">
-                                        <div class="bis-list-icon">
-                                            <span class="guildbank-item-icon">
-                                                <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
-                                            </span>
-                                        </div>
-                                        <div class="bis-list-remove">
-                                            <a class="btn btn-outline-primary" href="#">X</a>
-                                        </div>
-                                    </div>
-                                    <div class="bis-list-name">
-                                        <p>Bloodrazor</p>
-                                    </div>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch1">
-                                        <label class="custom-control-label" for="customSwitch1">has Item</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Option A</h5>
-                                    <div class="bis-list">
-                                        <div class="bis-list-icon">
-                                            <span class="guildbank-item-icon">
-                                                <a href="#" data-wowhead="item=809&amp;domain=classic" data-wh-icon-size="medium"></a>
-                                            </span>
-                                        </div>
-                                        <div class="bis-list-remove">
-                                            <a class="btn btn-outline-primary" href="#">X</a>
-                                        </div>
-                                    </div>
-                                    <div class="bis-list-name">
-                                        <p>Bloodrazor</p>
-                                    </div>
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" checked="checked" class="custom-control-input" id="customSwitch1">
-                                        <label class="custom-control-label" for="customSwitch1">has Item</label>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Option B</h5>
-                                    <input type="text" class="form-control typeahead" placeholder="autocomplete goes here">
-                                    <p class="card-text">
-                                        <small class="text-muted">The autocomplete needs to be pre-filled with the slot variable, so only items are selected that have the corresponding value in the column "inventory_slot"</small>
-                                    </p>
-                                </div>
-                            </div>
+                            {{ macros.itemDisplay(1, bisItems.1, slotIds, character.id) }}
+                            {{ macros.itemDisplay(2, bisItems.2, slotIds, character.id) }}
+                            {{ macros.itemDisplay(3, bisItems.3, slotIds, character.id) }}
                         </div>
-                    </div>
-                {% endif %}
+                        <input type="submit" class="btn btn-success" value="Save">
+                        </form>
+                    {% endif %}
+                </div>
             </div>
-
         </div>
     </div>
 {% endblock %}
