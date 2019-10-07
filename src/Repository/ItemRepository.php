@@ -58,10 +58,10 @@ class ItemRepository extends ServiceEntityRepository
                 ];
                 break;
             default:
-                $searchSlots = (int)$slots;
+                $searchSlots = [(int)$slots];
         }
         $query1 = $this->createQueryBuilder('a')
-            ->andWhere('a.name LIKE :word AND a.inventorySlot IN ('.$slots.')')
+            ->andWhere('a.name LIKE :word AND a.inventorySlot IN ('.implode(',', $searchSlots).')')
             ->setParameter('word', '%' . addcslashes($query, '%_') . '%')
             ->orderBy('a.name', 'ASC')
             ->getQuery();
