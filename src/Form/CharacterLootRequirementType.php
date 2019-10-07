@@ -40,6 +40,7 @@ class CharacterLootRequirementType extends AbstractType
                     'cache_timeout' => 60000, // if 'cache' is true
                     'placeholder' => 'Select an item',
                     'remote_route' => 'api_select_items',
+                    'req_params' => implode(',',$options['slots']),
                 ]
             )
             ->add('submit', SubmitType::class, [
