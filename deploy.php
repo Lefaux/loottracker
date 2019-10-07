@@ -18,6 +18,7 @@ set('repository', 'git@github.com:Lefaux/loottracker.git');
 set('ssh_type', 'native');
 set('keep_releases', '3');
 set('allow_anonymous_stats', false);
+set('default_timeout', 360);
 
 // Shared files/dirs between deploys
 add('shared_files', ['.env.local']);
@@ -27,6 +28,7 @@ add('shared_dirs', []);
 set('allow_anonymous_stats', false);
 
 set('rsync',[
+    'timeout' => 3600,
     'exclude'      => [
         '.git',
         'deploy.php',
@@ -42,8 +44,7 @@ set('rsync',[
     'filter-file'  => false,
     'filter-perdir'=> false,
     'flags'        => 'rz', // Recursive, with compress
-    'options'      => ['delete'],
-    'timeout'      => 60,
+    'options'      => ['delete']
 ]);
 set('rsync_src', __DIR__);
 set('rsync_dest','{{release_path}}');
