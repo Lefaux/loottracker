@@ -165,7 +165,9 @@ class BestInSlotController extends AbstractController
         return $this->render('best_in_slot/need-by-item.html.twig',
             [
                 'chars' => $chars,
-                'item' => $item
+                'item' => $item,
+                'classUtility' => new WowClassUtility(),
+                'raceUtility' => new WowRaceUtility()
             ]
         );
     }

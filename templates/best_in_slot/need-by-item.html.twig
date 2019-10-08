@@ -18,7 +18,15 @@
                     <ul class="list-group">
                         <li class="list-group-item active">Players still needing this item</li>
                         {% for bisEntry in chars %}
-                            <li class="list-group-item">{{ bisEntry.playerCharacter.name }}</li>
+                            <li class="list-group-item">
+                                {% if bisEntry.playerCharacter.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif bisEntry.playerCharacter.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif bisEntry.playerCharacter.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                {{ bisEntry.playerCharacter.name }}<br><small>{{ raceUtility.raceName(bisEntry.playerCharacter.race) }}</small></li>
                         {% endfor %}
                     </ul>
                 </div>

@@ -1,16 +1,16 @@
 {% macro itemicon(slot, slotNumber, priority) %}
     {% if slot[slotNumber][priority] is not null %}
         {% if slot[slotNumber][priority].hasItem %}
-            <div class="bis-list-icon-hasitem">
+            <div class="bis-list-icon hasitem">
                 <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain=classic" data-wh-icon-size="small"></a>
             </div>
         {% else %}
-            <div class="bis-list-icon-missesitem">
+            <div class="bis-list-icon missesitem">
                 <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain=classic" data-wh-icon-size="small"></a>
             </div>
         {% endif %}
     {% else %}
-        <div class="bis-list-icon-blank">
+        <div class="bis-list-icon blank">
 &nbsp;
         </div>
     {% endif %}
