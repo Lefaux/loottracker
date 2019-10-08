@@ -34,6 +34,7 @@ FROM
     character_loot_requirement bis
     INNER JOIN item i on i.id = bis.item_id
 GROUP BY bis.item_id
+HAVING amount > available
 ORDER BY amount DESC
             ';
         try {
