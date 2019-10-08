@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
+use App\Repository\ItemRepository;
 use App\Utility\WowClassUtility;
 use App\Utility\WowRaceUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,14 +21,20 @@ class BestInSlotController extends AbstractController
      * @var CharacterRepository
      */
     private $characterRepository;
+    /**
+     * @var ItemRepository
+     */
+    private $itemRepository;
 
     public function __construct(
         CharacterLootRequirementRepository $characterLootRequirementRepository,
-        CharacterRepository $characterRepository
+        CharacterRepository $characterRepository,
+        ItemRepository $itemRepository
     )
     {
         $this->bisRepository = $characterLootRequirementRepository;
         $this->characterRepository = $characterRepository;
+        $this->itemRepository = $itemRepository;
     }
 
     /**
@@ -124,7 +131,6 @@ class BestInSlotController extends AbstractController
                 'bisList' => $bisList
             ];
         }
-        $foo = '';
         return $this->render('best_in_slot/index.html.twig', [
             'bis' => $bisListAndPlayers,
             'classUtility' => new WowClassUtility(),
@@ -140,5 +146,27 @@ class BestInSlotController extends AbstractController
     {
         $mostWantedItems = $this->bisRepository->findMostWantedItems();
         return $this->render('best_in_slot/most-wanted.html.twig', ['mostWantedItems' => $mostWantedItems]);
+    }
+
+    /**
+     * @Route("/bis/needbyitem/{itemId}", name="bis_need_by_item")
+     * @param int $itemId
+     * @return Response
+     */
+    public function needByItem(int $itemId): Response
+    {
+        $item = $this->itemRepository->find($itemId);
+        $chars = $this->bisRepository->findBy(
+            [
+                'item' => $item,
+                'hasItem' => false
+            ]
+        );
+        return $this->render('best_in_slot/need-by-item.html.twig',
+            [
+                'chars' => $chars,
+                'item' => $item
+            ]
+        );
     }
 }

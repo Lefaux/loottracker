@@ -15,6 +15,7 @@
                     <th>Item</th>
                     <th>Needed</th>
                     <th>Available</th>
+                    <th>Show Players</th>
                 </tr>
                 {% for item in mostWantedItems %}
                     <tr>
@@ -26,6 +27,9 @@
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: {{ (100/item.amount) * item.available }}%">{{ (100/item.amount) * item.available }}%</div>
                             </div>
+                        </td>
+                        <td>
+                            <a href="{{ path('bis_need_by_item', {itemId:item.item_id}) }}">Show players with need</a>
                         </td>
                     </tr>
                 {% endfor %}
