@@ -52,6 +52,16 @@ easy_admin:
                               'Tank': 1
                               'Healer': 2
                               'DPS': 3
+                    - property: "race"
+                      label: 'Race'
+                      type: choice
+                      type_options:
+                          expanded: true
+                          choices:
+                              'Nightelf': 1
+                              'Human': 2
+                              'Dwarf': 3
+                              'Gnome': 4
                     - property: "class"
                       label: 'Class'
                       type: choice
