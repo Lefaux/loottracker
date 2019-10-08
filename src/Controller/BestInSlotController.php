@@ -26,16 +26,15 @@ class BestInSlotController extends AbstractController
         CharacterRepository $characterRepository
     )
     {
-//        $this->bisRepository = $characterLootRequirementRepository;
+        $this->bisRepository = $characterLootRequirementRepository;
         $this->characterRepository = $characterRepository;
     }
 
     /**
      * @Route("/bis", name="best_in_slot")
      */
-    public function index(): Response
+    public function indexAction(): Response
     {
-//        $bisList = $this->bisRepository->getBisList();
         $bisListAndPlayers = [];
         $chars = $this->characterRepository->findAll();
         foreach ($chars as $char) {
@@ -131,5 +130,15 @@ class BestInSlotController extends AbstractController
             'classUtility' => new WowClassUtility(),
             'raceUtility' => new WowRaceUtility()
         ]);
+    }
+
+    /**
+     * @Route("/bis/mostwanted", name="bis_most_wanted")
+     * @return Response
+     */
+    public function mostWantedAction(): Response
+    {
+        $mostWantedItems = $this->bisRepository->findMostWantedItems();
+        return $this->render('best_in_slot/most-wanted.html.twig', ['mostWantedItems' => $mostWantedItems]);
     }
 }

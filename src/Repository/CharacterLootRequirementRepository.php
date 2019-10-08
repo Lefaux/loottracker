@@ -20,31 +20,26 @@ class CharacterLootRequirementRepository extends ServiceEntityRepository
         parent::__construct($registry, CharacterLootRequirement::class);
     }
 
-    public function getBisList(): array
+    public function findMostWantedItems(): array
     {
         $output = [];
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
 SELECT
+    count(bis.id) as amount,
     bis.item_id,
-       bis.priority,
-       bis.has_item,
-       bis.slot,
-    c.name,
-       c.class,
-       c.spec
+    i.name,
+    SUM(bis.has_item) as available
 FROM
     character_loot_requirement bis
-    INNER JOIN characters c on bis.player_character_id = c.id
-ORDER BY c.name
+    INNER JOIN item i on i.id = bis.item_id
+GROUP BY bis.item_id
+ORDER BY amount DESC
             ';
         try {
             $stmt = $conn->prepare($sql);
             $stmt->execute();
-            $results = $stmt->fetchAll();
-            foreach ($results as $index => $item) {
-                $output[$item['class']][$item['name']][$item['slot']][$item['priority']] = $item;
-            }
+            $output = $stmt->fetchAll();
         } catch (DBALException $e) {
         }
 

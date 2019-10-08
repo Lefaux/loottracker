@@ -88,6 +88,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu['bis']->addChild(
+            'bis-most-wanted',
+            [
+                'label' => 'Most Wanted Items',
+                'route' => 'bis_most_wanted',
+                'extras' => [
+                    'icon' => 'star',
+                ],
+            ]
+        );
         if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
             $menu->addChild(
                 'management',
@@ -109,9 +119,19 @@ class MenuBuilder
                     ],
                 ]
             );
+            $menu['management']->addChild(
+                'uploaddkp',
+                [
+                    'label' => 'Set DKP String',
+                    'route' => 'page_upload_dkp',
+                    'extras' => [
+                        'icon' => 'upload',
+                    ],
+                ]
+            );
         }
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $menu['management']->addChild(
+            $menu->addChild(
                 'admin',
                 [
                     'label' => 'Admin Area',
