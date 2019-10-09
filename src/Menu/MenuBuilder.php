@@ -162,6 +162,18 @@ class MenuBuilder
                     ],
                 ]
             );
+            if ($this->authorizationChecker->isGranted('ROLE_RAIDER')) {
+                $menu->addChild(
+                    'add_character',
+                    [
+                        'label' => 'My characters',
+                        'route' => 'profile_character',
+                        'extras' => [
+                            'icon' => 'users',
+                        ],
+                    ]
+                );
+            }
             $menu->addChild(
                 'logout',
                 [
@@ -193,18 +205,6 @@ class MenuBuilder
                     ],
                 ]
             )->setLinkAttribute('class', 'btn btn-outline-primary');
-        }
-        if ($this->authorizationChecker->isGranted('ROLE_RAIDER')) {
-            $menu['username']->addChild(
-                'add_character',
-                [
-                    'label' => 'My characters',
-                    'route' => 'profile_character',
-                    'extras' => [
-                        'icon' => 'users',
-                    ],
-                ]
-            );
         }
         return $menu;
     }
