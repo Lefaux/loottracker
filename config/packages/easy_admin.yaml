@@ -4,6 +4,8 @@ easy_admin:
 #        - App\Entity\User
         User:
             class: App\Entity\User
+            list:
+                fields: ['id', 'username', 'roles', 'enabled']
         Loots:
             class: App\Entity\Loot
             form:
