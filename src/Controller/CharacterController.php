@@ -13,6 +13,7 @@ use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LootRepository;
+use App\Utility\WowSlotUtility;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -168,34 +169,37 @@ class CharacterController extends AbstractController
     }
 
     /**
-     * @Route("/character/{charId}/bislist/{slots?}", name="character_bislist")
+     * @Route("/character/{charId}/bislist/{slotId?}", name="character_bislist")
      *
      * @param Request $request
      * @param int $charId
-     * @param string $slots
+     * @param int $slotId
      * @return Response
      */
-    public function bisListViewAction(Request $request, int $charId, $slots): Response
+    public function bisListViewAction(Request $request, int $charId, $slotId): Response
     {
-        $slot = $slots;
         $character = $this->characterRepository->find($charId);
         $items = $this->lootRequirementRepository->findBy([
             'playerCharacter' => $character,
-            'slot' => $slot
         ]);
-        $bisItems = [
-            1 => null,
-            2 => null,
-            3 => null,
-        ];
-        foreach ($items as $item) {
-            $bisItems[$item->getPriority()] = $item;
+        $wowSlotUtility = new WowSlotUtility();
+        $bisItems = [];
+        foreach ($wowSlotUtility::toArray() as $slotIdFromUtility => $_) {
+            $bisItems[$slotIdFromUtility] = [
+                1 => null,
+                2 => null,
+                3 => null,
+            ];
         }
+        foreach ($items as $item) {
+            $bisItems[$item->getSlot()][$item->getPriority()] = $item;
+        }
+        $foo = '';
         return $this->render('character/bis_list.html.twig', [
             'character' => $character,
-            'slots' => $this->mapSlots($slots),
             'bisItems' => $bisItems,
-            'slotIds' => $slots
+            'slotId' => $slotId,
+            'slotUtility' => $wowSlotUtility
         ]);
     }
 
@@ -221,7 +225,7 @@ class CharacterController extends AbstractController
         $this->processBisItem($bisItem[1], 1, $charId, $slot);
         $this->processBisItem($bisItem[2], 2, $charId, $slot);
         $this->processBisItem($bisItem[3], 3, $charId, $slot);
-        return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+        return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
     }
 
     /**
@@ -237,14 +241,14 @@ class CharacterController extends AbstractController
         $bis = $request->get('bis');
         $character = $this->characterRepository->find($charId);
         if ($character === null) {
-            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
         }
         if ($character->getAccount() !== $this->getUser()) {
-            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
         }
         $bisEntry = $this->lootRequirementRepository->find((int)$bis);
         if ($bisEntry === null) {
-            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+            return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
         }
         if ($bisEntry->getPlayerCharacter() === $character && $bisEntry->getPlayerCharacter()->getAccount() === $this->getUser()) {
             $this->entityManager->remove($bisEntry);
@@ -252,7 +256,7 @@ class CharacterController extends AbstractController
             $character->setLastUpdate(new \DateTime());
             $this->entityManager->persist($character);
         }
-        return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slots' => $slot]);
+        return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
     }
 
     private function compileRaidData(Attendance $attendance): array
@@ -265,31 +269,6 @@ class CharacterController extends AbstractController
             ];
         }
         return $output;
-    }
-
-    private function mapSlots($slots): string
-    {
-        if (!$slots) {
-            return '';
-        }
-        $slotMapping = [
-            1 => 'Head',
-            2 => 'Neck',
-            3 => 'Shoulder',
-            5 => 'Chest',
-            6 => 'Belt',
-            7 => 'Legs',
-            8 => 'Feet',
-            9 => 'Wrist',
-            10 => 'Hands',
-            11 => 'Ring',
-            12 => 'Trinket',
-            13 => 'Main Hand',
-            14 => 'Off Hand',
-            15 => 'Ranged',
-            16 => 'Back',
-        ];
-        return $slotMapping[$slots];
     }
 
     private function processBisItem(array $item, int $priority, int $charId, int $slot): void

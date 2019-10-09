@@ -15,7 +15,7 @@
   background-color: white;
 }
 
-.iconsmall del {
+.iconsmall del, .iconmedium del {
   background: none !important;
 }
 
@@ -24,10 +24,21 @@
   left: 0 !important;
 }
 
+.iconmedium ins {
+  top: 0 !important;
+  left: 0 !important;
+}
+
 .bis-list-icon {
   border: 2px solid $gray-200;
-  height: 22px;
-  width: 22px;
+  &.bis-icon-small {
+    height: 22px;
+    width: 22px;
+  }
+  &.bis-icon-medium {
+    height: 40px;
+    width: 40px;
+  }
   &.hasitem {
     border-color: lime;
   }

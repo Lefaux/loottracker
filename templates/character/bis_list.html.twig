@@ -6,41 +6,26 @@
     <div class="content-section bg-transparent">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-6">
+                <div class="col-3">
                     <h3>{{ character.name }}</h3>
-                    <img id="itemMap" src="{{ asset('assets/bistracker/charscreen.jpg') }}" usemap="#charmap" alt="" />
-                    <map name="charmap" id="charmap">
-                        <area alt="Head" title="Head" href="{{ path('character_bislist', {'charId': character.id, 'slots': '1'}) }}" shape="rect" coords="14,7,95,82" />
-                        <area alt="Neck" title="Neck" href="{{ path('character_bislist', {'charId': character.id, 'slots': '2'}) }}" shape="rect" coords="16,90,90,163" />
-                        <area alt="Shoulders" title="Shoulders" href="{{ path('character_bislist', {'charId': character.id, 'slots': '3'}) }}" shape="rect" coords="17,171,95,234" />
-                        <area alt="Belt" title="Belt" href="{{ path('character_bislist', {'charId': character.id, 'slots': '6'}) }}" shape="rect" coords="548,90,624,163" />
-                        <area alt="Legs" title="Legs" href="{{ path('character_bislist', {'charId': character.id, 'slots': '7'}) }}" shape="rect" coords="548,166,627,238" />
-                        <area alt="Boots" title="Boots" href="{{ path('character_bislist', {'charId': character.id, 'slots': '8'}) }}" shape="rect" coords="554,243,627,314" />
-                        <area alt="Ring" title="Ring" href="{{ path('character_bislist', {'charId': character.id, 'slots': '11'}) }}" shape="rect" coords="554,318,626,393" />
-                        <area alt="Ring" title="Ring" href="{{ path('character_bislist', {'charId': character.id, 'slots': '11'}) }}" shape="rect" coords="549,396,621,466" />
-                        <area alt="Trinket" title="Trinket" href="{{ path('character_bislist', {'charId': character.id, 'slots': '12'}) }}" shape="rect" coords="552,471,624,546" />
-                        <area alt="Trinket" title="Trinket" href="{{ path('character_bislist', {'charId': character.id, 'slots': '12'}) }}" shape="rect" coords="558,549,625,612" />
-                        <area alt="Hands" title="Hands" href="{{ path('character_bislist', {'charId': character.id, 'slots': '10'}) }}" shape="rect" coords="550,7,628,83" />
-                        <area alt="Chest" title="Chest" href="{{ path('character_bislist', {'charId': character.id, 'slots': '5'}) }}" shape="rect" coords="16,319,94,390" />
-                        <area alt="Wrist" title="Wrist" href="{{ path('character_bislist', {'charId': character.id, 'slots': '9'}) }}" shape="rect" coords="15,546,93,621" />
-                        <area alt="Main Hand" title="Main Hand" href="{{ path('character_bislist', {'charId': character.id, 'slots': '13'}) }}" shape="rect" coords="200,590,278,663" />
-                        <area alt="Offhand" title="Offhand" href="{{ path('character_bislist', {'charId': character.id, 'slots': '14'}) }}" shape="rect" coords="285,591,363,663" />
-                        <area alt="Ranged" title="Ranged" href="{{ path('character_bislist', {'charId': character.id, 'slots': '15'}) }}" shape="rect" coords="365,592,435,666" />
-                        <area alt="Back" title="Back" href="{{ path('character_bislist', {'charId': character.id, 'slots': '16'}) }}" shape="rect" coords="19,240,97,311" />
-                    </map>
+                    <ul class="list-group">
+                        {% for slotIdFromUtility, slotName in slotUtility.toArray %}
+                            {{ macros.bisSelection(character.id, slotIdFromUtility, slotId, slotUtility, bisItems)}}
+                        {% endfor %}
+                    </ul>
                 </div>
-                <div class="col-6">
-                    {% if slots == '' %}
+                <div class="col-9">
+                    {% if slotId == '' %}
                         <h1>Please select a slot</h1>
                     {% else %}
-                        <form action="{{ path('save_bis', {charId: character.id, slot: slotIds}) }}" method="post">
-                        <h3 id="slots" data-slotids="{{ slotIds }}">{{ slots }}</h3>
-                        <h4>Main Spec</h4>
+                        <form action="{{ path('save_bis', {charId: character.id, slot: slotId}) }}" method="post">
+                        <h3 id="slots" data-slotids="{{ slotId }}">{{ slotUtility.slotName(slotId) }}</h3>
                         <div class="card-deck">
-                            {{ macros.itemDisplay(1, bisItems.1, slotIds, character.id) }}
-                            {{ macros.itemDisplay(2, bisItems.2, slotIds, character.id) }}
-                            {{ macros.itemDisplay(3, bisItems.3, slotIds, character.id) }}
+                            {{ macros.itemDisplay(1, bisItems[slotId].1, slotId, character.id) }}
+                            {{ macros.itemDisplay(2, bisItems[slotId].2, slotId, character.id) }}
+                            {{ macros.itemDisplay(3, bisItems[slotId].3, slotId, character.id) }}
                         </div>
+                        <hr>
                         <input type="submit" class="btn btn-success" value="Save">
                         </form>
                     {% endif %}
