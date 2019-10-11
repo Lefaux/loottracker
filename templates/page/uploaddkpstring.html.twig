@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+{% block title %}Upload DKP String{% endblock %}
+{% block head %}{% endblock %}
+{% block body %}
+
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>Upload DKP String</h1>
+        </div>
+    </div>
+
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <h1>Update raid data</h1>
+            <form method="POST" action="{{ path('page_parse_dkp') }}" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="dkpstring">Enter DKP String here </label>
+                    <textarea id="dkpstring" name="dkpstring" class="form-control">
+
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary start">
+                        <span class="btn-icon">
+                            <i class="fa fa-upload"></i>
+                        </span>
+                        <span class="btn-text">Start upload</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

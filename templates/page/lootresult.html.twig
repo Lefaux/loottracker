@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+{% block title %}Raid Result{% endblock %}
+{% block head %}{% endblock %}
+{% block body %}
+
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>Loot Result for {{ raid.note }}</h1>
+        </div>
+    </div>
+
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <h1>Loot Result</h1>
+            <form method="POST" action="{{ path('page_save_dkp') }}" enctype="multipart/form-data">
+                <ul class="list-group">
+                {% for loots in raid.loots %}
+                    <li class="list-group-item">
+                        {{ loots.player.name }} > {{ loots.item.name }}
+                    </li>
+                {% endfor %}
+                </ul>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

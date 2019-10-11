@@ -53,6 +53,44 @@ class PageController extends AbstractController
     }
 
     /**
+     * @Route("/upload/dkpstring", name="page_upload_dkp")
+     */
+    public function dkpStringAction(): Response
+    {
+        return $this->render('page/uploaddkpstring.html.twig');
+    }
+
+    /**
+     * @Route("upload/raidresult", name="page_parse_dkp")
+     * @param Request $request
+     * @return Response
+     */
+    public function parseDkpString(Request $request): Response
+    {
+        $dkpString = $request->request->get('dkpstring');
+        $xml = simplexml_load_string($dkpString);
+        $xml_array = unserialize(
+            serialize(
+                json_decode(
+                    json_encode(
+                        (array) $xml), 1)
+            ), [false]
+        );
+        $raidData = $this->parser->parseDkpString($xml_array);
+        return $this->render('page/lootresult.html.twig', ['raid' => $raidData]);
+    }
+
+    /**
+     * @Route("upload/saveraidresult", name="page_save_dkp")
+     * @param Request $request
+     * @return Response
+     */
+    public function saveRaidResult(Request $request): Response
+    {
+
+    }
+
+    /**
      * @Route("/storedata")
      * @param Request $request
      * @return JsonResponse|Response

@@ -16,6 +16,7 @@ use App\Repository\LootRepository;
 use App\Repository\RaidRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use RuntimeException;
 
 class RaidTrackerParsingService
 {
@@ -44,6 +45,8 @@ class RaidTrackerParsingService
      */
     private $itemRepository;
 
+    private $parseDkp = false;
+
     public function __construct(
         RaidRepository $raidRepository,
         LootRepository $lootRepository,
@@ -70,6 +73,16 @@ class RaidTrackerParsingService
         }
     }
 
+    public function parseDkpString(array $dkpString): Raid
+    {
+        $this->parseDkp = true;
+        $raidKey = date('m/d/y h:i:s', $dkpString['start']);
+        $raid = $this->findOrCreateRaidByKey($raidKey, $dkpString['zone']);
+        $this->insertAttendance($dkpString['PlayerInfos'], $raid);
+        $this->insertLoot($dkpString['Loot'], $raid);
+        return $raid;
+    }
+
     private function parseRaid(array $raidData): void
     {
         $raid = $this->findOrCreateRaidByKey($raidData['key']);
@@ -77,7 +90,7 @@ class RaidTrackerParsingService
         $this->insertLoot($raidData['Loot'], $raid);
     }
 
-    private function findOrCreateRaidByKey(string $key): Raid
+    private function findOrCreateRaidByKey(string $key, string $zone = ''): Raid
     {
         $raidDateTime = $this->getDateTimeFromWoWStrings($key);
         $raid = $this->raidRepository->findBy([
@@ -87,11 +100,11 @@ class RaidTrackerParsingService
             // insert new raid
             $raid = new Raid();
             $raid->setDate($raidDateTime);
-            $raid->setNote($raidDateTime->format('D, d.m.Y H:i'));
+            $raid->setNote($zone .' ' . $raidDateTime->format('D, d.m.Y H:i'));
             $this->entityManager->persist($raid);
             $this->entityManager->flush();
         } elseif (count($raid) > 1) {
-            throw new \RuntimeException('Duplicate raid found for "' . $key  . '"');
+            throw new RuntimeException('Duplicate raid found for "' . $key  . '"');
         } else {
             $raid = $raid[0];
         }
@@ -102,8 +115,13 @@ class RaidTrackerParsingService
     {
         $attendees = [];
         foreach ($attendance as $item) {
-            if (!array_key_exists($item['player'], $attendees)) {
-                $attendees[$item['player']] = $this->getDateTimeFromWoWStrings($item['time']);
+            if ($this->parseDkp) {
+                $playerName = str_replace('-Razorfen', '', $item['name']);
+                $attendees[$playerName] = true;
+            } else {
+                if (!array_key_exists($item['player'], $attendees)) {
+                    $attendees[$item['player']] = $this->getDateTimeFromWoWStrings($item['time']);
+                }
             }
         }
         foreach ($attendees as $charName => $joined) {
@@ -134,10 +152,23 @@ class RaidTrackerParsingService
 
     private function insertLoot(array $loot, Raid $raid): void
     {
+        if ($this->parseDkp) {
+            $normalizedLoots = [];
+            foreach ($loot as $dkpLootEntry) {
+                $normalizedLoots[] = [
+                    'player' => str_replace('-Razorfen', '', $dkpLootEntry['Player']),
+                    'time' => date('m/d/y h:i:s', $dkpLootEntry['Time']),
+                    'item' => [
+                        'id' => $dkpLootEntry['ItemID']
+                    ]
+                ];
+            }
+            $loot = $normalizedLoots;
+        }
         foreach ($loot as $lootedItem) {
             $player = $this->characterRepository->findBy(['name' => $lootedItem['player']]);
             if (count($player) === 0) {
-                throw new \RuntimeException('player "' . $lootedItem['player'] . '" not found in DB');
+                throw new RuntimeException('player "' . $lootedItem['player'] . '" not found in DB');
             }
             $player = $player[0];
             $timeStamp = $this->getDateTimeFromWoWStrings($lootedItem['time']);
@@ -169,7 +200,7 @@ class RaidTrackerParsingService
         if ($item) {
             return $item;
         }
-        throw new \RuntimeException('No item in DB for "' . $weirdString . '"');
+        throw new RuntimeException('No item in DB for "' . $weirdString . '"');
     }
 
     private function getDateTimeFromWoWStrings(string $wowTime): DateTime
@@ -178,6 +209,6 @@ class RaidTrackerParsingService
         if (!empty($dateTime)) {
             return $dateTime;
         }
-        throw new \RuntimeException('Date mis-formatted with "' . $wowTime  . '"');
+        throw new RuntimeException('Date mis-formatted with "' . $wowTime  . '"');
     }
 }
