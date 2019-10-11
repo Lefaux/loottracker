@@ -38,6 +38,10 @@
                         </li>
                     {% endfor %}
                 </ul>
+                {% if is_granted('ROLE_RAIDMANAGER') %}
+                    <hr>
+                    <a href="{{ path('raid_edit', {raidId:raid.id}) }}" class="btn btn-primary">Edit Loot</a>
+                {% endif %}
             </div>
         </div>
     </div>

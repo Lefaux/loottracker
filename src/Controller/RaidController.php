@@ -41,4 +41,17 @@ class RaidController extends AbstractController
             'raid' => $raid,
         ]);
     }
+
+    /**
+     * @Route("/raid/edit/{raidId}", name="raid_edit")
+     * @param $raidId
+     * @return Response
+     */
+    public function editAction($raidId): Response
+    {
+        $raid = $this->raidRepository->find((int) $raidId);
+        return $this->render('page/lootresult.html.twig', [
+            'raid' => $raid,
+        ]);
+    }
 }

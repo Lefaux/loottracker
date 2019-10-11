@@ -15,6 +15,7 @@ require('blueimp-file-upload/js/jquery.fileupload-process');
 require('blueimp-file-upload/js/jquery.fileupload-validate');
 require('blueimp-file-upload/js/jquery.fileupload-ui');
 require('devbridge-autocomplete/dist/jquery.autocomplete.min');
+require('selectize/dist/js/selectize.min');
 
 $(function () {
   'use strict';
@@ -47,6 +48,11 @@ $(function () {
       formField.val(suggestion.data);
       //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
     }
+  });
+
+  $('.selectize').selectize({
+    create: false,
+    sortField: 'text'
   });
 
 });
