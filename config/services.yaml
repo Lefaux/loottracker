@@ -50,6 +50,9 @@ services:
             - name: 'knp_menu.menu_builder'
               method: 'mainFooter'
               alias: 'main-footer'
-
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    loot_listener:
+        class: App\Listener\LootListener
+        tags:
+            - name: doctrine.orm.entity_listener
+              event: postUpdate
+              entity: App\Entity\Loot
