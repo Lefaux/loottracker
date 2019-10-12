@@ -65,11 +65,11 @@ class ProcessIconsCommand extends Command
             $originalIcon = imagecreatefromjpeg('https://wow.zamimg.com/images/wow/icons/large/' . $name . '.jpg');
             imagefilter($originalIcon, IMG_FILTER_GRAYSCALE);
 //            imagefilter($originalIcon, IMG_FILTER_CONTRAST, -20);
-            imagefilter($originalIcon, IMG_FILTER_BRIGHTNESS, 120);
+            imagefilter($originalIcon, IMG_FILTER_BRIGHTNESS, 100);
 
             $iconSize = 18;
             $thumb = imagecreatetruecolor($iconSize, $iconSize);
-            imagecopyresampled($thumb, $originalIcon, 0, 0, 0, 0, $iconSize, $iconSize, 60, 60);
+            imagecopyresampled($thumb, $originalIcon, 0, 0, 0, 0, $iconSize, $iconSize, 56, 56);
 
             imagepng($thumb, $finalFilename);
             imagedestroy($originalIcon);
