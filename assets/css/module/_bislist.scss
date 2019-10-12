@@ -30,7 +30,7 @@
 }
 
 .bis-list-icon {
-  border: 2px solid $gray-200;
+  border: 2px dotted $gray-200;
   &.bis-icon-small {
     height: 22px;
     width: 22px;
@@ -41,11 +41,22 @@
   }
   &.hasitem {
     border-color: lime;
+    border-style: solid;
   }
 
   &.missesitem {
-    border-color: red;
+    border-color: #ba0000;
+    border-style: solid;
   }
+}
+
+.bis-list-icon.missesitem ins {
+  display: none;
+}
+
+.bis-list-icon.missesitem .low-contrast-icon {
+  position: relative;
+  top: -32px;
 }
 
 .bis-list-odd {

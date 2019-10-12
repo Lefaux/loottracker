@@ -34,6 +34,17 @@ class ItemRepository extends ServiceEntityRepository
         return (int)$result['idMax'];
     }
 
+    public function findDistinctIcons(): array
+    {
+        $qb = $this->createQueryBuilder('i');
+        $qb
+            ->select('i.icon')
+            ->groupBy('i.icon')
+//            ->setMaxResults(2)
+        ;
+        return $qb->getQuery()->getArrayResult();
+    }
+
     /**
      * @param string $query
      * @param string $slots
@@ -65,8 +76,6 @@ class ItemRepository extends ServiceEntityRepository
             ->setParameter('word', '%' . addcslashes($query, '%_') . '%')
             ->orderBy('a.name', 'ASC')
             ->getQuery();
-        $sql = $query1->getSQL();
-        $foo = '';
         return $query1
             ->getResult();
     }
