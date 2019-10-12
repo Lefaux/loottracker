@@ -80,6 +80,16 @@ class Item
      */
     private $inventorySlot;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $zone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $icon;
+
     public function __construct()
     {
         $this->loots = new ArrayCollection();
@@ -260,6 +270,30 @@ class Item
     public function setInventorySlot(?int $inventorySlot): self
     {
         $this->inventorySlot = $inventorySlot;
+
+        return $this;
+    }
+
+    public function getZone(): ?int
+    {
+        return $this->zone;
+    }
+
+    public function setZone(?int $zone): self
+    {
+        $this->zone = $zone;
+
+        return $this;
+    }
+
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+
+    public function setIcon(?string $icon): self
+    {
+        $this->icon = $icon;
 
         return $this;
     }

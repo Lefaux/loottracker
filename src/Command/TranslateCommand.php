@@ -11,7 +11,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DomCrawler\Crawler;
-use function Doctrine\ORM\QueryBuilder;
 
 class TranslateCommand extends Command
 {
@@ -41,7 +40,7 @@ class TranslateCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $itemsToTranslaste = $this->itemRepository->findBy(
-            ['name_de' => null],
+            ['icon' => null],
             ['quality' => 'DESC'],
             1000
         );
@@ -64,7 +63,15 @@ class TranslateCommand extends Command
         }
         $crawler = new Crawler($classicData);
         $name = $crawler->filter('name');
+        $icon = $crawler->filter('icon')->html();
+        $json = $crawler->filter('json')->text();
 
+        $dropData = json_decode('{' . $json . '}', true);
+        if (isset($dropData['sourcemore'][0]['z'])) {
+            $item->setZone((int)$dropData['sourcemore'][0]['z']);
+        }
+
+        $item->setIcon($icon);
         $item->setNameDe($name->html());
         $this->entityManager->persist($item);
         $this->entityManager->flush();
