@@ -741,6 +741,7 @@ class WoWZoneUtility
     public const ZONE_TALONBRANCHGLADE = 1998;
     public const ZONE_STRATHOLME = 2280;
     public const ZONE_QUELTHALAS = 2037;
+    public const ZONE_STRATHOLME2 = 2017;
     public const ZONE_SCHOLOMANCE = 2057;
     public const ZONE_TWILIGHTVALE = 2077;
     public const ZONE_TWILIGHTSHORE = 2078;
@@ -2928,6 +2929,8 @@ class WoWZoneUtility
             case self::ZONE_TALONBRANCHGLADE:
                 return 'Talonbranch Glade';
             case self::ZONE_STRATHOLME:
+                return 'Stratholme';
+            case self::ZONE_STRATHOLME2:
                 return 'Stratholme';
             case self::ZONE_QUELTHALAS:
                 return 'Quel\'thalas';

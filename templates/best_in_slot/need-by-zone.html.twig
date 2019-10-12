@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/macros.html.twig' as macros %}
+{% block title %}Need by Zone{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>BiS by Zone</h1>
+        </div>
+    </div>
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <h5>Zone with BiS Items</h5>
+                    <ul class="list-group">
+                        {% for item in items %}
+                            <li class="list-group-item{% if item.zone == zone %} list-group-item-secondary{% endif %}">
+                                <a href="{{ path('bis_need_by_zone', {zoneId: item.zone}) }}">{{ zones.zoneName(item.zone) }} ({{ item.amount }})</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-6">
+                    {% if bisItems is defined %}
+                        <h5>Players with need</h5>
+                        <ul class="list-group">
+                        {% for bisEntry in bisItems %}
+                            <li class="list-group-item">
+                                {{ bisEntry.item.name }}<br>
+                                <small>
+                                    {% for bisCharItem in bisEntry.playersWithNeed %}
+                                        {{ bisCharItem.playerCharacter.name }}{% if not loop.last %},{% endif %}
+                                    {% endfor %}
+                                </small>
+                            </li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

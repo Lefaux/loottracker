@@ -15,4 +15,5 @@ return [
     Symfony\WebpackEncoreBundle\WebpackEncoreBundle::class => ['all' => true],
     Tetranz\Select2EntityBundle\TetranzSelect2EntityBundle::class => ['all' => true],
     Symfony\Bundle\MonologBundle\MonologBundle::class => ['all' => true],
+    CalendarBundle\CalendarBundle::class => ['all' => true],
 ];

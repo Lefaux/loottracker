@@ -181,6 +181,15 @@ class PageController extends AbstractController
     }
 
     /**
+     * @Route("/calendar", name="page_calendar")
+     * @return Response
+     */
+    public function calendarAction(): Response
+    {
+        return $this->renderTemplate('page/calendar.html.twig');
+    }
+
+    /**
      * @Route("/page/privacy", name="page_privacy")
      * @return Response
      */

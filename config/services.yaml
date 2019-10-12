@@ -50,6 +50,9 @@ services:
             - name: 'knp_menu.menu_builder'
               method: 'mainFooter'
               alias: 'main-footer'
+    App\Listener\CalendarListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'calendar.set_data', method: load }
     loot_listener:
         class: App\Listener\LootListener
         tags:

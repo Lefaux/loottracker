@@ -15,6 +15,7 @@ use Doctrine\DBAL\DBALException;
  */
 class CharacterLootRequirementRepository extends ServiceEntityRepository
 {
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CharacterLootRequirement::class);
@@ -44,6 +45,52 @@ ORDER BY amount DESC
         } catch (DBALException $e) {
         }
 
+        return $output;
+    }
+    public function findItemsByZone(): array
+    {
+        $output = [];
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+SELECT 
+    count(bis.id) as amount, i.zone
+FROM `character_loot_requirement` bis 
+    INNER JOIN item i on i.id = bis.item_id 
+WHERE bis.has_item = 0 AND i.zone IS NOT NULL
+GROUP BY i.zone
+            ';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output = $stmt->fetchAll();
+        } catch (DBALException $e) {
+        }
+
+        return $output;
+    }
+
+    public function findItemsByZoneId(int $zoneId): array
+    {
+        $output = [];
+        $qb = $this->createQueryBuilder('bis');
+        $query = $qb
+            ->select('bis')
+            ->innerJoin('bis.item', 'i')
+            ->where('bis.hasItem = 0 AND i.zone = :zone')
+            ->groupBy('i.id')
+            ->setParameter('zone', $zoneId)
+            ->getQuery();
+        $bisItems = $query->getResult();
+        /** @var CharacterLootRequirement $bisItem */
+        foreach ($bisItems as $bisItem) {
+            $item = $bisItem->getItem();
+            if ($item) {
+                $output[] = [
+                    'item' => $bisItem->getItem(),
+                    'playersWithNeed' => $this->findBy(['item' => $item->getId(), 'hasItem' => false])
+                ];
+            }
+        }
         return $output;
     }
 }

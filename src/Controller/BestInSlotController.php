@@ -7,6 +7,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Utility\WowClassUtility;
 use App\Utility\WowRaceUtility;
+use App\Utility\WoWZoneUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -170,5 +171,25 @@ class BestInSlotController extends AbstractController
                 'raceUtility' => new WowRaceUtility()
             ]
         );
+    }
+
+    /**
+     * @Route("/bis/needbyzone/{zoneId?}", name="bis_need_by_zone")
+     * @param $zoneId
+     * @return Response
+     */
+    public function needByZone($zoneId): Response
+    {
+        $bisItems = null;
+        if ((int)$zoneId > 0) {
+            $bisItems = $this->bisRepository->findItemsByZoneId($zoneId);
+        }
+        $items = $this->bisRepository->findItemsByZone();
+        return $this->render('best_in_slot/need-by-zone.html.twig', [
+            'zones' => new WoWZoneUtility(),
+            'items' => $items,
+            'bisItems' => $bisItems,
+            'zone' => $zoneId
+        ]);
     }
 }

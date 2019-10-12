@@ -9,6 +9,7 @@
     {{ encore_entry_link_tags('app', null, layout) }}
     <script>var wowhead_tooltips = {colorLinks: true, iconizeLinks: false, renameLinks: false, iconSize: 'medium'};</script>
     <script src="https://wow.zamimg.com/widgets/power.js"></script>
+    {% block head %}{% endblock %}
 </head>
 <body>
 
@@ -76,6 +77,5 @@
     </div>
 
     {{ encore_entry_script_tags('app', null, layout) }}
-    <script src="{{ asset('bundles/tetranzselect2entity/js/select2entity.js') }}"></script>
 </body>
 </html>

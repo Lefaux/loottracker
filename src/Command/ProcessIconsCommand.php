@@ -60,11 +60,11 @@ class ProcessIconsCommand extends Command
 
     private function processIcon(string $name): void
     {
-        $finalFilename = $this->params->get('kernel.project_dir') . '/public/assets/icons/items/' . $name . '.png';
+        $finalFilename = $this->params->get('kernel.project_dir') . '/public/assets/icons/items/' . $name . '-small.png';
+        $finalFilename2 = $this->params->get('kernel.project_dir') . '/public/assets/icons/items/' . $name . '-medium.png';
         if (!file_exists($finalFilename)) {
             $originalIcon = imagecreatefromjpeg('https://wow.zamimg.com/images/wow/icons/large/' . $name . '.jpg');
             imagefilter($originalIcon, IMG_FILTER_GRAYSCALE);
-//            imagefilter($originalIcon, IMG_FILTER_CONTRAST, -20);
             imagefilter($originalIcon, IMG_FILTER_BRIGHTNESS, 100);
 
             $iconSize = 18;
@@ -72,6 +72,11 @@ class ProcessIconsCommand extends Command
             imagecopyresampled($thumb, $originalIcon, 0, 0, 0, 0, $iconSize, $iconSize, 56, 56);
 
             imagepng($thumb, $finalFilename);
+            $iconSize = 36;
+            $thumb2 = imagecreatetruecolor($iconSize, $iconSize);
+            imagecopyresampled($thumb2, $originalIcon, 0, 0, 0, 0, $iconSize, $iconSize, 56, 56);
+
+            imagepng($thumb2, $finalFilename2);
             imagedestroy($originalIcon);
             imagedestroy($thumb);
         }
