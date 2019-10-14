@@ -852,6 +852,7 @@ class WoWZoneUtility
     public const ZONE_BOULDERSLIDERAVINE = 2540;
     public const ZONE_SISHIRCANYON = 2541;
     public const ZONE_DIREMAUL = 2577;
+    public const ZONE_DIREMAUL2 = 2557;
     public const ZONE_DEADWINDRAVINE = 2558;
     public const ZONE_DIAMONDHEADRIVER = 2559;
     public const ZONE_ARIDENSCAMP = 2560;
@@ -3153,6 +3154,8 @@ class WoWZoneUtility
             case self::ZONE_SISHIRCANYON:
                 return 'Sishir Canyon';
             case self::ZONE_DIREMAUL:
+                return 'Dire Maul';
+            case self::ZONE_DIREMAUL2:
                 return 'Dire Maul';
             case self::ZONE_DEADWINDRAVINE:
                 return 'Deadwind Ravine';

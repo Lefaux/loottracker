@@ -98,6 +98,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu['bis']->addChild(
+            'bis-by-zone',
+            [
+                'label' => 'Need by Zone',
+                'route' => 'bis_need_by_zone',
+                'extras' => [
+                    'icon' => 'map',
+                ],
+            ]
+        );
         if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
             $menu->addChild(
                 'management',
