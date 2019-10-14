@@ -85,9 +85,15 @@ GROUP BY i.zone
         foreach ($bisItems as $bisItem) {
             $item = $bisItem->getItem();
             if ($item) {
+                $players = [];
+                $characterLootRequirements = $this->findBy(['item' => $item->getId(), 'hasItem' => false]);
+                foreach ($characterLootRequirements as $characterLootRequirement) {
+                    $players[$characterLootRequirement->getPlayerCharacter()->getSpec()][] = $characterLootRequirement->getPlayerCharacter();
+                }
+                ksort($players);
                 $output[] = [
                     'item' => $bisItem->getItem(),
-                    'playersWithNeed' => $this->findBy(['item' => $item->getId(), 'hasItem' => false])
+                    'playersWithNeed' => $players
                 ];
             }
         }

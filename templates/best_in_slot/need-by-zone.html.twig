@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/macros.html.twig' as macros %}
-{% block title %}Need by Zone{% endblock %}
+{% block title %}Need by Zone{% if bisItems is defined %} {{ zones.zoneName(zone) }}{% endif %}{% endblock %}
 
 {% block body %}
     <div class="content-section bg-primary text-white">
         <div class="container">
-            <h1>BiS by Zone</h1>
+            <h1>BiS by Zone{% if bisItems is defined %} {{ zones.zoneName(zone) }}{% endif %}</h1>
         </div>
     </div>
     <div class="content-section bg-transparent">
@@ -27,12 +27,22 @@
                         <ul class="list-group">
                         {% for bisEntry in bisItems %}
                             <li class="list-group-item">
-                                {{ bisEntry.item.name }}<br>
-                                <small>
-                                    {% for bisCharItem in bisEntry.playersWithNeed %}
-                                        {{ bisCharItem.playerCharacter.name }}{% if not loop.last %},{% endif %}
+                                <a href="#" data-wowhead="item={{ bisEntry.item.id }}&amp;domain=classic" data-wh-icon-size="medium">{{ bisEntry.item.name }}</a>
+                                <br>
+                                {% for spec,playersInSpec in bisEntry.playersWithNeed %}
+                                    {% if spec == 1 %}
+                                        <i class="fa fa-fw fa-shield-alt"></i>
+                                    {% elseif spec == 2 %}
+                                        <i class="fa fa-fw fa-band-aid"></i>
+                                    {% elseif spec == 3 %}
+                                        <i class="fa fa-fw fa-skull-crossbones"></i>
+                                    {% endif %}
+                                    <small>
+                                    {% for player in playersInSpec %}
+                                        {{ player.name }}{% if not loop.last %},{% endif %}
                                     {% endfor %}
-                                </small>
+                                    </small><br>
+                                {% endfor %}
                             </li>
                         {% endfor %}
                         </ul>

@@ -7,6 +7,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Utility\WowClassUtility;
 use App\Utility\WowRaceUtility;
+use App\Utility\WowSpecUtility;
 use App\Utility\WoWZoneUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -187,6 +188,7 @@ class BestInSlotController extends AbstractController
         $items = $this->bisRepository->findItemsByZone();
         return $this->render('best_in_slot/need-by-zone.html.twig', [
             'zones' => new WoWZoneUtility(),
+            'specs' => new WowSpecUtility(),
             'items' => $items,
             'bisItems' => $bisItems,
             'zone' => $zoneId
