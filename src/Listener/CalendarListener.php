@@ -4,6 +4,7 @@
 namespace App\Listener;
 
 
+use App\Repository\RaidEventRepository;
 use CalendarBundle\Entity\Event;
 use CalendarBundle\Event\CalendarEvent;
 use DateInterval;
@@ -13,26 +14,34 @@ use Exception;
 
 class CalendarListener
 {
+    /**
+     * @var RaidEventRepository
+     */
+    private $raidEventRepository;
+
+    public function __construct(RaidEventRepository $raidEventRepository)
+    {
+        $this->raidEventRepository = $raidEventRepository;
+    }
+
     public function load(CalendarEvent $calendar): void
     {
         $calendar = $this->setMcResets($calendar);
+        $calendar = $this->setOnyResets($calendar);
 
-        $calendar->addEvent(new Event(
-            'Event 1',
-            new DateTime('Tuesday this week'),
-            new DateTime('Wednesdays this week')
-        ));
+        $events = $this->raidEventRepository->findEventsInGivenMonth($calendar->getStart(), $calendar->getEnd());
 
-        // If the end date is null or not defined, it creates a all day event
-        $calendar->addEvent(new Event(
-            'All day event',
-            new DateTime('Friday next week'),
-            null,
-            [
-                'rendering' => 'background',
-                'className' => ['calendar-raid-onyxia']
-            ]
-        ));
+        foreach ($events as $event) {
+            $calendar->addEvent(new Event(
+                $event->getTitle(),
+                $event->getStart(),
+                $event->getEnd(),
+                [
+                    'eventColor' => '#ff00ff'
+                ]
+            ));
+        }
+
     }
 
     public function setMcResets(CalendarEvent $calendar): CalendarEvent
@@ -49,7 +58,7 @@ class CalendarListener
             );
             foreach ($mcResets as $index => $mcReset) {
                 $calendar->addEvent(new Event(
-                    'All day event',
+                    'MC',
                     $mcReset,
                     null,
                     [
@@ -60,6 +69,41 @@ class CalendarListener
             }
         } catch (Exception $e) {
         }
+        return $calendar;
+    }
+
+    public function setOnyResets(CalendarEvent $calendar): CalendarEvent
+    {
+        $initialReset = new DateTime('2019-09-26 05:00:00');
+        $differenceInDays = $initialReset->diff($calendar->getStart())->format('%a');
+        $differenceToCalenderStart = (int)floor($differenceInDays / 5) * 5;
+        try {
+            $startDateInCalendarView = $initialReset->add(new DateInterval('P' . $differenceToCalenderStart . 'D'));
+
+            $fixedMonth = $calendar->getStart();
+            if ($calendar->getStart()->format('d') !== '01') {
+                $fixedMonth->modify('first day of next month');
+            }
+            $onyResets = new DatePeriod(
+                $startDateInCalendarView,
+                new DateInterval('P5D'),
+                new DateTime('last day of ' . $fixedMonth->format('Y-m'))
+            );
+            foreach ($onyResets as $index => $mcReset) {
+                $calendar->addEvent(new Event(
+                    'OL',
+                    $mcReset,
+                    null,
+                    [
+                        'rendering' => 'background',
+                        'className' => ['calendar-raid-onyxia']
+                    ]
+                ));
+            }
+        } catch (Exception $e) {
+        }
+
+
         return $calendar;
     }
 }

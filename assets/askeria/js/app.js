@@ -63,10 +63,13 @@ document.addEventListener('DOMContentLoaded', () => {
   var calendar = new FullCalendar.Calendar(calendarEl, {
     defaultView: 'dayGridMonth',
     editable: false,
+    firstDay: 1,
     eventSources: [
       {
         url: "/fc-load-events",
         method: "POST",
+        color: '#c24147',
+        textColor: 'white',
         extraParams: {
           filters: JSON.stringify({})
         },
@@ -75,6 +78,11 @@ document.addEventListener('DOMContentLoaded', () => {
         },
       },
     ],
+    eventTimeFormat: { // like '14:30:00'
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: false
+    },
     header: {
       left: 'prev,next today',
       center: 'title',

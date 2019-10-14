@@ -13,6 +13,8 @@ easy_admin:
                     - { property: 'player', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
                     - { property: 'raid', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Raid' } }
                     - { property: 'item', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
+        Events:
+            class: App\Entity\RaidEvent
         Raids:
             class: App\Entity\Raid
             form:

@@ -68,6 +68,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu['raids']->addChild(
+            'raids',
+            [
+                'label' => 'Calendar',
+                'route' => 'page_calendar',
+                'extras' => [
+                    'icon' => 'calendar-alt',
+                ],
+            ]
+        );
         $menu->addChild(
             'roster',
             [
