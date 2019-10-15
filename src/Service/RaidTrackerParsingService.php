@@ -77,9 +77,12 @@ class RaidTrackerParsingService
     {
         $this->parseDkp = true;
         $raidKey = date('m/d/y h:i:s', $dkpString['start']);
+        if (!isset($dkpString['zone'])) {
+            throw new RuntimeException('DKP String does not have a zone set. Please add it in the addon (rightclick)', 1571123207);
+        }
         $raid = $this->findOrCreateRaidByKey($raidKey, $dkpString['zone']);
-        $this->insertAttendance($dkpString['PlayerInfos'], $raid);
-        $this->insertLoot($dkpString['Loot'], $raid);
+        $raid = $this->insertAttendance($dkpString['PlayerInfos'], $raid);
+        $raid = $this->insertLoot($dkpString['Loot'], $raid);
         return $raid;
     }
 
@@ -111,7 +114,7 @@ class RaidTrackerParsingService
         return $raid;
     }
 
-    private function insertAttendance(array $attendance, Raid $raid): void
+    private function insertAttendance(array $attendance, Raid $raid): Raid
     {
         $attendees = [];
         foreach ($attendance as $item) {
@@ -148,9 +151,10 @@ class RaidTrackerParsingService
             }
         }
         $this->entityManager->flush();
+        return $raid;
     }
 
-    private function insertLoot(array $loot, Raid $raid): void
+    private function insertLoot(array $loot, Raid $raid): Raid
     {
         if ($this->parseDkp) {
             $normalizedLoots = [];
@@ -191,6 +195,7 @@ class RaidTrackerParsingService
                 }
             }
         }
+        return $raid;
     }
 
     private function getItemByWeirdString(string $weirdString): Item

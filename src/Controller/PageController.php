@@ -6,6 +6,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
 use App\Service\RaidTrackerParsingService;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -102,7 +103,12 @@ class PageController extends AbstractController
                         (array) $xml), 1)
             ), [false]
         );
-        $raidData = $this->parser->parseDkpString($xml_array);
+        try {
+            $raidData = $this->parser->parseDkpString($xml_array);
+        } catch (Exception $e) {
+            $this->addFlash('danger', $e->getMessage());
+            $raidData = ['note' => 'ERROR', 'loots' => [], 'id' => 0];
+        }
         return $this->render('page/lootresult.html.twig', ['raid' => $raidData]);
     }
 

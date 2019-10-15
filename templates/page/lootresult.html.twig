@@ -3,38 +3,41 @@
 {% block head %}{% endblock %}
 {% block body %}
 
-    <div class="content-section bg-primary text-white">
-        <div class="container">
-            <h1>Loot Result for {{ raid.note }}</h1>
+    {% if raid.note == 'ERROR' %}
+    {% else %}
+        <div class="content-section bg-primary text-white">
+            <div class="container">
+                <h1>Loot Result for {{ raid.note }}</h1>
+            </div>
         </div>
-    </div>
 
-    <div class="content-section bg-transparent">
-        <div class="container">
-            <h1>Loot Result</h1>
-            <form method="POST" action="{{ path('page_save_dkp') }}" enctype="multipart/form-data">
-                <table class="table table-sm">
-                {% for loots in raid.loots %}
-                    <tr>
-                        <td>
-                                <a href="#" data-wowhead="item={{loots.item.id}}&amp;domain=classic" data-wh-icon-size="medium"></a>
-                        </td>
-                        <td>{{ loots.item.name }}</td>
-                        <td>looted by / given to</td>
-                        <td>
-                            <select name="loot[{{ loots.id }}][{{ loots.player.id }}]" class="form-control selectize">
-                                {% for attendance in raid.attendances %}
-                                    <option value="{{ attendance.player.id }}" {% if attendance.player.id == loots.player.id %} selected{% endif %}>{{ attendance.player.name }}</option>
-                                {%  endfor %}
-                            </select>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </table>
-                <input type="hidden" name="raid" value="{{ raid.id }}">
-                <input type="submit" class="btn btn-success" value="submit">
-            </form>
+        <div class="content-section bg-transparent">
+            <div class="container">
+                <h1>Loot Result</h1>
+                <form method="POST" action="{{ path('page_save_dkp') }}" enctype="multipart/form-data">
+                    <table class="table table-sm">
+                    {% for loots in raid.loots %}
+                        <tr>
+                            <td>
+                                    <a href="#" data-wowhead="item={{loots.item.id}}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                            </td>
+                            <td>{{ loots.item.name }}</td>
+                            <td>looted by / given to</td>
+                            <td>
+                                <select name="loot[{{ loots.id }}][{{ loots.player.id }}]" class="form-control selectize">
+                                    {% for attendance in raid.attendances %}
+                                        <option value="{{ attendance.player.id }}" {% if attendance.player.id == loots.player.id %} selected{% endif %}>{{ attendance.player.name }}</option>
+                                    {%  endfor %}
+                                </select>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </table>
+                    <input type="hidden" name="raid" value="{{ raid.id }}">
+                    <input type="submit" class="btn btn-success" value="submit">
+                </form>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
 {% endblock %}
