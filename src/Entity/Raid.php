@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -43,6 +44,7 @@ class Raid
     {
         $this->attendances = new ArrayCollection();
         $this->loots = new ArrayCollection();
+        $this->date = new DateTime();
     }
 
     public function __toString()
