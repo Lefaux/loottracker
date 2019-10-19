@@ -38,8 +38,8 @@
                                 {% endif %}
                                 {{ signup.playerName.name }}
                             </div>
+                            <div class="float-right">
                             {% if is_granted('ROLE_RAIDMANAGER') %}
-                                <div class="float-right">
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="signup-alpha-{{ signup.id }}" name="assignment[{{ signup.id }}]" {% if signup.team == 'alpha' %} checked{% endif %} value="alpha" class="custom-control-input">
                                         <label class="custom-control-label" for="signup-alpha-{{ signup.id }}">Alpha</label>
@@ -48,8 +48,10 @@
                                         <input type="radio" id="signup-bravo-{{ signup.id }}" name="assignment[{{ signup.id }}]"  {% if signup.team == 'bravo' %} checked{% endif %} value="bravo" class="custom-control-input">
                                         <label class="custom-control-label" for="signup-bravo-{{ signup.id }}">Bravo</label>
                                     </div>
-                                </div>
+                                {% else %}
+                                {{ signup.team|upper }}
                             {% endif %}
+                            </div>
 
                             </li>
                     {% endfor %}

@@ -285,7 +285,8 @@ class CharacterController extends AbstractController
                     'item' => $index
                 ]);
                 if (count($lootEntry) > 1) {
-                    throw new \RuntimeException('Duplicate Item per slot');
+                    $this->addFlash('error', 'Duplicate Item per slot');
+//                    throw new \RuntimeException('Duplicate Item per slot');
                 }
                 if (count($lootEntry) === 0) {
                     throw new \RuntimeException('Hacking attempt');
