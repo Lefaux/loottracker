@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\HasWowClass;
 use App\Entity\Traits\HasWowSpec;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -39,7 +40,7 @@ class Character
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="characters")
      */
     private $account;
 
@@ -246,12 +247,12 @@ class Character
         return $this;
     }
 
-    public function getLastUpdate(): ?\DateTimeInterface
+    public function getLastUpdate(): ?DateTimeInterface
     {
         return $this->lastUpdate;
     }
 
-    public function setLastUpdate(?\DateTimeInterface $lastUpdate): self
+    public function setLastUpdate(?DateTimeInterface $lastUpdate): self
     {
         $this->lastUpdate = $lastUpdate;
 
