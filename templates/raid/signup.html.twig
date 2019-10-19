@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/macros.html.twig' as macros %}
+
+{% block title %}Raid Signup{% endblock %}
+
+{% block body %}
+<div class="content-section bg-transparent">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6 col-lg-3">
+                <h3>Raids</h3>
+                <ul class="list-group">
+                    {% for raid in raids %}
+                        <li><a href="{{ path("raid_singup", {event:raid.id}) }}">{{ raid.title }} ({{ raid.start|date('d.m.Y') }})</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-sm-6 col-lg-9">
+                <h3>Sign ups</h3>
+                    {% if is_granted('ROLE_RAIDER') %}
+                        {{ macros.eventSignup(activeRaid, app.user) }}
+                    {% endif %}
+                <ul class="list-group">
+                    {% if activeRaid is not null %}
+                    {% for signups in activeRaid.signups %}
+                        <li>{{ signups.playerName.name }}</li>
+                    {% endfor %}
+                    {% endif %}
+                </ul>
+{#                {% if is_granted('ROLE_RAIDMANAGER') %}#}
+{#                    <hr>#}
+{#                    <a href="{{ path('raid_edit', {raidId:raid.id}) }}" class="btn btn-primary">Edit Loot</a>#}
+{#                {% endif %}#}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

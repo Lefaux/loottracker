@@ -68,11 +68,17 @@ class Character
      */
     private $lastUpdate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Signup", mappedBy="playerName")
+     */
+    private $signups;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
         $this->loots = new ArrayCollection();
         $this->lootRequirements = new ArrayCollection();
+        $this->signups = new ArrayCollection();
     }
 
     public function __toString()
@@ -248,6 +254,37 @@ class Character
     public function setLastUpdate(?\DateTimeInterface $lastUpdate): self
     {
         $this->lastUpdate = $lastUpdate;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Signup[]
+     */
+    public function getSignups(): Collection
+    {
+        return $this->signups;
+    }
+
+    public function addSignup(Signup $signup): self
+    {
+        if (!$this->signups->contains($signup)) {
+            $this->signups[] = $signup;
+            $signup->setPlayerName($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignup(Signup $signup): self
+    {
+        if ($this->signups->contains($signup)) {
+            $this->signups->removeElement($signup);
+            // set the owning side to null (unless already changed)
+            if ($signup->getPlayerName() === $this) {
+                $signup->setPlayerName(null);
+            }
+        }
 
         return $this;
     }

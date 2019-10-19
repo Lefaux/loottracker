@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,6 +32,16 @@ class RaidEvent
      * @ORM\Column(type="datetime")
      */
     private $end;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Signup", mappedBy="raidEvent")
+     */
+    private $signups;
+
+    public function __construct()
+    {
+        $this->signups = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -68,6 +80,37 @@ class RaidEvent
     public function setEnd(\DateTimeInterface $end): self
     {
         $this->end = $end;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Signup[]
+     */
+    public function getSignups(): Collection
+    {
+        return $this->signups;
+    }
+
+    public function addSignup(Signup $signup): self
+    {
+        if (!$this->signups->contains($signup)) {
+            $this->signups[] = $signup;
+            $signup->setRaidEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSignup(Signup $signup): self
+    {
+        if ($this->signups->contains($signup)) {
+            $this->signups->removeElement($signup);
+            // set the owning side to null (unless already changed)
+            if ($signup->getRaidEvent() === $this) {
+                $signup->setRaidEvent(null);
+            }
+        }
 
         return $this;
     }
