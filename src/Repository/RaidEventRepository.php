@@ -3,9 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\RaidEvent;
+use Cassandra\Date;
 use DateTimeInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\DBALException;
 
 /**
  * @method RaidEvent|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,6 +36,31 @@ class RaidEventRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $qb->execute();
+    }
+
+    public function findEventsAndSignUps()
+    {
+        $output = [];
+        $now = new \DateTime();
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+SELECT
+    e.title,
+       e.start,
+       e.id,
+    (SELECT count(id) FROM signup WHERE signed_up = 1 AND raid_event_id = e.id) as signups,
+    (SELECT count(id) FROM signup WHERE signed_up = 2 AND raid_event_id = e.id) as cancellations
+FROM raid_event e
+WHERE e.start > \''. $now->format('Y.m.d') .'\'
+            ';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output = $stmt->fetchAll();
+        } catch (DBALException $e) {
+        }
+
+        return $output;
     }
 
     // /**

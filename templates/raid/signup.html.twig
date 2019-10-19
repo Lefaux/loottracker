@@ -11,26 +11,78 @@
                 <h3>Raids</h3>
                 <ul class="list-group">
                     {% for raid in raids %}
-                        <li><a href="{{ path("raid_singup", {event:raid.id}) }}">{{ raid.title }} ({{ raid.start|date('d.m.Y') }})</a></li>
+                        <li class="list-group-item{% if activeRaid is not null and activeRaid.id == raid.id %} list-group-item-secondary{% endif %}">
+                            <a href="{{ path("raid_signup", {event:raid.id}) }}">{{ raid.title }} ({{ raid.start|date('d.m.Y') }})</a><br>
+                            <small class="text-black-50">{{ raid.signups }} SignUps, {{ raid.cancellations }} Cancellations</small>
+                        </li>
                     {% endfor %}
                 </ul>
             </div>
-            <div class="col-sm-6 col-lg-9">
-                <h3>Sign ups</h3>
-                    {% if is_granted('ROLE_RAIDER') %}
-                        {{ macros.eventSignup(activeRaid, app.user) }}
+            <div class="col-sm-6 col-lg-6">
+                {% if activeRaid is not null %}
+                    <h3>Sign ups</h3>
+                    {% if is_granted('ROLE_RAIDMANAGER') %}
+                        <form action="{{ path('raid_manageteams') }}" method="post">
+                        <input type="hidden" name="eventId" value="{{ activeRaid.id }}">
                     {% endif %}
-                <ul class="list-group">
-                    {% if activeRaid is not null %}
-                    {% for signups in activeRaid.signups %}
-                        <li>{{ signups.playerName.name }}</li>
+                    <ul class="list-group">
+                    {% for signup in signUps %}
+                        <li class="list-group-item">
+                            <div class="float-left">
+                                {% if signup.playerName.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif signup.playerName.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif signup.playerName.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                {{ signup.playerName.name }}
+                            </div>
+                            {% if is_granted('ROLE_RAIDMANAGER') %}
+                                <div class="float-right">
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="signup-alpha-{{ signup.id }}" name="assignment[{{ signup.id }}]" {% if signup.team == 'alpha' %} checked{% endif %} value="alpha" class="custom-control-input">
+                                        <label class="custom-control-label" for="signup-alpha-{{ signup.id }}">Alpha</label>
+                                    </div>
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input type="radio" id="signup-bravo-{{ signup.id }}" name="assignment[{{ signup.id }}]"  {% if signup.team == 'bravo' %} checked{% endif %} value="bravo" class="custom-control-input">
+                                        <label class="custom-control-label" for="signup-bravo-{{ signup.id }}">Bravo</label>
+                                    </div>
+                                </div>
+                            {% endif %}
+
+                            </li>
                     {% endfor %}
+                    </ul>
+                    {% if is_granted('ROLE_RAIDMANAGER') %}
+                        <input type="submit" class="btn btn-success" value="Save Team Assignment">
+                        </form>
                     {% endif %}
-                </ul>
-{#                {% if is_granted('ROLE_RAIDMANAGER') %}#}
-{#                    <hr>#}
-{#                    <a href="{{ path('raid_edit', {raidId:raid.id}) }}" class="btn btn-primary">Edit Loot</a>#}
-{#                {% endif %}#}
+                    <hr>
+                    <h3>Cancellations</h3>
+                    <ul class="list-group">
+                    {% for signup in cancellations %}
+                        <li class="list-group-item">
+                            {% if signup.playerName.spec == 1 %}
+                                <i class="fa fa-fw fa-shield-alt"></i>
+                            {% elseif signup.playerName.spec == 2 %}
+                                <i class="fa fa-fw fa-band-aid"></i>
+                            {% elseif signup.playerName.spec == 3 %}
+                                <i class="fa fa-fw fa-skull-crossbones"></i>
+                            {% endif %}
+                            {{ signup.playerName.name }}
+                            </li>
+                    {% endfor %}
+                    </ul>
+                {% else %}
+                    <h3>Choose a raid in order to sign up</h3>
+                {% endif %}
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                {% if is_granted('ROLE_RAIDER') and activeRaid is not null %}
+                    <h3>Sign up!</h3>
+                    {{ macros.eventSignup(activeRaid, account) }}
+                {% endif %}
             </div>
         </div>
     </div>

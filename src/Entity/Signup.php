@@ -33,6 +33,11 @@ class Signup
      */
     private $team;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $signedUp;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Signup
     public function setTeam(?string $team): self
     {
         $this->team = $team;
+
+        return $this;
+    }
+
+    public function getSignedUp(): ?int
+    {
+        return $this->signedUp;
+    }
+
+    public function setSignedUp(?int $signedUp): self
+    {
+        $this->signedUp = $signedUp;
 
         return $this;
     }

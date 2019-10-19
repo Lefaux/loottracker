@@ -2,9 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Character;
+use App\Entity\RaidEvent;
+use App\Entity\Signup;
+use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidRepository;
+use App\Repository\SignupRepository;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -18,11 +27,31 @@ class RaidController extends AbstractController
      * @var RaidEventRepository
      */
     private $eventRepository;
+    /**
+     * @var CharacterRepository
+     */
+    private $characterRepository;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+    /**
+     * @var SignupRepository
+     */
+    private $signUpRepository;
 
-    public function __construct(RaidRepository $raidRepository, RaidEventRepository $raidEventRepository)
-    {
+    public function __construct(
+        RaidRepository $raidRepository,
+        RaidEventRepository $raidEventRepository,
+        CharacterRepository $characterRepository,
+        SignupRepository $signUpRepository,
+        EntityManagerInterface $entityManager
+    ) {
         $this->raidRepository = $raidRepository;
         $this->eventRepository = $raidEventRepository;
+        $this->characterRepository = $characterRepository;
+        $this->signUpRepository = $signUpRepository;
+        $this->entityManager = $entityManager;
     }
     /**
      * @Route("/raid", name="raid")
@@ -62,21 +91,109 @@ class RaidController extends AbstractController
     }
 
     /**
-     * @Route("/raid/signup/{event?}", name="raid_singup")
+     * @Route("/raid/signup/{event?}", name="raid_signup")
+     * @param $event
      * @return Response
+     * @throws Exception
      */
     public function signUpAction($event): Response
     {
-        $raids = $this->eventRepository->findBy([
-
-        ]);
+        $raids = $this->eventRepository->findEventsAndSignUps();
         $activeRaid = null;
+        $signUps = null;
+        $cancellations = null;
         if ($event) {
             $activeRaid = $this->eventRepository->find($event);
+            $signUps = $this->signUpRepository->findBy(
+                [
+                'raidEvent' => $activeRaid,
+                'signedUp' => 1
+                ], [
+                    'team' => 'ASC'
+                ]
+            );
+            $cancellations = $this->signUpRepository->findBy([
+                'raidEvent' => $activeRaid,
+                'signedUp' => 2
+            ]);
         }
         return $this->render('raid/signup.html.twig', [
             'raids' => $raids,
-            'activeRaid' => $activeRaid
+            'activeRaid' => $activeRaid,
+            'signUps' => $signUps,
+            'cancellations' => $cancellations,
+            'account' => $this->getUser()
         ]);
+    }
+
+    /**
+     * @Route("/raid/signupforraid/{eventId}/{characterId}", name="raid_signupforraid")
+     * @param int $characterId
+     * @param int $eventId
+     * @return Response
+     */
+    public function signUpForRaidAction(int $characterId, int $eventId): Response
+    {
+        $character = $this->characterRepository->find($characterId);
+        $event = $this->eventRepository->find($eventId);
+        if ($character && $event) {
+            $this->handleSignUp($character, $event, 1);
+        }
+        return $this->redirectToRoute('raid_signup', ['event' => $eventId]);
+    }
+
+    /**
+     * @Route("/raid/signoutforraid/{eventId}/{characterId}", name="raid_signoutforraid")
+     * @param int $characterId
+     * @param int $eventId
+     * @return Response
+     */
+    public function signOutForRaidAction(int $characterId, int $eventId): Response
+    {
+        $character = $this->characterRepository->find($characterId);
+        $event = $this->eventRepository->find($eventId);
+        if ($character && $event) {
+            $this->handleSignUp($character, $event, 2);
+        }
+
+        return $this->redirectToRoute('raid_signup', ['event' => $eventId]);
+    }
+
+    /**
+     * @Route("/raid/manageteams", name="raid_manageteams")
+     * @param Request $request
+     * @return Response
+     */
+    public function manageRaidTeamsAction(Request $request): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_RAIDMANAGER');
+        $eventId = $request->request->get('eventId');
+        $assignments = $request->request->get('assignment');
+        foreach ($assignments as $signUpId => $team) {
+            $signUp = $this->signUpRepository->find($signUpId);
+            if($signUp) {
+                $signUp->setTeam($team);
+                $this->entityManager->persist($signUp);
+            }
+        }
+        $this->entityManager->flush();
+        $foo = '';
+        return $this->redirectToRoute('raid_signup', ['event' => $eventId]);
+    }
+
+    private function handleSignUp(Character $character, RaidEvent $event, int $status): void
+    {
+        $signUp = $this->signUpRepository->findOneBy([
+            'playerName' => $character,
+            'raidEvent' => $event
+        ]);
+        if (!$signUp) {
+            $signUp = new Signup();
+            $signUp->setPlayerName($character);
+            $signUp->setRaidEvent($event);
+        }
+        $signUp->setSignedUp($status);
+        $this->entityManager->persist($signUp);
+        $this->entityManager->flush();
     }
 }

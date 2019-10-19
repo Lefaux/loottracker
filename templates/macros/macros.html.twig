@@ -6,7 +6,7 @@
             </div>
         {% else %}
             <div class="bis-list-icon missesitem bis-icon-{{ size }}">
-                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain=classic" data-wh-icon-size="{{size}}"><img class="low-contrast-icon" src="/assets/icons/items/{{slot[slotNumber][priority].item.icon }}-{{ size }}.png"> </a>
+                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain=classic" data-wh-icon-size="{{size}}"><img alt="" class="low-contrast-icon" src="/assets/icons/items/{{slot[slotNumber][priority].item.icon }}-{{ size }}.png"> </a>
             </div>
         {% endif %}
     {% else %}
@@ -73,4 +73,37 @@
             </div>
         </div>
     </li>
+{% endmacro %}
+
+{% macro eventSignup(event, account) %}
+    <table class="table table-striped">
+        <tr>
+            <th>Status</th>
+            <th>Character</th>
+            <th>Actions</th>
+        </tr>
+    {% for toon in account.characters %}
+        <tr>
+            {% set status = 'question' %}
+            {% for signup in event.signups %}
+                {% if signup.playerName.id == toon.id %}
+                    {% if signup.signedUp == 1 %}
+                        {% set status = 'check' %}
+                    {% elseif signup.signedUp == 2 %}
+                        {% set status = 'times' %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+            <td><i class="fa fa-{{status}}"></i></td>
+            <td>{{ toon.name }}</td>
+            <td>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a href="{{ path('raid_signupforraid', {'characterId': toon.id, 'eventId': event.id}) }}" class="btn btn-success"><i class="fa fa-check"></i></a>
+                    <a href="{{ path('raid_signoutforraid', {'characterId': toon.id, 'eventId': event.id}) }}" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                </div>
+            </td>
+        </tr>
+    {% endfor %}
+    </table>
+    <small>If you do not want to raid with one of your twinks, but will attend with a main character, don't "cancel" with the twink</small>
 {% endmacro %}

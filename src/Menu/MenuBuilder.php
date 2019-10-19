@@ -69,12 +69,22 @@ class MenuBuilder
             ]
         );
         $menu['raids']->addChild(
-            'raids',
+            'raid_calendar',
             [
                 'label' => 'Calendar',
                 'route' => 'page_calendar',
                 'extras' => [
                     'icon' => 'calendar-alt',
+                ],
+            ]
+        );
+        $menu['raids']->addChild(
+            'raid_signup',
+            [
+                'label' => 'SignUp',
+                'route' => 'raid_signup',
+                'extras' => [
+                    'icon' => 'user-plus',
                 ],
             ]
         );
@@ -129,20 +139,22 @@ class MenuBuilder
                     ],
                 ]
             );
-            $menu['management']->addChild(
-                'upload',
-                [
-                    'label' => 'Upload Raidtracker File',
-                    'route' => 'page_upload',
-                    'extras' => [
-                        'icon' => 'upload',
-                    ],
-                ]
-            );
+            if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER_TABC')) {
+                $menu['management']->addChild(
+                    'upload',
+                    [
+                        'label' => 'Upload Raidtracker File (Thunder Ale Brewing Co.)',
+                        'route' => 'page_upload',
+                        'extras' => [
+                            'icon' => 'upload',
+                        ],
+                    ]
+                );
+            }
             $menu['management']->addChild(
                 'uploaddkp',
                 [
-                    'label' => 'Set DKP String',
+                    'label' => 'Set DKP String (Askeria)',
                     'route' => 'page_upload_dkp',
                     'extras' => [
                         'icon' => 'upload',
