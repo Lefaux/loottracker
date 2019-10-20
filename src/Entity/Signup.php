@@ -43,6 +43,11 @@ class Signup
      */
     private $confirmed;
 
+    public function __toString()
+    {
+        return '';
+    }
+
     public function getId(): ?int
     {
         return $this->id;

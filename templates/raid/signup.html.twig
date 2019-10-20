@@ -29,6 +29,19 @@
                     {% for signup in signUps %}
                         <li class="list-group-item">
                             <div class="float-left">
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <div class="custom-control custom-switch">
+                                        <input type="hidden" name="confirmed[{{ signup.id }}]" value="0">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch{{ signup.id }}" name="confirmed[{{ signup.id }}]" {% if signup.confirmed %} checked="checked"{% endif %}>
+                                        <label class="custom-control-label" for="customSwitch{{ signup.id }}">confirmed</label>
+                                    </div>
+                                {% else %}
+                                    {% if signup.confirmed == true %}
+                                         <i class="fa fa-check"></i>
+                                    {% else %}
+                                        <i class="fa fa-question"></i>
+                                    {% endif %}
+                                {% endif %}
                                 {% if signup.playerName.spec == 1 %}
                                     <i class="fa fa-fw fa-shield-alt"></i>
                                 {% elseif signup.playerName.spec == 2 %}

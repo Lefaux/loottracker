@@ -169,6 +169,18 @@ class RaidController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_RAIDMANAGER');
         $eventId = $request->request->get('eventId');
         $assignments = $request->request->get('assignment');
+        $confirmations = $request->request->get('confirmed');
+        foreach ($confirmations as $confirmId => $confirmStatus) {
+            $signUp = $this->signUpRepository->find($confirmId);
+            if($signUp) {
+                if ($confirmStatus === 'on') {
+                    $signUp->setConfirmed(true);
+                } else {
+                    $signUp->setConfirmed(false);
+                }
+                $this->entityManager->persist($signUp);
+            }
+        }
         foreach ($assignments as $signUpId => $team) {
             $signUp = $this->signUpRepository->find($signUpId);
             if($signUp) {
