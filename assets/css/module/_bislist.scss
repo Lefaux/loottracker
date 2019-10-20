@@ -31,6 +31,8 @@
 
 .bis-list-icon {
   border: 2px dotted $gray-200;
+  display: block;
+  overflow: hidden;
   &.bis-icon-small {
     height: 22px;
     width: 22px;

@@ -9,14 +9,14 @@
         <div class="row">
             <div class="col-sm-6 col-lg-3">
                 <h3>Raids</h3>
-                <ul class="list-group">
+                <div class="list-group">
                     {% for raid in raids %}
-                        <li class="list-group-item{% if activeRaid is not null and activeRaid.id == raid.id %} list-group-item-secondary{% endif %}">
-                            <a href="{{ path("raid_signup", {event:raid.id}) }}">{{ raid.title }} ({{ raid.start|date('d.m.Y') }})</a><br>
-                            <small class="text-black-50">{{ raid.signups }} SignUps, {{ raid.cancellations }} Cancellations</small>
-                        </li>
+                        <a class="list-group-item list-group-item-action{% if activeRaid is not null and activeRaid.id == raid.id %} active{% endif %}" href="{{ path("raid_signup", {event:raid.id}) }}">
+                            {{ raid.title }} ({{ raid.start|date('d.m.Y') }})<br>
+                        <small style="opacity: 0.75">{{ raid.signups }} SignUps, {{ raid.cancellations }} Cancellations</small>
+                        </a>
                     {% endfor %}
-                </ul>
+                </div>
             </div>
             <div class="col-sm-6 col-lg-6">
                 {% if activeRaid is not null %}
@@ -25,10 +25,17 @@
                         <form action="{{ path('raid_manageteams') }}" method="post">
                         <input type="hidden" name="eventId" value="{{ activeRaid.id }}">
                     {% endif %}
-                    <ul class="list-group">
+                    <table class="table table-striped">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Status</th>
+                            <th scope="col">Character</th>
+                            <th scope="col">Team</th>
+                        </tr>
+                        </thead>
                     {% for signup in signUps %}
-                        <li class="list-group-item">
-                            <div class="float-left">
+                        <tr>
+                            <td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <div class="custom-control custom-switch">
                                         <input type="hidden" name="confirmed[{{ signup.id }}]" value="0">
@@ -42,6 +49,8 @@
                                         <i class="fa fa-question"></i>
                                     {% endif %}
                                 {% endif %}
+                            </td>
+                            <td style="width: 100%">
                                 {% if signup.playerName.spec == 1 %}
                                     <i class="fa fa-fw fa-shield-alt"></i>
                                 {% elseif signup.playerName.spec == 2 %}
@@ -50,9 +59,9 @@
                                     <i class="fa fa-fw fa-skull-crossbones"></i>
                                 {% endif %}
                                 {{ signup.playerName.name }}
-                            </div>
-                            <div class="float-right">
-                            {% if is_granted('ROLE_RAIDMANAGER') %}
+                            </td>
+                            <td class="text-right text-nowrap">
+                                {% if is_granted('ROLE_RAIDMANAGER') %}
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input type="radio" id="signup-alpha-{{ signup.id }}" name="assignment[{{ signup.id }}]" {% if signup.team == 'alpha' %} checked{% endif %} value="alpha" class="custom-control-input">
                                         <label class="custom-control-label" for="signup-alpha-{{ signup.id }}">Alpha</label>
@@ -62,13 +71,12 @@
                                         <label class="custom-control-label" for="signup-bravo-{{ signup.id }}">Bravo</label>
                                     </div>
                                 {% else %}
-                                {{ signup.team|upper }}
-                            {% endif %}
-                            </div>
-
-                            </li>
+                                    {{ signup.team|upper }}
+                                {% endif %}
+                            </td>
+                            </tr>
                     {% endfor %}
-                    </ul>
+                    </table>
                     {% if is_granted('ROLE_RAIDMANAGER') %}
                         <input type="submit" class="btn btn-success" value="Save Team Assignment">
                         </form>
