@@ -11,6 +11,7 @@ use DateInterval;
 use DatePeriod;
 use DateTime;
 use Exception;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class CalendarListener
 {
@@ -18,10 +19,15 @@ class CalendarListener
      * @var RaidEventRepository
      */
     private $raidEventRepository;
+    /**
+     * @var UrlGeneratorInterface
+     */
+    private $router;
 
-    public function __construct(RaidEventRepository $raidEventRepository)
+    public function __construct(RaidEventRepository $raidEventRepository, UrlGeneratorInterface $router)
     {
         $this->raidEventRepository = $raidEventRepository;
+        $this->router = $router;
     }
 
     public function load(CalendarEvent $calendar): void
@@ -37,7 +43,7 @@ class CalendarListener
                 $event->getStart(),
                 $event->getEnd(),
                 [
-                    'eventColor' => '#ff00ff'
+                    'url' => $this->router->generate('raid_signup', ['event' => $event->getId()])
                 ]
             ));
         }
