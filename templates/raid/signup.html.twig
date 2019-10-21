@@ -103,8 +103,12 @@
             </div>
             <div class="col-sm-6 col-lg-3">
                 {% if is_granted('ROLE_RAIDER') and activeRaid is not null %}
-                    <h3>Sign up!</h3>
-                    {{ macros.eventSignup(activeRaid, account) }}
+                    {% if showSignUpForm == true %}
+                        <h3>Sign up!</h3>
+                        {{ macros.eventSignup(activeRaid, account) }}
+                    {% else %}
+                        <h3>SignUp is closed</h3>
+                    {% endif %}
                 {% endif %}
             </div>
         </div>

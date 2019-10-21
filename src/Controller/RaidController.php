@@ -9,7 +9,6 @@ use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidRepository;
 use App\Repository\SignupRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,6 +38,12 @@ class RaidController extends AbstractController
      * @var SignupRepository
      */
     private $signUpRepository;
+
+    /**
+     * The number of hours before an event in which sign-ups are not possible
+     * @var int
+     */
+    private $signUpBlockedBeforeHours = 60;
 
     public function __construct(
         RaidRepository $raidRepository,
@@ -102,8 +107,14 @@ class RaidController extends AbstractController
         $activeRaid = null;
         $signUps = null;
         $cancellations = null;
+        $showSignUpForm = false;
         if ($event) {
             $activeRaid = $this->eventRepository->find($event);
+            $now = time();
+            $eventTime = $activeRaid->getStart()->getTimestamp();
+            if (($eventTime - $now) > ($this->signUpBlockedBeforeHours * 3600)) {
+                $showSignUpForm = true;
+            }
             $signUps = $this->signUpRepository->findBy(
                 [
                 'raidEvent' => $activeRaid,
@@ -122,6 +133,7 @@ class RaidController extends AbstractController
             'activeRaid' => $activeRaid,
             'signUps' => $signUps,
             'cancellations' => $cancellations,
+            'showSignUpForm' => $showSignUpForm,
             'account' => $this->getUser()
         ]);
     }
