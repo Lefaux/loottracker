@@ -58,40 +58,44 @@ $(function () {
 });
 
 document.addEventListener('DOMContentLoaded', () => {
-  var calendarEl = document.getElementById('calendar-holder');
+  let calendarEl = document.getElementById('calendar-holder');
 
-  var calendar = new FullCalendar.Calendar(calendarEl, {
-    defaultView: 'dayGridMonth',
-    editable: false,
-    firstDay: 1,
-    eventSources: [
-      {
-        url: "/fc-load-events",
-        method: "POST",
-        color: '#c24147',
-        textColor: 'white',
-        extraParams: {
-          filters: JSON.stringify({})
+  if (calendarEl !== null) {
+    let calendar = new FullCalendar.Calendar(calendarEl, {
+      defaultView: 'dayGridMonth',
+      editable: false,
+      firstDay: 1,
+      eventSources: [
+        {
+          url: "/fc-load-events",
+          method: "POST",
+          color: '#c24147',
+          textColor: 'white',
+          extraParams: {
+            filters: JSON.stringify({})
+          },
+          failure: () => {
+            // alert("There was an error while fetching FullCalendar!");
+          },
         },
-        failure: () => {
-          // alert("There was an error while fetching FullCalendar!");
-        },
+      ],
+      eventTimeFormat: { // like '14:30:00'
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
       },
-    ],
-    eventTimeFormat: { // like '14:30:00'
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    },
-    header: {
-      left: 'prev,next today',
-      center: 'title',
-      right: '',
-    },
-    plugins: [ 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
-    timeZone: 'UTC',
-  });
-  calendar.render();
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: '',
+      },
+      plugins: [ 'dayGrid', 'timeGrid' ], // https://fullcalendar.io/docs/plugin-index
+      timeZone: 'UTC',
+    });
+    calendar.render();
+  }
+
+
 });
 
 document.onreadystatechange = function () {
