@@ -20,7 +20,7 @@
             </div>
             <div class="col-sm-6 col-lg-6">
                 {% if activeRaid is not null %}
-                    <h3>Sign ups</h3>
+                    <h3>{{ signUps|length }} Sign ups</h3>
                     {% if is_granted('ROLE_RAIDMANAGER') %}
                         <form action="{{ path('raid_manageteams') }}" method="post">
                         <input type="hidden" name="eventId" value="{{ activeRaid.id }}">
