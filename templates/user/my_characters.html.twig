@@ -7,17 +7,17 @@
         <div class="container">
             <div class="float-right">
                 <a href="{{ path('character_create') }}" class="btn btn-primary">
-                    Create character
+                    {% trans %}Create character{% endtrans %}
                 </a>
             </div>
-            <h3>My characters</h3>
+            <h3>{% trans %}My characters{% endtrans %}</h3>
             <table class="table table-striped">
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Class</th>
-                        <th>Spec</th>
-                        <th class="text-right">Actions</th>
+                        <th>{% trans %}Class{% endtrans %}</th>
+                        <th>{% trans %}Spec{% endtrans %}</th>
+                        <th class="text-right">{% trans %}Actions{% endtrans %}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -28,10 +28,10 @@
                             <td>{{ character.getSpecName() }}</td>
                             <td class="text-right">
                                 <a href="{{ path('character_update', {'charId': character.id}) }}" class="btn btn-primary">
-                                    Edit
+                                    {% trans %}Edit{% endtrans %}
                                 </a>
                                 <a href="{{ path('character_bislist', {'charId': character.id}) }}" class="btn btn-primary">
-                                    BIS list
+                                    {% trans %}BiS list{% endtrans %}
                                 </a>
                             </td>
                         </tr>

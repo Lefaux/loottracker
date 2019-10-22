@@ -20,7 +20,7 @@
             </div>
             <div class="col-sm-6 col-lg-6">
                 {% if activeRaid is not null %}
-                    <h3>{{ signUps|length }} Sign ups</h3>
+                    <h3>{{ signUps|length }} {% trans %}Sign ups{% endtrans %}</h3>
                     {% if is_granted('ROLE_RAIDMANAGER') %}
                         <form action="{{ path('raid_manageteams') }}" method="post">
                         <input type="hidden" name="eventId" value="{{ activeRaid.id }}">
@@ -29,7 +29,7 @@
                         <thead class="thead-dark">
                         <tr>
                             <th scope="col">Status</th>
-                            <th scope="col">Character</th>
+                            <th scope="col">{% trans %}Character{% endtrans %}</th>
                             <th scope="col">Team</th>
                         </tr>
                         </thead>
@@ -78,11 +78,11 @@
                     {% endfor %}
                     </table>
                     {% if is_granted('ROLE_RAIDMANAGER') %}
-                        <input type="submit" class="btn btn-success" value="Save Team Assignment">
+                        <input type="submit" class="btn btn-success" value="{% trans %}Save Team Assignment{% endtrans %}">
                         </form>
                     {% endif %}
                     <hr>
-                    <h3>Cancellations</h3>
+                    <h3>{% trans %}Cancellations{% endtrans %}</h3>
                     <ul class="list-group">
                     {% for signup in cancellations %}
                         <li class="list-group-item">
@@ -98,16 +98,16 @@
                     {% endfor %}
                     </ul>
                 {% else %}
-                    <h3>Choose a raid in order to sign up</h3>
+                    <h3>{% trans %}Choose a raid in order to sign up{% endtrans %}</h3>
                 {% endif %}
             </div>
             <div class="col-sm-6 col-lg-3">
                 {% if is_granted('ROLE_RAIDER') and activeRaid is not null %}
                     {% if showSignUpForm == true %}
-                        <h3>Sign up!</h3>
+                        <h3>{% trans %}Sign up!{% endtrans %}</h3>
                         {{ macros.eventSignup(activeRaid, account) }}
                     {% else %}
-                        <h3>SignUp is closed</h3>
+                        <h3>{% trans %}SignUp is closed{% endtrans %}</h3>
                     {% endif %}
                 {% endif %}
             </div>

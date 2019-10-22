@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Character{% endblock %}
+{% block title %}{% trans %}Character{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="content-section bg-transparent">
         <div class="container">
-            <h3>Character</h3>
+            <h3>{% trans %}Character{% endtrans %}</h3>
             {{ form_start(form) }}
             {{ form_widget(form) }}
             {{ form_end(form) }}

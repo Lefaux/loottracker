@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Character Overview{% endblock %}
+{% block title %}{% trans %}Raid Roster{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="content-section bg-primary text-white">
         <div class="container">
-            <h1>Raid Roster</h1>
+            <h1>{% trans %}Raid Roster{% endtrans %}</h1>
         </div>
     </div>
     <div class="content-section bg-transparent">
@@ -18,25 +18,25 @@
                             <h4>
                                 <img class="rounded" src="/assets/icons/class_{{ classId }}.png" width="44" height="44" />
                             {% if classId == 1 %}
-                                Warriors
+                                {% trans %}Warriors{% endtrans %}
                             {% elseif classId == 2 %}
-                                Priests
+                                {% trans %}Priests{% endtrans %}
                             {% elseif classId == 3 %}
-                                Mages
+                                {% trans %}Mages{% endtrans %}
                             {% elseif classId == 4 %}
-                                Warlocks
+                                {% trans %}Warlocks{% endtrans %}
                             {% elseif classId == 5 %}
-                                Rogues
+                                {% trans %}Rogues{% endtrans %}
                             {% elseif classId == 6 %}
-                                Druids
+                                {% trans %}Druids{% endtrans %}
                             {% elseif classId == 7 %}
-                                Hunters
+                                {% trans %}Hunters{% endtrans %}
                             {% elseif classId == 8 %}
-                                Shamans
+                                {% trans %}Shamans{% endtrans %}
                             {% elseif classId == 9 %}
-                                Paladins
+                                {% trans %}Paladins{% endtrans %}
                             {% else %}
-                                Unspecified
+                                {% trans %}Unspecified{% endtrans %}
                             {% endif %}
                             </h4>
                         </div>

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Raid Overview{% endblock %}
+{% block title %}{% trans %}Raid Overview{% endtrans %}{% endblock %}
 
 {% block body %}
 <div class="content-section bg-transparent">
@@ -14,7 +14,7 @@
                             <h6 class="card-subtitle">{{ raid.date|date('d.m.Y H:i') }}</h6>
                         </div>
                         <div class="card-body">
-                            <p>{{ raid.attendances|length }} Players</p>
+                            <p>{{ raid.attendances|length }} {% trans %}Players{% endtrans %}</p>
                             {% for loots in raid.loots %}
                                 <span class="guildbank-item-icon">
                                     <a href="#" data-wowhead="item={{ loots.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>

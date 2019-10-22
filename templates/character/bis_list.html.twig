@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/macros.html.twig' as macros %}
-{% block title %}BiS for {{ character.name }}{% endblock %}
+{% block title %}{% trans %}BiS for{% endtrans %} {{ character.name }}{% endblock %}
 
 {% block body %}
     <div class="content-section bg-transparent">
         <div class="container-fluid">
-            <p><a class="btn btn-outline-primary" href="https://classic.wowhead.com/gear-planner" target="_blank">BiS Gear Planner</a></p>
+            <p><a class="btn btn-outline-primary" href="https://classic.wowhead.com/gear-planner" target="_blank">{% trans %}BiS Gear Planner{% endtrans %}</a></p>
             <hr>
         </div>
         <div class="container-fluid">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col-9">
                     {% if slotId == '' %}
-                        <h1>Please select a slot</h1>
+                        <h1>{% trans %}Please select a slot{% endtrans %}</h1>
                     {% else %}
                         <form action="{{ path('save_bis', {charId: character.id, slot: slotId}) }}" method="post">
                         <h3 id="slots" data-slotids="{{ slotId }}">{{ slotUtility.slotName(slotId) }}</h3>
@@ -30,7 +30,7 @@
                             {{ macros.itemDisplay(3, bisItems[slotId].3, slotId, character.id) }}
                         </div>
                         <hr>
-                        <input type="submit" class="btn btn-success" value="Save">
+                        <input type="submit" class="btn btn-success" value="{% trans %}Save{% endtrans %}">
                         </form>
                     {% endif %}
                 </div>

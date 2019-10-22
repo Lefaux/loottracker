@@ -22,12 +22,12 @@
     </div>
     <div class="content-section bg-transparent">
         <div class="container">
-            <h3>Raid Attendance</h3>
+            <h3>{% trans %}Raid Attendance{% endtrans %}</h3>
             <table class="table table-sm">
                 <tr>
-                    <th>Note</th>
-                    <th>Date</th>
-                    <th>Loots</th>
+                    <th>{% trans %}Note{% endtrans %}</th>
+                    <th>{% trans %}Date{% endtrans %}</th>
+                    <th>{% trans %}Loots{% endtrans %}</th>
                 </tr>
                 {% for attended in raids %}
                     <tr>
@@ -43,7 +43,7 @@
                     </tr>
                 {% endfor %}
             </table>
-            <h3>Loot</h3>
+            <h3>{% trans %}Loot{% endtrans %}</h3>
             <ul class="list-group">
                 {% for loot in character.loots %}
                     <li class="list-group-item">

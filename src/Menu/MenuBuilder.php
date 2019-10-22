@@ -15,6 +15,7 @@ use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 
 /**
@@ -36,6 +37,10 @@ class MenuBuilder
      * @var TokenStorageInterface
      */
     private $tokenStorage;
+    /**
+     * @var TranslatorInterface
+     */
+    private $translator;
 
     /**
      * @param FactoryInterface $factory
@@ -45,11 +50,13 @@ class MenuBuilder
     public function __construct(
         FactoryInterface $factory,
         AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $tokenStorage
+        TokenStorageInterface $tokenStorage,
+        TranslatorInterface $translator
     ) {
         $this->factory = $factory;
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
+        $this->translator = $translator;
     }
 
     /**
@@ -61,7 +68,7 @@ class MenuBuilder
         $menu->addChild(
             'raids',
             [
-                'label' => 'Raids',
+                'label' => $this->translator->trans('Raids'),
                 'route' => 'raid',
                 'extras' => [
                     'icon' => 'biohazard',
@@ -71,7 +78,7 @@ class MenuBuilder
         $menu['raids']->addChild(
             'raid_calendar',
             [
-                'label' => 'Calendar',
+                'label' => $this->translator->trans('Calendar'),
                 'route' => 'page_calendar',
                 'extras' => [
                     'icon' => 'calendar-alt',
@@ -81,7 +88,7 @@ class MenuBuilder
         $menu['raids']->addChild(
             'raid_signup',
             [
-                'label' => 'SignUp',
+                'label' => $this->translator->trans('SignUp'),
                 'route' => 'raid_signup',
                 'extras' => [
                     'icon' => 'user-plus',
@@ -91,7 +98,7 @@ class MenuBuilder
         $menu->addChild(
             'roster',
             [
-                'label' => 'Roster',
+                'label' => $this->translator->trans('Roster'),
                 'route' => 'roster',
                 'extras' => [
                     'icon' => 'user',
@@ -101,7 +108,7 @@ class MenuBuilder
         $menu->addChild(
             'bis',
             [
-                'label' => 'Best In Slot',
+                'label' => $this->translator->trans('Best In Slot'),
                 'route' => 'best_in_slot',
                 'extras' => [
                     'icon' => 'check-circle',
@@ -111,7 +118,7 @@ class MenuBuilder
         $menu['bis']->addChild(
             'bis-most-wanted',
             [
-                'label' => 'Most Wanted Items',
+                'label' => $this->translator->trans('Most Wanted Items'),
                 'route' => 'bis_most_wanted',
                 'extras' => [
                     'icon' => 'star',
@@ -121,7 +128,7 @@ class MenuBuilder
         $menu['bis']->addChild(
             'bis-by-zone',
             [
-                'label' => 'Need by Zone',
+                'label' => $this->translator->trans('Need by Zone'),
                 'route' => 'bis_need_by_zone',
                 'extras' => [
                     'icon' => 'map',
@@ -132,7 +139,7 @@ class MenuBuilder
             $menu->addChild(
                 'management',
                 [
-                    'label' => 'Management Tools',
+                    'label' => $this->translator->trans('Management Tools'),
                     'uri' => '#',
                     'extras' => [
                         'icon' => 'tools',
@@ -143,7 +150,7 @@ class MenuBuilder
                 $menu['management']->addChild(
                     'upload',
                     [
-                        'label' => 'Upload Raidtracker File (Thunder Ale Brewing Co.)',
+                        'label' => $this->translator->trans('Upload Raidtracker File (Thunder Ale Brewing Co.)'),
                         'route' => 'page_upload',
                         'extras' => [
                             'icon' => 'upload',
@@ -154,7 +161,7 @@ class MenuBuilder
             $menu['management']->addChild(
                 'uploaddkp',
                 [
-                    'label' => 'Set DKP String (Askeria)',
+                    'label' => $this->translator->trans('Set DKP String (Askeria)'),
                     'route' => 'page_upload_dkp',
                     'extras' => [
                         'icon' => 'upload',
@@ -166,7 +173,7 @@ class MenuBuilder
             $menu->addChild(
                 'admin',
                 [
-                    'label' => 'Admin Area',
+                    'label' => $this->translator->trans('Admin Area'),
                     'uri' => '/admin',
                     'extras' => [
                         'icon' => 'clipboard-list',
@@ -198,7 +205,7 @@ class MenuBuilder
                 $menu->addChild(
                     'add_character',
                     [
-                        'label' => 'My characters',
+                        'label' => $this->translator->trans('My characters'),
                         'route' => 'profile_character',
                         'extras' => [
                             'icon' => 'users',
@@ -210,7 +217,7 @@ class MenuBuilder
                 'logout',
                 [
                     'route' => 'fos_user_security_logout',
-                    'label' => 'Logout',
+                    'label' => $this->translator->trans('Logout'),
                     'extras' => [
                         'icon' => 'lock',
                     ],
@@ -221,7 +228,7 @@ class MenuBuilder
                 'login',
                 [
                     'route' => 'fos_user_security_login',
-                    'label' => 'Login',
+                    'label' => $this->translator->trans('Login'),
                     'extras' => [
                         'icon' => 'unlock',
                     ],
@@ -231,7 +238,7 @@ class MenuBuilder
                 'register',
                 [
                     'route' => 'fos_user_registration_register',
-                    'label' => 'Sign Up',
+                    'label' => $this->translator->trans('Sign Up'),
                     'extras' => [
                         'icon' => 'sign-in-alt',
                     ],
@@ -250,14 +257,14 @@ class MenuBuilder
         $menu->addChild(
             'privacy',
             [
-                'label' => 'Privacy Policy',
+                'label' => $this->translator->trans('Privacy Policy'),
                 'route' => 'page_privacy'
             ]
         );
         $menu->addChild(
             'legal',
             [
-                'label' => 'Legal Information',
+                'label' => $this->translator->trans('Legal Information'),
                 'route' => 'page_legal'
             ]
         );

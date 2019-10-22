@@ -7,7 +7,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6 col-lg-3">
-                <h3>Attendees</h3>
+                <h3>{% trans %}Attendees{% endtrans %}</h3>
                 <ul class="list-group">
                     {% for attendance in raid.attendances %}
                         <li class="list-group-item">
@@ -27,7 +27,7 @@
                 </ul>
             </div>
             <div class="col-sm-6 col-lg-9">
-                <h3>Loot</h3>
+                <h3>{% trans %}Loot{% endtrans %}</h3>
                 <ul class="list-group">
                     {% for item in raid.loots %}
                         <li class="list-group-item">

@@ -4,6 +4,8 @@
 namespace App\Utility;
 
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 class WowClassUtility
 {
     public const CLASS_UNSPECIFIED = 0;
@@ -32,13 +34,14 @@ class WowClassUtility
 
     /**
      * @param int $classId
+     * @param TranslatorInterface $translator
      * @return string
      */
-    public static function getClassName(int $classId): string
+    public static function getClassName(int $classId, TranslatorInterface $translator): string
     {
         switch ($classId) {
             case self::CLASS_WARRIOR:
-                return 'Warrior';
+                return $translator->trans('Warrior');
             case self::CLASS_PRIEST:
                 return 'Priest';
             case self::CLASS_MAGE:
@@ -61,13 +64,14 @@ class WowClassUtility
     }
 
     /**
+     * @param TranslatorInterface $translator
      * @return array
      */
-    public static function toArray(): array
+    public static function toArray(TranslatorInterface $translator): array
     {
         $array = [];
         foreach (self::ALL as $roleId) {
-            $array[$roleId] = self::getClassName($roleId);
+            $array[$roleId] = self::getClassName($roleId, $translator);
         }
         return $array;
     }

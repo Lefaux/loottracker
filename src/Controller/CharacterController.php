@@ -19,6 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CharacterController extends AbstractController
 {
@@ -106,9 +107,10 @@ class CharacterController extends AbstractController
     /**
      * @Route("/characters/create", name="character_create")
      * @param Request $request
+     * @param TranslatorInterface $translator
      * @return Response
      */
-    public function createAction(Request $request): Response
+    public function createAction(Request $request, TranslatorInterface $translator): Response
     {
         $character = new Character();
         $form = $this->createForm(CharacterType::class, $character);
@@ -121,12 +123,12 @@ class CharacterController extends AbstractController
                 $this->entityManager->persist($character);
                 $this->entityManager->flush();
 
-                $this->addFlash('success', 'Character saved.');
+                $this->addFlash('success', $translator->trans('Character saved.'));
 
                 return $this->redirectToRoute('profile_character');
             }
 
-            $this->addFlash('danger', 'That character name is already taken.');
+            $this->addFlash('danger', $translator->trans('That character name is already taken.'));
         }
 
         return $this->render('loot_requirement/form.html.twig', ['form' => $form->createView()]);

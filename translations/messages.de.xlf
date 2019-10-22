@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="de" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="kxtdtpX" resname="Character saved.">
+        <source>Character saved.</source>
+        <target>Charakter gespeichert.</target>
+      </trans-unit>
+      <trans-unit id="WiBXZPD" resname="That character name is already taken.">
+        <source>That character name is already taken.</source>
+        <target>Dieser Name ist bereits vergeben.</target>
+      </trans-unit>
+      <trans-unit id="hOEqxlX" resname="Players">
+        <source>Players</source>
+        <target>Spieler</target>
+      </trans-unit>
+      <trans-unit id="u7yRFLa" resname="Raids">
+        <source>Raids</source>
+        <target>Schlachtzüge</target>
+      </trans-unit>
+      <trans-unit id="XSnReEQ" resname="Raid Overview">
+        <source>Raid Overview</source>
+        <target>Raid Übersicht</target>
+      </trans-unit>
+      <trans-unit id="1dCjC1F" resname="Calendar">
+        <source>Calendar</source>
+        <target>Kalender</target>
+      </trans-unit>
+      <trans-unit id="dvOF5iu" resname="SignUp">
+        <source>SignUp</source>
+        <target>Raid Anmeldung</target>
+      </trans-unit>
+      <trans-unit id="zUeVgJ4" resname="Roster">
+        <source>Roster</source>
+        <target>Raid Gruppe</target>
+      </trans-unit>
+      <trans-unit id="x1wKQii" resname="Best In Slot">
+        <source>Best In Slot</source>
+        <target>Best In Slot</target>
+      </trans-unit>
+      <trans-unit id="4qlMsIM" resname="Most Wanted Items">
+        <source>Most Wanted Items</source>
+        <target>Items mit größtem Bedarf</target>
+      </trans-unit>
+      <trans-unit id="YBxVoxW" resname="Need by Zone">
+        <source>Need by Zone</source>
+        <target>Bedarf nach Zone</target>
+      </trans-unit>
+      <trans-unit id="3hBhBe6" resname="Management Tools">
+        <source>Management Tools</source>
+        <target>Management</target>
+      </trans-unit>
+      <trans-unit id="bYid7tL" resname="Upload Raidtracker File (Thunder Ale Brewing Co.)">
+        <source>Upload Raidtracker File (Thunder Ale Brewing Co.)</source>
+        <target>Upload Raidtracker File (Thunder Ale Brewing Co.)</target>
+      </trans-unit>
+      <trans-unit id="JXmi9I3" resname="Set DKP String (Askeria)">
+        <source>Set DKP String (Askeria)</source>
+        <target>DKP String speichern</target>
+      </trans-unit>
+      <trans-unit id="kPHaCbD" resname="Admin Area">
+        <source>Admin Area</source>
+        <target>Admin Bereich</target>
+      </trans-unit>
+      <trans-unit id="VojYxuX" resname="My characters">
+        <source>My characters</source>
+        <target>Meine Charaktere</target>
+      </trans-unit>
+      <trans-unit id="0FJ_Sz1" resname="Logout">
+        <source>Logout</source>
+        <target>Ausloggen</target>
+      </trans-unit>
+      <trans-unit id="nWMiwfT" resname="Login">
+        <source>Login</source>
+        <target>Einloggen</target>
+      </trans-unit>
+      <trans-unit id="R94jWG5" resname="Sign Up">
+        <source>Sign Up</source>
+        <target>Anmelden</target>
+      </trans-unit>
+      <trans-unit id="UG.zlGI" resname="Privacy Policy">
+        <source>Privacy Policy</source>
+        <target>Datenschutz</target>
+      </trans-unit>
+      <trans-unit id="ytIIEPw" resname="Legal Information">
+        <source>Legal Information</source>
+        <target>Impressumn</target>
+      </trans-unit>
+      <trans-unit id="EibYqty" resname="BiS for">
+        <source>BiS for</source>
+        <target>BiS für</target>
+      </trans-unit>
+      <trans-unit id="Bk3.rrQ" resname="BiS Gear Planner">
+        <source>BiS Gear Planner</source>
+        <target>BiS Ausrüstungsplaner</target>
+      </trans-unit>
+      <trans-unit id="3ihWvx1" resname="Please select a slot">
+        <source>Please select a slot</source>
+        <target>Bitte einen Slot auswählen</target>
+      </trans-unit>
+      <trans-unit id="FQn1YfJ" resname="Save">
+        <source>Save</source>
+        <target>Speichern</target>
+      </trans-unit>
+      <trans-unit id="FAWmPop" resname="Character">
+        <source>Character</source>
+        <target>Charakter</target>
+      </trans-unit>
+      <trans-unit id="7rM.f0r" resname="Raid Roster">
+        <source>Raid Roster</source>
+        <target>Raid Aufstellung</target>
+      </trans-unit>
+      <trans-unit id="P64.ja7" resname="Warriors">
+        <source>Warriors</source>
+        <target>Krieger</target>
+      </trans-unit>
+      <trans-unit id="vIF8TA_" resname="Priests">
+        <source>Priests</source>
+        <target>Priester</target>
+      </trans-unit>
+      <trans-unit id="ch1LsrV" resname="Mages">
+        <source>Mages</source>
+        <target>Magier</target>
+      </trans-unit>
+      <trans-unit id="8vi1XC5" resname="Warlocks">
+        <source>Warlocks</source>
+        <target>Hexenmeister</target>
+      </trans-unit>
+      <trans-unit id="vOEMXxI" resname="Rogues">
+        <source>Rogues</source>
+        <target>Schurken</target>
+      </trans-unit>
+      <trans-unit id="Vm6NAgG" resname="Druids">
+        <source>Druids</source>
+        <target>Druiden</target>
+      </trans-unit>
+      <trans-unit id="6sANk5z" resname="Hunters">
+        <source>Hunters</source>
+        <target>Jäger</target>
+      </trans-unit>
+      <trans-unit id="kYsWhl1" resname="Shamans">
+        <source>Shamans</source>
+        <target>Shamanen</target>
+      </trans-unit>
+      <trans-unit id="hUZqOE8" resname="Paladins">
+        <source>Paladins</source>
+        <target>Paladine</target>
+      </trans-unit>
+      <trans-unit id="W4qgvzx" resname="Unspecified">
+        <source>Unspecified</source>
+        <target>Unklar</target>
+      </trans-unit>
+      <trans-unit id="drT3.Eq" resname="Raid Attendance">
+        <source>Raid Attendance</source>
+        <target>Raid Anwesenheit</target>
+      </trans-unit>
+      <trans-unit id="2NosSd8" resname="Note">
+        <source>Note</source>
+        <target>Notiz</target>
+      </trans-unit>
+      <trans-unit id="mcQKtAW" resname="Date">
+        <source>Date</source>
+        <target>Datum</target>
+      </trans-unit>
+      <trans-unit id="g4MfTvY" resname="Loots">
+        <source>Loots</source>
+        <target>Beute</target>
+      </trans-unit>
+      <trans-unit id="g558A1M" resname="Loot">
+        <source>Loot</source>
+        <target>Beute</target>
+      </trans-unit>
+      <trans-unit id="o2epzqf" resname="Create character">
+        <source>Create character</source>
+        <target>Charakter erstellen</target>
+      </trans-unit>
+      <trans-unit id="Tzqb0AO" resname="Class">
+        <source>Class</source>
+        <target>Klasse</target>
+      </trans-unit>
+      <trans-unit id="m9wTN9c" resname="Spec">
+        <source>Spec</source>
+        <target>Spezialisierung</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Aktionen</target>
+      </trans-unit>
+      <trans-unit id="RkxP.QG" resname="Edit">
+        <source>Edit</source>
+        <target>Bearbeiten</target>
+      </trans-unit>
+      <trans-unit id="E30Ik6r" resname="BiS list">
+        <source>BiS list</source>
+        <target>BiS Liste</target>
+      </trans-unit>
+      <trans-unit id="sB0yGrE" resname="If you do not want to raid with one of your twinks, but will attend with a main character, don't &quot;cancel&quot; with the twink">
+        <source>If you do not want to raid with one of your twinks, but will attend with a main character, don't "cancel" with the twink</source>
+        <target>Wenn du mit einem deiner Twinks nicht raiden willst, drücke NICHT "abmelden" bei diesem Twink.</target>
+      </trans-unit>
+      <trans-unit id="O66cYan" resname="Need by Item">
+        <source>Need by Item</source>
+        <target>Bedarf nach Gegenstand</target>
+      </trans-unit>
+      <trans-unit id="i98.125" resname="Players still needing this item">
+        <source>Players still needing this item</source>
+        <target>Spieler, die diesen Gegenstand noch benötigen</target>
+      </trans-unit>
+      <trans-unit id="m7CqzG1" resname="Head">
+        <source>Head</source>
+        <target>Kopf</target>
+      </trans-unit>
+      <trans-unit id="ayepcVG" resname="Neck">
+        <source>Neck</source>
+        <target>Hals</target>
+      </trans-unit>
+      <trans-unit id="ULfnRDF" resname="Shoulder">
+        <source>Shoulder</source>
+        <target>Schulter</target>
+      </trans-unit>
+      <trans-unit id="dpAPG.0" resname="Back">
+        <source>Back</source>
+        <target>Rücken</target>
+      </trans-unit>
+      <trans-unit id="N42DgII" resname="Chest">
+        <source>Chest</source>
+        <target>Brust</target>
+      </trans-unit>
+      <trans-unit id="DfGY9Kj" resname="Wrist">
+        <source>Wrist</source>
+        <target>Handgelenke</target>
+      </trans-unit>
+      <trans-unit id="a3IEd4a" resname="Hands">
+        <source>Hands</source>
+        <target>Hände</target>
+      </trans-unit>
+      <trans-unit id="hHDfZiZ" resname="Waist">
+        <source>Waist</source>
+        <target>Gürtel</target>
+      </trans-unit>
+      <trans-unit id="OFV1lND" resname="Legs">
+        <source>Legs</source>
+        <target>Hosen</target>
+      </trans-unit>
+      <trans-unit id="xZ6Wq8S" resname="Feet">
+        <source>Feet</source>
+        <target>Stiefel</target>
+      </trans-unit>
+      <trans-unit id="s.lS6LZ" resname="Ring">
+        <source>Ring</source>
+        <target>Ring</target>
+      </trans-unit>
+      <trans-unit id="riPBDOc" resname="Trinket">
+        <source>Trinket</source>
+        <target>Schmuck</target>
+      </trans-unit>
+      <trans-unit id="7TiX8Tb" resname="Main Hand">
+        <source>Main Hand</source>
+        <target>Haupthand</target>
+      </trans-unit>
+      <trans-unit id="p7rHPtv" resname="Off-Hand">
+        <source>Off-Hand</source>
+        <target>Nebenhand</target>
+      </trans-unit>
+      <trans-unit id="PwtRokk" resname="Ranged">
+        <source>Ranged</source>
+        <target>Fernkampf</target>
+      </trans-unit>
+      <trans-unit id="Ol7MoYj" resname="Updated">
+        <source>Updated</source>
+        <target>geändert</target>
+      </trans-unit>
+      <trans-unit id="ZSvMOke" resname="Item">
+        <source>Item</source>
+        <target>Gegenstand</target>
+      </trans-unit>
+      <trans-unit id="z0i.GLA" resname="Needed">
+        <source>Needed</source>
+        <target>Benötigt</target>
+      </trans-unit>
+      <trans-unit id="5nREczf" resname="Available">
+        <source>Available</source>
+        <target>Verfügbar</target>
+      </trans-unit>
+      <trans-unit id="Jkm.h6J" resname="Show Players">
+        <source>Show Players</source>
+        <target>Zeige Spieler</target>
+      </trans-unit>
+      <trans-unit id="7KWSAud" resname="Show players with need">
+        <source>Show players with need</source>
+        <target>Zeige Spieler mit Bedarf</target>
+      </trans-unit>
+      <trans-unit id="ef6QVGs" resname="BiS by Zone">
+        <source>BiS by Zone</source>
+        <target>BiS nach Zone</target>
+      </trans-unit>
+      <trans-unit id="o8HSeY2" resname="Zone with BiS Items">
+        <source>Zone with BiS Items</source>
+        <target>Zone mit BiS Gegenständen</target>
+      </trans-unit>
+      <trans-unit id="HMtfRHP" resname="Players with need">
+        <source>Players with need</source>
+        <target>Spieler mit Bedarf</target>
+      </trans-unit>
+      <trans-unit id="L8NfDIa" resname="Sign ups">
+        <source>Sign ups</source>
+        <target>Anmeldungen</target>
+      </trans-unit>
+      <trans-unit id="gYhGQyB" resname="Save Team Assignment">
+        <source>Save Team Assignment</source>
+        <target>Speichere Team Zuordnung</target>
+      </trans-unit>
+      <trans-unit id="Uuok8ew" resname="Cancellations">
+        <source>Cancellations</source>
+        <target>Abmeldungen</target>
+      </trans-unit>
+      <trans-unit id="R9_0MIl" resname="Choose a raid in order to sign up">
+        <source>Choose a raid in order to sign up</source>
+        <target>Wähle einen Raid aus, um dich anzumelden</target>
+      </trans-unit>
+      <trans-unit id="DtlX8vH" resname="Sign up!">
+        <source>Sign up!</source>
+        <target>Melde Dich an!</target>
+      </trans-unit>
+      <trans-unit id="fZyeMXN" resname="SignUp is closed">
+        <source>SignUp is closed</source>
+        <target>Anmeldung ist geschlossen</target>
+      </trans-unit>
+      <trans-unit id="4ujZX8Z" resname="Attendees">
+        <source>Attendees</source>
+        <target>Teilnehmer</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

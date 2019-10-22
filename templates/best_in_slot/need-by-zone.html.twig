@@ -1,18 +1,18 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/macros.html.twig' as macros %}
-{% block title %}Need by Zone{% if bisItems is defined %} {{ zones.zoneName(zone) }}{% endif %}{% endblock %}
+{% block title %}{% trans %}Need by Zone{% endtrans %}{% if bisItems is defined %} {{ zones.zoneName(zone) }}{% endif %}{% endblock %}
 
 {% block body %}
     <div class="content-section bg-primary text-white">
         <div class="container">
-            <h1>BiS by Zone{% if bisItems is defined %} {{ zones.zoneName(zone) }}{% endif %}</h1>
+            <h1>{% trans %}BiS by Zone{% endtrans %}{% if bisItems is defined %} {{ zones.zoneName(zone) }}{% endif %}</h1>
         </div>
     </div>
     <div class="content-section bg-transparent">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <h5>Zone with BiS Items</h5>
+                    <h5>{% trans %}Zone with BiS Items{% endtrans %}</h5>
                     <div class="list-group">
                         {% for item in items %}
                             <a class="list-group-item list-group-item-action{% if item.zone == zone %} active{% endif %}" href="{{ path('bis_need_by_zone', {zoneId: item.zone}) }}">{{ zones.zoneName(item.zone) }} ({{ item.amount }})</a>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-sm-6">
                     {% if bisItems is defined %}
-                        <h5>Players with need</h5>
+                        <h5>{% trans %}Players with need{% endtrans %}</h5>
                         <ul class="list-group">
                         {% for bisEntry in bisItems %}
                             <li class="list-group-item">

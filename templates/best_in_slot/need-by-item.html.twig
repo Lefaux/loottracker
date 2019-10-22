@@ -1,11 +1,11 @@
 {% extends 'base.html.twig' %}
 {% import 'macros/macros.html.twig' as macros %}
-{% block title %}Need by Item{% endblock %}
+{% block title %}{% trans %}Need by Item{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="content-section bg-primary text-white">
         <div class="container">
-            <h1>Most Wanted Items</h1>
+            <h1>{% trans %}Most Wanted Items{% endtrans %}</h1>
         </div>
     </div>
     <div class="content-section bg-transparent">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="col-sm-6">
                     <ul class="list-group">
-                        <li class="list-group-item active">Players still needing this item</li>
+                        <li class="list-group-item active">{% trans %}Players still needing this item{% endtrans %}</li>
                         {% for bisEntry in chars %}
                             <li class="list-group-item">
                                 {% if bisEntry.playerCharacter.spec == 1 %}

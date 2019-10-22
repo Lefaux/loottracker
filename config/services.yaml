@@ -21,6 +21,7 @@ parameters:
         '2': 'Healer'
         '3': 'DPS'
     layout: '%env(LAYOUT)%'
+    app.supported_locales: ['en', 'de']
 
 services:
     # default configuration for services in *this* file
