@@ -110,9 +110,9 @@ class RaidController extends AbstractController
         $showSignUpForm = false;
         if ($event) {
             $activeRaid = $this->eventRepository->find($event);
-            $now = time();
-            $eventTime = $activeRaid->getStart()->getTimestamp();
-            if (($eventTime - $now) > ($this->signUpBlockedBeforeHours * 3600)) {
+            $eventTime = $activeRaid->getStart();
+            $eventTime->sub(new \DateInterval('PT6H'));
+            if ($eventTime  > new \DateTime('now', new \DateTimeZone('UTC'))) {
                 $showSignUpForm = true;
             }
             $signUps = $this->signUpRepository->findBy(
