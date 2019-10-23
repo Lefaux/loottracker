@@ -109,6 +109,16 @@
                     {% else %}
                         <h3>{% trans %}SignUp is closed{% endtrans %}</h3>
                     {% endif %}
+                    <table class="table table-sm">
+                        <tr>
+                            <td>End of Sign up:</td>
+                            <td>{{ endOfSignUp|date('d.m.Y H:i') }}</td>
+                        </tr>
+                        <tr>
+                            <td>Server Time:</td>
+                            <td>{{ serverTime|date('d.m.Y H:i') }}</td>
+                        </tr>
+                    </table>
                 {% endif %}
             </div>
         </div>

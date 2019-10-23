@@ -9,6 +9,9 @@ use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidRepository;
 use App\Repository\SignupRepository;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,12 +41,6 @@ class RaidController extends AbstractController
      * @var SignupRepository
      */
     private $signUpRepository;
-
-    /**
-     * The number of hours before an event in which sign-ups are not possible
-     * @var int
-     */
-    private $signUpBlockedBeforeHours = 60;
 
     public function __construct(
         RaidRepository $raidRepository,
@@ -108,11 +105,16 @@ class RaidController extends AbstractController
         $signUps = null;
         $cancellations = null;
         $showSignUpForm = false;
+        $eventTime = null;
+        $serverTime = null;
         if ($event) {
             $activeRaid = $this->eventRepository->find($event);
             $eventTime = $activeRaid->getStart();
-            $eventTime->sub(new \DateInterval('PT6H'));
-            if ($eventTime  > new \DateTime('now', new \DateTimeZone('UTC'))) {
+            if ($eventTime) {
+                $eventTime->sub(new DateInterval('PT6H'));
+            }
+            $serverTime = new DateTime('now', new DateTimeZone('UTC'));
+            if ($eventTime  > $serverTime) {
                 $showSignUpForm = true;
             }
             $signUps = $this->signUpRepository->findBy(
@@ -134,6 +136,8 @@ class RaidController extends AbstractController
             'signUps' => $signUps,
             'cancellations' => $cancellations,
             'showSignUpForm' => $showSignUpForm,
+            'endOfSignUp' => $eventTime,
+            'serverTime' => $serverTime,
             'account' => $this->getUser()
         ]);
     }
@@ -201,7 +205,6 @@ class RaidController extends AbstractController
             }
         }
         $this->entityManager->flush();
-        $foo = '';
         return $this->redirectToRoute('raid_signup', ['event' => $eventId]);
     }
 
