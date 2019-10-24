@@ -1,3 +1,12 @@
+{% set route = app.request.attributes.get('_route') %}
+{% set route_params = app.request.attributes.get('_route_params') %}
+{% set params = route_params|merge(app.request.query.all) %}
+{% if app.request.locale == 'de' %}
+    {% set wowheaddomain = 'de.classic' %}
+{% else %}
+    {% set wowheaddomain = 'classic' %}
+{% endif %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,6 +79,11 @@
                     </div>
                     <div class="page-footer-menu">
                         {{ knp_menu_render('main-footer', {'template':'menu/navbar.html.twig'}) }}
+                    </div>
+                    <div class="">
+                        {% for locale in locales if locale != app.request.locale %}
+                            <a href="{{ path(route, params|merge({ _locale: locale })) }}"><img src="{{ asset('assets/icons/flag_' ~ locale ~ '.png') }}" alt="{{ locale }}"></a>
+                        {% endfor %}
                     </div>
                 </div>
             </div>

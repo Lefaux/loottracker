@@ -14,7 +14,7 @@
                     <h3>{{ character.name }}</h3>
                     <ul class="list-group">
                         {% for slotIdFromUtility, slotName in slotUtility.toArray %}
-                            {{ macros.bisSelection(character.id, slotIdFromUtility, slotId, slotUtility, bisItems)}}
+                            {{ macros.bisSelection(character.id, slotIdFromUtility, slotId, slotUtility, bisItems, wowheaddomain)}}
                         {% endfor %}
                     </ul>
                 </div>
@@ -25,9 +25,9 @@
                         <form action="{{ path('save_bis', {charId: character.id, slot: slotId}) }}" method="post">
                         <h3 id="slots" data-slotids="{{ slotId }}">{{ slotUtility.slotName(slotId) }}</h3>
                         <div class="card-deck">
-                            {{ macros.itemDisplay(1, bisItems[slotId].1, slotId, character.id) }}
-                            {{ macros.itemDisplay(2, bisItems[slotId].2, slotId, character.id) }}
-                            {{ macros.itemDisplay(3, bisItems[slotId].3, slotId, character.id) }}
+                            {{ macros.itemDisplay(1, bisItems[slotId].1, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(2, bisItems[slotId].2, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(3, bisItems[slotId].3, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
                         <input type="submit" class="btn btn-success" value="{% trans %}Save{% endtrans %}">

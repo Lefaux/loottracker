@@ -4,6 +4,8 @@
 namespace App\Utility;
 
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 class WowSpecUtility
 {
     public const SPEC_UNSPECIFIED = 0;
@@ -19,6 +21,16 @@ class WowSpecUtility
     ];
 
     /**
+     * @var TranslatorInterface
+     */
+    private static $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        self::$translator = $translator;
+    }
+
+    /**
      * @param int $specId
      * @return string
      */
@@ -26,13 +38,13 @@ class WowSpecUtility
     {
         switch ($specId) {
             case self::SPEC_TANK:
-                return 'Tank';
+                return self::$translator->trans('Tank');
             case self::SPEC_HEALER:
-                return 'Healer';
+                return self::$translator->trans('Healer');
             case self::SPEC_DPS:
-                return 'DPS';
+                return self::$translator->trans('DPS');
             default:
-                return 'Unspecified';
+                return self::$translator->trans('Unspecified');
         }
     }
 

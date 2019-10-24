@@ -5,6 +5,7 @@ twig:
         layout: '%env(LAYOUT)%'
         siteName: '%env(SITENAME)%'
         footer: '%env(FOOTER)%'
+        locales: '%app.supported_locales%'
     strict_variables: '%kernel.debug%'
     form_themes:
         - 'bootstrap_4_layout.html.twig'

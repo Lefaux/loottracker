@@ -4,6 +4,8 @@
 namespace App\Utility;
 
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 class WowRaceUtility
 {
     public const RACE_UNSPECIFIED = 0;
@@ -21,6 +23,16 @@ class WowRaceUtility
     ];
 
     /**
+     * @var TranslatorInterface
+     */
+    private static $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        self::$translator = $translator;
+    }
+
+    /**
      * @param $raceId
      * @return string
      */
@@ -28,15 +40,15 @@ class WowRaceUtility
     {
         switch ($raceId) {
             case self::RACE_NIGHTELF:
-                return 'Nightelf';
+                return self::$translator->trans('Nightelf');
             case self::RACE_HUMAN:
-                return 'Human';
+                return self::$translator->trans('Human');
             case self::RACE_DWARF:
-                return 'Dwarf';
+                return self::$translator->trans('Dwarf');
             case self::RACE_GNOME:
-                return 'Gnome';
+                return self::$translator->trans('Gnome');
             default:
-                return 'Unspecified';
+                return self::$translator->trans('Unspecified');
         }
     }
 

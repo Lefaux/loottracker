@@ -1,12 +1,12 @@
-{% macro itemicon(slot, slotNumber, priority, size='small') %}
+{% macro itemicon(slot, slotNumber, priority, wowheaddomain, size='small') %}
     {% if slot[slotNumber][priority] is not null %}
         {% if slot[slotNumber][priority].hasItem %}
             <div class="bis-list-icon hasitem bis-icon-{{ size }}">
-                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain=classic" data-wh-icon-size="{{size}}"></a>
+                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="{{size}}"></a>
             </div>
         {% else %}
             <div class="bis-list-icon missesitem bis-icon-{{ size }}">
-                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain=classic" data-wh-icon-size="{{size}}"><img alt="" class="low-contrast-icon" src="/assets/icons/items/{{slot[slotNumber][priority].item.icon }}-{{ size }}.png"> </a>
+                <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="{{size}}"><img alt="" class="low-contrast-icon" src="/assets/icons/items/{{slot[slotNumber][priority].item.icon }}-{{ size }}.png"> </a>
             </div>
         {% endif %}
     {% else %}
@@ -16,7 +16,7 @@
     {% endif %}
 {% endmacro %}
 
-{% macro itemDisplay(priority, bisEntry, slotId, character) %}
+{% macro itemDisplay(priority, bisEntry, slotId, character, wowheaddomain) %}
     <div class="card mt-0">
         <div class="card-body">
             <h5 class="card-title">
@@ -33,7 +33,7 @@
                     <div class="bis-list d-flex justify-content-between">
                         <div class="bis-list-iconx">
                             <span class="guildbank-item-icon">
-                                <a href="#" data-wowhead="item={{ bisEntry.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                <a href="#" data-wowhead="item={{ bisEntry.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium"></a>
                             </span>
                         </div>
                         <div class="bis-list-remove">
@@ -59,7 +59,7 @@
     </div>
 {% endmacro %}
 
-{% macro bisSelection(character, slot, activeSlot, slotUtility, bisItems) %}
+{% macro bisSelection(character, slot, activeSlot, slotUtility, bisItems, wowheaddomain) %}
     {% import _self as itemIcons %}
     <li class="list-group-item {% if slot == activeSlot %} list-group-item-secondary{% endif %}">
         <div class="d-flex justify-content-between">
@@ -67,9 +67,9 @@
                 <a class="btn btn-outline-primary btn-block" title="{{ slotUtility.slotName(slot)}}" href="{{ path('character_bislist', {'charId': character, 'slotId': slot}) }}">{{ slotUtility.slotName(slot)}}</a>
             </div>
             <div class="p-2 bd-highlight d-flex">
-                <div class="mr-1">{{ itemIcons.itemicon(bisItems, slot, 1, 'medium') }}</div>
-                <div class="mr-1">{{ itemIcons.itemicon(bisItems, slot, 2, 'medium') }}</div>
-                <div class="">{{ itemIcons.itemicon(bisItems, slot, 3, 'medium') }}</div>
+                <div class="mr-1">{{ itemIcons.itemicon(bisItems, slot, 1, wowheaddomain, 'medium') }}</div>
+                <div class="mr-1">{{ itemIcons.itemicon(bisItems, slot, 2, wowheaddomain, 'medium') }}</div>
+                <div class="">{{ itemIcons.itemicon(bisItems, slot, 3, wowheaddomain, 'medium') }}</div>
             </div>
         </div>
     </li>

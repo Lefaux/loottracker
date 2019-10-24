@@ -33,45 +33,53 @@ class WowClassUtility
     ];
 
     /**
+     * @var TranslatorInterface
+     */
+    private static $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        self::$translator = $translator;
+    }
+
+    /**
      * @param int $classId
-     * @param TranslatorInterface $translator
      * @return string
      */
-    public static function getClassName(int $classId, TranslatorInterface $translator): string
+    public static function getClassName(int $classId): string
     {
         switch ($classId) {
             case self::CLASS_WARRIOR:
-                return $translator->trans('Warrior');
+                return self::$translator->trans('Warrior');
             case self::CLASS_PRIEST:
-                return 'Priest';
+                return self::$translator->trans('Priest');
             case self::CLASS_MAGE:
-                return 'Mage';
+                return self::$translator->trans('Mage');
             case self::CLASS_WARLOCK:
-                return 'Warlock';
+                return self::$translator->trans('Warlock');
             case self::CLASS_ROGUE:
-                return 'Rogue';
+                return self::$translator->trans('Rogue');
             case self::CLASS_DRUID:
-                return 'Druid';
+                return self::$translator->trans('Druid');
             case self::CLASS_HUNTER:
-                return 'Hunter';
+                return self::$translator->trans('Hunter');
             case self::CLASS_SHAMAN:
-                return 'Shaman';
+                return self::$translator->trans('Shaman');
             case self::CLASS_PALADIN:
-                return 'Paladin';
+                return self::$translator->trans('Paladin');
             default:
-                return 'Unspecified';
+                return self::$translator->trans('Unspecified');
         }
     }
 
     /**
-     * @param TranslatorInterface $translator
      * @return array
      */
-    public static function toArray(TranslatorInterface $translator): array
+    public static function toArray(): array
     {
         $array = [];
         foreach (self::ALL as $roleId) {
-            $array[$roleId] = self::getClassName($roleId, $translator);
+            $array[$roleId] = self::getClassName($roleId);
         }
         return $array;
     }

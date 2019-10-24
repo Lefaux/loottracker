@@ -36,7 +36,7 @@
                         <td>
                             {% for loot in attended.loots %}
                                 <span class="guildbank-item-icon">
-                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium"></a>
                                 </span>
                             {% endfor %}
                         </td>
@@ -48,7 +48,7 @@
                 {% for loot in character.loots %}
                     <li class="list-group-item">
                                 <span class="guildbank-item-icon">
-                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                    <a href="#" data-wowhead="item={{ loot.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium"></a>
                                 </span>
                         {{ loot.item.name }} > <a href="{{ path('raid_show', {'raidId': loot.raid.id}) }}">{{ loot.raid.note }}</a>
                     </li>

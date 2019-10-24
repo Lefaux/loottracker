@@ -24,7 +24,7 @@
                     {% for character in characters %}
                         <tr>
                             <td>{{ character.name }}</td>
-                            <td>{{ character.getClassName() }}</td>
+                            <td>{{ classUtility.className(character.class) }}</td>
                             <td>{{ character.getSpecName() }}</td>
                             <td class="text-right">
                                 <a href="{{ path('character_update', {'charId': character.id}) }}" class="btn btn-primary">

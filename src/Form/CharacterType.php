@@ -15,13 +15,33 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class CharacterType extends AbstractType
 {
+    /**
+     * @var WowRaceUtility
+     */
+    private $race;
+    /**
+     * @var WowClassUtility
+     */
+    private $class;
+    /**
+     * @var WowSpecUtility
+     */
+    private $spec;
+
+    public function __construct(WowRaceUtility $wowRaceUtility, WowClassUtility $wowClassUtility, WowSpecUtility $wowSpecUtility)
+    {
+        $this->race = $wowRaceUtility;
+        $this->class = $wowClassUtility;
+        $this->spec = $wowSpecUtility;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('class', ChoiceType::class,
                 [
                     'required' => true,
-                    'choices' => array_flip(WowClassUtility::toArray())
+                    'choices' => array_flip($this->class::toArray())
                 ]
             )
             ->add('spec', ChoiceType::class,

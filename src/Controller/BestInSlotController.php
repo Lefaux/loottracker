@@ -41,8 +41,11 @@ class BestInSlotController extends AbstractController
 
     /**
      * @Route("/bis", name="best_in_slot")
+     * @param WowClassUtility $wowClassUtility
+     * @param WowRaceUtility $wowRaceUtility
+     * @return Response
      */
-    public function indexAction(): Response
+    public function indexAction(WowClassUtility $wowClassUtility, WowRaceUtility $wowRaceUtility): Response
     {
         $bisListAndPlayers = [];
         $chars = $this->characterRepository->findAll();
@@ -135,8 +138,8 @@ class BestInSlotController extends AbstractController
         }
         return $this->render('best_in_slot/index.html.twig', [
             'bis' => $bisListAndPlayers,
-            'classUtility' => new WowClassUtility(),
-            'raceUtility' => new WowRaceUtility()
+            'classUtility' => $wowClassUtility,
+            'raceUtility' => $wowRaceUtility
         ]);
     }
 
@@ -153,9 +156,11 @@ class BestInSlotController extends AbstractController
     /**
      * @Route("/bis/needbyitem/{itemId}", name="bis_need_by_item")
      * @param int $itemId
+     * @param WowClassUtility $wowClassUtility
+     * @param WowRaceUtility $wowRaceUtility
      * @return Response
      */
-    public function needByItem(int $itemId): Response
+    public function needByItem(int $itemId, WowClassUtility $wowClassUtility, WowRaceUtility $wowRaceUtility): Response
     {
         $item = $this->itemRepository->find($itemId);
         $chars = $this->bisRepository->findBy(
@@ -168,8 +173,8 @@ class BestInSlotController extends AbstractController
             [
                 'chars' => $chars,
                 'item' => $item,
-                'classUtility' => new WowClassUtility(),
-                'raceUtility' => new WowRaceUtility()
+                'classUtility' => $wowClassUtility,
+                'raceUtility' => $wowRaceUtility
             ]
         );
     }
@@ -177,9 +182,11 @@ class BestInSlotController extends AbstractController
     /**
      * @Route("/bis/needbyzone/{zoneId?}", name="bis_need_by_zone")
      * @param $zoneId
+     * @param WowSpecUtility $wowSpecUtility
+     * @param WoWZoneUtility $wowZoneUtility
      * @return Response
      */
-    public function needByZone($zoneId): Response
+    public function needByZone($zoneId, WowSpecUtility $wowSpecUtility, WoWZoneUtility $wowZoneUtility): Response
     {
         $bisItems = null;
         if ((int)$zoneId > 0) {
@@ -187,8 +194,8 @@ class BestInSlotController extends AbstractController
         }
         $items = $this->bisRepository->findItemsByZone();
         return $this->render('best_in_slot/need-by-zone.html.twig', [
-            'zones' => new WoWZoneUtility(),
-            'specs' => new WowSpecUtility(),
+            'zones' => $wowZoneUtility,
+            'specs' => $wowSpecUtility,
             'items' => $items,
             'bisItems' => $bisItems,
             'zone' => $zoneId

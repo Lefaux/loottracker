@@ -32,7 +32,7 @@
                     {% for item in raid.loots %}
                         <li class="list-group-item">
                             <span class="guildbank-item-icon">
-                                <a href="#" data-wowhead="item={{ item.item.id }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                <a href="#" data-wowhead="item={{ item.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium"></a>
                             </span>
                             {{ item.item.name }} > <a href="{{ path('character', {'charId': item.player.id}) }}">{{ item.player.name }}</a>
                         </li>

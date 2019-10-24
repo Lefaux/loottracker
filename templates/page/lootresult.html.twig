@@ -19,7 +19,7 @@
                     {% for loots in raid.loots %}
                         <tr>
                             <td>
-                                    <a href="#" data-wowhead="item={{loots.item.id}}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                    <a href="#" data-wowhead="item={{loots.item.id}}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium"></a>
                             </td>
                             <td>{{ loots.item.name }}</td>
                             <td>looted by / given to</td>

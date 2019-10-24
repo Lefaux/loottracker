@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\HasWowClass;
 use App\Entity\Traits\HasWowSpec;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -15,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Character
 {
-    use HasWowClass, HasWowSpec;
+    use HasWowSpec;
 
     /**
      * @ORM\Id()

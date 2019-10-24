@@ -13,8 +13,12 @@ use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LootRepository;
+use App\Utility\WowClassUtility;
+use App\Utility\WowRaceUtility;
 use App\Utility\WowSlotUtility;
+use App\Utility\WowSpecUtility;
 use Doctrine\ORM\EntityManagerInterface;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,13 +99,21 @@ class CharacterController extends AbstractController
 
     /**
      * @Route("/profile/characters", name="profile_character")
+     * @param WowClassUtility $wowClassUtility
+     * @param WowSpecUtility $wowSpecUtility
+     * @param WowRaceUtility $wowRaceUtility
      * @return Response
      */
-    public function myCharactersAction(): Response
+    public function myCharactersAction(WowClassUtility $wowClassUtility, WowSpecUtility $wowSpecUtility, WowRaceUtility $wowRaceUtility): Response
     {
         $characters = $this->characterRepository->findBy(['account' => $this->getUser()]);
 
-        return $this->render('user/my_characters.html.twig', ['characters' => $characters]);
+        return $this->render('user/my_characters.html.twig', [
+            'characters' => $characters,
+            'raceUtility' => $wowRaceUtility,
+            'specUtility' => $wowSpecUtility,
+            'classUtility' => $wowClassUtility
+        ]);
     }
 
     /**
@@ -176,15 +188,15 @@ class CharacterController extends AbstractController
      * @param Request $request
      * @param int $charId
      * @param int $slotId
+     * @param WowSlotUtility $wowSlotUtility
      * @return Response
      */
-    public function bisListViewAction(Request $request, int $charId, $slotId): Response
+    public function bisListViewAction(Request $request, int $charId, $slotId, WowSlotUtility $wowSlotUtility): Response
     {
         $character = $this->characterRepository->find($charId);
         $items = $this->lootRequirementRepository->findBy([
             'playerCharacter' => $character,
         ]);
-        $wowSlotUtility = new WowSlotUtility();
         $bisItems = [];
         foreach ($wowSlotUtility::toArray() as $slotIdFromUtility => $_) {
             $bisItems[$slotIdFromUtility] = [
@@ -236,6 +248,7 @@ class CharacterController extends AbstractController
      * @param int $charId
      * @param int $slot
      * @return Response
+     * @throws Exception
      */
     public function deleteBis(Request $request, int $charId, int $slot): Response
     {

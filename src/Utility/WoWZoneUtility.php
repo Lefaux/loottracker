@@ -2,6 +2,8 @@
 
 namespace App\Utility;
 
+use Symfony\Contracts\Translation\TranslatorInterface;
+
 class WoWZoneUtility
 {
 
@@ -1458,2915 +1460,2925 @@ class WoWZoneUtility
     public const ZONE_THESHADOWSTAIR = 3956;
     public const ZONE_SHATARIOUTPOST = 3957;
 
+    /**
+     * @var TranslatorInterface
+     */
+    private static $translator;
+
+    public function __construct(TranslatorInterface $translator)
+    {
+        self::$translator = $translator;
+    }
+
     public static function getZoneName($zoneId): string
     {
         switch ($zoneId) {
             case self::ZONE_DUNMOROGH:
-                return 'Dun Morogh';
+                return self::$translator->trans('Dun Morogh');
             case self::ZONE_LONGSHORE:
-                return 'Longshore';
+                return self::$translator->trans('Longshore');
             case self::ZONE_BADLANDS:
-                return 'Badlands';
+                return self::$translator->trans('Badlands');
             case self::ZONE_BLASTEDLANDS:
-                return 'Blasted Lands';
+                return self::$translator->trans('Blasted Lands');
             case self::ZONE_BLACKWATERCOVE:
-                return 'Blackwater Cove';
+                return self::$translator->trans('Blackwater Cove');
             case self::ZONE_SWAMPOFSORROWS:
-                return 'Swamp of Sorrows';
+                return self::$translator->trans('Swamp of Sorrows');
             case self::ZONE_NORTHSHIREVALLEY:
-                return 'Northshire Valley';
+                return self::$translator->trans('Northshire Valley');
             case self::ZONE_DUSKWOOD:
-                return 'Duskwood';
+                return self::$translator->trans('Duskwood');
             case self::ZONE_WETLANDS:
-                return 'Wetlands';
+                return self::$translator->trans('Wetlands');
             case self::ZONE_ELWYNNFOREST:
-                return 'Elwynn Forest';
+                return self::$translator->trans('Elwynn Forest');
             case self::ZONE_THEWORLDTREE:
-                return 'The World Tree';
+                return self::$translator->trans('The World Tree');
             case self::ZONE_DUROTAR:
-                return 'Durotar';
+                return self::$translator->trans('Durotar');
             case self::ZONE_DUSTWALLOWMARSH:
-                return 'Dustwallow Marsh';
+                return self::$translator->trans('Dustwallow Marsh');
             case self::ZONE_AZSHARA:
-                return 'Azshara';
+                return self::$translator->trans('Azshara');
             case self::ZONE_THEBARRENS:
-                return 'The Barrens';
+                return self::$translator->trans('The Barrens');
             case self::ZONE_CRYSTALLAKE:
-                return 'Crystal Lake';
+                return self::$translator->trans('Crystal Lake');
             case self::ZONE_ZULGURUB:
-                return 'Zul\'Gurub';
+                return self::$translator->trans('Zul\'Gurub');
             case self::ZONE_MOONBROOK:
-                return 'Moonbrook';
+                return self::$translator->trans('Moonbrook');
             case self::ZONE_KULTIRAS:
-                return 'Kul Tiras';
+                return self::$translator->trans('Kul Tiras');
             case self::ZONE_PROGRAMMERISLE:
-                return 'Programmer Isle';
+                return self::$translator->trans('Programmer Isle');
             case self::ZONE_NORTHSHIRERIVER:
-                return 'Northshire River';
+                return self::$translator->trans('Northshire River');
             case self::ZONE_NORTHSHIREABBEY:
-                return 'Northshire Abbey';
+                return self::$translator->trans('Northshire Abbey');
             case self::ZONE_BLACKROCKMOUNTAIN:
-                return 'Blackrock Mountain';
+                return self::$translator->trans('Blackrock Mountain');
             case self::ZONE_LIGHTHOUSE:
-                return 'Lighthouse';
+                return self::$translator->trans('Lighthouse');
             case self::ZONE_WESTERNPLAGUELANDS:
-                return 'Western Plaguelands';
+                return self::$translator->trans('Western Plaguelands');
             case self::ZONE_NINE:
-                return 'Nine';
+                return self::$translator->trans('Nine');
             case self::ZONE_THECEMETARY:
-                return 'The Cemetary';
+                return self::$translator->trans('The Cemetary');
             case self::ZONE_STRANGLETHORNVALE:
-                return 'Stranglethorn Vale';
+                return self::$translator->trans('Stranglethorn Vale');
             case self::ZONE_ECHORIDGEMINE:
-                return 'Echo Ridge Mine';
+                return self::$translator->trans('Echo Ridge Mine');
             case self::ZONE_BOOTYBAY:
-                return 'Booty Bay';
+                return self::$translator->trans('Booty Bay');
             case self::ZONE_ALTERACMOUNTAINS:
-                return 'Alterac Mountains';
+                return self::$translator->trans('Alterac Mountains');
             case self::ZONE_LAKENAZFERITI:
-                return 'Lake Nazferiti';
+                return self::$translator->trans('Lake Nazferiti');
             case self::ZONE_LOCHMODAN:
-                return 'Loch Modan';
+                return self::$translator->trans('Loch Modan');
             case self::ZONE_WESTFALL:
-                return 'Westfall';
+                return self::$translator->trans('Westfall');
             case self::ZONE_DEADWINDPASS:
-                return 'Deadwind Pass';
+                return self::$translator->trans('Deadwind Pass');
             case self::ZONE_DARKSHIRE:
-                return 'Darkshire';
+                return self::$translator->trans('Darkshire');
             case self::ZONE_WILDSHORE:
-                return 'Wild Shore';
+                return self::$translator->trans('Wild Shore');
             case self::ZONE_REDRIDGEMOUNTAINS:
-                return 'Redridge Mountains';
+                return self::$translator->trans('Redridge Mountains');
             case self::ZONE_ARATHIHIGHLANDS:
-                return 'Arathi Highlands';
+                return self::$translator->trans('Arathi Highlands');
             case self::ZONE_BURNINGSTEPPES:
-                return 'Burning Steppes';
+                return self::$translator->trans('Burning Steppes');
             case self::ZONE_THEHINTERLANDS:
-                return 'The Hinterlands';
+                return self::$translator->trans('The Hinterlands');
             case self::ZONE_DEADMANSHOLE:
-                return 'Dead Man\'s Hole';
+                return self::$translator->trans('Dead Man\'s Hole');
             case self::ZONE_SEARINGGORGE:
-                return 'Searing Gorge';
+                return self::$translator->trans('Searing Gorge');
             case self::ZONE_THIEVESCAMP:
-                return 'Thieves Camp';
+                return self::$translator->trans('Thieves Camp');
             case self::ZONE_JASPERLODEMINE:
-                return 'Jasperlode Mine';
+                return self::$translator->trans('Jasperlode Mine');
             case self::ZONE_VALLEYOFHEROES:
-                return 'Valley of Heroes';
+                return self::$translator->trans('Valley of Heroes');
             case self::ZONE_HEROESVIGIL:
-                return 'Heroes\' Vigil';
+                return self::$translator->trans('Heroes\' Vigil');
             case self::ZONE_FARGODEEPMINE:
-                return 'Fargodeep Mine';
+                return self::$translator->trans('Fargodeep Mine');
             case self::ZONE_NORTHSHIREVINEYARDS:
-                return 'Northshire Vineyards';
+                return self::$translator->trans('Northshire Vineyards');
             case self::ZONE_FORESTSEDGE:
-                return 'Forest\'s Edge';
+                return self::$translator->trans('Forest\'s Edge');
             case self::ZONE_THUNDERFALLS:
-                return 'Thunder Falls';
+                return self::$translator->trans('Thunder Falls');
             case self::ZONE_BRACKWELLPUMPKINPATCH:
-                return 'Brackwell Pumpkin Patch';
+                return self::$translator->trans('Brackwell Pumpkin Patch');
             case self::ZONE_THESTONEFIELDFARM:
-                return 'The Stonefield Farm';
+                return self::$translator->trans('The Stonefield Farm');
             case self::ZONE_THEMACLUREVINEYARDS:
-                return 'The Maclure Vineyards';
+                return self::$translator->trans('The Maclure Vineyards');
             case self::ZONE_LAKEEVERSTILL:
-                return 'Lake Everstill';
+                return self::$translator->trans('Lake Everstill');
             case self::ZONE_LAKESHIRE:
-                return 'Lakeshire';
+                return self::$translator->trans('Lakeshire');
             case self::ZONE_STONEWATCH:
-                return 'Stonewatch';
+                return self::$translator->trans('Stonewatch');
             case self::ZONE_STONEWATCHFALLS:
-                return 'Stonewatch Falls';
+                return self::$translator->trans('Stonewatch Falls');
             case self::ZONE_THEDARKPORTAL:
-                return 'The Dark Portal';
+                return self::$translator->trans('The Dark Portal');
             case self::ZONE_THETAINTEDSCAR:
-                return 'The Tainted Scar';
+                return self::$translator->trans('The Tainted Scar');
             case self::ZONE_POOLOFTEARS:
-                return 'Pool of Tears';
+                return self::$translator->trans('Pool of Tears');
             case self::ZONE_STONARD:
-                return 'Stonard';
+                return self::$translator->trans('Stonard');
             case self::ZONE_FALLOWSANCTUARY:
-                return 'Fallow Sanctuary';
+                return self::$translator->trans('Fallow Sanctuary');
             case self::ZONE_ANVILMAR:
-                return 'Anvilmar';
+                return self::$translator->trans('Anvilmar');
             case self::ZONE_STORMWINDMOUNTAINS:
-                return 'Stormwind Mountains';
+                return self::$translator->trans('Stormwind Mountains');
             case self::ZONE_TIRISFALGLADES:
-                return 'Tirisfal Glades';
+                return self::$translator->trans('Tirisfal Glades');
             case self::ZONE_STONECAIRNLAKE:
-                return 'Stone Cairn Lake';
+                return self::$translator->trans('Stone Cairn Lake');
             case self::ZONE_GOLDSHIRE:
-                return 'Goldshire';
+                return self::$translator->trans('Goldshire');
             case self::ZONE_EASTVALELOGGINGCAMP:
-                return 'Eastvale Logging Camp';
+                return self::$translator->trans('Eastvale Logging Camp');
             case self::ZONE_MIRRORLAKEORCHARD:
-                return 'Mirror Lake Orchard';
+                return self::$translator->trans('Mirror Lake Orchard');
             case self::ZONE_TOWEROFAZORA:
-                return 'Tower of Azora';
+                return self::$translator->trans('Tower of Azora');
             case self::ZONE_MIRRORLAKE:
-                return 'Mirror Lake';
+                return self::$translator->trans('Mirror Lake');
             case self::ZONE_VULGOLOGREMOUND:
-                return 'Vul\'Gol Ogre Mound';
+                return self::$translator->trans('Vul\'Gol Ogre Mound');
             case self::ZONE_RAVENHILL:
-                return 'Raven Hill';
+                return self::$translator->trans('Raven Hill');
             case self::ZONE_REDRIDGECANYONS:
-                return 'Redridge Canyons';
+                return self::$translator->trans('Redridge Canyons');
             case self::ZONE_TOWEROFILGALAR:
-                return 'Tower of Ilgalar';
+                return self::$translator->trans('Tower of Ilgalar');
             case self::ZONE_ALTHERSMILL:
-                return 'Alther\'s Mill';
+                return self::$translator->trans('Alther\'s Mill');
             case self::ZONE_RETHBANCAVERNS:
-                return 'Rethban Caverns';
+                return self::$translator->trans('Rethban Caverns');
             case self::ZONE_REBELCAMP:
-                return 'Rebel Camp';
+                return self::$translator->trans('Rebel Camp');
             case self::ZONE_NESINGWARYSEXPEDITION:
-                return 'Nesingwary\'s Expedition';
+                return self::$translator->trans('Nesingwary\'s Expedition');
             case self::ZONE_KURZENSCOMPOUND:
-                return 'Kurzen\'s Compound';
+                return self::$translator->trans('Kurzen\'s Compound');
             case self::ZONE_RUINSOFZULKUNDA:
-                return 'Ruins of Zul\'Kunda';
+                return self::$translator->trans('Ruins of Zul\'Kunda');
             case self::ZONE_RUINSOFZULMAMWE:
-                return 'Ruins of Zul\'Mamwe';
+                return self::$translator->trans('Ruins of Zul\'Mamwe');
             case self::ZONE_THEVILEREEF:
-                return 'The Vile Reef';
+                return self::$translator->trans('The Vile Reef');
             case self::ZONE_MOSHOGGOGREMOUND:
-                return 'Mosh\'Ogg Ogre Mound';
+                return self::$translator->trans('Mosh\'Ogg Ogre Mound');
             case self::ZONE_THESTOCKPILE:
-                return 'The Stockpile';
+                return self::$translator->trans('The Stockpile');
             case self::ZONE_SALDEANSFARM:
-                return 'Saldean\'s Farm';
+                return self::$translator->trans('Saldean\'s Farm');
             case self::ZONE_SENTINELHILL:
-                return 'Sentinel Hill';
+                return self::$translator->trans('Sentinel Hill');
             case self::ZONE_FURLBROWSPUMPKINFARM:
-                return 'Furlbrow\'s Pumpkin Farm';
+                return self::$translator->trans('Furlbrow\'s Pumpkin Farm');
             case self::ZONE_JANGOLODEMINE:
-                return 'Jangolode Mine';
+                return self::$translator->trans('Jangolode Mine');
             case self::ZONE_GOLDCOASTQUARRY:
-                return 'Gold Coast Quarry';
+                return self::$translator->trans('Gold Coast Quarry');
             case self::ZONE_WESTFALLLIGHTHOUSE:
-                return 'Westfall Lighthouse';
+                return self::$translator->trans('Westfall Lighthouse');
             case self::ZONE_MISTYVALLEY:
-                return 'Misty Valley';
+                return self::$translator->trans('Misty Valley');
             case self::ZONE_GROMGOLBASECAMP:
-                return 'Grom\'gol Base Camp';
+                return self::$translator->trans('Grom\'gol Base Camp');
             case self::ZONE_WHELGARSEXCAVATIONSITE:
-                return 'Whelgar\'s Excavation Site';
+                return self::$translator->trans('Whelgar\'s Excavation Site');
             case self::ZONE_WESTBROOKGARRISON:
-                return 'Westbrook Garrison';
+                return self::$translator->trans('Westbrook Garrison');
             case self::ZONE_TRANQUILGARDENSCEMETERY:
-                return 'Tranquil Gardens Cemetery';
+                return self::$translator->trans('Tranquil Gardens Cemetery');
             case self::ZONE_ZUULDAIARUINS:
-                return 'Zuuldaia Ruins';
+                return self::$translator->trans('Zuuldaia Ruins');
             case self::ZONE_BALLALRUINS:
-                return 'Bal\'lal Ruins';
+                return self::$translator->trans('Bal\'lal Ruins');
             case self::ZONE_KALAIRUINS:
-                return 'Kal\'ai Ruins';
+                return self::$translator->trans('Kal\'ai Ruins');
             case self::ZONE_TKASHIRUINS:
-                return 'Tkashi Ruins';
+                return self::$translator->trans('Tkashi Ruins');
             case self::ZONE_BALIAMAHRUINS:
-                return 'Balia\'mah Ruins';
+                return self::$translator->trans('Balia\'mah Ruins');
             case self::ZONE_ZIATAJAIRUINS:
-                return 'Ziata\'jai Ruins';
+                return self::$translator->trans('Ziata\'jai Ruins');
             case self::ZONE_MIZJAHRUINS:
-                return 'Mizjah Ruins';
+                return self::$translator->trans('Mizjah Ruins');
             case self::ZONE_SILVERPINEFOREST:
-                return 'Silverpine Forest';
+                return self::$translator->trans('Silverpine Forest');
             case self::ZONE_KHARANOS:
-                return 'Kharanos';
+                return self::$translator->trans('Kharanos');
             case self::ZONE_COLDRIDGEVALLEY:
-                return 'Coldridge Valley';
+                return self::$translator->trans('Coldridge Valley');
             case self::ZONE_GNOMEREGAN:
-                return 'Gnomeregan';
+                return self::$translator->trans('Gnomeregan');
             case self::ZONE_GOLBOLARQUARRY:
-                return 'Gol\'Bolar Quarry';
+                return self::$translator->trans('Gol\'Bolar Quarry');
             case self::ZONE_FROSTMANEHOLD:
-                return 'Frostmane Hold';
+                return self::$translator->trans('Frostmane Hold');
             case self::ZONE_THEGRIZZLEDDEN:
-                return 'The Grizzled Den';
+                return self::$translator->trans('The Grizzled Den');
             case self::ZONE_BREWNALLVILLAGE:
-                return 'Brewnall Village';
+                return self::$translator->trans('Brewnall Village');
             case self::ZONE_MISTYPINEREFUGE:
-                return 'Misty Pine Refuge';
+                return self::$translator->trans('Misty Pine Refuge');
             case self::ZONE_EASTERNPLAGUELANDS:
-                return 'Eastern Plaguelands';
+                return self::$translator->trans('Eastern Plaguelands');
             case self::ZONE_TELDRASSIL:
-                return 'Teldrassil';
+                return self::$translator->trans('Teldrassil');
             case self::ZONE_IRONBANDSEXCAVATIONSITE:
-                return 'Ironband\'s Excavation Site';
+                return self::$translator->trans('Ironband\'s Excavation Site');
             case self::ZONE_MOGROSHSTRONGHOLD:
-                return 'Mo\'grosh Stronghold';
+                return self::$translator->trans('Mo\'grosh Stronghold');
             case self::ZONE_THELSAMAR:
-                return 'Thelsamar';
+                return self::$translator->trans('Thelsamar');
             case self::ZONE_ALGAZGATE:
-                return 'Algaz Gate';
+                return self::$translator->trans('Algaz Gate');
             case self::ZONE_STONEWROUGHTDAM:
-                return 'Stonewrought Dam';
+                return self::$translator->trans('Stonewrought Dam');
             case self::ZONE_THEFARSTRIDERLODGE:
-                return 'The Farstrider Lodge';
+                return self::$translator->trans('The Farstrider Lodge');
             case self::ZONE_DARKSHORE:
-                return 'Darkshore';
+                return self::$translator->trans('Darkshore');
             case self::ZONE_SILVERSTREAMMINE:
-                return 'Silver Stream Mine';
+                return self::$translator->trans('Silver Stream Mine');
             case self::ZONE_MENETHILHARBOR:
-                return 'Menethil Harbor';
+                return self::$translator->trans('Menethil Harbor');
             case self::ZONE_DESIGNERISLAND:
-                return 'Designer Island';
+                return self::$translator->trans('Designer Island');
             case self::ZONE_THEBULWARK:
-                return 'The Bulwark';
+                return self::$translator->trans('The Bulwark');
             case self::ZONE_RUINSOFLORDAERON:
-                return 'Ruins of Lordaeron';
+                return self::$translator->trans('Ruins of Lordaeron');
             case self::ZONE_DEATHKNELL:
-                return 'Deathknell';
+                return self::$translator->trans('Deathknell');
             case self::ZONE_NIGHTWEBSHOLLOW:
-                return 'Night Web\'s Hollow';
+                return self::$translator->trans('Night Web\'s Hollow');
             case self::ZONE_SOLLIDENFARMSTEAD:
-                return 'Solliden Farmstead';
+                return self::$translator->trans('Solliden Farmstead');
             case self::ZONE_AGAMANDMILLS:
-                return 'Agamand Mills';
+                return self::$translator->trans('Agamand Mills');
             case self::ZONE_AGAMANDFAMILYCRYPT:
-                return 'Agamand Family Crypt';
+                return self::$translator->trans('Agamand Family Crypt');
             case self::ZONE_BRILL:
-                return 'Brill';
+                return self::$translator->trans('Brill');
             case self::ZONE_WHISPERINGGARDENS:
-                return 'Whispering Gardens';
+                return self::$translator->trans('Whispering Gardens');
             case self::ZONE_TERRACEOFREPOSE:
-                return 'Terrace of Repose';
+                return self::$translator->trans('Terrace of Repose');
             case self::ZONE_BRIGHTWATERLAKE:
-                return 'Brightwater Lake';
+                return self::$translator->trans('Brightwater Lake');
             case self::ZONE_GUNTHERSRETREAT:
-                return 'Gunther\'s Retreat';
+                return self::$translator->trans('Gunther\'s Retreat');
             case self::ZONE_GARRENSHAUNT:
-                return 'Garren\'s Haunt';
+                return self::$translator->trans('Garren\'s Haunt');
             case self::ZONE_BALNIRFARMSTEAD:
-                return 'Balnir Farmstead';
+                return self::$translator->trans('Balnir Farmstead');
             case self::ZONE_COLDHEARTHMANOR:
-                return 'Cold Hearth Manor';
+                return self::$translator->trans('Cold Hearth Manor');
             case self::ZONE_CRUSADEROUTPOST:
-                return 'Crusader Outpost';
+                return self::$translator->trans('Crusader Outpost');
             case self::ZONE_THENORTHCOAST:
-                return 'The North Coast';
+                return self::$translator->trans('The North Coast');
             case self::ZONE_WHISPERINGSHORE:
-                return 'Whispering Shore';
+                return self::$translator->trans('Whispering Shore');
             case self::ZONE_LORDAMERELAKE:
-                return 'Lordamere Lake';
+                return self::$translator->trans('Lordamere Lake');
             case self::ZONE_FENRISISLE:
-                return 'Fenris Isle';
+                return self::$translator->trans('Fenris Isle');
             case self::ZONE_FAOLSREST:
-                return 'Faol\'s Rest';
+                return self::$translator->trans('Faol\'s Rest');
             case self::ZONE_DOLANAAR:
-                return 'Dolanaar';
+                return self::$translator->trans('Dolanaar');
             case self::ZONE_SHADOWGLEN:
-                return 'Shadowglen';
+                return self::$translator->trans('Shadowglen');
             case self::ZONE_STEELGRILLSDEPOT:
-                return 'Steelgrill\'s Depot';
+                return self::$translator->trans('Steelgrill\'s Depot');
             case self::ZONE_HEARTHGLEN:
-                return 'Hearthglen';
+                return self::$translator->trans('Hearthglen');
             case self::ZONE_NORTHRIDGELUMBERCAMP:
-                return 'Northridge Lumber Camp';
+                return self::$translator->trans('Northridge Lumber Camp');
             case self::ZONE_RUINSOFANDORHAL:
-                return 'Ruins of Andorhal';
+                return self::$translator->trans('Ruins of Andorhal');
             case self::ZONE_SCHOOLOFNECROMANCY:
-                return 'School of Necromancy';
+                return self::$translator->trans('School of Necromancy');
             case self::ZONE_UTHERSTOMB:
-                return 'Uther\'s Tomb';
+                return self::$translator->trans('Uther\'s Tomb');
             case self::ZONE_SORROWHILL:
-                return 'Sorrow Hill';
+                return self::$translator->trans('Sorrow Hill');
             case self::ZONE_THEWEEPINGCAVE:
-                return 'The Weeping Cave';
+                return self::$translator->trans('The Weeping Cave');
             case self::ZONE_FELSTONEFIELD:
-                return 'Felstone Field';
+                return self::$translator->trans('Felstone Field');
             case self::ZONE_DALSONSTEARS:
-                return 'Dalson\'s Tears';
+                return self::$translator->trans('Dalson\'s Tears');
             case self::ZONE_GAHRRONSWITHERING:
-                return 'Gahrron\'s Withering';
+                return self::$translator->trans('Gahrron\'s Withering');
             case self::ZONE_THEWRITHINGHAUNT:
-                return 'The Writhing Haunt';
+                return self::$translator->trans('The Writhing Haunt');
             case self::ZONE_MARDENHOLDEKEEP:
-                return 'Mardenholde Keep';
+                return self::$translator->trans('Mardenholde Keep');
             case self::ZONE_PYREWOODVILLAGE:
-                return 'Pyrewood Village';
+                return self::$translator->trans('Pyrewood Village');
             case self::ZONE_DUNMODR:
-                return 'Dun Modr';
+                return self::$translator->trans('Dun Modr');
             case self::ZONE_THEGREATSEA:
-                return 'The Great Sea';
+                return self::$translator->trans('The Great Sea');
             case self::ZONE_UNUSEDIRONCLADCOVE:
-                return 'Unused Ironcladcove';
+                return self::$translator->trans('Unused Ironcladcove');
             case self::ZONE_SHADOWFANGKEEP:
-                return 'Shadowfang Keep';
+                return self::$translator->trans('Shadowfang Keep');
             case self::ZONE_ICEFLOWLAKE:
-                return 'Iceflow Lake';
+                return self::$translator->trans('Iceflow Lake');
             case self::ZONE_HELMSBEDLAKE:
-                return 'Helm\'s Bed Lake';
+                return self::$translator->trans('Helm\'s Bed Lake');
             case self::ZONE_DEEPELEMMINE:
-                return 'Deep Elem Mine';
+                return self::$translator->trans('Deep Elem Mine');
             case self::ZONE_MULGORE:
-                return 'Mulgore';
+                return self::$translator->trans('Mulgore');
             case self::ZONE_ALEXSTONFARMSTEAD:
-                return 'Alexston Farmstead';
+                return self::$translator->trans('Alexston Farmstead');
             case self::ZONE_REDCLOUDMESA:
-                return 'Red Cloud Mesa';
+                return self::$translator->trans('Red Cloud Mesa');
             case self::ZONE_CAMPNARACHE:
-                return 'Camp Narache';
+                return self::$translator->trans('Camp Narache');
             case self::ZONE_BLOODHOOFVILLAGE:
-                return 'Bloodhoof Village';
+                return self::$translator->trans('Bloodhoof Village');
             case self::ZONE_STONEBULLLAKE:
-                return 'Stonebull Lake';
+                return self::$translator->trans('Stonebull Lake');
             case self::ZONE_RAVAGEDCARAVAN:
-                return 'Ravaged Caravan';
+                return self::$translator->trans('Ravaged Caravan');
             case self::ZONE_REDROCKS:
-                return 'Red Rocks';
+                return self::$translator->trans('Red Rocks');
             case self::ZONE_THESKITTERINGDARK:
-                return 'The Skittering Dark';
+                return self::$translator->trans('The Skittering Dark');
             case self::ZONE_VALGANSFIELD:
-                return 'Valgan\'s Field';
+                return self::$translator->trans('Valgan\'s Field');
             case self::ZONE_THESEPULCHER:
-                return 'The Sepulcher';
+                return self::$translator->trans('The Sepulcher');
             case self::ZONE_OLSENSFARTHING:
-                return 'Olsen\'s Farthing';
+                return self::$translator->trans('Olsen\'s Farthing');
             case self::ZONE_THEGREYMANEWALL:
-                return 'The Greymane Wall';
+                return self::$translator->trans('The Greymane Wall');
             case self::ZONE_BERENSPERIL:
-                return 'Beren\'s Peril';
+                return self::$translator->trans('Beren\'s Peril');
             case self::ZONE_THEDAWNINGISLES:
-                return 'The Dawning Isles';
+                return self::$translator->trans('The Dawning Isles');
             case self::ZONE_AMBERMILL:
-                return 'Ambermill';
+                return self::$translator->trans('Ambermill');
             case self::ZONE_FENRISKEEP:
-                return 'Fenris Keep';
+                return self::$translator->trans('Fenris Keep');
             case self::ZONE_THEDECREPITFERRY:
-                return 'The Decrepit Ferry';
+                return self::$translator->trans('The Decrepit Ferry');
             case self::ZONE_MALDENSORCHARD:
-                return 'Malden\'s Orchard';
+                return self::$translator->trans('Malden\'s Orchard');
             case self::ZONE_THEIVARPATCH:
-                return 'The Ivar Patch';
+                return self::$translator->trans('The Ivar Patch');
             case self::ZONE_THEDEADFIELD:
-                return 'The Dead Field';
+                return self::$translator->trans('The Dead Field');
             case self::ZONE_THEROTTINGORCHARD:
-                return 'The Rotting Orchard';
+                return self::$translator->trans('The Rotting Orchard');
             case self::ZONE_BRIGHTWOODGROVE:
-                return 'Brightwood Grove';
+                return self::$translator->trans('Brightwood Grove');
             case self::ZONE_FORLORNROWE:
-                return 'Forlorn Rowe';
+                return self::$translator->trans('Forlorn Rowe');
             case self::ZONE_THEWHIPPLEESTATE:
-                return 'The Whipple Estate';
+                return self::$translator->trans('The Whipple Estate');
             case self::ZONE_THEYORGENFARMSTEAD:
-                return 'The Yorgen Farmstead';
+                return self::$translator->trans('The Yorgen Farmstead');
             case self::ZONE_THECAULDRON:
-                return 'The Cauldron';
+                return self::$translator->trans('The Cauldron');
             case self::ZONE_GRIMESILTDIGSITE:
-                return 'Grimesilt Dig Site';
+                return self::$translator->trans('Grimesilt Dig Site');
             case self::ZONE_DREADMAULROCK:
-                return 'Dreadmaul Rock';
+                return self::$translator->trans('Dreadmaul Rock');
             case self::ZONE_RUINSOFTHAURISSAN:
-                return 'Ruins of Thaurissan';
+                return self::$translator->trans('Ruins of Thaurissan');
             case self::ZONE_FLAMECREST:
-                return 'Flame Crest';
+                return self::$translator->trans('Flame Crest');
             case self::ZONE_BLACKROCKSTRONGHOLD:
-                return 'Blackrock Stronghold';
+                return self::$translator->trans('Blackrock Stronghold');
             case self::ZONE_THEPILLAROFASH:
-                return 'The Pillar of Ash';
+                return self::$translator->trans('The Pillar of Ash');
             case self::ZONE_ALTAROFSTORMS:
-                return 'Altar of Storms';
+                return self::$translator->trans('Altar of Storms');
             case self::ZONE_ALDRASSIL:
-                return 'Aldrassil';
+                return self::$translator->trans('Aldrassil');
             case self::ZONE_SHADOWTHREADCAVE:
-                return 'Shadowthread Cave';
+                return self::$translator->trans('Shadowthread Cave');
             case self::ZONE_FELROCK:
-                return 'Fel Rock';
+                return self::$translator->trans('Fel Rock');
             case self::ZONE_LAKEALAMETH:
-                return 'Lake Al\'Ameth';
+                return self::$translator->trans('Lake Al\'Ameth');
             case self::ZONE_STARBREEZEVILLAGE:
-                return 'Starbreeze Village';
+                return self::$translator->trans('Starbreeze Village');
             case self::ZONE_GNARLPINEHOLD:
-                return 'Gnarlpine Hold';
+                return self::$translator->trans('Gnarlpine Hold');
             case self::ZONE_BANETHILBARROWDEN:
-                return 'Ban\'ethil Barrow Den';
+                return self::$translator->trans('Ban\'ethil Barrow Den');
             case self::ZONE_THECLEFT:
-                return 'The Cleft';
+                return self::$translator->trans('The Cleft');
             case self::ZONE_THEORACLEGLADE:
-                return 'The Oracle Glade';
+                return self::$translator->trans('The Oracle Glade');
             case self::ZONE_WELLSPRINGRIVER:
-                return 'Wellspring River';
+                return self::$translator->trans('Wellspring River');
             case self::ZONE_WELLSPRINGLAKE:
-                return 'Wellspring Lake';
+                return self::$translator->trans('Wellspring Lake');
             case self::ZONE_HILLSBRADFOOTHILLS:
-                return 'Hillsbrad Foothills';
+                return self::$translator->trans('Hillsbrad Foothills');
             case self::ZONE_AZSHARACRATER:
-                return 'Azshara Crater';
+                return self::$translator->trans('Azshara Crater');
             case self::ZONE_DUNALGAZ:
-                return 'Dun Algaz';
+                return self::$translator->trans('Dun Algaz');
             case self::ZONE_SOUTHSHORE:
-                return 'Southshore';
+                return self::$translator->trans('Southshore');
             case self::ZONE_TARRENMILL:
-                return 'Tarren Mill';
+                return self::$translator->trans('Tarren Mill');
             case self::ZONE_DURNHOLDEKEEP:
-                return 'Durnholde Keep';
+                return self::$translator->trans('Durnholde Keep');
             case self::ZONE_STONEWROUGHTPASS:
-                return 'Stonewrought Pass';
+                return self::$translator->trans('Stonewrought Pass');
             case self::ZONE_THEFOOTHILLCAVERNS:
-                return 'The Foothill Caverns';
+                return self::$translator->trans('The Foothill Caverns');
             case self::ZONE_LORDAMEREINTERNMENTCAMP:
-                return 'Lordamere Internment Camp';
+                return self::$translator->trans('Lordamere Internment Camp');
             case self::ZONE_DALARAN:
-                return 'Dalaran';
+                return self::$translator->trans('Dalaran');
             case self::ZONE_STRAHNBRAD:
-                return 'Strahnbrad';
+                return self::$translator->trans('Strahnbrad');
             case self::ZONE_RUINSOFALTERAC:
-                return 'Ruins of Alterac';
+                return self::$translator->trans('Ruins of Alterac');
             case self::ZONE_CRUSHRIDGEHOLD:
-                return 'Crushridge Hold';
+                return self::$translator->trans('Crushridge Hold');
             case self::ZONE_SLAUGHTERHOLLOW:
-                return 'Slaughter Hollow';
+                return self::$translator->trans('Slaughter Hollow');
             case self::ZONE_THEUPLANDS:
-                return 'The Uplands';
+                return self::$translator->trans('The Uplands');
             case self::ZONE_SOUTHPOINTTOWER:
-                return 'Southpoint Tower';
+                return self::$translator->trans('Southpoint Tower');
             case self::ZONE_HILLSBRADFIELDS:
-                return 'Hillsbrad Fields';
+                return self::$translator->trans('Hillsbrad Fields');
             case self::ZONE_HILLSBRAD:
-                return 'Hillsbrad';
+                return self::$translator->trans('Hillsbrad');
             case self::ZONE_AZURELODEMINE:
-                return 'Azurelode Mine';
+                return self::$translator->trans('Azurelode Mine');
             case self::ZONE_NETHANDERSTEAD:
-                return 'Nethander Stead';
+                return self::$translator->trans('Nethander Stead');
             case self::ZONE_DUNGAROK:
-                return 'Dun Garok';
+                return self::$translator->trans('Dun Garok');
             case self::ZONE_THORADINSWALL:
-                return 'Thoradin\'s Wall';
+                return self::$translator->trans('Thoradin\'s Wall');
             case self::ZONE_EASTERNSTRAND:
-                return 'Eastern Strand';
+                return self::$translator->trans('Eastern Strand');
             case self::ZONE_WESTERNSTRAND:
-                return 'Western Strand';
+                return self::$translator->trans('Western Strand');
             case self::ZONE_JAGUEROISLE:
-                return 'Jaguero Isle';
+                return self::$translator->trans('Jaguero Isle');
             case self::ZONE_BARADINBAY:
-                return 'Baradin Bay';
+                return self::$translator->trans('Baradin Bay');
             case self::ZONE_MENETHILBAY:
-                return 'Menethil Bay';
+                return self::$translator->trans('Menethil Bay');
             case self::ZONE_MISTYREEDSTRAND:
-                return 'Misty Reed Strand';
+                return self::$translator->trans('Misty Reed Strand');
             case self::ZONE_THESAVAGECOAST:
-                return 'The Savage Coast';
+                return self::$translator->trans('The Savage Coast');
             case self::ZONE_THECRYSTALSHORE:
-                return 'The Crystal Shore';
+                return self::$translator->trans('The Crystal Shore');
             case self::ZONE_SHELLBEACH:
-                return 'Shell Beach';
+                return self::$translator->trans('Shell Beach');
             case self::ZONE_NORTHTIDESRUN:
-                return 'North Tide\'s Run';
+                return self::$translator->trans('North Tide\'s Run');
             case self::ZONE_SOUTHTIDESRUN:
-                return 'South Tide\'s Run';
+                return self::$translator->trans('South Tide\'s Run');
             case self::ZONE_THEOVERLOOKCLIFFS:
-                return 'The Overlook Cliffs';
+                return self::$translator->trans('The Overlook Cliffs');
             case self::ZONE_THEFORBIDDINGSEA:
-                return 'The Forbidding Sea';
+                return self::$translator->trans('The Forbidding Sea');
             case self::ZONE_IRONBEARDSTOMB:
-                return 'Ironbeard\'s Tomb';
+                return self::$translator->trans('Ironbeard\'s Tomb');
             case self::ZONE_CRYSTALVEINMINE:
-                return 'Crystalvein Mine';
+                return self::$translator->trans('Crystalvein Mine');
             case self::ZONE_RUINSOFABORAZ:
-                return 'Ruins of Aboraz';
+                return self::$translator->trans('Ruins of Aboraz');
             case self::ZONE_JANEIROSPOINT:
-                return 'Janeiro\'s Point';
+                return self::$translator->trans('Janeiro\'s Point');
             case self::ZONE_NORTHFOLDMANOR:
-                return 'Northfold Manor';
+                return self::$translator->trans('Northfold Manor');
             case self::ZONE_GOSHEKFARM:
-                return 'Go\'Shek Farm';
+                return self::$translator->trans('Go\'Shek Farm');
             case self::ZONE_DABYRIESFARMSTEAD:
-                return 'Dabyrie\'s Farmstead';
+                return self::$translator->trans('Dabyrie\'s Farmstead');
             case self::ZONE_BOULDERFISTHALL:
-                return 'Boulderfist Hall';
+                return self::$translator->trans('Boulderfist Hall');
             case self::ZONE_WITHERBARKVILLAGE:
-                return 'Witherbark Village';
+                return self::$translator->trans('Witherbark Village');
             case self::ZONE_DRYWHISKERGORGE:
-                return 'Drywhisker Gorge';
+                return self::$translator->trans('Drywhisker Gorge');
             case self::ZONE_REFUGEPOINTE:
-                return 'Refuge Pointe';
+                return self::$translator->trans('Refuge Pointe');
             case self::ZONE_HAMMERFALL:
-                return 'Hammerfall';
+                return self::$translator->trans('Hammerfall');
             case self::ZONE_BLACKWATERSHIPWRECKS:
-                return 'Blackwater Shipwrecks';
+                return self::$translator->trans('Blackwater Shipwrecks');
             case self::ZONE_OBREENSCAMP:
-                return 'O\'Breen\'s Camp';
+                return self::$translator->trans('O\'Breen\'s Camp');
             case self::ZONE_STROMGARDEKEEP:
-                return 'Stromgarde Keep';
+                return self::$translator->trans('Stromgarde Keep');
             case self::ZONE_THETOWEROFARATHOR:
-                return 'The Tower of Arathor';
+                return self::$translator->trans('The Tower of Arathor');
             case self::ZONE_THESANCTUM:
-                return 'The Sanctum';
+                return self::$translator->trans('The Sanctum');
             case self::ZONE_FALDIRSCOVE:
-                return 'Faldir\'s Cove';
+                return self::$translator->trans('Faldir\'s Cove');
             case self::ZONE_THEDROWNEDREEF:
-                return 'The Drowned Reef';
+                return self::$translator->trans('The Drowned Reef');
             case self::ZONE_THANDOLSPAN:
-                return 'Thandol Span';
+                return self::$translator->trans('Thandol Span');
             case self::ZONE_ASHENVALE:
-                return 'Ashenvale';
+                return self::$translator->trans('Ashenvale');
             case self::ZONE_CIRCLEOFEASTBINDING:
-                return 'Circle of East Binding';
+                return self::$translator->trans('Circle of East Binding');
             case self::ZONE_CIRCLEOFWESTBINDING:
-                return 'Circle of West Binding';
+                return self::$translator->trans('Circle of West Binding');
             case self::ZONE_CIRCLEOFINNERBINDING:
-                return 'Circle of Inner Binding';
+                return self::$translator->trans('Circle of Inner Binding');
             case self::ZONE_CIRCLEOFOUTERBINDING:
-                return 'Circle of Outer Binding';
+                return self::$translator->trans('Circle of Outer Binding');
             case self::ZONE_APOCRYPHANSREST:
-                return 'Apocryphan\'s Rest';
+                return self::$translator->trans('Apocryphan\'s Rest');
             case self::ZONE_ANGORFORTRESS:
-                return 'Angor Fortress';
+                return self::$translator->trans('Angor Fortress');
             case self::ZONE_LETHLORRAVINE:
-                return 'Lethlor Ravine';
+                return self::$translator->trans('Lethlor Ravine');
             case self::ZONE_KARGATH:
-                return 'Kargath';
+                return self::$translator->trans('Kargath');
             case self::ZONE_CAMPKOSH:
-                return 'Camp Kosh';
+                return self::$translator->trans('Camp Kosh');
             case self::ZONE_CAMPBOFF:
-                return 'Camp Boff';
+                return self::$translator->trans('Camp Boff');
             case self::ZONE_CAMPWURG:
-                return 'Camp Wurg';
+                return self::$translator->trans('Camp Wurg');
             case self::ZONE_CAMPCAGG:
-                return 'Camp Cagg';
+                return self::$translator->trans('Camp Cagg');
             case self::ZONE_AGMONDSEND:
-                return 'Agmond\'s End';
+                return self::$translator->trans('Agmond\'s End');
             case self::ZONE_HAMMERTOESDIGSITE:
-                return 'Hammertoe\'s Digsite';
+                return self::$translator->trans('Hammertoe\'s Digsite');
             case self::ZONE_DUSTBELCHGROTTO:
-                return 'Dustbelch Grotto';
+                return self::$translator->trans('Dustbelch Grotto');
             case self::ZONE_AERIEPEAK:
-                return 'Aerie Peak';
+                return self::$translator->trans('Aerie Peak');
             case self::ZONE_WILDHAMMERKEEP:
-                return 'Wildhammer Keep';
+                return self::$translator->trans('Wildhammer Keep');
             case self::ZONE_QUELDANILLODGE:
-                return 'Quel\'Danil Lodge';
+                return self::$translator->trans('Quel\'Danil Lodge');
             case self::ZONE_SKULKROCK:
-                return 'Skulk Rock';
+                return self::$translator->trans('Skulk Rock');
             case self::ZONE_ZUNWATHA:
-                return 'Zun\'watha';
+                return self::$translator->trans('Zun\'watha');
             case self::ZONE_SHADRAALOR:
-                return 'Shadra\'Alor';
+                return self::$translator->trans('Shadra\'Alor');
             case self::ZONE_JINTHAALOR:
-                return 'Jintha\'Alor';
+                return self::$translator->trans('Jintha\'Alor');
             case self::ZONE_THEALTAROFZUL:
-                return 'The Altar of Zul';
+                return self::$translator->trans('The Altar of Zul');
             case self::ZONE_SERADANE:
-                return 'Seradane';
+                return self::$translator->trans('Seradane');
             case self::ZONE_FERALAS:
-                return 'Feralas';
+                return self::$translator->trans('Feralas');
             case self::ZONE_BRAMBLEBLADERAVINE:
-                return 'Brambleblade Ravine';
+                return self::$translator->trans('Brambleblade Ravine');
             case self::ZONE_BAELMODAN:
-                return 'Bael Modan';
+                return self::$translator->trans('Bael Modan');
             case self::ZONE_THEVENTURECOMINE:
-                return 'The Venture Co. Mine';
+                return self::$translator->trans('The Venture Co. Mine');
             case self::ZONE_FELWOOD:
-                return 'Felwood';
+                return self::$translator->trans('Felwood');
             case self::ZONE_RAZORHILL:
-                return 'Razor Hill';
+                return self::$translator->trans('Razor Hill');
             case self::ZONE_VALLEYOFTRIALS:
-                return 'Valley of Trials';
+                return self::$translator->trans('Valley of Trials');
             case self::ZONE_THEDEN:
-                return 'The Den';
+                return self::$translator->trans('The Den');
             case self::ZONE_BURNINGBLADECOVEN:
-                return 'Burning Blade Coven';
+                return self::$translator->trans('Burning Blade Coven');
             case self::ZONE_KOLKARCRAG:
-                return 'Kolkar Crag';
+                return self::$translator->trans('Kolkar Crag');
             case self::ZONE_SENJINVILLAGE:
-                return 'Sen\'jin Village';
+                return self::$translator->trans('Sen\'jin Village');
             case self::ZONE_ECHOISLES:
-                return 'Echo Isles';
+                return self::$translator->trans('Echo Isles');
             case self::ZONE_THUNDERRIDGE:
-                return 'Thunder Ridge';
+                return self::$translator->trans('Thunder Ridge');
             case self::ZONE_DRYGULCHRAVINE:
-                return 'Drygulch Ravine';
+                return self::$translator->trans('Drygulch Ravine');
             case self::ZONE_DUSTWINDCAVE:
-                return 'Dustwind Cave';
+                return self::$translator->trans('Dustwind Cave');
             case self::ZONE_TIRAGARDEKEEP:
-                return 'Tiragarde Keep';
+                return self::$translator->trans('Tiragarde Keep');
             case self::ZONE_SCUTTLECOAST:
-                return 'Scuttle Coast';
+                return self::$translator->trans('Scuttle Coast');
             case self::ZONE_BLADEFISTBAY:
-                return 'Bladefist Bay';
+                return self::$translator->trans('Bladefist Bay');
             case self::ZONE_DEADEYESHORE:
-                return 'Deadeye Shore';
+                return self::$translator->trans('Deadeye Shore');
             case self::ZONE_SOUTHFURYRIVER:
-                return 'Southfury River';
+                return self::$translator->trans('Southfury River');
             case self::ZONE_CAMPTAURAJO:
-                return 'Camp Taurajo';
+                return self::$translator->trans('Camp Taurajo');
             case self::ZONE_FARWATCHPOST:
-                return 'Far Watch Post';
+                return self::$translator->trans('Far Watch Post');
             case self::ZONE_THECROSSROADS:
-                return 'The Crossroads';
+                return self::$translator->trans('The Crossroads');
             case self::ZONE_BOULDERLODEMINE:
-                return 'Boulder Lode Mine';
+                return self::$translator->trans('Boulder Lode Mine');
             case self::ZONE_THESLUDGEFEN:
-                return 'The Sludge Fen';
+                return self::$translator->trans('The Sludge Fen');
             case self::ZONE_THEDRYHILLS:
-                return 'The Dry Hills';
+                return self::$translator->trans('The Dry Hills');
             case self::ZONE_DREADMISTPEAK:
-                return 'Dreadmist Peak';
+                return self::$translator->trans('Dreadmist Peak');
             case self::ZONE_NORTHWATCHHOLD:
-                return 'Northwatch Hold';
+                return self::$translator->trans('Northwatch Hold');
             case self::ZONE_THEFORGOTTENPOOLS:
-                return 'The Forgotten Pools';
+                return self::$translator->trans('The Forgotten Pools');
             case self::ZONE_LUSHWATEROASIS:
-                return 'Lushwater Oasis';
+                return self::$translator->trans('Lushwater Oasis');
             case self::ZONE_THESTAGNANTOASIS:
-                return 'The Stagnant Oasis';
+                return self::$translator->trans('The Stagnant Oasis');
             case self::ZONE_FIELDOFGIANTS:
-                return 'Field of Giants';
+                return self::$translator->trans('Field of Giants');
             case self::ZONE_THEMERCHANTCOAST:
-                return 'The Merchant Coast';
+                return self::$translator->trans('The Merchant Coast');
             case self::ZONE_RATCHET:
-                return 'Ratchet';
+                return self::$translator->trans('Ratchet');
             case self::ZONE_DARKSPEARSTRAND:
-                return 'Darkspear Strand';
+                return self::$translator->trans('Darkspear Strand');
             case self::ZONE_WINTERHOOFWATERWELL:
-                return 'Winterhoof Water Well';
+                return self::$translator->trans('Winterhoof Water Well');
             case self::ZONE_THUNDERHORNWATERWELL:
-                return 'Thunderhorn Water Well';
+                return self::$translator->trans('Thunderhorn Water Well');
             case self::ZONE_WILDMANEWATERWELL:
-                return 'Wildmane Water Well';
+                return self::$translator->trans('Wildmane Water Well');
             case self::ZONE_SKYLINERIDGE:
-                return 'Skyline Ridge';
+                return self::$translator->trans('Skyline Ridge');
             case self::ZONE_THOUSANDNEEDLES:
-                return 'Thousand Needles';
+                return self::$translator->trans('Thousand Needles');
             case self::ZONE_THETIDUSSTAIR:
-                return 'The Tidus Stair';
+                return self::$translator->trans('The Tidus Stair');
             case self::ZONE_SHADYRESTINN:
-                return 'Shady Rest Inn';
+                return self::$translator->trans('Shady Rest Inn');
             case self::ZONE_BAELDUNDIGSITE:
-                return 'Bael\'dun Digsite';
+                return self::$translator->trans('Bael\'dun Digsite');
             case self::ZONE_DESOLACE:
-                return 'Desolace';
+                return self::$translator->trans('Desolace');
             case self::ZONE_STONETALONMOUNTAINS:
-                return 'Stonetalon Mountains';
+                return self::$translator->trans('Stonetalon Mountains');
             case self::ZONE_GILLIJIMSISLE:
-                return 'Gillijim\'s Isle';
+                return self::$translator->trans('Gillijim\'s Isle');
             case self::ZONE_ISLANDOFDOCTORLAPIDIS:
-                return 'Island of Doctor Lapidis';
+                return self::$translator->trans('Island of Doctor Lapidis');
             case self::ZONE_RAZORWINDCANYON:
-                return 'Razorwind Canyon';
+                return self::$translator->trans('Razorwind Canyon');
             case self::ZONE_BATHRANSHAUNT:
-                return 'Bathran\'s Haunt';
+                return self::$translator->trans('Bathran\'s Haunt');
             case self::ZONE_THERUINSOFORDILARAN:
-                return 'The Ruins of Ordil\'Aran';
+                return self::$translator->trans('The Ruins of Ordil\'Aran');
             case self::ZONE_MAESTRASPOST:
-                return 'Maestra\'s Post';
+                return self::$translator->trans('Maestra\'s Post');
             case self::ZONE_THEZORAMSTRAND:
-                return 'The Zoram Strand';
+                return self::$translator->trans('The Zoram Strand');
             case self::ZONE_ASTRANAAR:
-                return 'Astranaar';
+                return self::$translator->trans('Astranaar');
             case self::ZONE_THESHRINEOFAESSINA:
-                return 'The Shrine of Aessina';
+                return self::$translator->trans('The Shrine of Aessina');
             case self::ZONE_FIRESCARSHRINE:
-                return 'Fire Scar Shrine';
+                return self::$translator->trans('Fire Scar Shrine');
             case self::ZONE_THERUINSOFSTARDUST:
-                return 'The Ruins of Stardust';
+                return self::$translator->trans('The Ruins of Stardust');
             case self::ZONE_THEHOWLINGVALE:
-                return 'The Howling Vale';
+                return self::$translator->trans('The Howling Vale');
             case self::ZONE_SILVERWINDREFUGE:
-                return 'Silverwind Refuge';
+                return self::$translator->trans('Silverwind Refuge');
             case self::ZONE_MYSTRALLAKE:
-                return 'Mystral Lake';
+                return self::$translator->trans('Mystral Lake');
             case self::ZONE_FALLENSKYLAKE:
-                return 'Fallen Sky Lake';
+                return self::$translator->trans('Fallen Sky Lake');
             case self::ZONE_IRISLAKE:
-                return 'Iris Lake';
+                return self::$translator->trans('Iris Lake');
             case self::ZONE_MOONWELL:
-                return 'Moonwell';
+                return self::$translator->trans('Moonwell');
             case self::ZONE_RAYNEWOODRETREAT:
-                return 'Raynewood Retreat';
+                return self::$translator->trans('Raynewood Retreat');
             case self::ZONE_THESHADYNOOK:
-                return 'The Shady Nook';
+                return self::$translator->trans('The Shady Nook');
             case self::ZONE_NIGHTRUN:
-                return 'Night Run';
+                return self::$translator->trans('Night Run');
             case self::ZONE_XAVIAN:
-                return 'Xavian';
+                return self::$translator->trans('Xavian');
             case self::ZONE_SATYRNAAR:
-                return 'Satyrnaar';
+                return self::$translator->trans('Satyrnaar');
             case self::ZONE_SPLINTERTREEPOST:
-                return 'Splintertree Post';
+                return self::$translator->trans('Splintertree Post');
             case self::ZONE_THEDORDANILBARROWDEN:
-                return 'The Dor\'Danil Barrow Den';
+                return self::$translator->trans('The Dor\'Danil Barrow Den');
             case self::ZONE_FALFARRENRIVER:
-                return 'Falfarren River';
+                return self::$translator->trans('Falfarren River');
             case self::ZONE_FELFIREHILL:
-                return 'Felfire Hill';
+                return self::$translator->trans('Felfire Hill');
             case self::ZONE_DEMONFALLCANYON:
-                return 'Demon Fall Canyon';
+                return self::$translator->trans('Demon Fall Canyon');
             case self::ZONE_DEMONFALLRIDGE:
-                return 'Demon Fall Ridge';
+                return self::$translator->trans('Demon Fall Ridge');
             case self::ZONE_WARSONGLUMBERCAMP:
-                return 'Warsong Lumber Camp';
+                return self::$translator->trans('Warsong Lumber Camp');
             case self::ZONE_BOUGHSHADOW:
-                return 'Bough Shadow';
+                return self::$translator->trans('Bough Shadow');
             case self::ZONE_THESHIMMERINGFLATS:
-                return 'The Shimmering Flats';
+                return self::$translator->trans('The Shimmering Flats');
             case self::ZONE_TANARIS:
-                return 'Tanaris';
+                return self::$translator->trans('Tanaris');
             case self::ZONE_LAKEFALATHIM:
-                return 'Lake Falathim';
+                return self::$translator->trans('Lake Falathim');
             case self::ZONE_AUBERDINE:
-                return 'Auberdine';
+                return self::$translator->trans('Auberdine');
             case self::ZONE_RUINSOFMATHYSTRA:
-                return 'Ruins of Mathystra';
+                return self::$translator->trans('Ruins of Mathystra');
             case self::ZONE_TOWEROFALTHALAXX:
-                return 'Tower of Althalaxx';
+                return self::$translator->trans('Tower of Althalaxx');
             case self::ZONE_CLIFFSPRINGFALLS:
-                return 'Cliffspring Falls';
+                return self::$translator->trans('Cliffspring Falls');
             case self::ZONE_BASHALARAN:
-                return 'Bashal\'Aran';
+                return self::$translator->trans('Bashal\'Aran');
             case self::ZONE_AMETHARAN:
-                return 'Ameth\'Aran';
+                return self::$translator->trans('Ameth\'Aran');
             case self::ZONE_GROVEOFTHEANCIENTS:
-                return 'Grove of the Ancients';
+                return self::$translator->trans('Grove of the Ancients');
             case self::ZONE_THEMASTERSGLAIVE:
-                return 'The Master\'s Glaive';
+                return self::$translator->trans('The Master\'s Glaive');
             case self::ZONE_REMTRAVELSEXCAVATION:
-                return 'Remtravel\'s Excavation';
+                return self::$translator->trans('Remtravel\'s Excavation');
             case self::ZONE_MISTSEDGE:
-                return 'Mist\'s Edge';
+                return self::$translator->trans('Mist\'s Edge');
             case self::ZONE_THELONGWASH:
-                return 'The Long Wash';
+                return self::$translator->trans('The Long Wash');
             case self::ZONE_WILDBENDRIVER:
-                return 'Wildbend River';
+                return self::$translator->trans('Wildbend River');
             case self::ZONE_BLACKWOODDEN:
-                return 'Blackwood Den';
+                return self::$translator->trans('Blackwood Den');
             case self::ZONE_CLIFFSPRINGRIVER:
-                return 'Cliffspring River';
+                return self::$translator->trans('Cliffspring River');
             case self::ZONE_THEVEILEDSEA:
-                return 'The Veiled Sea';
+                return self::$translator->trans('The Veiled Sea');
             case self::ZONE_GOLDROAD:
-                return 'Gold Road';
+                return self::$translator->trans('Gold Road');
             case self::ZONE_SCARLETWATCHPOST:
-                return 'Scarlet Watch Post';
+                return self::$translator->trans('Scarlet Watch Post');
             case self::ZONE_SUNROCKRETREAT:
-                return 'Sun Rock Retreat';
+                return self::$translator->trans('Sun Rock Retreat');
             case self::ZONE_WINDSHEARCRAG:
-                return 'Windshear Crag';
+                return self::$translator->trans('Windshear Crag');
             case self::ZONE_CRAGPOOLLAKE:
-                return 'Cragpool Lake';
+                return self::$translator->trans('Cragpool Lake');
             case self::ZONE_MIRKFALLONLAKE:
-                return 'Mirkfallon Lake';
+                return self::$translator->trans('Mirkfallon Lake');
             case self::ZONE_THECHARREDVALE:
-                return 'The Charred Vale';
+                return self::$translator->trans('The Charred Vale');
             case self::ZONE_VALLEYOFTHEBLOODFURIES:
-                return 'Valley of the Bloodfuries';
+                return self::$translator->trans('Valley of the Bloodfuries');
             case self::ZONE_STONETALONPEAK:
-                return 'Stonetalon Peak';
+                return self::$translator->trans('Stonetalon Peak');
             case self::ZONE_THETALONDEN:
-                return 'The Talon Den';
+                return self::$translator->trans('The Talon Den');
             case self::ZONE_GREATWOODVALE:
-                return 'Greatwood Vale';
+                return self::$translator->trans('Greatwood Vale');
             case self::ZONE_BRAVEWINDMESA:
-                return 'Brave Wind Mesa';
+                return self::$translator->trans('Brave Wind Mesa');
             case self::ZONE_FIRESTONEMESA:
-                return 'Fire Stone Mesa';
+                return self::$translator->trans('Fire Stone Mesa');
             case self::ZONE_MANTLEROCK:
-                return 'Mantle Rock';
+                return self::$translator->trans('Mantle Rock');
             case self::ZONE_RUINSOFJUBUWAL:
-                return 'Ruins of Jubuwal';
+                return self::$translator->trans('Ruins of Jubuwal');
             case self::ZONE_POOLSOFARLITHRIEN:
-                return 'Pools of Arlithrien';
+                return self::$translator->trans('Pools of Arlithrien');
             case self::ZONE_THERUSTMAULDIGSITE:
-                return 'The Rustmaul Dig Site';
+                return self::$translator->trans('The Rustmaul Dig Site');
             case self::ZONE_CAMPETHOK:
-                return 'Camp E\'thok';
+                return self::$translator->trans('Camp E\'thok');
             case self::ZONE_SPLITHOOFCRAG:
-                return 'Splithoof Crag';
+                return self::$translator->trans('Splithoof Crag');
             case self::ZONE_HIGHPERCH:
-                return 'Highperch';
+                return self::$translator->trans('Highperch');
             case self::ZONE_THESCREECHINGCANYON:
-                return 'The Screeching Canyon';
+                return self::$translator->trans('The Screeching Canyon');
             case self::ZONE_FREEWINDPOST:
-                return 'Freewind Post';
+                return self::$translator->trans('Freewind Post');
             case self::ZONE_THEGREATLIFT:
-                return 'The Great Lift';
+                return self::$translator->trans('The Great Lift');
             case self::ZONE_GALAKHOLD:
-                return 'Galak Hold';
+                return self::$translator->trans('Galak Hold');
             case self::ZONE_ROGUEFEATHERDEN:
-                return 'Roguefeather Den';
+                return self::$translator->trans('Roguefeather Den');
             case self::ZONE_THEWEATHEREDNOOK:
-                return 'The Weathered Nook';
+                return self::$translator->trans('The Weathered Nook');
             case self::ZONE_THALANAAR:
-                return 'Thalanaar';
+                return self::$translator->trans('Thalanaar');
             case self::ZONE_UNGOROCRATER:
-                return 'Un\'Goro Crater';
+                return self::$translator->trans('Un\'Goro Crater');
             case self::ZONE_RAZORFENKRAUL:
-                return 'Razorfen Kraul';
+                return self::$translator->trans('Razorfen Kraul');
             case self::ZONE_RAVENHILLCEMETERY:
-                return 'Raven Hill Cemetery';
+                return self::$translator->trans('Raven Hill Cemetery');
             case self::ZONE_MOONGLADE:
-                return 'Moonglade';
+                return self::$translator->trans('Moonglade');
             case self::ZONE_BRACKENWALLVILLAGE:
-                return 'Brackenwall Village';
+                return self::$translator->trans('Brackenwall Village');
             case self::ZONE_SWAMPLIGHTMANOR:
-                return 'Swamplight Manor';
+                return self::$translator->trans('Swamplight Manor');
             case self::ZONE_BLOODFENBURROW:
-                return 'Bloodfen Burrow';
+                return self::$translator->trans('Bloodfen Burrow');
             case self::ZONE_DARKMISTCAVERN:
-                return 'Darkmist Cavern';
+                return self::$translator->trans('Darkmist Cavern');
             case self::ZONE_MOGGLEPOINT:
-                return 'Moggle Point';
+                return self::$translator->trans('Moggle Point');
             case self::ZONE_BEEZILSWRECK:
-                return 'Beezil\'s Wreck';
+                return self::$translator->trans('Beezil\'s Wreck');
             case self::ZONE_WITCHHILL:
-                return 'Witch Hill';
+                return self::$translator->trans('Witch Hill');
             case self::ZONE_SENTRYPOINT:
-                return 'Sentry Point';
+                return self::$translator->trans('Sentry Point');
             case self::ZONE_NORTHPOINTTOWER:
-                return 'North Point Tower';
+                return self::$translator->trans('North Point Tower');
             case self::ZONE_WESTPOINTTOWER:
-                return 'West Point Tower';
+                return self::$translator->trans('West Point Tower');
             case self::ZONE_LOSTPOINT:
-                return 'Lost Point';
+                return self::$translator->trans('Lost Point');
             case self::ZONE_BLUEFEN:
-                return 'Bluefen';
+                return self::$translator->trans('Bluefen');
             case self::ZONE_STONEMAULRUINS:
-                return 'Stonemaul Ruins';
+                return self::$translator->trans('Stonemaul Ruins');
             case self::ZONE_THEDENOFFLAME:
-                return 'The Den of Flame';
+                return self::$translator->trans('The Den of Flame');
             case self::ZONE_THEDRAGONMURK:
-                return 'The Dragonmurk';
+                return self::$translator->trans('The Dragonmurk');
             case self::ZONE_WYRMBOG:
-                return 'Wyrmbog';
+                return self::$translator->trans('Wyrmbog');
             case self::ZONE_ONYXIASLAIR:
-                return 'Onyxia\'s Lair';
+                return self::$translator->trans('Onyxia\'s Lair');
             case self::ZONE_THERAMOREISLE:
-                return 'Theramore Isle';
+                return self::$translator->trans('Theramore Isle');
             case self::ZONE_FOOTHOLDCITADEL:
-                return 'Foothold Citadel';
+                return self::$translator->trans('Foothold Citadel');
             case self::ZONE_IRONCLADPRISON:
-                return 'Ironclad Prison';
+                return self::$translator->trans('Ironclad Prison');
             case self::ZONE_DUSTWALLOWBAY:
-                return 'Dustwallow Bay';
+                return self::$translator->trans('Dustwallow Bay');
             case self::ZONE_TIDEFURYCOVE:
-                return 'Tidefury Cove';
+                return self::$translator->trans('Tidefury Cove');
             case self::ZONE_DREADMURKSHORE:
-                return 'Dreadmurk Shore';
+                return self::$translator->trans('Dreadmurk Shore');
             case self::ZONE_ADDLESSTEAD:
-                return 'Addle\'s Stead';
+                return self::$translator->trans('Addle\'s Stead');
             case self::ZONE_FIREPLUMERIDGE:
-                return 'Fire Plume Ridge';
+                return self::$translator->trans('Fire Plume Ridge');
             case self::ZONE_LAKKARITARPITS:
-                return 'Lakkari Tar Pits';
+                return self::$translator->trans('Lakkari Tar Pits');
             case self::ZONE_TERRORRUN:
-                return 'Terror Run';
+                return self::$translator->trans('Terror Run');
             case self::ZONE_THESLITHERINGSCAR:
-                return 'The Slithering Scar';
+                return self::$translator->trans('The Slithering Scar');
             case self::ZONE_MARSHALSREFUGE:
-                return 'Marshal\'s Refuge';
+                return self::$translator->trans('Marshal\'s Refuge');
             case self::ZONE_FUNGALROCK:
-                return 'Fungal Rock';
+                return self::$translator->trans('Fungal Rock');
             case self::ZONE_GOLAKKAHOTSPRINGS:
-                return 'Golakka Hot Springs';
+                return self::$translator->trans('Golakka Hot Springs');
             case self::ZONE_THELOCH:
-                return 'The Loch';
+                return self::$translator->trans('The Loch');
             case self::ZONE_BEGGARSHAUNT:
-                return 'Beggar\'s Haunt';
+                return self::$translator->trans('Beggar\'s Haunt');
             case self::ZONE_KODOGRAVEYARD:
-                return 'Kodo Graveyard';
+                return self::$translator->trans('Kodo Graveyard');
             case self::ZONE_GHOSTWALKERPOST:
-                return 'Ghost Walker Post';
+                return self::$translator->trans('Ghost Walker Post');
             case self::ZONE_SARTHERISSTRAND:
-                return 'Sar\'theris Strand';
+                return self::$translator->trans('Sar\'theris Strand');
             case self::ZONE_THUNDERAXEFORTRESS:
-                return 'Thunder Axe Fortress';
+                return self::$translator->trans('Thunder Axe Fortress');
             case self::ZONE_BOLGANSHOLE:
-                return 'Bolgan\'s Hole';
+                return self::$translator->trans('Bolgan\'s Hole');
             case self::ZONE_MANNOROCCOVEN:
-                return 'Mannoroc Coven';
+                return self::$translator->trans('Mannoroc Coven');
             case self::ZONE_SARGERON:
-                return 'Sargeron';
+                return self::$translator->trans('Sargeron');
             case self::ZONE_MAGRAMVILLAGE:
-                return 'Magram Village';
+                return self::$translator->trans('Magram Village');
             case self::ZONE_GELKISVILLAGE:
-                return 'Gelkis Village';
+                return self::$translator->trans('Gelkis Village');
             case self::ZONE_VALLEYOFSPEARS:
-                return 'Valley of Spears';
+                return self::$translator->trans('Valley of Spears');
             case self::ZONE_NIJELSPOINT:
-                return 'Nijel\'s Point';
+                return self::$translator->trans('Nijel\'s Point');
             case self::ZONE_KOLKARVILLAGE:
-                return 'Kolkar Village';
+                return self::$translator->trans('Kolkar Village');
             case self::ZONE_HYJAL:
-                return 'Hyjal';
+                return self::$translator->trans('Hyjal');
             case self::ZONE_WINTERSPRING:
-                return 'Winterspring';
+                return self::$translator->trans('Winterspring');
             case self::ZONE_BLACKWOLFRIVER:
-                return 'Blackwolf River';
+                return self::$translator->trans('Blackwolf River');
             case self::ZONE_KODOROCK:
-                return 'Kodo Rock';
+                return self::$translator->trans('Kodo Rock');
             case self::ZONE_HIDDENPATH:
-                return 'Hidden Path';
+                return self::$translator->trans('Hidden Path');
             case self::ZONE_SPIRITROCK:
-                return 'Spirit Rock';
+                return self::$translator->trans('Spirit Rock');
             case self::ZONE_SHRINEOFTHEDORMANTFLAME:
-                return 'Shrine of the Dormant Flame';
+                return self::$translator->trans('Shrine of the Dormant Flame');
             case self::ZONE_LAKEELUNEARA:
-                return 'Lake Elune\'ara';
+                return self::$translator->trans('Lake Elune\'ara');
             case self::ZONE_THEHARBORAGE:
-                return 'The Harborage';
+                return self::$translator->trans('The Harborage');
             case self::ZONE_OUTLAND:
-                return 'Outland';
+                return self::$translator->trans('Outland');
             case self::ZONE_CRAFTSMENSTERRACE:
-                return 'Craftsmen\'s Terrace';
+                return self::$translator->trans('Craftsmen\'s Terrace');
             case self::ZONE_TRADESMENSTERRACE:
-                return 'Tradesmen\'s Terrace';
+                return self::$translator->trans('Tradesmen\'s Terrace');
             case self::ZONE_THETEMPLEGARDENS:
-                return 'The Temple Gardens';
+                return self::$translator->trans('The Temple Gardens');
             case self::ZONE_TEMPLEOFELUNE:
-                return 'Temple of Elune';
+                return self::$translator->trans('Temple of Elune');
             case self::ZONE_CENARIONENCLAVE:
-                return 'Cenarion Enclave';
+                return self::$translator->trans('Cenarion Enclave');
             case self::ZONE_WARRIORSTERRACE:
-                return 'Warrior\'s Terrace';
+                return self::$translator->trans('Warrior\'s Terrace');
             case self::ZONE_RUTTHERANVILLAGE:
-                return 'Rut\'theran Village';
+                return self::$translator->trans('Rut\'theran Village');
             case self::ZONE_IRONBANDSCOMPOUND:
-                return 'Ironband\'s Compound';
+                return self::$translator->trans('Ironband\'s Compound');
             case self::ZONE_THESTOCKADE:
-                return 'The Stockade';
+                return self::$translator->trans('The Stockade');
             case self::ZONE_WAILINGCAVERNS:
-                return 'Wailing Caverns';
+                return self::$translator->trans('Wailing Caverns');
             case self::ZONE_BLACKFATHOMDEEPS:
-                return 'Blackfathom Deeps';
+                return self::$translator->trans('Blackfathom Deeps');
             case self::ZONE_FRAYISLAND:
-                return 'Fray Island';
+                return self::$translator->trans('Fray Island');
             case self::ZONE_RAZORFENDOWNS:
-                return 'Razorfen Downs';
+                return self::$translator->trans('Razorfen Downs');
             case self::ZONE_BANETHILHOLLOW:
-                return 'Ban\'ethil Hollow';
+                return self::$translator->trans('Ban\'ethil Hollow');
             case self::ZONE_SCARLETMONASTERY:
-                return 'Scarlet Monastery';
+                return self::$translator->trans('Scarlet Monastery');
             case self::ZONE_JERODSLANDING:
-                return 'Jerod\'s Landing';
+                return self::$translator->trans('Jerod\'s Landing');
             case self::ZONE_RIDGEPOINTTOWER:
-                return 'Ridgepoint Tower';
+                return self::$translator->trans('Ridgepoint Tower');
             case self::ZONE_THEDARKENEDBANK:
-                return 'The Darkened Bank';
+                return self::$translator->trans('The Darkened Bank');
             case self::ZONE_COLDRIDGEPASS:
-                return 'Coldridge Pass';
+                return self::$translator->trans('Coldridge Pass');
             case self::ZONE_CHILLBREEZEVALLEY:
-                return 'Chill Breeze Valley';
+                return self::$translator->trans('Chill Breeze Valley');
             case self::ZONE_SHIMMERRIDGE:
-                return 'Shimmer Ridge';
+                return self::$translator->trans('Shimmer Ridge');
             case self::ZONE_AMBERSTILLRANCH:
-                return 'Amberstill Ranch';
+                return self::$translator->trans('Amberstill Ranch');
             case self::ZONE_THETUNDRIDHILLS:
-                return 'The Tundrid Hills';
+                return self::$translator->trans('The Tundrid Hills');
             case self::ZONE_SOUTHGATEPASS:
-                return 'South Gate Pass';
+                return self::$translator->trans('South Gate Pass');
             case self::ZONE_SOUTHGATEOUTPOST:
-                return 'South Gate Outpost';
+                return self::$translator->trans('South Gate Outpost');
             case self::ZONE_NORTHGATEPASS:
-                return 'North Gate Pass';
+                return self::$translator->trans('North Gate Pass');
             case self::ZONE_NORTHGATEOUTPOST:
-                return 'North Gate Outpost';
+                return self::$translator->trans('North Gate Outpost');
             case self::ZONE_GATESOFIRONFORGE:
-                return 'Gates of Ironforge';
+                return self::$translator->trans('Gates of Ironforge');
             case self::ZONE_STILLWATERPOND:
-                return 'Stillwater Pond';
+                return self::$translator->trans('Stillwater Pond');
             case self::ZONE_NIGHTMAREVALE:
-                return 'Nightmare Vale';
+                return self::$translator->trans('Nightmare Vale');
             case self::ZONE_VENOMWEBVALE:
-                return 'Venomweb Vale';
+                return self::$translator->trans('Venomweb Vale');
             case self::ZONE_RAZORMANEGROUNDS:
-                return 'Razormane Grounds';
+                return self::$translator->trans('Razormane Grounds');
             case self::ZONE_SKULLROCK:
-                return 'Skull Rock';
+                return self::$translator->trans('Skull Rock');
             case self::ZONE_PALEMANEROCK:
-                return 'Palemane Rock';
+                return self::$translator->trans('Palemane Rock');
             case self::ZONE_WINDFURYRIDGE:
-                return 'Windfury Ridge';
+                return self::$translator->trans('Windfury Ridge');
             case self::ZONE_THEGOLDENPLAINS:
-                return 'The Golden Plains';
+                return self::$translator->trans('The Golden Plains');
             case self::ZONE_THEROLLINGPLAINS:
-                return 'The Rolling Plains';
+                return self::$translator->trans('The Rolling Plains');
             case self::ZONE_TWILIGHTGROVE:
-                return 'Twilight Grove';
+                return self::$translator->trans('Twilight Grove');
             case self::ZONE_GMISLAND:
-                return 'GM Island';
+                return self::$translator->trans('GM Island');
             case self::ZONE_PURGATIONISLE:
-                return 'Purgation Isle';
+                return self::$translator->trans('Purgation Isle');
             case self::ZONE_THEJANSENSTEAD:
-                return 'The Jansen Stead';
+                return self::$translator->trans('The Jansen Stead');
             case self::ZONE_THEDEADACRE:
-                return 'The Dead Acre';
+                return self::$translator->trans('The Dead Acre');
             case self::ZONE_THEMOLSENFARM:
-                return 'The Molsen Farm';
+                return self::$translator->trans('The Molsen Farm');
             case self::ZONE_STENDELSPOND:
-                return 'Stendel\'s Pond';
+                return self::$translator->trans('Stendel\'s Pond');
             case self::ZONE_THEDAGGERHILLS:
-                return 'The Dagger Hills';
+                return self::$translator->trans('The Dagger Hills');
             case self::ZONE_DEMONTSPLACE:
-                return 'Demont\'s Place';
+                return self::$translator->trans('Demont\'s Place');
             case self::ZONE_THEDUSTPLAINS:
-                return 'The Dust Plains';
+                return self::$translator->trans('The Dust Plains');
             case self::ZONE_STONESPLINTERVALLEY:
-                return 'Stonesplinter Valley';
+                return self::$translator->trans('Stonesplinter Valley');
             case self::ZONE_VALLEYOFKINGS:
-                return 'Valley of Kings';
+                return self::$translator->trans('Valley of Kings');
             case self::ZONE_ALGAZSTATION:
-                return 'Algaz Station';
+                return self::$translator->trans('Algaz Station');
             case self::ZONE_BUCKLEBREEFARM:
-                return 'Bucklebree Farm';
+                return self::$translator->trans('Bucklebree Farm');
             case self::ZONE_THESHININGSTRAND:
-                return 'The Shining Strand';
+                return self::$translator->trans('The Shining Strand');
             case self::ZONE_NORTHTIDESHOLLOW:
-                return 'North Tide\'s Hollow';
+                return self::$translator->trans('North Tide\'s Hollow');
             case self::ZONE_GRIZZLEPAWRIDGE:
-                return 'Grizzlepaw Ridge';
+                return self::$translator->trans('Grizzlepaw Ridge');
             case self::ZONE_THEVERDANTFIELDS:
-                return 'The Verdant Fields';
+                return self::$translator->trans('The Verdant Fields');
             case self::ZONE_GADGETZAN:
-                return 'Gadgetzan';
+                return self::$translator->trans('Gadgetzan');
             case self::ZONE_STEAMWHEEDLEPORT:
-                return 'Steamwheedle Port';
+                return self::$translator->trans('Steamwheedle Port');
             case self::ZONE_ZULFARRAK:
-                return 'Zul\'Farrak';
+                return self::$translator->trans('Zul\'Farrak');
             case self::ZONE_SANDSORROWWATCH:
-                return 'Sandsorrow Watch';
+                return self::$translator->trans('Sandsorrow Watch');
             case self::ZONE_THISTLESHRUBVALLEY:
-                return 'Thistleshrub Valley';
+                return self::$translator->trans('Thistleshrub Valley');
             case self::ZONE_THEGAPINGCHASM:
-                return 'The Gaping Chasm';
+                return self::$translator->trans('The Gaping Chasm');
             case self::ZONE_THENOXIOUSLAIR:
-                return 'The Noxious Lair';
+                return self::$translator->trans('The Noxious Lair');
             case self::ZONE_DUNEMAULCOMPOUND:
-                return 'Dunemaul Compound';
+                return self::$translator->trans('Dunemaul Compound');
             case self::ZONE_EASTMOONRUINS:
-                return 'Eastmoon Ruins';
+                return self::$translator->trans('Eastmoon Ruins');
             case self::ZONE_WATERSPRINGFIELD:
-                return 'Waterspring Field';
+                return self::$translator->trans('Waterspring Field');
             case self::ZONE_ZALASHJISDEN:
-                return 'Zalashji\'s Den';
+                return self::$translator->trans('Zalashji\'s Den');
             case self::ZONE_LANDSENDBEACH:
-                return 'Land\'s End Beach';
+                return self::$translator->trans('Land\'s End Beach');
             case self::ZONE_WAVESTRIDERBEACH:
-                return 'Wavestrider Beach';
+                return self::$translator->trans('Wavestrider Beach');
             case self::ZONE_ULDUM:
-                return 'Uldum';
+                return self::$translator->trans('Uldum');
             case self::ZONE_VALLEYOFTHEWATCHERS:
-                return 'Valley of the Watchers';
+                return self::$translator->trans('Valley of the Watchers');
             case self::ZONE_GUNSTANSPOST:
-                return 'Gunstan\'s Post';
+                return self::$translator->trans('Gunstan\'s Post');
             case self::ZONE_SOUTHMOONRUINS:
-                return 'Southmoon Ruins';
+                return self::$translator->trans('Southmoon Ruins');
             case self::ZONE_RENDERSCAMP:
-                return 'Render\'s Camp';
+                return self::$translator->trans('Render\'s Camp');
             case self::ZONE_RENDERSVALLEY:
-                return 'Render\'s Valley';
+                return self::$translator->trans('Render\'s Valley');
             case self::ZONE_RENDERSROCK:
-                return 'Render\'s Rock';
+                return self::$translator->trans('Render\'s Rock');
             case self::ZONE_STONEWATCHTOWER:
-                return 'Stonewatch Tower';
+                return self::$translator->trans('Stonewatch Tower');
             case self::ZONE_GALARDELLVALLEY:
-                return 'Galardell Valley';
+                return self::$translator->trans('Galardell Valley');
             case self::ZONE_LAKERIDGEHIGHWAY:
-                return 'Lakeridge Highway';
+                return self::$translator->trans('Lakeridge Highway');
             case self::ZONE_THREECORNERS:
-                return 'Three Corners';
+                return self::$translator->trans('Three Corners');
             case self::ZONE_DIREFORGEHILL:
-                return 'Direforge Hill';
+                return self::$translator->trans('Direforge Hill');
             case self::ZONE_RAPTORRIDGE:
-                return 'Raptor Ridge';
+                return self::$translator->trans('Raptor Ridge');
             case self::ZONE_BLACKCHANNELMARSH:
-                return 'Black Channel Marsh';
+                return self::$translator->trans('Black Channel Marsh');
             case self::ZONE_THEGREENBELT:
-                return 'The Green Belt';
+                return self::$translator->trans('The Green Belt');
             case self::ZONE_MOSSHIDEFEN:
-                return 'Mosshide Fen';
+                return self::$translator->trans('Mosshide Fen');
             case self::ZONE_THELGENROCK:
-                return 'Thelgen Rock';
+                return self::$translator->trans('Thelgen Rock');
             case self::ZONE_BLUEGILLMARSH:
-                return 'Bluegill Marsh';
+                return self::$translator->trans('Bluegill Marsh');
             case self::ZONE_SALTSPRAYGLEN:
-                return 'Saltspray Glen';
+                return self::$translator->trans('Saltspray Glen');
             case self::ZONE_SUNDOWNMARSH:
-                return 'Sundown Marsh';
+                return self::$translator->trans('Sundown Marsh');
             case self::ZONE_ANGERFANGENCAMPMENT:
-                return 'Angerfang Encampment';
+                return self::$translator->trans('Angerfang Encampment');
             case self::ZONE_GRIMBATOL:
-                return 'Grim Batol';
+                return self::$translator->trans('Grim Batol');
             case self::ZONE_DRAGONMAWGATES:
-                return 'Dragonmaw Gates';
+                return self::$translator->trans('Dragonmaw Gates');
             case self::ZONE_THELOSTFLEET:
-                return 'The Lost Fleet';
+                return self::$translator->trans('The Lost Fleet');
             case self::ZONE_DARROWHILL:
-                return 'Darrow Hill';
+                return self::$translator->trans('Darrow Hill');
             case self::ZONE_WEBWINDERPATH:
-                return 'Webwinder Path';
+                return self::$translator->trans('Webwinder Path');
             case self::ZONE_THEHUSHEDBANK:
-                return 'The Hushed Bank';
+                return self::$translator->trans('The Hushed Bank');
             case self::ZONE_MANORMISTMANTLE:
-                return 'Manor Mistmantle';
+                return self::$translator->trans('Manor Mistmantle');
             case self::ZONE_CAMPMOJACHE:
-                return 'Camp Mojache';
+                return self::$translator->trans('Camp Mojache');
             case self::ZONE_GRIMTOTEMCOMPOUND:
-                return 'Grimtotem Compound';
+                return self::$translator->trans('Grimtotem Compound');
             case self::ZONE_THEWRITHINGDEEP:
-                return 'The Writhing Deep';
+                return self::$translator->trans('The Writhing Deep');
             case self::ZONE_WILDWINDLAKE:
-                return 'Wildwind Lake';
+                return self::$translator->trans('Wildwind Lake');
             case self::ZONE_GORDUNNIOUTPOST:
-                return 'Gordunni Outpost';
+                return self::$translator->trans('Gordunni Outpost');
             case self::ZONE_MOKGORDUN:
-                return 'Mok\'Gordun';
+                return self::$translator->trans('Mok\'Gordun');
             case self::ZONE_FERALSCARVALE:
-                return 'Feral Scar Vale';
+                return self::$translator->trans('Feral Scar Vale');
             case self::ZONE_FRAYFEATHERHIGHLANDS:
-                return 'Frayfeather Highlands';
+                return self::$translator->trans('Frayfeather Highlands');
             case self::ZONE_IDLEWINDLAKE:
-                return 'Idlewind Lake';
+                return self::$translator->trans('Idlewind Lake');
             case self::ZONE_THEFORGOTTENCOAST:
-                return 'The Forgotten Coast';
+                return self::$translator->trans('The Forgotten Coast');
             case self::ZONE_EASTPILLAR:
-                return 'East Pillar';
+                return self::$translator->trans('East Pillar');
             case self::ZONE_WESTPILLAR:
-                return 'West Pillar';
+                return self::$translator->trans('West Pillar');
             case self::ZONE_DREAMBOUGH:
-                return 'Dream Bough';
+                return self::$translator->trans('Dream Bough');
             case self::ZONE_JADEMIRLAKE:
-                return 'Jademir Lake';
+                return self::$translator->trans('Jademir Lake');
             case self::ZONE_ONEIROS:
-                return 'Oneiros';
+                return self::$translator->trans('Oneiros');
             case self::ZONE_RUINSOFRAVENWIND:
-                return 'Ruins of Ravenwind';
+                return self::$translator->trans('Ruins of Ravenwind');
             case self::ZONE_RAGESCARHOLD:
-                return 'Rage Scar Hold';
+                return self::$translator->trans('Rage Scar Hold');
             case self::ZONE_FEATHERMOONSTRONGHOLD:
-                return 'Feathermoon Stronghold';
+                return self::$translator->trans('Feathermoon Stronghold');
             case self::ZONE_RUINSOFSOLARSAL:
-                return 'Ruins of Solarsal';
+                return self::$translator->trans('Ruins of Solarsal');
             case self::ZONE_THETWINCOLOSSALS:
-                return 'The Twin Colossals';
+                return self::$translator->trans('The Twin Colossals');
             case self::ZONE_SARDORISLE:
-                return 'Sardor Isle';
+                return self::$translator->trans('Sardor Isle');
             case self::ZONE_ISLEOFDREAD:
-                return 'Isle of Dread';
+                return self::$translator->trans('Isle of Dread');
             case self::ZONE_HIGHWILDERNESS:
-                return 'High Wilderness';
+                return self::$translator->trans('High Wilderness');
             case self::ZONE_LOWERWILDS:
-                return 'Lower Wilds';
+                return self::$translator->trans('Lower Wilds');
             case self::ZONE_SOUTHERNBARRENS:
-                return 'Southern Barrens';
+                return self::$translator->trans('Southern Barrens');
             case self::ZONE_SOUTHERNGOLDROAD:
-                return 'Southern Gold Road';
+                return self::$translator->trans('Southern Gold Road');
             case self::ZONE_TIMBERMAWHOLD:
-                return 'Timbermaw Hold';
+                return self::$translator->trans('Timbermaw Hold');
             case self::ZONE_VANNDIRENCAMPMENT:
-                return 'Vanndir Encampment';
+                return self::$translator->trans('Vanndir Encampment');
             case self::ZONE_LEGASHENCAMPMENT:
-                return 'Legash Encampment';
+                return self::$translator->trans('Legash Encampment');
             case self::ZONE_THALASSIANBASECAMP:
-                return 'Thalassian Base Camp';
+                return self::$translator->trans('Thalassian Base Camp');
             case self::ZONE_RUINSOFELDARATH:
-                return 'Ruins of Eldarath';
+                return self::$translator->trans('Ruins of Eldarath');
             case self::ZONE_HETAERASCLUTCH:
-                return 'Hetaera\'s Clutch';
+                return self::$translator->trans('Hetaera\'s Clutch');
             case self::ZONE_TEMPLEOFZINMALOR:
-                return 'Temple of Zin-Malor';
+                return self::$translator->trans('Temple of Zin-Malor');
             case self::ZONE_BEARSHEAD:
-                return 'Bear\'s Head';
+                return self::$translator->trans('Bear\'s Head');
             case self::ZONE_URSOLAN:
-                return 'Ursolan';
+                return self::$translator->trans('Ursolan');
             case self::ZONE_TEMPLEOFARKKORAN:
-                return 'Temple of Arkkoran';
+                return self::$translator->trans('Temple of Arkkoran');
             case self::ZONE_BAYOFSTORMS:
-                return 'Bay of Storms';
+                return self::$translator->trans('Bay of Storms');
             case self::ZONE_THESHATTEREDSTRAND:
-                return 'The Shattered Strand';
+                return self::$translator->trans('The Shattered Strand');
             case self::ZONE_TOWEROFELDARA:
-                return 'Tower of Eldara';
+                return self::$translator->trans('Tower of Eldara');
             case self::ZONE_JAGGEDREEF:
-                return 'Jagged Reef';
+                return self::$translator->trans('Jagged Reef');
             case self::ZONE_SOUTHRIDGEBEACH:
-                return 'Southridge Beach';
+                return self::$translator->trans('Southridge Beach');
             case self::ZONE_RAVENCRESTMONUMENT:
-                return 'Ravencrest Monument';
+                return self::$translator->trans('Ravencrest Monument');
             case self::ZONE_FORLORNRIDGE:
-                return 'Forlorn Ridge';
+                return self::$translator->trans('Forlorn Ridge');
             case self::ZONE_LAKEMENNAR:
-                return 'Lake Mennar';
+                return self::$translator->trans('Lake Mennar');
             case self::ZONE_SHADOWSONGSHRINE:
-                return 'Shadowsong Shrine';
+                return self::$translator->trans('Shadowsong Shrine');
             case self::ZONE_HALDARRENCAMPMENT:
-                return 'Haldarr Encampment';
+                return self::$translator->trans('Haldarr Encampment');
             case self::ZONE_VALORMOK:
-                return 'Valormok';
+                return self::$translator->trans('Valormok');
             case self::ZONE_THERUINEDREACHES:
-                return 'The Ruined Reaches';
+                return self::$translator->trans('The Ruined Reaches');
             case self::ZONE_THETALONDEEPPATH:
-                return 'The Talondeep Path';
+                return self::$translator->trans('The Talondeep Path');
             case self::ZONE_ROCKTUSKFARM:
-                return 'Rocktusk Farm';
+                return self::$translator->trans('Rocktusk Farm');
             case self::ZONE_JAGGEDSWINEFARM:
-                return 'Jaggedswine Farm';
+                return self::$translator->trans('Jaggedswine Farm');
             case self::ZONE_LOSTRIGGERCOVE:
-                return 'Lost Rigger Cove';
+                return self::$translator->trans('Lost Rigger Cove');
             case self::ZONE_ULDAMAN:
-                return 'Uldaman';
+                return self::$translator->trans('Uldaman');
             case self::ZONE_GALLOWSCORNER:
-                return 'Gallows\' Corner';
+                return self::$translator->trans('Gallows\' Corner');
             case self::ZONE_SILITHUS:
-                return 'Silithus';
+                return self::$translator->trans('Silithus');
             case self::ZONE_EMERALDFOREST:
-                return 'Emerald Forest';
+                return self::$translator->trans('Emerald Forest');
             case self::ZONE_SUNKENTEMPLE:
-                return 'Sunken Temple';
+                return self::$translator->trans('Sunken Temple');
             case self::ZONE_DREADMAULHOLD:
-                return 'Dreadmaul Hold';
+                return self::$translator->trans('Dreadmaul Hold');
             case self::ZONE_NETHERGARDEKEEP:
-                return 'Nethergarde Keep';
+                return self::$translator->trans('Nethergarde Keep');
             case self::ZONE_DREADMAULPOST:
-                return 'Dreadmaul Post';
+                return self::$translator->trans('Dreadmaul Post');
             case self::ZONE_SERPENTSCOIL:
-                return 'Serpent\'s Coil';
+                return self::$translator->trans('Serpent\'s Coil');
             case self::ZONE_FIREWATCHRIDGE:
-                return 'Firewatch Ridge';
+                return self::$translator->trans('Firewatch Ridge');
             case self::ZONE_THESLAGPIT:
-                return 'The Slag Pit';
+                return self::$translator->trans('The Slag Pit');
             case self::ZONE_THESEAOFCINDERS:
-                return 'The Sea of Cinders';
+                return self::$translator->trans('The Sea of Cinders');
             case self::ZONE_THORIUMPOINT:
-                return 'Thorium Point';
+                return self::$translator->trans('Thorium Point');
             case self::ZONE_GARRISONARMORY:
-                return 'Garrison Armory';
+                return self::$translator->trans('Garrison Armory');
             case self::ZONE_THETEMPLEOFATALHAKKAR:
-                return 'The Temple of Atal\'Hakkar';
+                return self::$translator->trans('The Temple of Atal\'Hakkar');
             case self::ZONE_UNDERCITY:
-                return 'Undercity';
+                return self::$translator->trans('Undercity');
             case self::ZONE_NOTUSEDDEADMINES:
-                return 'Not Used Deadmines';
+                return self::$translator->trans('Not Used Deadmines');
             case self::ZONE_STORMWINDCITY:
-                return 'Stormwind City';
+                return self::$translator->trans('Stormwind City');
             case self::ZONE_IRONFORGE:
-                return 'Ironforge';
+                return self::$translator->trans('Ironforge');
             case self::ZONE_SPLITHOOFHOLD:
-                return 'Splithoof Hold';
+                return self::$translator->trans('Splithoof Hold');
             case self::ZONE_THECAPEOFSTRANGLETHORN:
-                return 'The Cape of Stranglethorn';
+                return self::$translator->trans('The Cape of Stranglethorn');
             case self::ZONE_SOUTHERNSAVAGECOAST:
-                return 'Southern Savage Coast';
+                return self::$translator->trans('Southern Savage Coast');
             case self::ZONE_UNUSEDTHEDEADMINES002:
-                return 'Unused The Deadmines 002';
+                return self::$translator->trans('Unused The Deadmines 002');
             case self::ZONE_UNUSEDIRONCLADCOVE003:
-                return 'Unused Ironclad Cove 003';
+                return self::$translator->trans('Unused Ironclad Cove 003');
             case self::ZONE_THEDEADMINES:
-                return 'The Deadmines';
+                return self::$translator->trans('The Deadmines');
             case self::ZONE_IRONCLADCOVE:
-                return 'Ironclad Cove';
+                return self::$translator->trans('Ironclad Cove');
             case self::ZONE_BLACKROCKSPIRE:
-                return 'Blackrock Spire';
+                return self::$translator->trans('Blackrock Spire');
             case self::ZONE_BLACKROCKDEPTHS:
-                return 'Blackrock Depths';
+                return self::$translator->trans('Blackrock Depths');
             case self::ZONE_RAPTORGROUNDSUNUSED:
-                return 'Raptor Grounds UNUSED';
+                return self::$translator->trans('Raptor Grounds UNUSED');
             case self::ZONE_GROLDOMFARMUNUSED:
-                return 'Grol\'dom Farm UNUSED';
+                return self::$translator->trans('Grol\'dom Farm UNUSED');
             case self::ZONE_MORSHANBASECAMP:
-                return 'Mor\'shan Base Camp';
+                return self::$translator->trans('Mor\'shan Base Camp');
             case self::ZONE_HONORSSTANDUNUSED:
-                return 'Honor\'s Stand UNUSED';
+                return self::$translator->trans('Honor\'s Stand UNUSED');
             case self::ZONE_BLACKTHORNRIDGEUNUSED:
-                return 'Blackthorn Ridge UNUSED';
+                return self::$translator->trans('Blackthorn Ridge UNUSED');
             case self::ZONE_BRAMBLESCARUNUSED:
-                return 'Bramblescar UNUSED';
+                return self::$translator->trans('Bramblescar UNUSED');
             case self::ZONE_AGAMAGORUNUSED:
-                return 'Agama\'gor UNUSED';
+                return self::$translator->trans('Agama\'gor UNUSED');
             case self::ZONE_ORGRIMMAR:
-                return 'Orgrimmar';
+                return self::$translator->trans('Orgrimmar');
             case self::ZONE_THUNDERBLUFF:
-                return 'Thunder Bluff';
+                return self::$translator->trans('Thunder Bluff');
             case self::ZONE_ELDERRISE:
-                return 'Elder Rise';
+                return self::$translator->trans('Elder Rise');
             case self::ZONE_SPIRITRISE:
-                return 'Spirit Rise';
+                return self::$translator->trans('Spirit Rise');
             case self::ZONE_HUNTERRISE:
-                return 'Hunter Rise';
+                return self::$translator->trans('Hunter Rise');
             case self::ZONE_DARNASSUS:
-                return 'Darnassus';
+                return self::$translator->trans('Darnassus');
             case self::ZONE_GAVINSNAZE:
-                return 'Gavin\'s Naze';
+                return self::$translator->trans('Gavin\'s Naze');
             case self::ZONE_SOFERASNAZE:
-                return 'Sofera\'s Naze';
+                return self::$translator->trans('Sofera\'s Naze');
             case self::ZONE_CORRAHNSDAGGER:
-                return 'Corrahn\'s Dagger';
+                return self::$translator->trans('Corrahn\'s Dagger');
             case self::ZONE_THEHEADLAND:
-                return 'The Headland';
+                return self::$translator->trans('The Headland');
             case self::ZONE_MISTYSHORE:
-                return 'Misty Shore';
+                return self::$translator->trans('Misty Shore');
             case self::ZONE_DANDREDSFOLD:
-                return 'Dandred\'s Fold';
+                return self::$translator->trans('Dandred\'s Fold');
             case self::ZONE_GROWLESSCAVE:
-                return 'Growless Cave';
+                return self::$translator->trans('Growless Cave');
             case self::ZONE_CHILLWINDPOINT:
-                return 'Chillwind Point';
+                return self::$translator->trans('Chillwind Point');
             case self::ZONE_RAPTORGROUNDS:
-                return 'Raptor Grounds';
+                return self::$translator->trans('Raptor Grounds');
             case self::ZONE_BRAMBLESCAR:
-                return 'Bramblescar';
+                return self::$translator->trans('Bramblescar');
             case self::ZONE_THORNHILL:
-                return 'Thorn Hill';
+                return self::$translator->trans('Thorn Hill');
             case self::ZONE_AGAMAGOR:
-                return 'Agama\'gor';
+                return self::$translator->trans('Agama\'gor');
             case self::ZONE_BLACKTHORNRIDGE:
-                return 'Blackthorn Ridge';
+                return self::$translator->trans('Blackthorn Ridge');
             case self::ZONE_HONORSSTAND:
-                return 'Honor\'s Stand';
+                return self::$translator->trans('Honor\'s Stand');
             case self::ZONE_THEMORSHANRAMPART:
-                return 'The Mor\'shan Rampart';
+                return self::$translator->trans('The Mor\'shan Rampart');
             case self::ZONE_GROLDOMFARM:
-                return 'Grol\'dom Farm';
+                return self::$translator->trans('Grol\'dom Farm');
             case self::ZONE_MISTVALEVALLEY:
-                return 'Mistvale Valley';
+                return self::$translator->trans('Mistvale Valley');
             case self::ZONE_NEKMANIWELLSPRING:
-                return 'Nek\'mani Wellspring';
+                return self::$translator->trans('Nek\'mani Wellspring');
             case self::ZONE_BLOODSAILCOMPOUND:
-                return 'Bloodsail Compound';
+                return self::$translator->trans('Bloodsail Compound');
             case self::ZONE_VENTURECOBASECAMP:
-                return 'Venture Co. Base Camp';
+                return self::$translator->trans('Venture Co. Base Camp');
             case self::ZONE_GURUBASHIARENA:
-                return 'Gurubashi Arena';
+                return self::$translator->trans('Gurubashi Arena');
             case self::ZONE_SPIRITDEN:
-                return 'Spirit Den';
+                return self::$translator->trans('Spirit Den');
             case self::ZONE_THECRIMSONVEIL:
-                return 'The Crimson Veil';
+                return self::$translator->trans('The Crimson Veil');
             case self::ZONE_THERIPTIDE:
-                return 'The Riptide';
+                return self::$translator->trans('The Riptide');
             case self::ZONE_THEDAMSELSLUCK:
-                return 'The Damsel\'s Luck';
+                return self::$translator->trans('The Damsel\'s Luck');
             case self::ZONE_VENTURECOOPERATIONSCENTER:
-                return 'Venture Co. Operations Center';
+                return self::$translator->trans('Venture Co. Operations Center');
             case self::ZONE_DEADWOODVILLAGE:
-                return 'Deadwood Village';
+                return self::$translator->trans('Deadwood Village');
             case self::ZONE_FELPAWVILLAGE:
-                return 'Felpaw Village';
+                return self::$translator->trans('Felpaw Village');
             case self::ZONE_JAEDENAR:
-                return 'Jaedenar';
+                return self::$translator->trans('Jaedenar');
             case self::ZONE_BLOODVENOMRIVER:
-                return 'Bloodvenom River';
+                return self::$translator->trans('Bloodvenom River');
             case self::ZONE_BLOODVENOMFALLS:
-                return 'Bloodvenom Falls';
+                return self::$translator->trans('Bloodvenom Falls');
             case self::ZONE_SHATTERSCARVALE:
-                return 'Shatter Scar Vale';
+                return self::$translator->trans('Shatter Scar Vale');
             case self::ZONE_IRONTREEWOODS:
-                return 'Irontree Woods';
+                return self::$translator->trans('Irontree Woods');
             case self::ZONE_IRONTREECAVERN:
-                return 'Irontree Cavern';
+                return self::$translator->trans('Irontree Cavern');
             case self::ZONE_SHADOWHOLD:
-                return 'Shadow Hold';
+                return self::$translator->trans('Shadow Hold');
             case self::ZONE_SHRINEOFTHEDECEIVER:
-                return 'Shrine of the Deceiver';
+                return self::$translator->trans('Shrine of the Deceiver');
             case self::ZONE_ITHARIUSSCAVE:
-                return 'Itharius\'s Cave';
+                return self::$translator->trans('Itharius\'s Cave');
             case self::ZONE_SORROWMURK:
-                return 'Sorrowmurk';
+                return self::$translator->trans('Sorrowmurk');
             case self::ZONE_DRAENILDURVILLAGE:
-                return 'Draenil\'dur Village';
+                return self::$translator->trans('Draenil\'dur Village');
             case self::ZONE_SPLINTERSPEARJUNCTION:
-                return 'Splinterspear Junction';
+                return self::$translator->trans('Splinterspear Junction');
             case self::ZONE_STAGALBOG:
-                return 'Stagalbog';
+                return self::$translator->trans('Stagalbog');
             case self::ZONE_THESHIFTINGMIRE:
-                return 'The Shifting Mire';
+                return self::$translator->trans('The Shifting Mire');
             case self::ZONE_STAGALBOGCAVE:
-                return 'Stagalbog Cave';
+                return self::$translator->trans('Stagalbog Cave');
             case self::ZONE_WITHERBARKCAVERNS:
-                return 'Witherbark Caverns';
+                return self::$translator->trans('Witherbark Caverns');
             case self::ZONE_BOULDERGOR:
-                return 'Boulder\'gor';
+                return self::$translator->trans('Boulder\'gor');
             case self::ZONE_VALLEYOFFANGS:
-                return 'Valley of Fangs';
+                return self::$translator->trans('Valley of Fangs');
             case self::ZONE_THEDUSTBOWL:
-                return 'The Dustbowl';
+                return self::$translator->trans('The Dustbowl');
             case self::ZONE_MIRAGEFLATS:
-                return 'Mirage Flats';
+                return self::$translator->trans('Mirage Flats');
             case self::ZONE_FEATHERBEARDSHOVEL:
-                return 'Featherbeard\'s Hovel';
+                return self::$translator->trans('Featherbeard\'s Hovel');
             case self::ZONE_SHINDIGGERSCAMP:
-                return 'Shindigger\'s Camp';
+                return self::$translator->trans('Shindigger\'s Camp');
             case self::ZONE_PLAGUEMISTRAVINE:
-                return 'Plaguemist Ravine';
+                return self::$translator->trans('Plaguemist Ravine');
             case self::ZONE_VALORWINDLAKE:
-                return 'Valorwind Lake';
+                return self::$translator->trans('Valorwind Lake');
             case self::ZONE_AGOLWATHA:
-                return 'Agol\'watha';
+                return self::$translator->trans('Agol\'watha');
             case self::ZONE_HIRIWATHA:
-                return 'Hiri\'watha';
+                return self::$translator->trans('Hiri\'watha');
             case self::ZONE_THECREEPINGRUIN:
-                return 'The Creeping Ruin';
+                return self::$translator->trans('The Creeping Ruin');
             case self::ZONE_BOGENSLEDGE:
-                return 'Bogen\'s Ledge';
+                return self::$translator->trans('Bogen\'s Ledge');
             case self::ZONE_THEMAKERSTERRACE:
-                return 'The Maker\'s Terrace';
+                return self::$translator->trans('The Maker\'s Terrace');
             case self::ZONE_DUSTWINDGULCH:
-                return 'Dustwind Gulch';
+                return self::$translator->trans('Dustwind Gulch');
             case self::ZONE_SHAOLWATHA:
-                return 'Shaol\'watha';
+                return self::$translator->trans('Shaol\'watha');
             case self::ZONE_NOONSHADERUINS:
-                return 'Noonshade Ruins';
+                return self::$translator->trans('Noonshade Ruins');
             case self::ZONE_BROKENPILLAR:
-                return 'Broken Pillar';
+                return self::$translator->trans('Broken Pillar');
             case self::ZONE_ABYSSALSANDS:
-                return 'Abyssal Sands';
+                return self::$translator->trans('Abyssal Sands');
             case self::ZONE_SOUTHBREAKSHORE:
-                return 'Southbreak Shore';
+                return self::$translator->trans('Southbreak Shore');
             case self::ZONE_CAVERNSOFTIME:
-                return 'Caverns of Time';
+                return self::$translator->trans('Caverns of Time');
             case self::ZONE_THEMARSHLANDS:
-                return 'The Marshlands';
+                return self::$translator->trans('The Marshlands');
             case self::ZONE_IRONSTONEPLATEAU:
-                return 'Ironstone Plateau';
+                return self::$translator->trans('Ironstone Plateau');
             case self::ZONE_BLACKCHARCAVE:
-                return 'Blackchar Cave';
+                return self::$translator->trans('Blackchar Cave');
             case self::ZONE_TANNERCAMP:
-                return 'Tanner Camp';
+                return self::$translator->trans('Tanner Camp');
             case self::ZONE_DUSTFIREVALLEY:
-                return 'Dustfire Valley';
+                return self::$translator->trans('Dustfire Valley');
             case self::ZONE_MISTYREEDPOST:
-                return 'Misty Reed Post';
+                return self::$translator->trans('Misty Reed Post');
             case self::ZONE_BLOODVENOMPOST:
-                return 'Bloodvenom Post';
+                return self::$translator->trans('Bloodvenom Post');
             case self::ZONE_TALONBRANCHGLADE:
-                return 'Talonbranch Glade';
+                return self::$translator->trans('Talonbranch Glade');
             case self::ZONE_STRATHOLME:
-                return 'Stratholme';
+                return self::$translator->trans('Stratholme');
             case self::ZONE_STRATHOLME2:
-                return 'Stratholme';
+                return self::$translator->trans('Stratholme');
             case self::ZONE_QUELTHALAS:
-                return 'Quel\'thalas';
+                return self::$translator->trans('Quel\'thalas');
             case self::ZONE_SCHOLOMANCE:
-                return 'Scholomance';
+                return self::$translator->trans('Scholomance');
             case self::ZONE_TWILIGHTVALE:
-                return 'Twilight Vale';
+                return self::$translator->trans('Twilight Vale');
             case self::ZONE_TWILIGHTSHORE:
-                return 'Twilight Shore';
+                return self::$translator->trans('Twilight Shore');
             case self::ZONE_ALCAZISLAND:
-                return 'Alcaz Island';
+                return self::$translator->trans('Alcaz Island');
             case self::ZONE_DARKCLOUDPINNACLE:
-                return 'Darkcloud Pinnacle';
+                return self::$translator->trans('Darkcloud Pinnacle');
             case self::ZONE_DAWNINGWOODCATACOMBS:
-                return 'Dawning Wood Catacombs';
+                return self::$translator->trans('Dawning Wood Catacombs');
             case self::ZONE_STONEWATCHKEEP:
-                return 'Stonewatch Keep';
+                return self::$translator->trans('Stonewatch Keep');
             case self::ZONE_MARAUDON:
-                return 'Maraudon';
+                return self::$translator->trans('Maraudon');
             case self::ZONE_STOUTLAGERINN:
-                return 'Stoutlager Inn';
+                return self::$translator->trans('Stoutlager Inn');
             case self::ZONE_THUNDERBREWDISTILLERY:
-                return 'Thunderbrew Distillery';
+                return self::$translator->trans('Thunderbrew Distillery');
             case self::ZONE_MENETHILKEEP:
-                return 'Menethil Keep';
+                return self::$translator->trans('Menethil Keep');
             case self::ZONE_DEEPWATERTAVERN:
-                return 'Deepwater Tavern';
+                return self::$translator->trans('Deepwater Tavern');
             case self::ZONE_SHADOWGRAVE:
-                return 'Shadow Grave';
+                return self::$translator->trans('Shadow Grave');
             case self::ZONE_BRILLTOWNHALL:
-                return 'Brill Town Hall';
+                return self::$translator->trans('Brill Town Hall');
             case self::ZONE_GALLOWSENDTAVERN:
-                return 'Gallows\' End Tavern';
+                return self::$translator->trans('Gallows\' End Tavern');
             case self::ZONE_THEPOOLSOFVISION:
-                return 'The Pools of Vision';
+                return self::$translator->trans('The Pools of Vision');
             case self::ZONE_DREADMISTDEN:
-                return 'Dreadmist Den';
+                return self::$translator->trans('Dreadmist Den');
             case self::ZONE_BAELDUNKEEP:
-                return 'Bael\'dun Keep';
+                return self::$translator->trans('Bael\'dun Keep');
             case self::ZONE_EMBERSTRIFESDEN:
-                return 'Emberstrife\'s Den';
+                return self::$translator->trans('Emberstrife\'s Den');
             case self::ZONE_WINDSHEARMINE:
-                return 'Windshear Mine';
+                return self::$translator->trans('Windshear Mine');
             case self::ZONE_ROLANDSDOOM:
-                return 'Roland\'s Doom';
+                return self::$translator->trans('Roland\'s Doom');
             case self::ZONE_BATTLERING:
-                return 'Battle Ring';
+                return self::$translator->trans('Battle Ring');
             case self::ZONE_SHADOWBREAKRAVINE:
-                return 'Shadowbreak Ravine';
+                return self::$translator->trans('Shadowbreak Ravine');
             case self::ZONE_BROKENSPEARVILLAGE:
-                return 'Broken Spear Village';
+                return self::$translator->trans('Broken Spear Village');
             case self::ZONE_WHITEREACHPOST:
-                return 'Whitereach Post';
+                return self::$translator->trans('Whitereach Post');
             case self::ZONE_GORNIA:
-                return 'Gornia';
+                return self::$translator->trans('Gornia');
             case self::ZONE_ZANESEYECRATER:
-                return 'Zane\'s Eye Crater';
+                return self::$translator->trans('Zane\'s Eye Crater');
             case self::ZONE_MIRAGERACEWAY:
-                return 'Mirage Raceway';
+                return self::$translator->trans('Mirage Raceway');
             case self::ZONE_FROSTSABERROCK:
-                return 'Frostsaber Rock';
+                return self::$translator->trans('Frostsaber Rock');
             case self::ZONE_THEHIDDENGROVE:
-                return 'The Hidden Grove';
+                return self::$translator->trans('The Hidden Grove');
             case self::ZONE_TIMBERMAWPOST:
-                return 'Timbermaw Post';
+                return self::$translator->trans('Timbermaw Post');
             case self::ZONE_WINTERFALLVILLAGE:
-                return 'Winterfall Village';
+                return self::$translator->trans('Winterfall Village');
             case self::ZONE_MAZTHORIL:
-                return 'Mazthoril';
+                return self::$translator->trans('Mazthoril');
             case self::ZONE_FROSTFIREHOTSPRINGS:
-                return 'Frostfire Hot Springs';
+                return self::$translator->trans('Frostfire Hot Springs');
             case self::ZONE_ICETHISTLEHILLS:
-                return 'Ice Thistle Hills';
+                return self::$translator->trans('Ice Thistle Hills');
             case self::ZONE_DUNMANDARR:
-                return 'Dun Mandarr';
+                return self::$translator->trans('Dun Mandarr');
             case self::ZONE_FROSTWHISPERGORGE:
-                return 'Frostwhisper Gorge';
+                return self::$translator->trans('Frostwhisper Gorge');
             case self::ZONE_OWLWINGTHICKET:
-                return 'Owl Wing Thicket';
+                return self::$translator->trans('Owl Wing Thicket');
             case self::ZONE_LAKEKELTHERIL:
-                return 'Lake Kel\'Theril';
+                return self::$translator->trans('Lake Kel\'Theril');
             case self::ZONE_THERUINSOFKELTHERIL:
-                return 'The Ruins of Kel\'Theril';
+                return self::$translator->trans('The Ruins of Kel\'Theril');
             case self::ZONE_STARFALLVILLAGE:
-                return 'Starfall Village';
+                return self::$translator->trans('Starfall Village');
             case self::ZONE_BANTHALLOWBARROWDEN:
-                return 'Ban\'Thallow Barrow Den';
+                return self::$translator->trans('Ban\'Thallow Barrow Den');
             case self::ZONE_EVERLOOK:
-                return 'Everlook';
+                return self::$translator->trans('Everlook');
             case self::ZONE_DARKWHISPERGORGE:
-                return 'Darkwhisper Gorge';
+                return self::$translator->trans('Darkwhisper Gorge');
             case self::ZONE_DEEPRUNTRAM:
-                return 'Deeprun Tram';
+                return self::$translator->trans('Deeprun Tram');
             case self::ZONE_THEFUNGALVALE:
-                return 'The Fungal Vale';
+                return self::$translator->trans('The Fungal Vale');
             case self::ZONE_THEMARRISSTEAD:
-                return 'The Marris Stead';
+                return self::$translator->trans('The Marris Stead');
             case self::ZONE_THEUNDERCROFT:
-                return 'The Undercroft';
+                return self::$translator->trans('The Undercroft');
             case self::ZONE_DARROWSHIRE:
-                return 'Darrowshire';
+                return self::$translator->trans('Darrowshire');
             case self::ZONE_CROWNGUARDTOWER:
-                return 'Crown Guard Tower';
+                return self::$translator->trans('Crown Guard Tower');
             case self::ZONE_CORINSCROSSING:
-                return 'Corin\'s Crossing';
+                return self::$translator->trans('Corin\'s Crossing');
             case self::ZONE_SCARLETBASECAMP:
-                return 'Scarlet Base Camp';
+                return self::$translator->trans('Scarlet Base Camp');
             case self::ZONE_TYRSHAND:
-                return 'Tyr\'s Hand';
+                return self::$translator->trans('Tyr\'s Hand');
             case self::ZONE_THESCARLETBASILICA:
-                return 'The Scarlet Basilica';
+                return self::$translator->trans('The Scarlet Basilica');
             case self::ZONE_LIGHTSHOPECHAPEL:
-                return 'Light\'s Hope Chapel';
+                return self::$translator->trans('Light\'s Hope Chapel');
             case self::ZONE_BROWMANMILL:
-                return 'Browman Mill';
+                return self::$translator->trans('Browman Mill');
             case self::ZONE_THENOXIOUSGLADE:
-                return 'The Noxious Glade';
+                return self::$translator->trans('The Noxious Glade');
             case self::ZONE_EASTWALLTOWER:
-                return 'Eastwall Tower';
+                return self::$translator->trans('Eastwall Tower');
             case self::ZONE_NORTHDALE:
-                return 'Northdale';
+                return self::$translator->trans('Northdale');
             case self::ZONE_ZULMASHAR:
-                return 'Zul\'Mashar';
+                return self::$translator->trans('Zul\'Mashar');
             case self::ZONE_MAZRAALOR:
-                return 'Mazra\'Alor';
+                return self::$translator->trans('Mazra\'Alor');
             case self::ZONE_NORTHPASSTOWER:
-                return 'Northpass Tower';
+                return self::$translator->trans('Northpass Tower');
             case self::ZONE_QUELLITHIENLODGE:
-                return 'Quel\'Lithien Lodge';
+                return self::$translator->trans('Quel\'Lithien Lodge');
             case self::ZONE_PLAGUEWOOD:
-                return 'Plaguewood';
+                return self::$translator->trans('Plaguewood');
             case self::ZONE_SCOURGEHOLD:
-                return 'Scourgehold';
+                return self::$translator->trans('Scourgehold');
             case self::ZONE_DARROWMERELAKE:
-                return 'Darrowmere Lake';
+                return self::$translator->trans('Darrowmere Lake');
             case self::ZONE_CAERDARROW:
-                return 'Caer Darrow';
+                return self::$translator->trans('Caer Darrow');
             case self::ZONE_THISTLEFURVILLAGE:
-                return 'Thistlefur Village';
+                return self::$translator->trans('Thistlefur Village');
             case self::ZONE_THEQUAGMIRE:
-                return 'The Quagmire';
+                return self::$translator->trans('The Quagmire');
             case self::ZONE_WINDBREAKCANYON:
-                return 'Windbreak Canyon';
+                return self::$translator->trans('Windbreak Canyon');
             case self::ZONE_SOUTHSEAS:
-                return 'South Seas';
+                return self::$translator->trans('South Seas');
             case self::ZONE_RAZORHILLBARRACKS:
-                return 'Razor Hill Barracks';
+                return self::$translator->trans('Razor Hill Barracks');
             case self::ZONE_BLOODTOOTHCAMP:
-                return 'Bloodtooth Camp';
+                return self::$translator->trans('Bloodtooth Camp');
             case self::ZONE_FORESTSONG:
-                return 'Forest Song';
+                return self::$translator->trans('Forest Song');
             case self::ZONE_GREENPAWVILLAGE:
-                return 'Greenpaw Village';
+                return self::$translator->trans('Greenpaw Village');
             case self::ZONE_SILVERWINGOUTPOST:
-                return 'Silverwing Outpost';
+                return self::$translator->trans('Silverwing Outpost');
             case self::ZONE_NIGHTHAVEN:
-                return 'Nighthaven';
+                return self::$translator->trans('Nighthaven');
             case self::ZONE_SHRINEOFREMULOS:
-                return 'Shrine of Remulos';
+                return self::$translator->trans('Shrine of Remulos');
             case self::ZONE_STORMRAGEBARROWDENS:
-                return 'Stormrage Barrow Dens';
+                return self::$translator->trans('Stormrage Barrow Dens');
             case self::ZONE_THEBLACKMORASS:
-                return 'The Black Morass';
+                return self::$translator->trans('The Black Morass');
             case self::ZONE_OLDHILLSBRADFOOTHILLS:
-                return 'Old Hillsbrad Foothills';
+                return self::$translator->trans('Old Hillsbrad Foothills');
             case self::ZONE_TETHRISARAN:
-                return 'Tethris Aran';
+                return self::$translator->trans('Tethris Aran');
             case self::ZONE_ETHELRETHOR:
-                return 'Ethel Rethor';
+                return self::$translator->trans('Ethel Rethor');
             case self::ZONE_RANAZJARISLE:
-                return 'Ranazjar Isle';
+                return self::$translator->trans('Ranazjar Isle');
             case self::ZONE_KORMEKSHUT:
-                return 'Kormek\'s Hut';
+                return self::$translator->trans('Kormek\'s Hut');
             case self::ZONE_SHADOWPREYVILLAGE:
-                return 'Shadowprey Village';
+                return self::$translator->trans('Shadowprey Village');
             case self::ZONE_BLACKROCKPASS:
-                return 'Blackrock Pass';
+                return self::$translator->trans('Blackrock Pass');
             case self::ZONE_MORGANSVIGIL:
-                return 'Morgan\'s Vigil';
+                return self::$translator->trans('Morgan\'s Vigil');
             case self::ZONE_SLITHERROCK:
-                return 'Slither Rock';
+                return self::$translator->trans('Slither Rock');
             case self::ZONE_TERRORWINGPATH:
-                return 'Terror Wing Path';
+                return self::$translator->trans('Terror Wing Path');
             case self::ZONE_DRACODAR:
-                return 'Draco\'dar';
+                return self::$translator->trans('Draco\'dar');
             case self::ZONE_RAGEFIRECHASM:
-                return 'Ragefire Chasm';
+                return self::$translator->trans('Ragefire Chasm');
             case self::ZONE_NIGHTSONGWOODS:
-                return 'Nightsong Woods';
+                return self::$translator->trans('Nightsong Woods');
             case self::ZONE_MORLOSARAN:
-                return 'Morlos\'Aran';
+                return self::$translator->trans('Morlos\'Aran');
             case self::ZONE_EMERALDSANCTUARY:
-                return 'Emerald Sanctuary';
+                return self::$translator->trans('Emerald Sanctuary');
             case self::ZONE_JADEFIREGLEN:
-                return 'Jadefire Glen';
+                return self::$translator->trans('Jadefire Glen');
             case self::ZONE_RUINSOFCONSTELLAS:
-                return 'Ruins of Constellas';
+                return self::$translator->trans('Ruins of Constellas');
             case self::ZONE_BITTERREACHES:
-                return 'Bitter Reaches';
+                return self::$translator->trans('Bitter Reaches');
             case self::ZONE_RISEOFTHEDEFILER:
-                return 'Rise of the Defiler';
+                return self::$translator->trans('Rise of the Defiler');
             case self::ZONE_LARISSPAVILION:
-                return 'Lariss Pavilion';
+                return self::$translator->trans('Lariss Pavilion');
             case self::ZONE_WOODPAWHILLS:
-                return 'Woodpaw Hills';
+                return self::$translator->trans('Woodpaw Hills');
             case self::ZONE_WOODPAWDEN:
-                return 'Woodpaw Den';
+                return self::$translator->trans('Woodpaw Den');
             case self::ZONE_VERDANTISRIVER:
-                return 'Verdantis River';
+                return self::$translator->trans('Verdantis River');
             case self::ZONE_RUINSOFISILDIEN:
-                return 'Ruins of Isildien';
+                return self::$translator->trans('Ruins of Isildien');
             case self::ZONE_GRIMTOTEMPOST:
-                return 'Grimtotem Post';
+                return self::$translator->trans('Grimtotem Post');
             case self::ZONE_CAMPAPARAJE:
-                return 'Camp Aparaje';
+                return self::$translator->trans('Camp Aparaje');
             case self::ZONE_MALAKAJIN:
-                return 'Malaka\'jin';
+                return self::$translator->trans('Malaka\'jin');
             case self::ZONE_BOULDERSLIDERAVINE:
-                return 'Boulderslide Ravine';
+                return self::$translator->trans('Boulderslide Ravine');
             case self::ZONE_SISHIRCANYON:
-                return 'Sishir Canyon';
+                return self::$translator->trans('Sishir Canyon');
             case self::ZONE_DIREMAUL:
-                return 'Dire Maul';
+                return self::$translator->trans('Dire Maul');
             case self::ZONE_DIREMAUL2:
-                return 'Dire Maul';
+                return self::$translator->trans('Dire Maul');
             case self::ZONE_DEADWINDRAVINE:
-                return 'Deadwind Ravine';
+                return self::$translator->trans('Deadwind Ravine');
             case self::ZONE_DIAMONDHEADRIVER:
-                return 'Diamondhead River';
+                return self::$translator->trans('Diamondhead River');
             case self::ZONE_ARIDENSCAMP:
-                return 'Ariden\'s Camp';
+                return self::$translator->trans('Ariden\'s Camp');
             case self::ZONE_THEVICE:
-                return 'The Vice';
+                return self::$translator->trans('The Vice');
             case self::ZONE_KARAZHAN:
-                return 'Karazhan';
+                return self::$translator->trans('Karazhan');
             case self::ZONE_MORGANSPLOT:
-                return 'Morgan\'s Plot';
+                return self::$translator->trans('Morgan\'s Plot');
             case self::ZONE_ALTERACVALLEY:
-                return 'Alterac Valley';
+                return self::$translator->trans('Alterac Valley');
             case self::ZONE_SCRABBLESCREWSCAMP:
-                return 'Scrabblescrew\'s Camp';
+                return self::$translator->trans('Scrabblescrew\'s Camp');
             case self::ZONE_JADEFIRERUN:
-                return 'Jadefire Run';
+                return self::$translator->trans('Jadefire Run');
             case self::ZONE_THONDRORILRIVER:
-                return 'Thondroril River';
+                return self::$translator->trans('Thondroril River');
             case self::ZONE_LAKEMERELDAR:
-                return 'Lake Mereldar';
+                return self::$translator->trans('Lake Mereldar');
             case self::ZONE_PESTILENTSCAR:
-                return 'Pestilent Scar';
+                return self::$translator->trans('Pestilent Scar');
             case self::ZONE_THEINFECTISSCAR:
-                return 'The Infectis Scar';
+                return self::$translator->trans('The Infectis Scar');
             case self::ZONE_BLACKWOODLAKE:
-                return 'Blackwood Lake';
+                return self::$translator->trans('Blackwood Lake');
             case self::ZONE_EASTWALLGATE:
-                return 'Eastwall Gate';
+                return self::$translator->trans('Eastwall Gate');
             case self::ZONE_TERRORWEBTUNNEL:
-                return 'Terrorweb Tunnel';
+                return self::$translator->trans('Terrorweb Tunnel');
             case self::ZONE_TERRORDALE:
-                return 'Terrordale';
+                return self::$translator->trans('Terrordale');
             case self::ZONE_KARGATHIAKEEP:
-                return 'Kargathia Keep';
+                return self::$translator->trans('Kargathia Keep');
             case self::ZONE_VALLEYOFBONES:
-                return 'Valley of Bones';
+                return self::$translator->trans('Valley of Bones');
             case self::ZONE_BLACKWINGLAIR:
-                return 'Blackwing Lair';
+                return self::$translator->trans('Blackwing Lair');
             case self::ZONE_DEADMANSCROSSING:
-                return 'Deadman\'s Crossing';
+                return self::$translator->trans('Deadman\'s Crossing');
             case self::ZONE_MOLTENCORE:
-                return 'Molten Core';
+                return self::$translator->trans('Molten Core');
             case self::ZONE_THESCARABWALL:
-                return 'The Scarab Wall';
+                return self::$translator->trans('The Scarab Wall');
             case self::ZONE_SOUTHWINDVILLAGE:
-                return 'Southwind Village';
+                return self::$translator->trans('Southwind Village');
             case self::ZONE_TWILIGHTBASECAMP:
-                return 'Twilight Base Camp';
+                return self::$translator->trans('Twilight Base Camp');
             case self::ZONE_THECRYSTALVALE:
-                return 'The Crystal Vale';
+                return self::$translator->trans('The Crystal Vale');
             case self::ZONE_THESCARABDAIS:
-                return 'The Scarab Dais';
+                return self::$translator->trans('The Scarab Dais');
             case self::ZONE_HIVEASHI:
-                return 'Hive\'Ashi';
+                return self::$translator->trans('Hive\'Ashi');
             case self::ZONE_HIVEZORA:
-                return 'Hive\'Zora';
+                return self::$translator->trans('Hive\'Zora');
             case self::ZONE_HIVEREGAL:
-                return 'Hive\'Regal';
+                return self::$translator->trans('Hive\'Regal');
             case self::ZONE_SHRINEOFTHEFALLENWARRIOR:
-                return 'Shrine of the Fallen Warrior';
+                return self::$translator->trans('Shrine of the Fallen Warrior');
             case self::ZONE_THEMASTERSCELLAR:
-                return 'The Master\'s Cellar';
+                return self::$translator->trans('The Master\'s Cellar');
             case self::ZONE_THERUMBLECAGE:
-                return 'The Rumble Cage';
+                return self::$translator->trans('The Rumble Cage');
             case self::ZONE_CHUNKTEST:
-                return 'Chunk Test';
+                return self::$translator->trans('Chunk Test');
             case self::ZONE_ZORAMGAROUTPOST:
-                return 'Zoram\'gar Outpost';
+                return self::$translator->trans('Zoram\'gar Outpost');
             case self::ZONE_HALLOFLEGENDS:
-                return 'Hall of Legends';
+                return self::$translator->trans('Hall of Legends');
             case self::ZONE_CHAMPIONSHALL:
-                return 'Champions\' Hall';
+                return self::$translator->trans('Champions\' Hall');
             case self::ZONE_GROSHGOKCOMPOUND:
-                return 'Grosh\'gok Compound';
+                return self::$translator->trans('Grosh\'gok Compound');
             case self::ZONE_SLEEPINGGORGE:
-                return 'Sleeping Gorge';
+                return self::$translator->trans('Sleeping Gorge');
             case self::ZONE_IRONDEEPMINE:
-                return 'Irondeep Mine';
+                return self::$translator->trans('Irondeep Mine');
             case self::ZONE_STONEHEARTHOUTPOST:
-                return 'Stonehearth Outpost';
+                return self::$translator->trans('Stonehearth Outpost');
             case self::ZONE_DUNBALDAR:
-                return 'Dun Baldar';
+                return self::$translator->trans('Dun Baldar');
             case self::ZONE_ICEWINGPASS:
-                return 'Icewing Pass';
+                return self::$translator->trans('Icewing Pass');
             case self::ZONE_FROSTWOLFVILLAGE:
-                return 'Frostwolf Village';
+                return self::$translator->trans('Frostwolf Village');
             case self::ZONE_TOWERPOINT:
-                return 'Tower Point';
+                return self::$translator->trans('Tower Point');
             case self::ZONE_COLDTOOTHMINE:
-                return 'Coldtooth Mine';
+                return self::$translator->trans('Coldtooth Mine');
             case self::ZONE_WINTERAXHOLD:
-                return 'Winterax Hold';
+                return self::$translator->trans('Winterax Hold');
             case self::ZONE_ICEBLOODGARRISON:
-                return 'Iceblood Garrison';
+                return self::$translator->trans('Iceblood Garrison');
             case self::ZONE_FROSTWOLFKEEP:
-                return 'Frostwolf Keep';
+                return self::$translator->trans('Frostwolf Keep');
             case self::ZONE_TORKRENFARM:
-                return 'Tor\'kren Farm';
+                return self::$translator->trans('Tor\'kren Farm');
             case self::ZONE_FROSTDAGGERPASS:
-                return 'Frost Dagger Pass';
+                return self::$translator->trans('Frost Dagger Pass');
             case self::ZONE_IRONSTONECAMP:
-                return 'Ironstone Camp';
+                return self::$translator->trans('Ironstone Camp');
             case self::ZONE_WEAZELSCRATER:
-                return 'Weazel\'s Crater';
+                return self::$translator->trans('Weazel\'s Crater');
             case self::ZONE_TAHONDARUINS:
-                return 'Tahonda Ruins';
+                return self::$translator->trans('Tahonda Ruins');
             case self::ZONE_FIELDOFSTRIFE:
-                return 'Field of Strife';
+                return self::$translator->trans('Field of Strife');
             case self::ZONE_ICEWINGCAVERN:
-                return 'Icewing Cavern';
+                return self::$translator->trans('Icewing Cavern');
             case self::ZONE_VALORSREST:
-                return 'Valor\'s Rest';
+                return self::$translator->trans('Valor\'s Rest');
             case self::ZONE_THESWARMINGPILLAR:
-                return 'The Swarming Pillar';
+                return self::$translator->trans('The Swarming Pillar');
             case self::ZONE_TWILIGHTPOST:
-                return 'Twilight Post';
+                return self::$translator->trans('Twilight Post');
             case self::ZONE_TWILIGHTOUTPOST:
-                return 'Twilight Outpost';
+                return self::$translator->trans('Twilight Outpost');
             case self::ZONE_RAVAGEDTWILIGHTCAMP:
-                return 'Ravaged Twilight Camp';
+                return self::$translator->trans('Ravaged Twilight Camp');
             case self::ZONE_SHALZARUSLAIR:
-                return 'Shalzaru\'s Lair';
+                return self::$translator->trans('Shalzaru\'s Lair');
             case self::ZONE_TALRENDISPOINT:
-                return 'Talrendis Point';
+                return self::$translator->trans('Talrendis Point');
             case self::ZONE_RETHRESSSANCTUM:
-                return 'Rethress Sanctum';
+                return self::$translator->trans('Rethress Sanctum');
             case self::ZONE_MOONHORRORDEN:
-                return 'Moon Horror Den';
+                return self::$translator->trans('Moon Horror Den');
             case self::ZONE_SCALEBEARDSCAVE:
-                return 'Scalebeard\'s Cave';
+                return self::$translator->trans('Scalebeard\'s Cave');
             case self::ZONE_BOULDERSLIDECAVERN:
-                return 'Boulderslide Cavern';
+                return self::$translator->trans('Boulderslide Cavern');
             case self::ZONE_WARSONGLABORCAMP:
-                return 'Warsong Labor Camp';
+                return self::$translator->trans('Warsong Labor Camp');
             case self::ZONE_CHILLWINDCAMP:
-                return 'Chillwind Camp';
+                return self::$translator->trans('Chillwind Camp');
             case self::ZONE_THEMAUL:
-                return 'The Maul';
+                return self::$translator->trans('The Maul');
             case self::ZONE_BONESOFGRAKKAROND:
-                return 'Bones of Grakkarond';
+                return self::$translator->trans('Bones of Grakkarond');
             case self::ZONE_WARSONGGULCH:
-                return 'Warsong Gulch';
+                return self::$translator->trans('Warsong Gulch');
             case self::ZONE_FROSTWOLFGRAVEYARD:
-                return 'Frostwolf Graveyard';
+                return self::$translator->trans('Frostwolf Graveyard');
             case self::ZONE_FROSTWOLFPASS:
-                return 'Frostwolf Pass';
+                return self::$translator->trans('Frostwolf Pass');
             case self::ZONE_DUNBALDARPASS:
-                return 'Dun Baldar Pass';
+                return self::$translator->trans('Dun Baldar Pass');
             case self::ZONE_ICEBLOODGRAVEYARD:
-                return 'Iceblood Graveyard';
+                return self::$translator->trans('Iceblood Graveyard');
             case self::ZONE_SNOWFALLGRAVEYARD:
-                return 'Snowfall Graveyard';
+                return self::$translator->trans('Snowfall Graveyard');
             case self::ZONE_STONEHEARTHGRAVEYARD:
-                return 'Stonehearth Graveyard';
+                return self::$translator->trans('Stonehearth Graveyard');
             case self::ZONE_STORMPIKEGRAVEYARD:
-                return 'Stormpike Graveyard';
+                return self::$translator->trans('Stormpike Graveyard');
             case self::ZONE_ICEWINGBUNKER:
-                return 'Icewing Bunker';
+                return self::$translator->trans('Icewing Bunker');
             case self::ZONE_STONEHEARTHBUNKER:
-                return 'Stonehearth Bunker';
+                return self::$translator->trans('Stonehearth Bunker');
             case self::ZONE_WILDPAWRIDGE:
-                return 'Wildpaw Ridge';
+                return self::$translator->trans('Wildpaw Ridge');
             case self::ZONE_REVANTUSKVILLAGE:
-                return 'Revantusk Village';
+                return self::$translator->trans('Revantusk Village');
             case self::ZONE_ROCKOFDUROTAN:
-                return 'Rock of Durotan';
+                return self::$translator->trans('Rock of Durotan');
             case self::ZONE_SILVERWINGGROVE:
-                return 'Silverwing Grove';
+                return self::$translator->trans('Silverwing Grove');
             case self::ZONE_WARSONGLUMBERMILL:
-                return 'Warsong Lumber Mill';
+                return self::$translator->trans('Warsong Lumber Mill');
             case self::ZONE_SILVERWINGHOLD:
-                return 'Silverwing Hold';
+                return self::$translator->trans('Silverwing Hold');
             case self::ZONE_WILDPAWCAVERN:
-                return 'Wildpaw Cavern';
+                return self::$translator->trans('Wildpaw Cavern');
             case self::ZONE_THEVEILEDCLEFT:
-                return 'The Veiled Cleft';
+                return self::$translator->trans('The Veiled Cleft');
             case self::ZONE_YOJAMBAISLE:
-                return 'Yojamba Isle';
+                return self::$translator->trans('Yojamba Isle');
             case self::ZONE_ARATHIBASIN:
-                return 'Arathi Basin';
+                return self::$translator->trans('Arathi Basin');
             case self::ZONE_THECOIL:
-                return 'The Coil';
+                return self::$translator->trans('The Coil');
             case self::ZONE_ALTAROFHIREEK:
-                return 'Altar of Hir\'eek';
+                return self::$translator->trans('Altar of Hir\'eek');
             case self::ZONE_SHADRAZAAR:
-                return 'Shadra\'zaar';
+                return self::$translator->trans('Shadra\'zaar');
             case self::ZONE_HAKKARIGROUNDS:
-                return 'Hakkari Grounds';
+                return self::$translator->trans('Hakkari Grounds');
             case self::ZONE_NAZEOFSHIRVALLAH:
-                return 'Naze of Shirvallah';
+                return self::$translator->trans('Naze of Shirvallah');
             case self::ZONE_TEMPLEOFBETHEKK:
-                return 'Temple of Bethekk';
+                return self::$translator->trans('Temple of Bethekk');
             case self::ZONE_THEBLOODFIREPIT:
-                return 'The Bloodfire Pit';
+                return self::$translator->trans('The Bloodfire Pit');
             case self::ZONE_ALTAROFTHEBLOODGOD:
-                return 'Altar of the Blood God';
+                return self::$translator->trans('Altar of the Blood God');
             case self::ZONE_ZANZASRISE:
-                return 'Zanza\'s Rise';
+                return self::$translator->trans('Zanza\'s Rise');
             case self::ZONE_EDGEOFMADNESS:
-                return 'Edge of Madness';
+                return self::$translator->trans('Edge of Madness');
             case self::ZONE_TROLLBANEHALL:
-                return 'Trollbane Hall';
+                return self::$translator->trans('Trollbane Hall');
             case self::ZONE_DEFILERSDEN:
-                return 'Defiler\'s Den';
+                return self::$translator->trans('Defiler\'s Den');
             case self::ZONE_PAGLESPOINTE:
-                return 'Pagle\'s Pointe';
+                return self::$translator->trans('Pagle\'s Pointe');
             case self::ZONE_FARM:
-                return 'Farm';
+                return self::$translator->trans('Farm');
             case self::ZONE_BLACKSMITH:
-                return 'Blacksmith';
+                return self::$translator->trans('Blacksmith');
             case self::ZONE_LUMBERMILL:
-                return 'Lumber Mill';
+                return self::$translator->trans('Lumber Mill');
             case self::ZONE_GOLDMINE:
-                return 'Gold Mine';
+                return self::$translator->trans('Gold Mine');
             case self::ZONE_STABLES:
-                return 'Stables';
+                return self::$translator->trans('Stables');
             case self::ZONE_CENARIONHOLD:
-                return 'Cenarion Hold';
+                return self::$translator->trans('Cenarion Hold');
             case self::ZONE_STAGHELMPOINT:
-                return 'Staghelm Point';
+                return self::$translator->trans('Staghelm Point');
             case self::ZONE_BRONZEBEARDENCAMPMENT:
-                return 'Bronzebeard Encampment';
+                return self::$translator->trans('Bronzebeard Encampment');
             case self::ZONE_AHNQIRAJ:
-                return 'Ahn\'Qiraj';
+                return self::$translator->trans('Ahn\'Qiraj');
             case self::ZONE_RUINSOFAHNQIRAJ:
-                return 'Ruins of Ahn\'Qiraj';
+                return self::$translator->trans('Ruins of Ahn\'Qiraj');
             case self::ZONE_EVERSONGWOODS:
-                return 'Eversong Woods';
+                return self::$translator->trans('Eversong Woods');
             case self::ZONE_SUNSTRIDERISLE:
-                return 'Sunstrider Isle';
+                return self::$translator->trans('Sunstrider Isle');
             case self::ZONE_SHRINEOFDATHREMAR:
-                return 'Shrine of Dath\'Remar';
+                return self::$translator->trans('Shrine of Dath\'Remar');
             case self::ZONE_GHOSTLANDS:
-                return 'Ghostlands';
+                return self::$translator->trans('Ghostlands');
             case self::ZONE_SCARABTERRACE:
-                return 'Scarab Terrace';
+                return self::$translator->trans('Scarab Terrace');
             case self::ZONE_GENERALSTERRACE:
-                return 'General\'s Terrace';
+                return self::$translator->trans('General\'s Terrace');
             case self::ZONE_THERESERVOIR:
-                return 'The Reservoir';
+                return self::$translator->trans('The Reservoir');
             case self::ZONE_THEHATCHERY:
-                return 'The Hatchery';
+                return self::$translator->trans('The Hatchery');
             case self::ZONE_THECOMB:
-                return 'The Comb';
+                return self::$translator->trans('The Comb');
             case self::ZONE_WATCHERSTERRACE:
-                return 'Watchers\' Terrace';
+                return self::$translator->trans('Watchers\' Terrace');
             case self::ZONE_TWILIGHTSRUN:
-                return 'Twilight\'s Run';
+                return self::$translator->trans('Twilight\'s Run');
             case self::ZONE_ORTELLSHIDEOUT:
-                return 'Ortell\'s Hideout';
+                return self::$translator->trans('Ortell\'s Hideout');
             case self::ZONE_THENORTHSEA:
-                return 'The North Sea';
+                return self::$translator->trans('The North Sea');
             case self::ZONE_NAXXRAMAS:
-                return 'Naxxramas';
+                return self::$translator->trans('Naxxramas');
             case self::ZONE_GOLDENSTRAND:
-                return 'Golden Strand';
+                return self::$translator->trans('Golden Strand');
             case self::ZONE_SUNSAILANCHORAGE:
-                return 'Sunsail Anchorage';
+                return self::$translator->trans('Sunsail Anchorage');
             case self::ZONE_FAIRBREEZEVILLAGE:
-                return 'Fairbreeze Village';
+                return self::$translator->trans('Fairbreeze Village');
             case self::ZONE_MAGISTERSGATE:
-                return 'Magisters Gate';
+                return self::$translator->trans('Magisters Gate');
             case self::ZONE_FARSTRIDERRETREAT:
-                return 'Farstrider Retreat';
+                return self::$translator->trans('Farstrider Retreat');
             case self::ZONE_NORTHSANCTUM:
-                return 'North Sanctum';
+                return self::$translator->trans('North Sanctum');
             case self::ZONE_WESTSANCTUM:
-                return 'West Sanctum';
+                return self::$translator->trans('West Sanctum');
             case self::ZONE_EASTSANCTUM:
-                return 'East Sanctum';
+                return self::$translator->trans('East Sanctum');
             case self::ZONE_SALTHERILSHAVEN:
-                return 'Saltheril\'s Haven';
+                return self::$translator->trans('Saltheril\'s Haven');
             case self::ZONE_THURONSLIVERY:
-                return 'Thuron\'s Livery';
+                return self::$translator->trans('Thuron\'s Livery');
             case self::ZONE_STILLWHISPERPOND:
-                return 'Stillwhisper Pond';
+                return self::$translator->trans('Stillwhisper Pond');
             case self::ZONE_THELIVINGWOOD:
-                return 'The Living Wood';
+                return self::$translator->trans('The Living Wood');
             case self::ZONE_AZUREBREEZECOAST:
-                return 'Azurebreeze Coast';
+                return self::$translator->trans('Azurebreeze Coast');
             case self::ZONE_LAKEELRENDAR:
-                return 'Lake Elrendar';
+                return self::$translator->trans('Lake Elrendar');
             case self::ZONE_THESCORCHEDGROVE:
-                return 'The Scorched Grove';
+                return self::$translator->trans('The Scorched Grove');
             case self::ZONE_ZEBWATHA:
-                return 'Zeb\'Watha';
+                return self::$translator->trans('Zeb\'Watha');
             case self::ZONE_TORWATHA:
-                return 'Tor\'Watha';
+                return self::$translator->trans('Tor\'Watha');
             case self::ZONE_GATESOFAHNQIRAJ:
-                return 'Gates of Ahn\'Qiraj';
+                return self::$translator->trans('Gates of Ahn\'Qiraj');
             case self::ZONE_DUSKWITHERGROUNDS:
-                return 'Duskwither Grounds';
+                return self::$translator->trans('Duskwither Grounds');
             case self::ZONE_DUSKWITHERSPIRE:
-                return 'Duskwither Spire';
+                return self::$translator->trans('Duskwither Spire');
             case self::ZONE_THEDEADSCAR:
-                return 'The Dead Scar';
+                return self::$translator->trans('The Dead Scar');
             case self::ZONE_HELLFIREPENINSULA:
-                return 'Hellfire Peninsula';
+                return self::$translator->trans('Hellfire Peninsula');
             case self::ZONE_THESUNSPIRE:
-                return 'The Sunspire';
+                return self::$translator->trans('The Sunspire');
             case self::ZONE_FALTHRIENACADEMY:
-                return 'Falthrien Academy';
+                return self::$translator->trans('Falthrien Academy');
             case self::ZONE_RAVENHOLDTMANOR:
-                return 'Ravenholdt Manor';
+                return self::$translator->trans('Ravenholdt Manor');
             case self::ZONE_SILVERMOONCITY:
-                return 'Silvermoon City';
+                return self::$translator->trans('Silvermoon City');
             case self::ZONE_TRANQUILLIEN:
-                return 'Tranquillien';
+                return self::$translator->trans('Tranquillien');
             case self::ZONE_SUNCROWNVILLAGE:
-                return 'Suncrown Village';
+                return self::$translator->trans('Suncrown Village');
             case self::ZONE_GOLDENMISTVILLAGE:
-                return 'Goldenmist Village';
+                return self::$translator->trans('Goldenmist Village');
             case self::ZONE_WINDRUNNERVILLAGE:
-                return 'Windrunner Village';
+                return self::$translator->trans('Windrunner Village');
             case self::ZONE_WINDRUNNERSPIRE:
-                return 'Windrunner Spire';
+                return self::$translator->trans('Windrunner Spire');
             case self::ZONE_SANCTUMOFTHESUN:
-                return 'Sanctum of the Sun';
+                return self::$translator->trans('Sanctum of the Sun');
             case self::ZONE_SANCTUMOFTHEMOON:
-                return 'Sanctum of the Moon';
+                return self::$translator->trans('Sanctum of the Moon');
             case self::ZONE_DAWNSTARSPIRE:
-                return 'Dawnstar Spire';
+                return self::$translator->trans('Dawnstar Spire');
             case self::ZONE_FARSTRIDERENCLAVE:
-                return 'Farstrider Enclave';
+                return self::$translator->trans('Farstrider Enclave');
             case self::ZONE_ANDAROTH:
-                return 'An\'daroth';
+                return self::$translator->trans('An\'daroth');
             case self::ZONE_ANTELAS:
-                return 'An\'telas';
+                return self::$translator->trans('An\'telas');
             case self::ZONE_ANOWYN:
-                return 'An\'owyn';
+                return self::$translator->trans('An\'owyn');
             case self::ZONE_DEATHOLME:
-                return 'Deatholme';
+                return self::$translator->trans('Deatholme');
             case self::ZONE_BLEEDINGZIGGURAT:
-                return 'Bleeding Ziggurat';
+                return self::$translator->trans('Bleeding Ziggurat');
             case self::ZONE_HOWLINGZIGGURAT:
-                return 'Howling Ziggurat';
+                return self::$translator->trans('Howling Ziggurat');
             case self::ZONE_SHALANDISISLE:
-                return 'Shalandis Isle';
+                return self::$translator->trans('Shalandis Isle');
             case self::ZONE_TORYLESTATE:
-                return 'Toryl Estate';
+                return self::$translator->trans('Toryl Estate');
             case self::ZONE_UNDERLIGHTMINES:
-                return 'Underlight Mines';
+                return self::$translator->trans('Underlight Mines');
             case self::ZONE_ANDILIENESTATE:
-                return 'Andilien Estate';
+                return self::$translator->trans('Andilien Estate');
             case self::ZONE_HATCHETHILLS:
-                return 'Hatchet Hills';
+                return self::$translator->trans('Hatchet Hills');
             case self::ZONE_AMANIPASS:
-                return 'Amani Pass';
+                return self::$translator->trans('Amani Pass');
             case self::ZONE_SUNGRAZEPEAK:
-                return 'Sungraze Peak';
+                return self::$translator->trans('Sungraze Peak');
             case self::ZONE_AMANICATACOMBS:
-                return 'Amani Catacombs';
+                return self::$translator->trans('Amani Catacombs');
             case self::ZONE_TOWEROFTHEDAMNED:
-                return 'Tower of the Damned';
+                return self::$translator->trans('Tower of the Damned');
             case self::ZONE_ZEBSORA:
-                return 'Zeb\'Sora';
+                return self::$translator->trans('Zeb\'Sora');
             case self::ZONE_ELRENDARRIVER:
-                return 'Elrendar River';
+                return self::$translator->trans('Elrendar River');
             case self::ZONE_ZEBTELA:
-                return 'Zeb\'Tela';
+                return self::$translator->trans('Zeb\'Tela');
             case self::ZONE_ZEBNOWA:
-                return 'Zeb\'Nowa';
+                return self::$translator->trans('Zeb\'Nowa');
             case self::ZONE_NAGRAND:
-                return 'Nagrand';
+                return self::$translator->trans('Nagrand');
             case self::ZONE_TEROKKARFOREST:
-                return 'Terokkar Forest';
+                return self::$translator->trans('Terokkar Forest');
             case self::ZONE_SHADOWMOONVALLEY:
-                return 'Shadowmoon Valley';
+                return self::$translator->trans('Shadowmoon Valley');
             case self::ZONE_ZANGARMARSH:
-                return 'Zangarmarsh';
+                return self::$translator->trans('Zangarmarsh');
             case self::ZONE_BLADESEDGEMOUNTAINS:
-                return 'Blade\'s Edge Mountains';
+                return self::$translator->trans('Blade\'s Edge Mountains');
             case self::ZONE_NETHERSTORM:
-                return 'Netherstorm';
+                return self::$translator->trans('Netherstorm');
             case self::ZONE_AZUREMYSTISLE:
-                return 'Azuremyst Isle';
+                return self::$translator->trans('Azuremyst Isle');
             case self::ZONE_BLOODMYSTISLE:
-                return 'Bloodmyst Isle';
+                return self::$translator->trans('Bloodmyst Isle');
             case self::ZONE_AMMENVALE:
-                return 'Ammen Vale';
+                return self::$translator->trans('Ammen Vale');
             case self::ZONE_CRASHSITE:
-                return 'Crash Site';
+                return self::$translator->trans('Crash Site');
             case self::ZONE_SILVERLINELAKE:
-                return 'Silverline Lake';
+                return self::$translator->trans('Silverline Lake');
             case self::ZONE_NESTLEWOODTHICKET:
-                return 'Nestlewood Thicket';
+                return self::$translator->trans('Nestlewood Thicket');
             case self::ZONE_SHADOWRIDGE:
-                return 'Shadow Ridge';
+                return self::$translator->trans('Shadow Ridge');
             case self::ZONE_SKULKINGROW:
-                return 'Skulking Row';
+                return self::$translator->trans('Skulking Row');
             case self::ZONE_DAWNINGLANE:
-                return 'Dawning Lane';
+                return self::$translator->trans('Dawning Lane');
             case self::ZONE_RUINSOFSILVERMOON:
-                return 'Ruins of Silvermoon';
+                return self::$translator->trans('Ruins of Silvermoon');
             case self::ZONE_FETHSWAY:
-                return 'Feth\'s Way';
+                return self::$translator->trans('Feth\'s Way');
             case self::ZONE_HELLFIRECITADEL:
-                return 'Hellfire Citadel';
+                return self::$translator->trans('Hellfire Citadel');
             case self::ZONE_THRALLMAR:
-                return 'Thrallmar';
+                return self::$translator->trans('Thrallmar');
             case self::ZONE_REUSE:
-                return 'REUSE';
+                return self::$translator->trans('REUSE');
             case self::ZONE_HONORHOLD:
-                return 'Honor Hold';
+                return self::$translator->trans('Honor Hold');
             case self::ZONE_THESTAIROFDESTINY:
-                return 'The Stair of Destiny';
+                return self::$translator->trans('The Stair of Destiny');
             case self::ZONE_TWISTINGNETHER:
-                return 'Twisting Nether';
+                return self::$translator->trans('Twisting Nether');
             case self::ZONE_FORGECAMPMAGEDDON:
-                return 'Forge Camp: Mageddon';
+                return self::$translator->trans('Forge Camp: Mageddon');
             case self::ZONE_THEPATHOFGLORY:
-                return 'The Path of Glory';
+                return self::$translator->trans('The Path of Glory');
             case self::ZONE_THEGREATFISSURE:
-                return 'The Great Fissure';
+                return self::$translator->trans('The Great Fissure');
             case self::ZONE_PLAINOFSHARDS:
-                return 'Plain of Shards';
+                return self::$translator->trans('Plain of Shards');
             case self::ZONE_EXPEDITIONARMORY:
-                return 'Expedition Armory';
+                return self::$translator->trans('Expedition Armory');
             case self::ZONE_THRONEOFKILJAEDEN:
-                return 'Throne of Kil\'jaeden';
+                return self::$translator->trans('Throne of Kil\'jaeden');
             case self::ZONE_FORGECAMPRAGE:
-                return 'Forge Camp: Rage';
+                return self::$translator->trans('Forge Camp: Rage');
             case self::ZONE_INVASIONPOINTANNIHILATOR:
-                return 'Invasion Point: Annihilator';
+                return self::$translator->trans('Invasion Point: Annihilator');
             case self::ZONE_BORUNERUINS:
-                return 'Borune Ruins';
+                return self::$translator->trans('Borune Ruins');
             case self::ZONE_RUINSOFSHANAAR:
-                return 'Ruins of Sha\'naar';
+                return self::$translator->trans('Ruins of Sha\'naar');
             case self::ZONE_TEMPLEOFTELHAMAT:
-                return 'Temple of Telhamat';
+                return self::$translator->trans('Temple of Telhamat');
             case self::ZONE_POOLSOFAGGONAR:
-                return 'Pools of Aggonar';
+                return self::$translator->trans('Pools of Aggonar');
             case self::ZONE_FALCONWATCH:
-                return 'Falcon Watch';
+                return self::$translator->trans('Falcon Watch');
             case self::ZONE_MAGHARPOST:
-                return 'Mag\'har Post';
+                return self::$translator->trans('Mag\'har Post');
             case self::ZONE_DENOFHAALESH:
-                return 'Den of Haal\'esh';
+                return self::$translator->trans('Den of Haal\'esh');
             case self::ZONE_THEEXODAR:
-                return 'The Exodar';
+                return self::$translator->trans('The Exodar');
             case self::ZONE_ELRENDARFALLS:
-                return 'Elrendar Falls';
+                return self::$translator->trans('Elrendar Falls');
             case self::ZONE_NESTLEWOODHILLS:
-                return 'Nestlewood Hills';
+                return self::$translator->trans('Nestlewood Hills');
             case self::ZONE_AMMENFIELDS:
-                return 'Ammen Fields';
+                return self::$translator->trans('Ammen Fields');
             case self::ZONE_THESACREDGROVE:
-                return 'The Sacred Grove';
+                return self::$translator->trans('The Sacred Grove');
             case self::ZONE_HELLFIRERAMPARTS:
-                return 'Hellfire Ramparts';
+                return self::$translator->trans('Hellfire Ramparts');
             case self::ZONE_EMBERGLADE:
-                return 'Emberglade';
+                return self::$translator->trans('Emberglade');
             case self::ZONE_CENARIONREFUGE:
-                return 'Cenarion Refuge';
+                return self::$translator->trans('Cenarion Refuge');
             case self::ZONE_MOONWINGDEN:
-                return 'Moonwing Den';
+                return self::$translator->trans('Moonwing Den');
             case self::ZONE_PODCLUSTER:
-                return 'Pod Cluster';
+                return self::$translator->trans('Pod Cluster');
             case self::ZONE_PODWRECKAGE:
-                return 'Pod Wreckage';
+                return self::$translator->trans('Pod Wreckage');
             case self::ZONE_TIDESHOLLOW:
-                return 'Tides\' Hollow';
+                return self::$translator->trans('Tides\' Hollow');
             case self::ZONE_WRATHSCALEPOINT:
-                return 'Wrathscale Point';
+                return self::$translator->trans('Wrathscale Point');
             case self::ZONE_BRISTLELIMBVILLAGE:
-                return 'Bristlelimb Village';
+                return self::$translator->trans('Bristlelimb Village');
             case self::ZONE_STILLPINEHOLD:
-                return 'Stillpine Hold';
+                return self::$translator->trans('Stillpine Hold');
             case self::ZONE_ODESYUSLANDING:
-                return 'Odesyus\' Landing';
+                return self::$translator->trans('Odesyus\' Landing');
             case self::ZONE_VALAARSBERTH:
-                return 'Valaar\'s Berth';
+                return self::$translator->trans('Valaar\'s Berth');
             case self::ZONE_SILTINGSHORE:
-                return 'Silting Shore';
+                return self::$translator->trans('Silting Shore');
             case self::ZONE_AZUREWATCH:
-                return 'Azure Watch';
+                return self::$translator->trans('Azure Watch');
             case self::ZONE_GEEZLESCAMP:
-                return 'Geezle\'s Camp';
+                return self::$translator->trans('Geezle\'s Camp');
             case self::ZONE_MENAGERIEWRECKAGE:
-                return 'Menagerie Wreckage';
+                return self::$translator->trans('Menagerie Wreckage');
             case self::ZONE_TRAITORSCOVE:
-                return 'Traitor\'s Cove';
+                return self::$translator->trans('Traitor\'s Cove');
             case self::ZONE_WILDWINDPEAK:
-                return 'Wildwind Peak';
+                return self::$translator->trans('Wildwind Peak');
             case self::ZONE_WILDWINDPATH:
-                return 'Wildwind Path';
+                return self::$translator->trans('Wildwind Path');
             case self::ZONE_ZETHGOR:
-                return 'Zeth\'Gor';
+                return self::$translator->trans('Zeth\'Gor');
             case self::ZONE_BERYLCOAST:
-                return 'Beryl Coast';
+                return self::$translator->trans('Beryl Coast');
             case self::ZONE_BLOODWATCH:
-                return 'Blood Watch';
+                return self::$translator->trans('Blood Watch');
             case self::ZONE_BLADEWOOD:
-                return 'Bladewood';
+                return self::$translator->trans('Bladewood');
             case self::ZONE_THEVECTORCOIL:
-                return 'The Vector Coil';
+                return self::$translator->trans('The Vector Coil');
             case self::ZONE_THEWARPPISTON:
-                return 'The Warp Piston';
+                return self::$translator->trans('The Warp Piston');
             case self::ZONE_THECRYOCORE:
-                return 'The Cryo-Core';
+                return self::$translator->trans('The Cryo-Core');
             case self::ZONE_THECRIMSONREACH:
-                return 'The Crimson Reach';
+                return self::$translator->trans('The Crimson Reach');
             case self::ZONE_WRATHSCALELAIR:
-                return 'Wrathscale Lair';
+                return self::$translator->trans('Wrathscale Lair');
             case self::ZONE_RUINSOFLORETHARAN:
-                return 'Ruins of Loreth\'Aran';
+                return self::$translator->trans('Ruins of Loreth\'Aran');
             case self::ZONE_NAZZIVIAN:
-                return 'Nazzivian';
+                return self::$translator->trans('Nazzivian');
             case self::ZONE_AXXARIEN:
-                return 'Axxarien';
+                return self::$translator->trans('Axxarien');
             case self::ZONE_BLACKSILTSHORE:
-                return 'Blacksilt Shore';
+                return self::$translator->trans('Blacksilt Shore');
             case self::ZONE_THEFOULPOOL:
-                return 'The Foul Pool';
+                return self::$translator->trans('The Foul Pool');
             case self::ZONE_THEHIDDENREEF:
-                return 'The Hidden Reef';
+                return self::$translator->trans('The Hidden Reef');
             case self::ZONE_AMBERWEBPASS:
-                return 'Amberweb Pass';
+                return self::$translator->trans('Amberweb Pass');
             case self::ZONE_WYRMSCARISLAND:
-                return 'Wyrmscar Island';
+                return self::$translator->trans('Wyrmscar Island');
             case self::ZONE_TALONSTAND:
-                return 'Talon Stand';
+                return self::$translator->trans('Talon Stand');
             case self::ZONE_BRISTLELIMBENCLAVE:
-                return 'Bristlelimb Enclave';
+                return self::$translator->trans('Bristlelimb Enclave');
             case self::ZONE_RAGEFEATHERRIDGE:
-                return 'Ragefeather Ridge';
+                return self::$translator->trans('Ragefeather Ridge');
             case self::ZONE_KESSELSCROSSING:
-                return 'Kessel\'s Crossing';
+                return self::$translator->trans('Kessel\'s Crossing');
             case self::ZONE_TELATHIONSCAMP:
-                return 'Tel\'athion\'s Camp';
+                return self::$translator->trans('Tel\'athion\'s Camp');
             case self::ZONE_THEBLOODCURSEDREEF:
-                return 'The Bloodcursed Reef';
+                return self::$translator->trans('The Bloodcursed Reef');
             case self::ZONE_HYJALPAST:
-                return 'Hyjal Past';
+                return self::$translator->trans('Hyjal Past');
             case self::ZONE_HYJALSUMMIT:
-                return 'Hyjal Summit';
+                return self::$translator->trans('Hyjal Summit');
             case self::ZONE_COILFANGRESERVOIR:
-                return 'Coilfang Reservoir';
+                return self::$translator->trans('Coilfang Reservoir');
             case self::ZONE_VINDICATORSREST:
-                return 'Vindicator\'s Rest';
+                return self::$translator->trans('Vindicator\'s Rest');
             case self::ZONE_BURNINGBLADERUINS:
-                return 'Burning Blade Ruins';
+                return self::$translator->trans('Burning Blade Ruins');
             case self::ZONE_CLANWATCH:
-                return 'Clan Watch';
+                return self::$translator->trans('Clan Watch');
             case self::ZONE_BLOODCURSEISLE:
-                return 'Bloodcurse Isle';
+                return self::$translator->trans('Bloodcurse Isle');
             case self::ZONE_GARADAR:
-                return 'Garadar';
+                return self::$translator->trans('Garadar');
             case self::ZONE_SKYSONGLAKE:
-                return 'Skysong Lake';
+                return self::$translator->trans('Skysong Lake');
             case self::ZONE_THRONEOFTHEELEMENTS:
-                return 'Throne of the Elements';
+                return self::$translator->trans('Throne of the Elements');
             case self::ZONE_LAUGHINGSKULLRUINS:
-                return 'Laughing Skull Ruins';
+                return self::$translator->trans('Laughing Skull Ruins');
             case self::ZONE_WARMAULHILL:
-                return 'Warmaul Hill';
+                return self::$translator->trans('Warmaul Hill');
             case self::ZONE_GRUULSLAIR:
-                return 'Gruul\'s Lair';
+                return self::$translator->trans('Gruul\'s Lair');
             case self::ZONE_AURENRIDGE:
-                return 'Auren Ridge';
+                return self::$translator->trans('Auren Ridge');
             case self::ZONE_AURENFALLS:
-                return 'Auren Falls';
+                return self::$translator->trans('Auren Falls');
             case self::ZONE_LAKESUNSPRING:
-                return 'Lake Sunspring';
+                return self::$translator->trans('Lake Sunspring');
             case self::ZONE_SUNSPRINGPOST:
-                return 'Sunspring Post';
+                return self::$translator->trans('Sunspring Post');
             case self::ZONE_AERISLANDING:
-                return 'Aeris Landing';
+                return self::$translator->trans('Aeris Landing');
             case self::ZONE_FORGECAMPFEAR:
-                return 'Forge Camp: Fear';
+                return self::$translator->trans('Forge Camp: Fear');
             case self::ZONE_FORGECAMPHATE:
-                return 'Forge Camp: Hate';
+                return self::$translator->trans('Forge Camp: Hate');
             case self::ZONE_TELAAR:
-                return 'Telaar';
+                return self::$translator->trans('Telaar');
             case self::ZONE_NORTHWINDCLEFT:
-                return 'Northwind Cleft';
+                return self::$translator->trans('Northwind Cleft');
             case self::ZONE_HALAA:
-                return 'Halaa';
+                return self::$translator->trans('Halaa');
             case self::ZONE_SOUTHWINDCLEFT:
-                return 'Southwind Cleft';
+                return self::$translator->trans('Southwind Cleft');
             case self::ZONE_OSHUGUN:
-                return 'Oshu\'gun';
+                return self::$translator->trans('Oshu\'gun');
             case self::ZONE_SPIRITFIELDS:
-                return 'Spirit Fields';
+                return self::$translator->trans('Spirit Fields');
             case self::ZONE_SHAMANAR:
-                return 'Shamanar';
+                return self::$translator->trans('Shamanar');
             case self::ZONE_ANCESTRALGROUNDS:
-                return 'Ancestral Grounds';
+                return self::$translator->trans('Ancestral Grounds');
             case self::ZONE_WINDYREEDVILLAGE:
-                return 'Windyreed Village';
+                return self::$translator->trans('Windyreed Village');
             case self::ZONE_ELEMENTALPLATEAU:
-                return 'Elemental Plateau';
+                return self::$translator->trans('Elemental Plateau');
             case self::ZONE_KILSORROWFORTRESS:
-                return 'Kil\'sorrow Fortress';
+                return self::$translator->trans('Kil\'sorrow Fortress');
             case self::ZONE_THERINGOFTRIALS:
-                return 'The Ring of Trials';
+                return self::$translator->trans('The Ring of Trials');
             case self::ZONE_SILVERMYSTISLE:
-                return 'Silvermyst Isle';
+                return self::$translator->trans('Silvermyst Isle');
             case self::ZONE_DAGGERFENVILLAGE:
-                return 'Daggerfen Village';
+                return self::$translator->trans('Daggerfen Village');
             case self::ZONE_UMBRAFENVILLAGE:
-                return 'Umbrafen Village';
+                return self::$translator->trans('Umbrafen Village');
             case self::ZONE_FERALFENVILLAGE:
-                return 'Feralfen Village';
+                return self::$translator->trans('Feralfen Village');
             case self::ZONE_BLOODSCALEENCLAVE:
-                return 'Bloodscale Enclave';
+                return self::$translator->trans('Bloodscale Enclave');
             case self::ZONE_TELREDOR:
-                return 'Telredor';
+                return self::$translator->trans('Telredor');
             case self::ZONE_ZABRAJIN:
-                return 'Zabra\'jin';
+                return self::$translator->trans('Zabra\'jin');
             case self::ZONE_QUAGGRIDGE:
-                return 'Quagg Ridge';
+                return self::$translator->trans('Quagg Ridge');
             case self::ZONE_THESPAWNINGGLEN:
-                return 'The Spawning Glen';
+                return self::$translator->trans('The Spawning Glen');
             case self::ZONE_THEDEADMIRE:
-                return 'The Dead Mire';
+                return self::$translator->trans('The Dead Mire');
             case self::ZONE_SPOREGGAR:
-                return 'Sporeggar';
+                return self::$translator->trans('Sporeggar');
             case self::ZONE_ANGOROSHGROUNDS:
-                return 'Ango\'rosh Grounds';
+                return self::$translator->trans('Ango\'rosh Grounds');
             case self::ZONE_ANGOROSHSTRONGHOLD:
-                return 'Ango\'rosh Stronghold';
+                return self::$translator->trans('Ango\'rosh Stronghold');
             case self::ZONE_FUNGGORCAVERN:
-                return 'Funggor Cavern';
+                return self::$translator->trans('Funggor Cavern');
             case self::ZONE_SERPENTLAKE:
-                return 'Serpent Lake';
+                return self::$translator->trans('Serpent Lake');
             case self::ZONE_THEDRAIN:
-                return 'The Drain';
+                return self::$translator->trans('The Drain');
             case self::ZONE_UMBRAFENLAKE:
-                return 'Umbrafen Lake';
+                return self::$translator->trans('Umbrafen Lake');
             case self::ZONE_MARSHLIGHTLAKE:
-                return 'Marshlight Lake';
+                return self::$translator->trans('Marshlight Lake');
             case self::ZONE_PORTALCLEARING:
-                return 'Portal Clearing';
+                return self::$translator->trans('Portal Clearing');
             case self::ZONE_SPOREWINDLAKE:
-                return 'Sporewind Lake';
+                return self::$translator->trans('Sporewind Lake');
             case self::ZONE_THELAGOON:
-                return 'The Lagoon';
+                return self::$translator->trans('The Lagoon');
             case self::ZONE_BLADESRUN:
-                return 'Blades\' Run';
+                return self::$translator->trans('Blades\' Run');
             case self::ZONE_BLADETOOTHCANYON:
-                return 'Blade Tooth Canyon';
+                return self::$translator->trans('Blade Tooth Canyon');
             case self::ZONE_COMMONSHALL:
-                return 'Commons Hall';
+                return self::$translator->trans('Commons Hall');
             case self::ZONE_DERELICTMANOR:
-                return 'Derelict Manor';
+                return self::$translator->trans('Derelict Manor');
             case self::ZONE_HUNTRESSOFTHESUN:
-                return 'Huntress of the Sun';
+                return self::$translator->trans('Huntress of the Sun');
             case self::ZONE_FALCONWINGSQUARE:
-                return 'Falconwing Square';
+                return self::$translator->trans('Falconwing Square');
             case self::ZONE_HALAANIBASIN:
-                return 'Halaani Basin';
+                return self::$translator->trans('Halaani Basin');
             case self::ZONE_HEWNBOG:
-                return 'Hewn Bog';
+                return self::$translator->trans('Hewn Bog');
             case self::ZONE_BOHAMURUINS:
-                return 'Boha\'mu Ruins';
+                return self::$translator->trans('Boha\'mu Ruins');
             case self::ZONE_THESTADIUM:
-                return 'The Stadium';
+                return self::$translator->trans('The Stadium');
             case self::ZONE_THEOVERLOOK:
-                return 'The Overlook';
+                return self::$translator->trans('The Overlook');
             case self::ZONE_BROKENHILL:
-                return 'Broken Hill';
+                return self::$translator->trans('Broken Hill');
             case self::ZONE_MAGHARIPROCESSION:
-                return 'Mag\'hari Procession';
+                return self::$translator->trans('Mag\'hari Procession');
             case self::ZONE_NESINGWARYSAFARI:
-                return 'Nesingwary Safari';
+                return self::$translator->trans('Nesingwary Safari');
             case self::ZONE_CENARIONTHICKET:
-                return 'Cenarion Thicket';
+                return self::$translator->trans('Cenarion Thicket');
             case self::ZONE_TUUREM:
-                return 'Tuurem';
+                return self::$translator->trans('Tuurem');
             case self::ZONE_VEILSHIENOR:
-                return 'Veil Shienor';
+                return self::$translator->trans('Veil Shienor');
             case self::ZONE_VEILSKITH:
-                return 'Veil Skith';
+                return self::$translator->trans('Veil Skith');
             case self::ZONE_VEILSHALAS:
-                return 'Veil Shalas';
+                return self::$translator->trans('Veil Shalas');
             case self::ZONE_SKETTIS:
-                return 'Skettis';
+                return self::$translator->trans('Skettis');
             case self::ZONE_BLACKWINDVALLEY:
-                return 'Blackwind Valley';
+                return self::$translator->trans('Blackwind Valley');
             case self::ZONE_FIREWINGPOINT:
-                return 'Firewing Point';
+                return self::$translator->trans('Firewing Point');
             case self::ZONE_GRANGOLVARVILLAGE:
-                return 'Grangol\'var Village';
+                return self::$translator->trans('Grangol\'var Village');
             case self::ZONE_STONEBREAKERHOLD:
-                return 'Stonebreaker Hold';
+                return self::$translator->trans('Stonebreaker Hold');
             case self::ZONE_ALLERIANSTRONGHOLD:
-                return 'Allerian Stronghold';
+                return self::$translator->trans('Allerian Stronghold');
             case self::ZONE_BONECHEWERRUINS:
-                return 'Bonechewer Ruins';
+                return self::$translator->trans('Bonechewer Ruins');
             case self::ZONE_VEILLITHIC:
-                return 'Veil Lithic';
+                return self::$translator->trans('Veil Lithic');
             case self::ZONE_OLEMBAS:
-                return 'Olembas';
+                return self::$translator->trans('Olembas');
             case self::ZONE_AUCHINDOUN:
-                return 'Auchindoun';
+                return self::$translator->trans('Auchindoun');
             case self::ZONE_VEILRESKK:
-                return 'Veil Reskk';
+                return self::$translator->trans('Veil Reskk');
             case self::ZONE_BLACKWINDLAKE:
-                return 'Blackwind Lake';
+                return self::$translator->trans('Blackwind Lake');
             case self::ZONE_LAKEERENORU:
-                return 'Lake Ere\'Noru';
+                return self::$translator->trans('Lake Ere\'Noru');
             case self::ZONE_LAKEJORUNE:
-                return 'Lake Jorune';
+                return self::$translator->trans('Lake Jorune');
             case self::ZONE_SKETHYLMOUNTAINS:
-                return 'Skethyl Mountains';
+                return self::$translator->trans('Skethyl Mountains');
             case self::ZONE_MISTYRIDGE:
-                return 'Misty Ridge';
+                return self::$translator->trans('Misty Ridge');
             case self::ZONE_THEBROKENHILLS:
-                return 'The Broken Hills';
+                return self::$translator->trans('The Broken Hills');
             case self::ZONE_THEBARRIERHILLS:
-                return 'The Barrier Hills';
+                return self::$translator->trans('The Barrier Hills');
             case self::ZONE_THEBONEWASTES:
-                return 'The Bone Wastes';
+                return self::$translator->trans('The Bone Wastes');
             case self::ZONE_NAGRANDARENA:
-                return 'Nagrand Arena';
+                return self::$translator->trans('Nagrand Arena');
             case self::ZONE_LAUGHINGSKULLCOURTYARD:
-                return 'Laughing Skull Courtyard';
+                return self::$translator->trans('Laughing Skull Courtyard');
             case self::ZONE_THERINGOFBLOOD:
-                return 'The Ring of Blood';
+                return self::$translator->trans('The Ring of Blood');
             case self::ZONE_ARENAFLOOR:
-                return 'Arena Floor';
+                return self::$translator->trans('Arena Floor');
             case self::ZONE_BLADESEDGEARENA:
-                return 'Blade\'s Edge Arena';
+                return self::$translator->trans('Blade\'s Edge Arena');
             case self::ZONE_SHATTRATHCITY:
-                return 'Shattrath City';
+                return self::$translator->trans('Shattrath City');
             case self::ZONE_THESHEPHERDSGATE:
-                return 'The Shepherd\'s Gate';
+                return self::$translator->trans('The Shepherd\'s Gate');
             case self::ZONE_TELAARIBASIN:
-                return 'Telaari Basin';
+                return self::$translator->trans('Telaari Basin');
             case self::ZONE_ALLIANCEBASE:
-                return 'Alliance Base';
+                return self::$translator->trans('Alliance Base');
             case self::ZONE_HORDEENCAMPMENT:
-                return 'Horde Encampment';
+                return self::$translator->trans('Horde Encampment');
             case self::ZONE_NIGHTELFVILLAGE:
-                return 'Night Elf Village';
+                return self::$translator->trans('Night Elf Village');
             case self::ZONE_NORDRASSIL:
-                return 'Nordrassil';
+                return self::$translator->trans('Nordrassil');
             case self::ZONE_BLACKTEMPLE:
-                return 'Black Temple';
+                return self::$translator->trans('Black Temple');
             case self::ZONE_AREA52:
-                return 'Area 52';
+                return self::$translator->trans('Area 52');
             case self::ZONE_THEBLOODFURNACE:
-                return 'The Blood Furnace';
+                return self::$translator->trans('The Blood Furnace');
             case self::ZONE_THESHATTEREDHALLS:
-                return 'The Shattered Halls';
+                return self::$translator->trans('The Shattered Halls');
             case self::ZONE_THESTEAMVAULT:
-                return 'The Steamvault';
+                return self::$translator->trans('The Steamvault');
             case self::ZONE_THEUNDERBOG:
-                return 'The Underbog';
+                return self::$translator->trans('The Underbog');
             case self::ZONE_THESLAVEPENS:
-                return 'The Slave Pens';
+                return self::$translator->trans('The Slave Pens');
             case self::ZONE_SWAMPRATPOST:
-                return 'Swamprat Post';
+                return self::$translator->trans('Swamprat Post');
             case self::ZONE_BLEEDINGHOLLOWRUINS:
-                return 'Bleeding Hollow Ruins';
+                return self::$translator->trans('Bleeding Hollow Ruins');
             case self::ZONE_TWINSPIRERUINS:
-                return 'Twin Spire Ruins';
+                return self::$translator->trans('Twin Spire Ruins');
             case self::ZONE_THECRUMBLINGWASTE:
-                return 'The Crumbling Waste';
+                return self::$translator->trans('The Crumbling Waste');
             case self::ZONE_MANAFORGEARA:
-                return 'Manaforge Ara';
+                return self::$translator->trans('Manaforge Ara');
             case self::ZONE_ARKLONRUINS:
-                return 'Arklon Ruins';
+                return self::$translator->trans('Arklon Ruins');
             case self::ZONE_COSMOWRENCH:
-                return 'Cosmowrench';
+                return self::$translator->trans('Cosmowrench');
             case self::ZONE_RUINSOFENKAAT:
-                return 'Ruins of Enkaat';
+                return self::$translator->trans('Ruins of Enkaat');
             case self::ZONE_MANAFORGEBNAAR:
-                return 'Manaforge B\'naar';
+                return self::$translator->trans('Manaforge B\'naar');
             case self::ZONE_THESCRAPFIELD:
-                return 'The Scrap Field';
+                return self::$translator->trans('The Scrap Field');
             case self::ZONE_THEVORTEXFIELDS:
-                return 'The Vortex Fields';
+                return self::$translator->trans('The Vortex Fields');
             case self::ZONE_THEHEAP:
-                return 'The Heap';
+                return self::$translator->trans('The Heap');
             case self::ZONE_MANAFORGECORUU:
-                return 'Manaforge Coruu';
+                return self::$translator->trans('Manaforge Coruu');
             case self::ZONE_THETEMPESTRIFT:
-                return 'The Tempest Rift';
+                return self::$translator->trans('The Tempest Rift');
             case self::ZONE_KIRINVARVILLAGE:
-                return 'Kirin\'Var Village';
+                return self::$translator->trans('Kirin\'Var Village');
             case self::ZONE_THEVIOLETTOWER:
-                return 'The Violet Tower';
+                return self::$translator->trans('The Violet Tower');
             case self::ZONE_MANAFORGEDURO:
-                return 'Manaforge Duro';
+                return self::$translator->trans('Manaforge Duro');
             case self::ZONE_VOIDWINDPLATEAU:
-                return 'Voidwind Plateau';
+                return self::$translator->trans('Voidwind Plateau');
             case self::ZONE_MANAFORGEULTRIS:
-                return 'Manaforge Ultris';
+                return self::$translator->trans('Manaforge Ultris');
             case self::ZONE_CELESTIALRIDGE:
-                return 'Celestial Ridge';
+                return self::$translator->trans('Celestial Ridge');
             case self::ZONE_THESTORMSPIRE:
-                return 'The Stormspire';
+                return self::$translator->trans('The Stormspire');
             case self::ZONE_FORGEBASEOBLIVION:
-                return 'Forge Base: Oblivion';
+                return self::$translator->trans('Forge Base: Oblivion');
             case self::ZONE_FORGEBASEGEHENNA:
-                return 'Forge Base: Gehenna';
+                return self::$translator->trans('Forge Base: Gehenna');
             case self::ZONE_RUINSOFFARAHLON:
-                return 'Ruins of Farahlon';
+                return self::$translator->trans('Ruins of Farahlon');
             case self::ZONE_SOCRETHARSSEAT:
-                return 'Socrethar\'s Seat';
+                return self::$translator->trans('Socrethar\'s Seat');
             case self::ZONE_LEGIONHOLD:
-                return 'Legion Hold';
+                return self::$translator->trans('Legion Hold');
             case self::ZONE_SHADOWMOONVILLAGE:
-                return 'Shadowmoon Village';
+                return self::$translator->trans('Shadowmoon Village');
             case self::ZONE_WILDHAMMERSTRONGHOLD:
-                return 'Wildhammer Stronghold';
+                return self::$translator->trans('Wildhammer Stronghold');
             case self::ZONE_THEHANDOFGULDAN:
-                return 'The Hand of Gul\'dan';
+                return self::$translator->trans('The Hand of Gul\'dan');
             case self::ZONE_THEFELPITS:
-                return 'The Fel Pits';
+                return self::$translator->trans('The Fel Pits');
             case self::ZONE_THEDEATHFORGE:
-                return 'The Deathforge';
+                return self::$translator->trans('The Deathforge');
             case self::ZONE_COILSKARCISTERN:
-                return 'Coilskar Cistern';
+                return self::$translator->trans('Coilskar Cistern');
             case self::ZONE_COILSKARPOINT:
-                return 'Coilskar Point';
+                return self::$translator->trans('Coilskar Point');
             case self::ZONE_SUNFIREPOINT:
-                return 'Sunfire Point';
+                return self::$translator->trans('Sunfire Point');
             case self::ZONE_ILLIDARIPOINT:
-                return 'Illidari Point';
+                return self::$translator->trans('Illidari Point');
             case self::ZONE_RUINSOFBAARI:
-                return 'Ruins of Baa\'ri';
+                return self::$translator->trans('Ruins of Baa\'ri');
             case self::ZONE_ALTAROFSHATAR:
-                return 'Altar of Sha\'tar';
+                return self::$translator->trans('Altar of Sha\'tar');
             case self::ZONE_THESTAIROFDOOM:
-                return 'The Stair of Doom';
+                return self::$translator->trans('The Stair of Doom');
             case self::ZONE_RUINSOFKARABOR:
-                return 'Ruins of Karabor';
+                return self::$translator->trans('Ruins of Karabor');
             case self::ZONE_ATAMALTERRACE:
-                return 'Ata\'mal Terrace';
+                return self::$translator->trans('Ata\'mal Terrace');
             case self::ZONE_NETHERWINGFIELDS:
-                return 'Netherwing Fields';
+                return self::$translator->trans('Netherwing Fields');
             case self::ZONE_NETHERWINGLEDGE:
-                return 'Netherwing Ledge';
+                return self::$translator->trans('Netherwing Ledge');
             case self::ZONE_THEHIGHPATH:
-                return 'The High Path';
+                return self::$translator->trans('The High Path');
             case self::ZONE_WINDYREEDPASS:
-                return 'Windyreed Pass';
+                return self::$translator->trans('Windyreed Pass');
             case self::ZONE_ZANGARRIDGE:
-                return 'Zangar Ridge';
+                return self::$translator->trans('Zangar Ridge');
             case self::ZONE_THETWILIGHTRIDGE:
-                return 'The Twilight Ridge';
+                return self::$translator->trans('The Twilight Ridge');
             case self::ZONE_RAZORTHORNTRAIL:
-                return 'Razorthorn Trail';
+                return self::$translator->trans('Razorthorn Trail');
             case self::ZONE_OREBORHARBORAGE:
-                return 'Orebor Harborage';
+                return self::$translator->trans('Orebor Harborage');
             case self::ZONE_JAGGEDRIDGE:
-                return 'Jagged Ridge';
+                return self::$translator->trans('Jagged Ridge');
             case self::ZONE_THUNDERLORDSTRONGHOLD:
-                return 'Thunderlord Stronghold';
+                return self::$translator->trans('Thunderlord Stronghold');
             case self::ZONE_THELIVINGGROVE:
-                return 'The Living Grove';
+                return self::$translator->trans('The Living Grove');
             case self::ZONE_SYLVANAAR:
-                return 'Sylvanaar';
+                return self::$translator->trans('Sylvanaar');
             case self::ZONE_BLADESPIREHOLD:
-                return 'Bladespire Hold';
+                return self::$translator->trans('Bladespire Hold');
             case self::ZONE_CIRCLEOFBLOOD:
-                return 'Circle of Blood';
+                return self::$translator->trans('Circle of Blood');
             case self::ZONE_BLOODMAULOUTPOST:
-                return 'Bloodmaul Outpost';
+                return self::$translator->trans('Bloodmaul Outpost');
             case self::ZONE_BLOODMAULCAMP:
-                return 'Bloodmaul Camp';
+                return self::$translator->trans('Bloodmaul Camp');
             case self::ZONE_DRAENETHYSTMINE:
-                return 'Draenethyst Mine';
+                return self::$translator->trans('Draenethyst Mine');
             case self::ZONE_TROGMASCLAIM:
-                return 'Trogma\'s Claim';
+                return self::$translator->trans('Trogma\'s Claim');
             case self::ZONE_BLACKWINGCOVEN:
-                return 'Blackwing Coven';
+                return self::$translator->trans('Blackwing Coven');
             case self::ZONE_GRISHNATH:
-                return 'Grishnath';
+                return self::$translator->trans('Grishnath');
             case self::ZONE_VEILLASHH:
-                return 'Veil Lashh';
+                return self::$translator->trans('Veil Lashh');
             case self::ZONE_VEILVEKH:
-                return 'Veil Vekh';
+                return self::$translator->trans('Veil Vekh');
             case self::ZONE_FORGECAMPTERROR:
-                return 'Forge Camp: Terror';
+                return self::$translator->trans('Forge Camp: Terror');
             case self::ZONE_FORGECAMPWRATH:
-                return 'Forge Camp: Wrath';
+                return self::$translator->trans('Forge Camp: Wrath');
             case self::ZONE_FELSTORMPOINT:
-                return 'Felstorm Point';
+                return self::$translator->trans('Felstorm Point');
             case self::ZONE_FORGECAMPANGER:
-                return 'Forge Camp: Anger';
+                return self::$translator->trans('Forge Camp: Anger');
             case self::ZONE_THELOWPATH:
-                return 'The Low Path';
+                return self::$translator->trans('The Low Path');
             case self::ZONE_SHADOWLABYRINTH:
-                return 'Shadow Labyrinth';
+                return self::$translator->trans('Shadow Labyrinth');
             case self::ZONE_AUCHENAICRYPTS:
-                return 'Auchenai Crypts';
+                return self::$translator->trans('Auchenai Crypts');
             case self::ZONE_SETHEKKHALLS:
-                return 'Sethekk Halls';
+                return self::$translator->trans('Sethekk Halls');
             case self::ZONE_MANATOMBS:
-                return 'Mana-Tombs';
+                return self::$translator->trans('Mana-Tombs');
             case self::ZONE_FELSPARKRAVINE:
-                return 'Felspark Ravine';
+                return self::$translator->trans('Felspark Ravine');
             case self::ZONE_SHANAARIWASTES:
-                return 'Sha\'naari Wastes';
+                return self::$translator->trans('Sha\'naari Wastes');
             case self::ZONE_THEWARPFIELDS:
-                return 'The Warp Fields';
+                return self::$translator->trans('The Warp Fields');
             case self::ZONE_FALLENSKYRIDGE:
-                return 'Fallen Sky Ridge';
+                return self::$translator->trans('Fallen Sky Ridge');
             case self::ZONE_HAALESHIGORGE:
-                return 'Haal\'eshi Gorge';
+                return self::$translator->trans('Haal\'eshi Gorge');
             case self::ZONE_STONEWALLCANYON:
-                return 'Stonewall Canyon';
+                return self::$translator->trans('Stonewall Canyon');
             case self::ZONE_THORNFANGHILL:
-                return 'Thornfang Hill';
+                return self::$translator->trans('Thornfang Hill');
             case self::ZONE_MAGHARGROUNDS:
-                return 'Mag\'har Grounds';
+                return self::$translator->trans('Mag\'har Grounds');
             case self::ZONE_VOIDRIDGE:
-                return 'Void Ridge';
+                return self::$translator->trans('Void Ridge');
             case self::ZONE_THEABYSSALSHELF:
-                return 'The Abyssal Shelf';
+                return self::$translator->trans('The Abyssal Shelf');
             case self::ZONE_THELEGIONFRONT:
-                return 'The Legion Front';
+                return self::$translator->trans('The Legion Front');
             case self::ZONE_ZULAMAN:
-                return 'Zul\'Aman';
+                return self::$translator->trans('Zul\'Aman');
             case self::ZONE_SUPPLYCARAVAN:
-                return 'Supply Caravan';
+                return self::$translator->trans('Supply Caravan');
             case self::ZONE_REAVERSFALL:
-                return 'Reaver\'s Fall';
+                return self::$translator->trans('Reaver\'s Fall');
             case self::ZONE_CENARIONPOST:
-                return 'Cenarion Post';
+                return self::$translator->trans('Cenarion Post');
             case self::ZONE_SOUTHERNRAMPART:
-                return 'Southern Rampart';
+                return self::$translator->trans('Southern Rampart');
             case self::ZONE_NORTHERNRAMPART:
-                return 'Northern Rampart';
+                return self::$translator->trans('Northern Rampart');
             case self::ZONE_GORGAZOUTPOST:
-                return 'Gor\'gaz Outpost';
+                return self::$translator->trans('Gor\'gaz Outpost');
             case self::ZONE_SPINEBREAKERPOST:
-                return 'Spinebreaker Post';
+                return self::$translator->trans('Spinebreaker Post');
             case self::ZONE_THEPATHOFANGUISH:
-                return 'The Path of Anguish';
+                return self::$translator->trans('The Path of Anguish');
             case self::ZONE_EASTSUPPLYCARAVAN:
-                return 'East Supply Caravan';
+                return self::$translator->trans('East Supply Caravan');
             case self::ZONE_EXPEDITIONPOINT:
-                return 'Expedition Point';
+                return self::$translator->trans('Expedition Point');
             case self::ZONE_ZEPPELINCRASH:
-                return 'Zeppelin Crash';
+                return self::$translator->trans('Zeppelin Crash');
             case self::ZONE_TESTING:
-                return 'Testing';
+                return self::$translator->trans('Testing');
             case self::ZONE_BLOODSCALEGROUNDS:
-                return 'Bloodscale Grounds';
+                return self::$translator->trans('Bloodscale Grounds');
             case self::ZONE_DARKCRESTENCLAVE:
-                return 'Darkcrest Enclave';
+                return self::$translator->trans('Darkcrest Enclave');
             case self::ZONE_EYEOFTHESTORM:
-                return 'Eye of the Storm';
+                return self::$translator->trans('Eye of the Storm');
             case self::ZONE_WARDENSCAGE:
-                return 'Warden\'s Cage';
+                return self::$translator->trans('Warden\'s Cage');
             case self::ZONE_ECLIPSEPOINT:
-                return 'Eclipse Point';
+                return self::$translator->trans('Eclipse Point');
             case self::ZONE_ISLEOFTRIBULATIONS:
-                return 'Isle of Tribulations';
+                return self::$translator->trans('Isle of Tribulations');
             case self::ZONE_BLOODMAULRAVINE:
-                return 'Bloodmaul Ravine';
+                return self::$translator->trans('Bloodmaul Ravine');
             case self::ZONE_DRAGONSEND:
-                return 'Dragons\' End';
+                return self::$translator->trans('Dragons\' End');
             case self::ZONE_DAGGERMAWCANYON:
-                return 'Daggermaw Canyon';
+                return self::$translator->trans('Daggermaw Canyon');
             case self::ZONE_VEKHAARSTAND:
-                return 'Vekhaar Stand';
+                return self::$translator->trans('Vekhaar Stand');
             case self::ZONE_RUUANWEALD:
-                return 'Ruuan Weald';
+                return self::$translator->trans('Ruuan Weald');
             case self::ZONE_VEILRUUAN:
-                return 'Veil Ruuan';
+                return self::$translator->trans('Veil Ruuan');
             case self::ZONE_RAVENSWOOD:
-                return 'Raven\'s Wood';
+                return self::$translator->trans('Raven\'s Wood');
             case self::ZONE_DEATHSDOOR:
-                return 'Death\'s Door';
+                return self::$translator->trans('Death\'s Door');
             case self::ZONE_VORTEXPINNACLE:
-                return 'Vortex Pinnacle';
+                return self::$translator->trans('Vortex Pinnacle');
             case self::ZONE_RAZORRIDGE:
-                return 'Razor Ridge';
+                return self::$translator->trans('Razor Ridge');
             case self::ZONE_RIDGEOFMADNESS:
-                return 'Ridge of Madness';
+                return self::$translator->trans('Ridge of Madness');
             case self::ZONE_DUSTQUILLRAVINE:
-                return 'Dustquill Ravine';
+                return self::$translator->trans('Dustquill Ravine');
             case self::ZONE_MAGTHERIDONSLAIR:
-                return 'Magtheridon\'s Lair';
+                return self::$translator->trans('Magtheridon\'s Lair');
             case self::ZONE_SUNFURYHOLD:
-                return 'Sunfury Hold';
+                return self::$translator->trans('Sunfury Hold');
             case self::ZONE_SPINEBREAKERMOUNTAINS:
-                return 'Spinebreaker Mountains';
+                return self::$translator->trans('Spinebreaker Mountains');
             case self::ZONE_ABANDONEDARMORY:
-                return 'Abandoned Armory';
+                return self::$translator->trans('Abandoned Armory');
             case self::ZONE_THEBLACKTEMPLE:
-                return 'The Black Temple';
+                return self::$translator->trans('The Black Temple');
             case self::ZONE_DARKCRESTSHORE:
-                return 'Darkcrest Shore';
+                return self::$translator->trans('Darkcrest Shore');
             case self::ZONE_TEMPESTKEEP:
-                return 'Tempest Keep';
+                return self::$translator->trans('Tempest Keep');
             case self::ZONE_MOKNATHALVILLAGE:
-                return 'Mok\'Nathal Village';
+                return self::$translator->trans('Mok\'Nathal Village');
             case self::ZONE_THEARCATRAZ:
-                return 'The Arcatraz';
+                return self::$translator->trans('The Arcatraz');
             case self::ZONE_THEBOTANICA:
-                return 'The Botanica';
+                return self::$translator->trans('The Botanica');
             case self::ZONE_THEMECHANAR:
-                return 'The Mechanar';
+                return self::$translator->trans('The Mechanar');
             case self::ZONE_NETHERSTONE:
-                return 'Netherstone';
+                return self::$translator->trans('Netherstone');
             case self::ZONE_MIDREALMPOST:
-                return 'Midrealm Post';
+                return self::$translator->trans('Midrealm Post');
             case self::ZONE_TULUMANSLANDING:
-                return 'Tuluman\'s Landing';
+                return self::$translator->trans('Tuluman\'s Landing');
             case self::ZONE_PROTECTORATEWATCHPOST:
-                return 'Protectorate Watch Post';
+                return self::$translator->trans('Protectorate Watch Post');
             case self::ZONE_CIRCLEOFBLOODARENA:
-                return 'Circle of Blood Arena';
+                return self::$translator->trans('Circle of Blood Arena');
             case self::ZONE_ELRENDARCROSSING:
-                return 'Elrendar Crossing';
+                return self::$translator->trans('Elrendar Crossing');
             case self::ZONE_AMMENFORD:
-                return 'Ammen Ford';
+                return self::$translator->trans('Ammen Ford');
             case self::ZONE_RAZORTHORNSHELF:
-                return 'Razorthorn Shelf';
+                return self::$translator->trans('Razorthorn Shelf');
             case self::ZONE_SILMYRLAKE:
-                return 'Silmyr Lake';
+                return self::$translator->trans('Silmyr Lake');
             case self::ZONE_RAASTOKGLADE:
-                return 'Raastok Glade';
+                return self::$translator->trans('Raastok Glade');
             case self::ZONE_THALASSIANPASS:
-                return 'Thalassian Pass';
+                return self::$translator->trans('Thalassian Pass');
             case self::ZONE_CHURNINGGULCH:
-                return 'Churning Gulch';
+                return self::$translator->trans('Churning Gulch');
             case self::ZONE_BROKENWILDS:
-                return 'Broken Wilds';
+                return self::$translator->trans('Broken Wilds');
             case self::ZONE_BASHIRLANDING:
-                return 'Bash\'ir Landing';
+                return self::$translator->trans('Bash\'ir Landing');
             case self::ZONE_CRYSTALSPINE:
-                return 'Crystal Spine';
+                return self::$translator->trans('Crystal Spine');
             case self::ZONE_SKALD:
-                return 'Skald';
+                return self::$translator->trans('Skald');
             case self::ZONE_BLADEDGULCH:
-                return 'Bladed Gulch';
+                return self::$translator->trans('Bladed Gulch');
             case self::ZONE_GYROPLANKBRIDGE:
-                return 'Gyro-Plank Bridge';
+                return self::$translator->trans('Gyro-Plank Bridge');
             case self::ZONE_MAGETOWER:
-                return 'Mage Tower';
+                return self::$translator->trans('Mage Tower');
             case self::ZONE_BLOODELFTOWER:
-                return 'Blood Elf Tower';
+                return self::$translator->trans('Blood Elf Tower');
             case self::ZONE_DRAENEIRUINS:
-                return 'Draenei Ruins';
+                return self::$translator->trans('Draenei Ruins');
             case self::ZONE_FELREAVERRUINS:
-                return 'Fel Reaver Ruins';
+                return self::$translator->trans('Fel Reaver Ruins');
             case self::ZONE_THEPROVINGGROUNDS:
-                return 'The Proving Grounds';
+                return self::$translator->trans('The Proving Grounds');
             case self::ZONE_ECODOMEFARFIELD:
-                return 'Eco-Dome Farfield';
+                return self::$translator->trans('Eco-Dome Farfield');
             case self::ZONE_ECODOMESKYPERCH:
-                return 'Eco-Dome Skyperch';
+                return self::$translator->trans('Eco-Dome Skyperch');
             case self::ZONE_ECODOMESUTHERON:
-                return 'Eco-Dome Sutheron';
+                return self::$translator->trans('Eco-Dome Sutheron');
             case self::ZONE_ECODOMEMIDREALM:
-                return 'Eco-Dome Midrealm';
+                return self::$translator->trans('Eco-Dome Midrealm');
             case self::ZONE_ETHEREUMSTAGINGGROUNDS:
-                return 'Ethereum Staging Grounds';
+                return self::$translator->trans('Ethereum Staging Grounds');
             case self::ZONE_CHAPELYARD:
-                return 'Chapel Yard';
+                return self::$translator->trans('Chapel Yard');
             case self::ZONE_ACCESSSHAFTZEON:
-                return 'Access Shaft Zeon';
+                return self::$translator->trans('Access Shaft Zeon');
             case self::ZONE_TRELLEUMMINE:
-                return 'Trelleum Mine';
+                return self::$translator->trans('Trelleum Mine');
             case self::ZONE_INVASIONPOINTDESTROYER:
-                return 'Invasion Point: Destroyer';
+                return self::$translator->trans('Invasion Point: Destroyer');
             case self::ZONE_CAMPOFBOOM:
-                return 'Camp of Boom';
+                return self::$translator->trans('Camp of Boom');
             case self::ZONE_SPINEBREAKERPASS:
-                return 'Spinebreaker Pass';
+                return self::$translator->trans('Spinebreaker Pass');
             case self::ZONE_NETHERWEBRIDGE:
-                return 'Netherweb Ridge';
+                return self::$translator->trans('Netherweb Ridge');
             case self::ZONE_DERELICTCARAVAN:
-                return 'Derelict Caravan';
+                return self::$translator->trans('Derelict Caravan');
             case self::ZONE_REFUGEECARAVAN:
-                return 'Refugee Caravan';
+                return self::$translator->trans('Refugee Caravan');
             case self::ZONE_SHADOWTOMB:
-                return 'Shadow Tomb';
+                return self::$translator->trans('Shadow Tomb');
             case self::ZONE_VEILRHAZE:
-                return 'Veil Rhaze';
+                return self::$translator->trans('Veil Rhaze');
             case self::ZONE_TOMBOFLIGHTS:
-                return 'Tomb of Lights';
+                return self::$translator->trans('Tomb of Lights');
             case self::ZONE_CARRIONHILL:
-                return 'Carrion Hill';
+                return self::$translator->trans('Carrion Hill');
             case self::ZONE_WRITHINGMOUND:
-                return 'Writhing Mound';
+                return self::$translator->trans('Writhing Mound');
             case self::ZONE_RINGOFOBSERVANCE:
-                return 'Ring of Observance';
+                return self::$translator->trans('Ring of Observance');
             case self::ZONE_AUCHENAIGROUNDS:
-                return 'Auchenai Grounds';
+                return self::$translator->trans('Auchenai Grounds');
             case self::ZONE_CENARIONWATCHPOST:
-                return 'Cenarion Watchpost';
+                return self::$translator->trans('Cenarion Watchpost');
             case self::ZONE_ALDORRISE:
-                return 'Aldor Rise';
+                return self::$translator->trans('Aldor Rise');
             case self::ZONE_TERRACEOFLIGHT:
-                return 'Terrace of Light';
+                return self::$translator->trans('Terrace of Light');
             case self::ZONE_SCRYERSTIER:
-                return 'Scryer\'s Tier';
+                return self::$translator->trans('Scryer\'s Tier');
             case self::ZONE_LOWERCITY:
-                return 'Lower City';
+                return self::$translator->trans('Lower City');
             case self::ZONE_INVASIONPOINTOVERLORD:
-                return 'Invasion Point: Overlord';
+                return self::$translator->trans('Invasion Point: Overlord');
             case self::ZONE_ALLERIANPOST:
-                return 'Allerian Post';
+                return self::$translator->trans('Allerian Post');
             case self::ZONE_STONEBREAKERCAMP:
-                return 'Stonebreaker Camp';
+                return self::$translator->trans('Stonebreaker Camp');
             case self::ZONE_BOULDERMOK:
-                return 'Boulder\'mok';
+                return self::$translator->trans('Boulder\'mok');
             case self::ZONE_CURSEDHOLLOW:
-                return 'Cursed Hollow';
+                return self::$translator->trans('Cursed Hollow');
             case self::ZONE_THEBLOODWASH:
-                return 'The Bloodwash';
+                return self::$translator->trans('The Bloodwash');
             case self::ZONE_VERIDIANPOINT:
-                return 'Veridian Point';
+                return self::$translator->trans('Veridian Point');
             case self::ZONE_MIDDENVALE:
-                return 'Middenvale';
+                return self::$translator->trans('Middenvale');
             case self::ZONE_THELOSTFOLD:
-                return 'The Lost Fold';
+                return self::$translator->trans('The Lost Fold');
             case self::ZONE_MYSTWOOD:
-                return 'Mystwood';
+                return self::$translator->trans('Mystwood');
             case self::ZONE_TRANQUILSHORE:
-                return 'Tranquil Shore';
+                return self::$translator->trans('Tranquil Shore');
             case self::ZONE_GOLDENBOUGHPASS:
-                return 'Goldenbough Pass';
+                return self::$translator->trans('Goldenbough Pass');
             case self::ZONE_RUNESTONEFALITHAS:
-                return 'Runestone Falithas';
+                return self::$translator->trans('Runestone Falithas');
             case self::ZONE_RUNESTONESHANDOR:
-                return 'Runestone Shan\'dor';
+                return self::$translator->trans('Runestone Shan\'dor');
             case self::ZONE_FAIRBRIDGESTRAND:
-                return 'Fairbridge Strand';
+                return self::$translator->trans('Fairbridge Strand');
             case self::ZONE_MOONGRAZEWOODS:
-                return 'Moongraze Woods';
+                return self::$translator->trans('Moongraze Woods');
             case self::ZONE_TOSHLEYSSTATION:
-                return 'Toshley\'s Station';
+                return self::$translator->trans('Toshley\'s Station');
             case self::ZONE_SINGINGRIDGE:
-                return 'Singing Ridge';
+                return self::$translator->trans('Singing Ridge');
             case self::ZONE_SHATTERPOINT:
-                return 'Shatter Point';
+                return self::$translator->trans('Shatter Point');
             case self::ZONE_ARKLONISRIDGE:
-                return 'Arklonis Ridge';
+                return self::$translator->trans('Arklonis Ridge');
             case self::ZONE_BLADESPIREOUTPOST:
-                return 'Bladespire Outpost';
+                return self::$translator->trans('Bladespire Outpost');
             case self::ZONE_NORTHMAULTOWER:
-                return 'Northmaul Tower';
+                return self::$translator->trans('Northmaul Tower');
             case self::ZONE_SOUTHMAULTOWER:
-                return 'Southmaul Tower';
+                return self::$translator->trans('Southmaul Tower');
             case self::ZONE_SHATTEREDPLAINS:
-                return 'Shattered Plains';
+                return self::$translator->trans('Shattered Plains');
             case self::ZONE_ORONOKSFARM:
-                return 'Oronok\'s Farm';
+                return self::$translator->trans('Oronok\'s Farm');
             case self::ZONE_THEALTAROFDAMNATION:
-                return 'The Altar of Damnation';
+                return self::$translator->trans('The Altar of Damnation');
             case self::ZONE_THEPATHOFCONQUEST:
-                return 'The Path of Conquest';
+                return self::$translator->trans('The Path of Conquest');
             case self::ZONE_ECLIPSIONFIELDS:
-                return 'Eclipsion Fields';
+                return self::$translator->trans('Eclipsion Fields');
             case self::ZONE_BLADESPIREGROUNDS:
-                return 'Bladespire Grounds';
+                return self::$translator->trans('Bladespire Grounds');
             case self::ZONE_SKETHLONBASECAMP:
-                return 'Sketh\'lon Base Camp';
+                return self::$translator->trans('Sketh\'lon Base Camp');
             case self::ZONE_SKETHLONWRECKAGE:
-                return 'Sketh\'lon Wreckage';
+                return self::$translator->trans('Sketh\'lon Wreckage');
             case self::ZONE_TOWNSQUARE:
-                return 'Town Square';
+                return self::$translator->trans('Town Square');
             case self::ZONE_WIZARDROW:
-                return 'Wizard Row';
+                return self::$translator->trans('Wizard Row');
             case self::ZONE_DEATHFORGETOWER:
-                return 'Deathforge Tower';
+                return self::$translator->trans('Deathforge Tower');
             case self::ZONE_SLAGWATCH:
-                return 'Slag Watch';
+                return self::$translator->trans('Slag Watch');
             case self::ZONE_SANCTUMOFTHESTARS:
-                return 'Sanctum of the Stars';
+                return self::$translator->trans('Sanctum of the Stars');
             case self::ZONE_DRAGONMAWFORTRESS:
-                return 'Dragonmaw Fortress';
+                return self::$translator->trans('Dragonmaw Fortress');
             case self::ZONE_THEFETIDPOOL:
-                return 'The Fetid Pool';
+                return self::$translator->trans('The Fetid Pool');
             case self::ZONE_RAZAANSLANDING:
-                return 'Razaan\'s Landing';
+                return self::$translator->trans('Razaan\'s Landing');
             case self::ZONE_INVASIONPOINTCATACLYSM:
-                return 'Invasion Point: Cataclysm';
+                return self::$translator->trans('Invasion Point: Cataclysm');
             case self::ZONE_THEALTAROFSHADOWS:
-                return 'The Altar of Shadows';
+                return self::$translator->trans('The Altar of Shadows');
             case self::ZONE_NETHERWINGPASS:
-                return 'Netherwing Pass';
+                return self::$translator->trans('Netherwing Pass');
             case self::ZONE_WAYNESREFUGE:
-                return 'Wayne\'s Refuge';
+                return self::$translator->trans('Wayne\'s Refuge');
             case self::ZONE_THESCALDINGPOOLS:
-                return 'The Scalding Pools';
+                return self::$translator->trans('The Scalding Pools');
             case self::ZONE_BRIANANDPATTEST:
-                return 'Brian and Pat Test';
+                return self::$translator->trans('Brian and Pat Test');
             case self::ZONE_MAGMAFIELDS:
-                return 'Magma Fields';
+                return self::$translator->trans('Magma Fields');
             case self::ZONE_CRIMSONWATCH:
-                return 'Crimson Watch';
+                return self::$translator->trans('Crimson Watch');
             case self::ZONE_EVERGROVE:
-                return 'Evergrove';
+                return self::$translator->trans('Evergrove');
             case self::ZONE_WYRMSKULLBRIDGE:
-                return 'Wyrmskull Bridge';
+                return self::$translator->trans('Wyrmskull Bridge');
             case self::ZONE_SCALEWINGSHELF:
-                return 'Scalewing Shelf';
+                return self::$translator->trans('Scalewing Shelf');
             case self::ZONE_WYRMSKULLTUNNEL:
-                return 'Wyrmskull Tunnel';
+                return self::$translator->trans('Wyrmskull Tunnel');
             case self::ZONE_HELLFIREBASIN:
-                return 'Hellfire Basin';
+                return self::$translator->trans('Hellfire Basin');
             case self::ZONE_THESHADOWSTAIR:
-                return 'The Shadow Stair';
+                return self::$translator->trans('The Shadow Stair');
             case self::ZONE_SHATARIOUTPOST:
-                return 'Sha\'tari Outpost';
+                return self::$translator->trans('Sha\'tari Outpost');
             default:
-                return 'Unspecified';
+                return self::$translator->trans('Unspecified');
         }
     }
 }

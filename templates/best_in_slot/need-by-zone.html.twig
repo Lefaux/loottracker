@@ -25,7 +25,7 @@
                         <ul class="list-group">
                         {% for bisEntry in bisItems %}
                             <li class="list-group-item">
-                                <a href="#" data-wowhead="item={{ bisEntry.item.id }}&amp;domain=classic" data-wh-icon-size="medium">{{ bisEntry.item.name }}</a>
+                                <a href="#" data-wowhead="item={{ bisEntry.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium">{{ bisEntry.item.name }}</a>
                                 <br>
                                 {% for spec,playersInSpec in bisEntry.playersWithNeed %}
                                     {% if spec == 1 %}
