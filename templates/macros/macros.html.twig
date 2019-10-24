@@ -107,3 +107,46 @@
     </table>
     <small>{% trans %}If you do not want to raid with one of your twinks, but will attend with a main character, don't "cancel" with the twink{% endtrans %}</small>
 {% endmacro %}
+
+{% macro professions(skill) %}
+    {% set percentage =  skill / 3.33333|round%}
+    {% if skill < 100 %}
+        {% set color = 'bg-danger' %}
+    {% elseif skill < 200 %}
+        {% set color = 'bg-warning' %}
+    {% elseif skill < 299 %}
+        {% set color = 'bg-info' %}
+    {% elseif skill > 299 %}
+        {% set color = 'bg-success' %}
+        {% set percentage = 100 %}
+    {% endif %}
+    <div class="progress">
+        <div class="progress-bar {{ color }}" role="progressbar" style="width: {{ percentage }}%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ skill }}</div>
+    </div>
+{% endmacro %}
+
+{% macro tradeskills(skillId, skill) %}
+    {% if skillId > 0 %}
+        <div class="tradeskill">
+            <div class="tradeskill-image">
+                <img src="{{ asset('assets/icons/tradeskills/tradeskill_'~skillId~'.png') }}" alt="{{ skill }}" title="{{ skill }}">
+            </div>
+            <div class="tradeskill-progress">
+                {% set percentage =  skill / 3.33333|round%}
+                {% if skill < 100 %}
+                    {% set color = 'bg-danger' %}
+                {% elseif skill < 200 %}
+                    {% set color = 'bg-warning' %}
+                {% elseif skill < 299 %}
+                    {% set color = 'bg-info' %}
+                {% elseif skill > 299 %}
+                    {% set color = 'bg-success' %}
+                    {% set percentage = 100 %}
+                {% endif %}
+                <div class="progress" style="height:5px">
+                    <div class="progress-bar {{ color }}" role="progressbar" style="width: {{ percentage }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endmacro %}

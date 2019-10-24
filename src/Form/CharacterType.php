@@ -4,10 +4,12 @@ namespace App\Form;
 
 use App\Entity\Character;
 use App\Utility\WowClassUtility;
+use App\Utility\WowProfessionUtility;
 use App\Utility\WowRaceUtility;
 use App\Utility\WowSpecUtility;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -27,17 +29,27 @@ class CharacterType extends AbstractType
      * @var WowSpecUtility
      */
     private $spec;
+    /**
+     * @var WowProfessionUtility
+     */
+    private $prof;
 
-    public function __construct(WowRaceUtility $wowRaceUtility, WowClassUtility $wowClassUtility, WowSpecUtility $wowSpecUtility)
-    {
+    public function __construct(
+        WowRaceUtility $wowRaceUtility,
+        WowClassUtility $wowClassUtility,
+        WowSpecUtility $wowSpecUtility,
+        WowProfessionUtility $wowProfessionUtility
+    ) {
         $this->race = $wowRaceUtility;
         $this->class = $wowClassUtility;
         $this->spec = $wowSpecUtility;
+        $this->prof = $wowProfessionUtility;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+            ->add('name', TextType::class, ['required' => true])
             ->add('class', ChoiceType::class,
                 [
                     'required' => true,
@@ -47,16 +59,47 @@ class CharacterType extends AbstractType
             ->add('spec', ChoiceType::class,
                 [
                     'required' => true,
-                    'choices' => array_flip(WowSpecUtility::toArray())
+                    'choices' => array_flip($this->spec::toArray())
+                ]
+            )
+            ->add('note', TextType::class,
+                [
+                    'required' => true,
+                    'label' => 'Spec Notes',
                 ]
             )
             ->add('race', ChoiceType::class,
                 [
                     'required' => true,
-                    'choices' => array_flip(WowRaceUtility::toArray())
+                    'choices' => array_flip($this->race::toArray())
                 ]
             )
-            ->add('name', TextType::class, ['required' => true])
+            ->add('profession1', ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'Profession A',
+                    'choices' => array_flip($this->prof::toArray())
+                ]
+            )
+            ->add('profession1skill', IntegerType::class,
+                [
+                    'required' => true,
+                    'label' => 'Profession A Skill Level',
+                ]
+            )
+            ->add('profession2', ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'Profession B',
+                    'choices' => array_flip($this->prof::toArray())
+                ]
+            )
+            ->add('profession2skill', IntegerType::class,
+                [
+                    'required' => true,
+                    'label' => 'Profession B Skill Level',
+                ]
+            )
             ->add('submit', SubmitType::class, [
                 'label' => 'Save',
                 'attr' => ['class' => 'btn btn-primary pull-right'],

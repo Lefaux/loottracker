@@ -73,12 +73,43 @@ class Character
      */
     private $signups;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $note;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $profession1;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $profession2;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $profession1skill;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $profession2skill;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Recipe", mappedBy="Player", orphanRemoval=true)
+     */
+    private $recipes;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
         $this->loots = new ArrayCollection();
         $this->lootRequirements = new ArrayCollection();
         $this->signups = new ArrayCollection();
+        $this->recipes = new ArrayCollection();
     }
 
     public function __toString()
@@ -283,6 +314,97 @@ class Character
             // set the owning side to null (unless already changed)
             if ($signup->getPlayerName() === $this) {
                 $signup->setPlayerName(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNote(): ?string
+    {
+        return $this->note;
+    }
+
+    public function setNote(?string $note): self
+    {
+        $this->note = $note;
+
+        return $this;
+    }
+
+    public function getProfession1(): ?int
+    {
+        return $this->profession1;
+    }
+
+    public function setProfession1(?int $profession1): self
+    {
+        $this->profession1 = $profession1;
+
+        return $this;
+    }
+
+    public function getProfession2(): ?int
+    {
+        return $this->profession2;
+    }
+
+    public function setProfession2(?int $profession2): self
+    {
+        $this->profession2 = $profession2;
+
+        return $this;
+    }
+
+    public function getProfession1skill(): ?int
+    {
+        return $this->profession1skill;
+    }
+
+    public function setProfession1skill(?int $profession1skill): self
+    {
+        $this->profession1skill = $profession1skill;
+
+        return $this;
+    }
+
+    public function getProfession2skill(): ?int
+    {
+        return $this->profession2skill;
+    }
+
+    public function setProfession2skill(?int $profession2skill): self
+    {
+        $this->profession2skill = $profession2skill;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Recipe[]
+     */
+    public function getRecipes(): Collection
+    {
+        return $this->recipes;
+    }
+
+    public function addRecipe(Recipe $recipe): self
+    {
+        if (!$this->recipes->contains($recipe)) {
+            $this->recipes[] = $recipe;
+            $recipe->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRecipe(Recipe $recipe): self
+    {
+        if ($this->recipes->contains($recipe)) {
+            $this->recipes->removeElement($recipe);
+            // set the owning side to null (unless already changed)
+            if ($recipe->getPlayer() === $this) {
+                $recipe->setPlayer(null);
             }
         }
 

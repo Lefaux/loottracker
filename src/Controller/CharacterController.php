@@ -14,6 +14,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LootRepository;
 use App\Utility\WowClassUtility;
+use App\Utility\WowProfessionUtility;
 use App\Utility\WowRaceUtility;
 use App\Utility\WowSlotUtility;
 use App\Utility\WowSpecUtility;
@@ -79,9 +80,10 @@ class CharacterController extends AbstractController
     /**
      * @Route("/character/{charId}", name="character")
      * @param int $charId
+     * @param WowProfessionUtility $wowProfessionUtility
      * @return Response
      */
-    public function characterDetailsAction(int $charId): Response
+    public function characterDetailsAction(int $charId, WowProfessionUtility $wowProfessionUtility): Response
     {
         $raids = [];
         $char = $this->characterRepository->find($charId);
@@ -93,7 +95,8 @@ class CharacterController extends AbstractController
         }
         return $this->render('character/detail.html.twig', [
             'character' => $char,
-            'raids' => $raids
+            'raids' => $raids,
+            'professions' => $wowProfessionUtility
         ]);
     }
 

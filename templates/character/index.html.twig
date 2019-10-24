@@ -1,4 +1,5 @@
 {% extends 'base.html.twig' %}
+{% import 'macros/macros.html.twig' as macros %}
 
 {% block title %}{% trans %}Raid Roster{% endtrans %}{% endblock %}
 
@@ -40,19 +41,32 @@
                             {% endif %}
                             </h4>
                         </div>
-                        <ul class="list-group list-group-flush">
+                        <table class="table">
                             {% for player in players %}
-                                <li class="list-group-item">
-                                    {% if player.spec == 1 %}
-                                        <i class="fa fa-fw fa-shield-alt"></i>
-                                    {% elseif player.spec == 2 %}
-                                        <i class="fa fa-fw fa-band-aid"></i>
-                                    {% elseif player.spec == 3 %}
-                                        <i class="fa fa-fw fa-skull-crossbones"></i>
-                                    {% endif %}
-                                    <a href="{{ path('character', {'charId': player.id}) }}">{{ player.name }}</a>
-                                </li>
+                                <tr>
+                                    <td>
+                                        {% if player.spec == 1 %}
+                                            <i class="fa fa-fw fa-shield-alt"></i>
+                                        {% elseif player.spec == 2 %}
+                                            <i class="fa fa-fw fa-band-aid"></i>
+                                        {% elseif player.spec == 3 %}
+                                            <i class="fa fa-fw fa-skull-crossbones"></i>
+                                        {% endif %}
+                                        <a href="{{ path('character', {'charId': player.id}) }}">{{ player.name }}</a>
+                                    </td>
+                                    <td>
+                                        {{ macros.tradeskills(player.profession1, player.profession1skill) }}
+                                    </td>
+                                    <td>
+                                        {{ macros.tradeskills(player.profession2, player.profession2skill) }}
+                                    </td>
+                                </tr>
                             {% endfor %}
+
+                        </table>
+                        <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                </li>
                         </ul>
                     </div>
                 </div>

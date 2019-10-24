@@ -130,6 +130,8 @@ class RaidController extends AbstractController
                 'signedUp' => 2
             ]);
         }
+        $response = new Response();
+        $response->setSharedMaxAge(5);
         return $this->render('raid/signup.html.twig', [
             'raids' => $raids,
             'activeRaid' => $activeRaid,
@@ -139,7 +141,7 @@ class RaidController extends AbstractController
             'endOfSignUp' => $eventTime,
             'serverTime' => $serverTime,
             'account' => $this->getUser()
-        ]);
+        ], $response);
     }
 
     /**

@@ -50,5 +50,17 @@
   background-size: cover !important;
 }
 
+.tradeskill {
+  position: relative;
+}
 
+.tradeskill-image img {
+  width: 24px;
+}
+
+.tradeskill-progress {
+  position: absolute;
+  bottom: 0;
+  width: 24px;
+}
 
