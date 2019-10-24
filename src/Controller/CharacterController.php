@@ -13,6 +13,7 @@ use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LootRepository;
+use App\Repository\RecipeRepository;
 use App\Utility\WowClassUtility;
 use App\Utility\WowProfessionUtility;
 use App\Utility\WowRaceUtility;
@@ -48,18 +49,24 @@ class CharacterController extends AbstractController
      * @var ItemRepository
      */
     private $itemRepository;
+    /**
+     * @var RecipeRepository
+     */
+    private $recipeRepository;
 
     public function __construct(
         CharacterRepository $characterRepository,
         LootRepository $lootRepository,
         CharacterLootRequirementRepository $lootRequirementRepository,
         ItemRepository $itemRepository,
+        RecipeRepository $recipeRepository,
         EntityManagerInterface $entityManager)
     {
         $this->characterRepository = $characterRepository;
         $this->lootRepository = $lootRepository;
         $this->lootRequirementRepository = $lootRequirementRepository;
         $this->itemRepository = $itemRepository;
+        $this->recipeRepository = $recipeRepository;
         $this->entityManager = $entityManager;
     }
 
@@ -75,6 +82,25 @@ class CharacterController extends AbstractController
             $roster[$item->getClass()][] = $item;
         }
         return $this->render('character/index.html.twig', ['roster' => $roster]);
+    }
+
+    /**
+     * @Route("/roster/recipes/{subClass?}", name="roster_recipe")
+     * @param $subClass
+     * @return Response
+     */
+    public function recipeAction($subClass): Response
+    {
+        $recipes = false;
+        $categories = $this->recipeRepository->findRecipeCategories();
+        if ($subClass) {
+            $recipes = $this->recipeRepository->findByCategory($subClass);
+        }
+        return $this->render('character/recipes.html.twig', [
+            'categories' => $categories,
+            'subClass' => $subClass,
+            'recipes' => $recipes
+        ]);
     }
 
     /**

@@ -105,6 +105,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu['roster']->addChild(
+            'roster-recipe',
+            [
+                'label' => $this->translator->trans('Recipes'),
+                'route' => 'roster_recipe',
+                'extras' => [
+                    'icon' => 'receipt',
+                ],
+            ]
+        );
         $menu->addChild(
             'bis',
             [

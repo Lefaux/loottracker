@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/macros.html.twig' as macros %}
+
+{% block title %}{% trans %}Raid Recipes{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>{% trans %}Raid Recipes{% endtrans %}</h1>
+        </div>
+    </div>
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <h5>{% trans %}Category{% endtrans %}</h5>
+                    <div class="list-group">
+                        {% for category in categories %}
+                            <a class="list-group-item list-group-item-action{% if category.id == subClass %} active{% endif %}" href="{{ path('roster_recipe', {subClass: category.id}) }}">{{ category.name }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 col-lg-9">
+                    {% if recipes is defined %}
+                        <h5>{% trans %}Players with Recipes{% endtrans %}</h5>
+                        <ul class="list-group">
+                            {% for recipe in recipes %}
+                                <li class="list-group-item">
+                                    <a href="#" data-wowhead="item={{ recipe.recipe.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium">{{ recipe.recipe.name }}</a>
+                                    <br>
+                                        <small>
+                                            {% for player in recipe.players %}
+                                                {{ player.name }}{% if not loop.last %},{% endif %}
+                                            {% endfor %}
+                                        </small><br>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
