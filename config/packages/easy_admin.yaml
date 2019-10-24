@@ -1,126 +1,165 @@
 easy_admin:
-    site_name: '<a href="/">Admin</a>'
-    entities:
-#        - App\Entity\User
-        User:
-            class: App\Entity\User
-            list:
-                fields: ['id', 'username', 'roles', 'enabled']
-        Loots:
-            class: App\Entity\Loot
-            form:
-                fields:
-                    - { property: 'player', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
-                    - { property: 'raid', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Raid' } }
-                    - { property: 'item', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
-        Recipes:
-            class: App\Entity\Recipe
-            form:
-                fields:
-                    - { property: 'Player', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
-                    - { property: 'recipe', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
-        Events:
-            class: App\Entity\RaidEvent
-        Raids:
-            class: App\Entity\Raid
-            form:
-                fields:
-                    - {property: note}
-        Item:
-            class: App\Entity\Item
-            show:
-                max_results: 10
-            list:
-                fields: ['id', 'name', 'quality', 'class', 'subClass']
-        Category:
-            class: App\Entity\Category
-            list:
-                fields: ['name', 'sorting']
-        SubCategory:
-            class: App\Entity\SubCategory
-            list:
-                fields: ['name', 'parentClass', 'sorting']
-        Character:
-            class: App\Entity\Character
-            list:
-                sort: ['class', 'ASC']
-                fields:
-                    - { property: "name" }
-                    - { property: "account" }
-                    - { property: "class", template: "admin/character/class.html.twig" }
-                    - { property: "spec", template: "admin/character/spec.html.twig" }
-            form:
-                fields:
-                    - { property: "name" }
-                    - property: "account"
-                    - property: "spec"
-                      label: 'Spec'
-                      type: choice
-                      type_options:
-                          expanded: true
-                          choices:
-                              'Tank': 1
-                              'Healer': 2
-                              'DPS': 3
-                    - property: "race"
-                      label: 'Race'
-                      type: choice
-                      type_options:
-                          expanded: true
-                          choices:
-                              'Nightelf': 1
-                              'Human': 2
-                              'Dwarf': 3
-                              'Gnome': 4
-                    - property: "class"
-                      label: 'Class'
-                      type: choice
-                      type_options:
-                          expanded: true
-                          choices:
-                              'Druid': 6
-                              'Hunter': 7
-                              'Mage': 3
-                              'Paladin': 9
-                              'Priest': 2
-                              'Rogue': 5
-                              'Shaman': 8
-                              'Warlock': 4
-                              'Warrior': 1
-        BestInSlot:
-            label: Best In Slot Items
-            class: App\Entity\CharacterLootRequirement
-            form:
-                fields:
-                    - { property: 'playerCharacter', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
-                    - { property: 'item', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
-                    - property: "hasItem"
-                    - property: "slot"
-                      label: 'Slot'
-                      type: choice
-                      type_options:
-                          expanded: true
-                          choices:
-                              'Head': 1
-                              'Neck': 2
-                              'Shoulder': 3
-                              'Back': 16
-                              'Chest': 5
-                              'Wrist': 9
-                              'Hands': 10
-                              'Legs': 7
-                              'Feet': 8
-                              'Ring': 11
-                              'Trinket': 12
-                              'Main Hand': 13
-                              'Off Hand': 14
-                              'Ranged': 15
-                    - property: "priority"
-                      label: 'Priority'
-                      type: choice
-                      type_options:
-                          expanded: true
-                          choices:
-                              'Best': 1
-                              'Option A': 2
-                              'Option B': 3
+  site_name: '<a href="/">Admin</a>'
+  entities:
+    #        - App\Entity\User
+    User:
+      class: App\Entity\User
+      list:
+        fields: ['id', 'username', 'roles', 'enabled']
+    Loots:
+      class: App\Entity\Loot
+      form:
+        fields:
+          - { property: 'player', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
+          - { property: 'raid', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Raid' } }
+          - { property: 'item', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
+    Recipes:
+      class: App\Entity\Recipe
+      form:
+        fields:
+          - { property: 'Player', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
+          - { property: 'recipe', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
+    Events:
+      class: App\Entity\RaidEvent
+    Raids:
+      class: App\Entity\Raid
+      form:
+        fields:
+          - {property: note}
+    Item:
+      class: App\Entity\Item
+      show:
+        max_results: 10
+      list:
+        fields: ['id', 'name', 'quality', 'class', 'subClass']
+    Category:
+      class: App\Entity\Category
+      list:
+        fields: ['name', 'sorting']
+    SubCategory:
+      class: App\Entity\SubCategory
+      list:
+        fields: ['name', 'parentClass', 'sorting']
+    Character:
+      class: App\Entity\Character
+      list:
+        sort: ['class', 'ASC']
+        fields:
+          - { property: "name" }
+          - { property: "account" }
+          - { property: "class", template: "admin/character/class.html.twig" }
+          - { property: "spec", template: "admin/character/spec.html.twig" }
+      form:
+        fields:
+          - { property: "name" }
+          - property: "account"
+          - property: "spec"
+            label: 'Spec'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'Tank': 1
+                'Healer': 2
+                'DPS': 3
+          - property: "race"
+            label: 'Race'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'Nightelf': 1
+                'Human': 2
+                'Dwarf': 3
+                'Gnome': 4
+          - property: "class"
+            label: 'Class'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'Druid': 6
+                'Hunter': 7
+                'Mage': 3
+                'Paladin': 9
+                'Priest': 2
+                'Rogue': 5
+                'Shaman': 8
+                'Warlock': 4
+                'Warrior': 1
+          - property: 'note'
+          - property: 'profession1'
+            label: 'Profession A'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'Alchemy': 1
+                'Armorsmith': 2
+                'Weaponsmith': 3
+                'Enchanting': 4
+                'Engineering': 5
+                'Herbalism': 6
+                'Mining': 7
+                'Skinning': 8
+                'Tailoring': 9
+                'Dragonscale LW': 10
+                'Tribal LW': 11
+                'Elemantal LW': 12
+          - property: 'profession1skill'
+          - property: 'profession2'
+            label: 'Profession B'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'Alchemy': 1
+                'Armorsmith': 2
+                'Weaponsmith': 3
+                'Enchanting': 4
+                'Engineering': 5
+                'Herbalism': 6
+                'Mining': 7
+                'Skinning': 8
+                'Tailoring': 9
+                'Dragonscale LW': 10
+                'Tribal LW': 11
+                'Elemantal LW': 12
+          - property: 'profession2skill'
+    BestInSlot:
+      label: Best In Slot Items
+      class: App\Entity\CharacterLootRequirement
+      form:
+        fields:
+          - { property: 'playerCharacter', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
+          - { property: 'item', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
+          - property: "hasItem"
+          - property: "slot"
+            label: 'Slot'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'Head': 1
+                'Neck': 2
+                'Shoulder': 3
+                'Back': 16
+                'Chest': 5
+                'Wrist': 9
+                'Hands': 10
+                'Legs': 7
+                'Feet': 8
+                'Ring': 11
+                'Trinket': 12
+                'Main Hand': 13
+                'Off Hand': 14
+                'Ranged': 15
+          - property: "priority"
+            label: 'Priority'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'Best': 1
+                'Option A': 2
+                'Option B': 3
