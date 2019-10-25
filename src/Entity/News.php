@@ -41,6 +41,11 @@ class News
      */
     private $abstract;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $coverimage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -109,5 +114,17 @@ class News
     public function __toString(): string
     {
         return $this->getTitle();
+    }
+
+    public function getCoverimage(): ?string
+    {
+        return $this->coverimage;
+    }
+
+    public function setCoverimage(?string $coverimage): self
+    {
+        $this->coverimage = $coverimage;
+
+        return $this;
     }
 }

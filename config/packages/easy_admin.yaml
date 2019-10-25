@@ -201,6 +201,13 @@ easy_admin:
           - { property: 'name' }
     News:
       class: App\Entity\News
+      list:
+        fields:
+          - { property: 'title' }
+          - { property: 'publishedOn' }
+          - { property: 'category' }
+          - { property: 'abstract' }
+          - { property: 'coverimage', template: "admin/news/coverimage.html.twig" }
       form:
         fields:
           - { property: 'title' }
@@ -208,3 +215,4 @@ easy_admin:
           - { property: 'category', type: 'entity', type_options: { class: 'App\Entity\NewsCategory' } }
           - { property: 'abstract', type: 'text_editor' }
           - { property: 'content', type: 'fos_ckeditor' }
+          - { property: 'coverimage', type: 'file_upload', type_options: { upload_dir: 'public/userfiles/covers', upload_filename: '[slug].[randomhash].[extension]', download_path: '/userfiles/covers/'} }
