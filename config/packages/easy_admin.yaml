@@ -1,6 +1,10 @@
 easy_admin:
   site_name: '<a href="/">Admin</a>'
   design:
+    assets:
+      js:
+        - '/bundles/cksourceckfinder/ckfinder/ckfinder.js'
+        - '/js/setup-ckfinder.js'
     menu:
       - { label: 'Organizational'}
       - { label: 'Events', icon: 'calendar-alt', entity: 'Events'}
@@ -38,6 +42,11 @@ easy_admin:
           - { property: 'recipe', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Item' } }
     Events:
       class: App\Entity\RaidEvent
+      form:
+        fields:
+          - { property: 'title' }
+          - { property: 'start', type_options: { widget: 'single_text' } }
+          - { property: 'end', type_options: { widget: 'single_text' } }
     Raids:
       class: App\Entity\Raid
       form:
@@ -68,13 +77,14 @@ easy_admin:
           - { property: "spec", template: "admin/character/spec.html.twig" }
       form:
         fields:
-          - { property: "name" }
+          - { type: 'group', css_class: 'col-sm-4', label: 'Basic information' }
+          - property: "name"
           - property: "account"
           - property: "spec"
             label: 'Spec'
             type: choice
             type_options:
-              expanded: true
+              expanded: false
               choices:
                 'Tank': 1
                 'Healer': 2
@@ -83,7 +93,7 @@ easy_admin:
             label: 'Race'
             type: choice
             type_options:
-              expanded: true
+              expanded: false
               choices:
                 'Nightelf': 1
                 'Human': 2
@@ -93,7 +103,7 @@ easy_admin:
             label: 'Class'
             type: choice
             type_options:
-              expanded: true
+              expanded: false
               choices:
                 'Druid': 6
                 'Hunter': 7
@@ -105,11 +115,12 @@ easy_admin:
                 'Warlock': 4
                 'Warrior': 1
           - property: 'note'
+          - { type: 'group', css_class: 'col-sm-4', label: 'Professions' }
           - property: 'profession1'
             label: 'Profession A'
             type: choice
             type_options:
-              expanded: true
+              expanded: false
               choices:
                 'Alchemy': 1
                 'Armorsmith': 2
@@ -128,7 +139,7 @@ easy_admin:
             label: 'Profession B'
             type: choice
             type_options:
-              expanded: true
+              expanded: false
               choices:
                 'Alchemy': 1
                 'Armorsmith': 2
@@ -193,7 +204,7 @@ easy_admin:
       form:
         fields:
           - { property: 'title' }
-          - { property: 'publishedOn' }
+          - { property: 'publishedOn', type_options: { widget: 'single_text' } }
           - { property: 'category', type: 'entity', type_options: { class: 'App\Entity\NewsCategory' } }
           - { property: 'abstract', type: 'text_editor' }
-          - { property: 'content', type: 'text_editor' }
+          - { property: 'content', type: 'fos_ckeditor' }

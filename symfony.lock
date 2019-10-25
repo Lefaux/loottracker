@@ -1,4 +1,10 @@
 {
+    "aws/aws-sdk-php": {
+        "version": "3.112.28"
+    },
+    "ckfinder/ckfinder-symfony-bundle": {
+        "version": "3.5.1"
+    },
     "deployer/deployer": {
         "version": "v6.5.0"
     },
@@ -103,8 +109,29 @@
     "egulias/email-validator": {
         "version": "2.1.11"
     },
+    "friendsofsymfony/ckeditor-bundle": {
+        "version": "2.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.0",
+            "ref": "8eb1cd0962ded6a6d6e1e5a9b6d3e888f9f94ff6"
+        },
+        "files": [
+            "config/packages/fos_ckeditor.yaml"
+        ]
+    },
     "friendsofsymfony/user-bundle": {
         "version": "v2.1.2"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.4.1"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
     },
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
@@ -115,8 +142,20 @@
     "knplabs/knp-menu-bundle": {
         "version": "2.2.2"
     },
+    "league/flysystem": {
+        "version": "1.0.57"
+    },
+    "league/flysystem-aws-s3-v3": {
+        "version": "1.0.23"
+    },
+    "league/flysystem-cached-adapter": {
+        "version": "1.0.9"
+    },
     "monolog/monolog": {
         "version": "1.25.1"
+    },
+    "mtdowling/jmespath.php": {
+        "version": "2.4.0"
     },
     "nikic/php-parser": {
         "version": "v4.2.3"
@@ -139,8 +178,14 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "roave/security-advisories": {
         "version": "dev-master"
