@@ -5,8 +5,25 @@
 
     <div class="content-section bg-transparent">
         <div class="container">
-            <h1>Askeria - Raiding Guild on Razorfen (EU)</h1>
-            <p>Hier kommen die BiS Listen und die Raid-Loots hin</p>
+            <div class="row">
+                <div class="col-sm-12 col-lg-9">
+                    <h1>Askeria - Raiding Guild on Razorfen (EU)</h1>
+                    <p>Hier kommen die BiS Listen und die Raid-Loots hin</p>
+                </div>
+                <div class="col-sm-12 col-lg-3">
+                    <h2>News</h2>
+                    {% for newsItem in news %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ newsItem.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ newsItem.publishedOn|date('d.m.Y') }}</h6>
+                                <p class="card-text">{{newsItem.abstract|raw}}</p>
+                                <a href="{{ path('news_show', {'newsId': newsItem.id}) }}" class="btn btn-primary">Read more</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 

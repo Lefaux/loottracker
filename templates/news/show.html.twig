@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/macros.html.twig' as macros %}
+
+{% block title %}{{ news.title }}{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-primary text-white">
+        <div class="container">
+            <h1>{{news.title}} <span class="badge badge-secondary"> published: {{ news.publishedOn|date('d.m.Y') }}</span></h1>
+        </div>
+    </div>
+    <div class="content-section bg-transparent">
+        <div class="container">
+            {{news.content|raw}}
+        </div>
+    </div>
+{% endblock %}

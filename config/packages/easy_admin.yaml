@@ -182,6 +182,12 @@ easy_admin:
                 'Option B': 3
     NewsCategory:
       class: App\Entity\NewsCategory
+      list:
+        fields:
+          - { property: 'name' }
+      form:
+        fields:
+          - { property: 'name' }
     News:
       class: App\Entity\News
       form:
@@ -189,4 +195,5 @@ easy_admin:
           - { property: 'title' }
           - { property: 'publishedOn' }
           - { property: 'category', type: 'entity', type_options: { class: 'App\Entity\NewsCategory' } }
+          - { property: 'abstract', type: 'text_editor' }
           - { property: 'content', type: 'text_editor' }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
+use App\Repository\NewsRepository;
 use App\Service\RaidTrackerParsingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -43,6 +44,10 @@ class PageController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var NewsRepository
+     */
+    private $newsRepository;
 
 
     public function __construct(
@@ -51,6 +56,7 @@ class PageController extends AbstractController
         Environment $twig,
         LootRepository $lootRepository,
         CharacterRepository $characterRepository,
+        NewsRepository $newsRepository,
         EntityManagerInterface $entityManager
     )
     {
@@ -59,6 +65,7 @@ class PageController extends AbstractController
         $this->loader = $twig->getLoader();
         $this->lootRepository = $lootRepository;
         $this->characterRepository = $characterRepository;
+        $this->newsRepository = $newsRepository;
         $this->entityManager = $entityManager;
     }
 
@@ -68,7 +75,17 @@ class PageController extends AbstractController
      */
     public function indexAction(): Response
     {
-        return $this->renderTemplate('page/index.html.twig');
+        $newsEntries = $this->newsRepository->findBy(
+            [],
+            [
+                'publishedOn' => 'DESC'
+            ],
+            10
+        );
+        return $this->renderTemplate(
+            'page/index.html.twig',
+            ['news' => $newsEntries]
+        );
     }
 
     /**
@@ -213,11 +230,11 @@ class PageController extends AbstractController
         return $this->renderTemplate('page/legal.html.twig');
     }
 
-    private function renderTemplate(string $name): Response
+    private function renderTemplate(string $name, array $params = []): Response
     {
         if ($this->loader->exists($this->params->get('layout') . '/' . $name)) {
-            return $this->render($this->params->get('layout') . '/' . $name);
+            return $this->render($this->params->get('layout') . '/' . $name, $params);
         }
-        return $this->render($name);
+        return $this->render($name, $params);
     }
 }

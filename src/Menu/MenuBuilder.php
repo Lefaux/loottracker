@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace App\Menu;
 
+use App\Repository\NewsCategoryRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
@@ -41,22 +42,30 @@ class MenuBuilder
      * @var TranslatorInterface
      */
     private $translator;
+    /**
+     * @var NewsCategoryRepository
+     */
+    private $newsCategoryRepository;
 
     /**
      * @param FactoryInterface $factory
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param TokenStorageInterface $tokenStorage
+     * @param TranslatorInterface $translator
+     * @param NewsCategoryRepository $newsCategoryRepository
      */
     public function __construct(
         FactoryInterface $factory,
         AuthorizationCheckerInterface $authorizationChecker,
         TokenStorageInterface $tokenStorage,
-        TranslatorInterface $translator
+        TranslatorInterface $translator,
+        NewsCategoryRepository $newsCategoryRepository
     ) {
         $this->factory = $factory;
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
         $this->translator = $translator;
+        $this->newsCategoryRepository = $newsCategoryRepository;
     }
 
     /**
@@ -65,6 +74,30 @@ class MenuBuilder
     public function mainDefault(): MenuItem
     {
         $menu = $this->factory->createItem('root');
+        $menu->addChild(
+            'news',
+            [
+                'label' => $this->translator->trans('News'),
+                'route' => 'news',
+                'extras' => [
+                    'icon' => 'newspaper',
+                ],
+            ]
+        );
+        $newsCategories = $this->newsCategoryRepository->findAll();
+        foreach ($newsCategories as $newsCategory) {
+            if (count($newsCategory->getNews()) > 0) {
+                $menuIdentifier = strtolower(str_replace(' ', '-', $newsCategory->getName()));
+                $menu['news']->addChild(
+                    $menuIdentifier,
+                    [
+                        'label' => $newsCategory->getName() . ' (' . count($newsCategory->getNews()) . ')',
+                        'route' => 'news',
+                        'routeParameters' => ['category' => $newsCategory->getId()],
+                    ]
+                );
+            }
+        }
         $menu->addChild(
             'raids',
             [
@@ -201,6 +234,7 @@ class MenuBuilder
     {
         $menu = $this->factory->createItem('root');
         if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            /** @noinspection NullPointerExceptionInspection */
             $menu->addChild(
                 'username',
                 [

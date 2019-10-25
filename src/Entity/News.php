@@ -36,6 +36,11 @@ class News
      */
     private $category;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $abstract;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,5 +92,22 @@ class News
         $this->category = $category;
 
         return $this;
+    }
+
+    public function getAbstract(): ?string
+    {
+        return $this->abstract;
+    }
+
+    public function setAbstract(string $abstract): self
+    {
+        $this->abstract = $abstract;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
     }
 }
