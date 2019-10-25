@@ -163,3 +163,13 @@ easy_admin:
                 'Best': 1
                 'Option A': 2
                 'Option B': 3
+    NewsCategory:
+      class: App\Entity\NewsCategory
+    News:
+      class: App\Entity\News
+      form:
+        fields:
+          - { property: 'title' }
+          - { property: 'publishedOn' }
+          - { property: 'category', type: 'entity', type_options: { class: 'App\Entity\NewsCategory' } }
+          - { property: 'content', type: 'text_editor' }
