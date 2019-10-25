@@ -1,5 +1,22 @@
 easy_admin:
   site_name: '<a href="/">Admin</a>'
+  design:
+    menu:
+      - { label: 'Organizational'}
+      - { label: 'Events', icon: 'calendar-alt', entity: 'Events'}
+      - { label: 'News', icon: 'newspaper', entity: 'News'}
+      - { label: 'Raids', icon: 'biohazard', entity: 'Raids'}
+      - { label: 'Loot', icon: 'dollar-sign', entity: 'Loots'}
+      - { label: 'Recipes', icon: 'receipt', entity: 'Recipes'}
+      - { label: 'Users'}
+      - { label: 'Users', icon: 'user', entity: 'User'}
+      - { label: 'Characters', icon: 'id-badge', entity: 'Character'}
+      - { label: 'Best In Slot', icon: 'check-circle', entity: 'BestInSlot'}
+      - { label: 'Raw Game Data'}
+      - { label: 'Items', icon: 'biohazard', entity: 'Item'}
+      - { label: 'WoW Item Classes', icon: 'list', entity: 'Category'}
+      - { label: 'WoW Item Sub-Classes', icon: 'list-alt', entity: 'SubCategory'}
+      - { label: 'News Category', icon: 'tags', entity: 'NewsCategory'}
   entities:
     #        - App\Entity\User
     User:
