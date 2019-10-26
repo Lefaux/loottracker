@@ -22,7 +22,7 @@ set('default_timeout', 360);
 
 // Shared files/dirs between deploys
 add('shared_files', ['.env.local']);
-add('shared_dirs', []);
+add('shared_dirs', ['public/userfiles']);
 
 // Writable dirs by web server
 set('allow_anonymous_stats', false);
