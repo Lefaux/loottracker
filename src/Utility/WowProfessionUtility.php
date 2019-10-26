@@ -52,7 +52,7 @@ class WowProfessionUtility
      * @param int $professionId
      * @return string
      */
-    public static function getProfessionName(int $professionId): string
+    public static function getProfessionName(?int $professionId): string
     {
         switch ($professionId) {
             case self::PROFESSION_ALCHEMY:
