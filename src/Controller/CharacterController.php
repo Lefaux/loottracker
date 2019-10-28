@@ -6,8 +6,6 @@ use App\Entity\Attendance;
 use App\Entity\Character;
 use App\Entity\CharacterLootRequirement;
 use App\Entity\Raid;
-use App\Form\BisItemType;
-use App\Form\CharacterLootRequirementType;
 use App\Form\CharacterType;
 use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
