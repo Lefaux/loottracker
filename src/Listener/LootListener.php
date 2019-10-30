@@ -26,7 +26,7 @@ class LootListener
         $this->bisRepository = $bisRepository;
     }
 
-    public function postUpdate(Loot $loot): void
+    public function postPersist(Loot $loot): void
     {
         $bisEntry = $this->checkIfInBiSList($loot->getPlayer(), $loot->getItem());
         if ($bisEntry) {
