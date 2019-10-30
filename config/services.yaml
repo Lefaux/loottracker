@@ -58,5 +58,5 @@ services:
         class: App\Listener\LootListener
         tags:
             - name: doctrine.orm.entity_listener
-              event: postUpdate
+              event: postPersist
               entity: App\Entity\Loot
