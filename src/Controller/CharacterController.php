@@ -17,6 +17,7 @@ use App\Utility\WowProfessionUtility;
 use App\Utility\WowRaceUtility;
 use App\Utility\WowSlotUtility;
 use App\Utility\WowSpecUtility;
+use App\Utility\WoWZoneUtility;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -105,9 +106,10 @@ class CharacterController extends AbstractController
      * @Route("/character/{charId}", name="character")
      * @param int $charId
      * @param WowProfessionUtility $wowProfessionUtility
+     * @param WoWZoneUtility $woWZoneUtility
      * @return Response
      */
-    public function characterDetailsAction(int $charId, WowProfessionUtility $wowProfessionUtility): Response
+    public function characterDetailsAction(int $charId, WowProfessionUtility $wowProfessionUtility, WoWZoneUtility $woWZoneUtility): Response
     {
         $raids = [];
         $char = $this->characterRepository->find($charId);
@@ -117,10 +119,13 @@ class CharacterController extends AbstractController
         foreach ($char->getAttendances() as $attendance) {
             $raids[] = $this->compileRaidData($attendance);
         }
+        $needsItemsFromZones = $this->lootRequirementRepository->findItemsByCharId($charId);
         return $this->render('character/detail.html.twig', [
             'character' => $char,
             'raids' => $raids,
-            'professions' => $wowProfessionUtility
+            'professions' => $wowProfessionUtility,
+            'zones' => $woWZoneUtility,
+            'itemsByZone' => $needsItemsFromZones
         ]);
     }
 

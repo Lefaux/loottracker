@@ -47,16 +47,20 @@ ORDER BY amount DESC
 
         return $output;
     }
-    public function findItemsByZone(): array
+    public function findItemsByZone(int $charId = 0): array
     {
         $output = [];
         $conn = $this->getEntityManager()->getConnection();
+        $charConstraint = '';
+        if (is_int($charId) && $charId > 0) {
+            $charConstraint = ' AND bis.player_character_id = ' . $charId;
+        }
         $sql = '
 SELECT 
     count(bis.id) as amount, i.zone
 FROM `character_loot_requirement` bis 
     INNER JOIN item i on i.id = bis.item_id 
-WHERE bis.has_item = 0 AND i.zone IS NOT NULL
+WHERE bis.has_item = 0 AND i.zone IS NOT NULL ' . $charConstraint .'
 GROUP BY i.zone
             ';
         try {
@@ -88,13 +92,41 @@ GROUP BY i.zone
                 $players = [];
                 $characterLootRequirements = $this->findBy(['item' => $item->getId(), 'hasItem' => false]);
                 foreach ($characterLootRequirements as $characterLootRequirement) {
-                    $players[$characterLootRequirement->getPlayerCharacter()->getSpec()][] = $characterLootRequirement->getPlayerCharacter();
+                    $character = $characterLootRequirement->getPlayerCharacter();
+                    if ($character) {
+                        $players[$character->getSpec()][] = $character;
+                    }
                 }
                 ksort($players);
                 $output[] = [
                     'item' => $bisItem->getItem(),
                     'playersWithNeed' => $players
                 ];
+            }
+        }
+        return $output;
+    }
+
+    public function findItemsByCharId(int $charId): array
+    {
+        $output = [];
+        $qb = $this->createQueryBuilder('bis');
+        $query = $qb
+            ->select('bis')
+            ->innerJoin('bis.item', 'i')
+            ->where('bis.hasItem = 0 AND bis.playerCharacter = :char')
+            ->setParameter('char', $charId)
+            ->getQuery();
+        $bisItems = $query->getResult();
+        /** @var CharacterLootRequirement $bisItem */
+        foreach ($bisItems as $bisItem) {
+            $item = $bisItem->getItem();
+            if ($item) {
+                $zone = $item->getZone();
+                if ($zone === null) {
+                    $zone = 0;
+                }
+                $output[$zone][] = $item;
             }
         }
         return $output;

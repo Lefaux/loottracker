@@ -25,20 +25,31 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    <h3>Profession A</h3>
-                    <p>{{ professions.professionName(character.profession1) }}</p>
+                    <h3>Professions</h3>
+                    <h5>{{ professions.professionName(character.profession1) }}</h5>
                     {{ macros.professions(character.profession1skill) }}
-                </div>
-                <div class="col-sm-3">
-                    <h3>Profession B</h3>
-                    <p>{{ professions.professionName(character.profession2) }}</p>
+                    <h5 class="mt-4">{{ professions.professionName(character.profession2) }}</h5>
                     {{ macros.professions(character.profession2skill) }}
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-5">
+                    <h3>Needs Items from</h3>
+                    <ul class="list-group list-group-flush">
+                        {% for zoneId, items in itemsByZone %}
+                            <li class="list-group-item">{{ zones.zoneName(zoneId) }}<br>
+                                <small>
+                                    {% for item in items %}
+                                        <a href="#" data-wowhead="item={{ item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="small">{{ item.name }}</a><br>
+                                    {% endfor %}
+                                </small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-4">
                     <h3>{% trans %}Known Recipes{% endtrans %}</h3>
                     <ul class="list-group">
                         {% for recipe in character.recipes %}
-                            <li class="list-group-item"><a href="#" data-wowhead="item={{ recipe.recipe.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium"></a>{{ recipe.recipe.name }}</li>
+                            <li class="list-group-item"><a href="#" data-wowhead="item={{ recipe.recipe.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="small">{{ recipe.recipe.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -82,8 +93,6 @@
                     </ul>
                 </div>
             </div>
-
-
         </div>
     </div>
 {% endblock %}
