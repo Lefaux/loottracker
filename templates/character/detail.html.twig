@@ -35,7 +35,7 @@
                     <h3>Needs Items from</h3>
                     <ul class="list-group list-group-flush">
                         {% for zoneId, items in itemsByZone %}
-                            <li class="list-group-item">{{ zones.zoneName(zoneId) }}<br>
+                            <li class="list-group-item"><a href="{{ path('bis_need_by_zone', {'zoneId': zoneId}) }}">{{ zones.zoneName(zoneId) }}</a><br>
                                 <small>
                                     {% for item in items %}
                                         <a href="#" data-wowhead="item={{ item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="small">{{ item.name }}</a><br>

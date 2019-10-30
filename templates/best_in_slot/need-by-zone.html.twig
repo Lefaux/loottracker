@@ -37,7 +37,7 @@
                                     {% endif %}
                                     <small>
                                     {% for player in playersInSpec %}
-                                        {{ player.name }}{% if not loop.last %},{% endif %}
+                                        <a href="{{ path('character', {'charId': player.id}) }}">{{ player.name }}</a>{% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                     </small><br>
                                 {% endfor %}
