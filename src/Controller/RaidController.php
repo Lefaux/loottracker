@@ -56,7 +56,7 @@ class RaidController extends AbstractController
         $this->entityManager = $entityManager;
     }
     /**
-     * @Route("/raid", name="raid")
+     * @Route("/", name="raid")
      */
     public function indexAction(): Response
     {

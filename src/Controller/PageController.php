@@ -70,7 +70,7 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/", name="page_index")
+     * @Route("/old-index", name="page_index")
      * @return Response
      */
     public function indexAction(): Response
