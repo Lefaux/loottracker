@@ -10,7 +10,6 @@ declare(strict_types=1);
 
 namespace App\Menu;
 
-use App\Repository\NewsCategoryRepository;
 use Knp\Menu\FactoryInterface;
 use Knp\Menu\MenuFactory;
 use Knp\Menu\MenuItem;
@@ -42,30 +41,23 @@ class MenuBuilder
      * @var TranslatorInterface
      */
     private $translator;
-    /**
-     * @var NewsCategoryRepository
-     */
-    private $newsCategoryRepository;
 
     /**
      * @param FactoryInterface $factory
      * @param AuthorizationCheckerInterface $authorizationChecker
      * @param TokenStorageInterface $tokenStorage
      * @param TranslatorInterface $translator
-     * @param NewsCategoryRepository $newsCategoryRepository
      */
     public function __construct(
         FactoryInterface $factory,
         AuthorizationCheckerInterface $authorizationChecker,
         TokenStorageInterface $tokenStorage,
-        TranslatorInterface $translator,
-        NewsCategoryRepository $newsCategoryRepository
+        TranslatorInterface $translator
     ) {
         $this->factory = $factory;
         $this->authorizationChecker = $authorizationChecker;
         $this->tokenStorage = $tokenStorage;
         $this->translator = $translator;
-        $this->newsCategoryRepository = $newsCategoryRepository;
     }
 
     /**
@@ -77,27 +69,13 @@ class MenuBuilder
         $menu->addChild(
             'news',
             [
-                'label' => $this->translator->trans('News'),
-                'route' => 'news',
+                'label' => 'Forum',
+                'uri' => 'https://forum.askeria.net',
                 'extras' => [
                     'icon' => 'newspaper',
                 ],
             ]
         );
-        $newsCategories = $this->newsCategoryRepository->findAll();
-        foreach ($newsCategories as $newsCategory) {
-            if (count($newsCategory->getNews()) > 0) {
-                $menuIdentifier = strtolower(str_replace(' ', '-', $newsCategory->getName()));
-                $menu['news']->addChild(
-                    $menuIdentifier,
-                    [
-                        'label' => $newsCategory->getName() . ' (' . count($newsCategory->getNews()) . ')',
-                        'route' => 'news',
-                        'routeParameters' => ['category' => $newsCategory->getId()],
-                    ]
-                );
-            }
-        }
         $menu->addChild(
             'raids',
             [
