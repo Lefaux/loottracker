@@ -8,6 +8,7 @@ use App\Utility\WowProfessionUtility;
 use App\Utility\WowRaceUtility;
 use App\Utility\WowSpecUtility;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -60,6 +61,11 @@ class CharacterType extends AbstractType
                 [
                     'required' => true,
                     'choices' => array_flip($this->spec::toArray())
+                ]
+            )
+            ->add('twink', CheckboxType::class,
+                [
+                    
                 ]
             )
             ->add('note', TextType::class,

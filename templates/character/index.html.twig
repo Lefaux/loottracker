@@ -41,9 +41,16 @@
                             {% endif %}
                             </h4>
                         </div>
-                        <table class="table">
+                        <table class="table table-sm">
                             {% for player in players %}
-                                <tr>
+                                {% set twinkText = '' %}
+                                {% if player.twink == true %}
+                                    {% set twinkText = ' class="table-warning" ' %}
+                                {% endif %}
+                                <tr{{ twinkText|raw }}>
+                                    <td>
+                                        <i class="fa fa-fw fa-{{ player.rank.icon|default('') }}" style="color: {{ player.rank.color|default('') }}" title="{{ player.rank.name|default('') }}"></i>
+                                    </td>
                                     <td>
                                         {% if player.spec == 1 %}
                                             <i class="fa fa-fw fa-shield-alt"></i>
@@ -52,6 +59,8 @@
                                         {% elseif player.spec == 3 %}
                                             <i class="fa fa-fw fa-skull-crossbones"></i>
                                         {% endif %}
+                                    </td>
+                                    <td>
                                         <a href="{{ path('character', {'charId': player.id}) }}">{{ player.name }}</a>
                                     </td>
                                     <td>

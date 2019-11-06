@@ -103,6 +103,16 @@ class Character
      */
     private $recipes;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Rank", inversedBy="characters")
+     */
+    private $rank;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $twink;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -407,6 +417,30 @@ class Character
                 $recipe->setPlayer(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getRank(): ?Rank
+    {
+        return $this->rank;
+    }
+
+    public function setRank(?Rank $rank): self
+    {
+        $this->rank = $rank;
+
+        return $this;
+    }
+
+    public function getTwink(): ?bool
+    {
+        return $this->twink;
+    }
+
+    public function setTwink(?bool $twink): self
+    {
+        $this->twink = $twink;
 
         return $this;
     }

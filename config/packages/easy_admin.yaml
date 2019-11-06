@@ -1,5 +1,5 @@
 easy_admin:
-  site_name: '<a href="/">Admin</a>'
+  site_name: 'Askeria Admin Area (<a href="/" target="askriawebsite">Back to website</a>)'
   design:
     assets:
       js:
@@ -21,6 +21,7 @@ easy_admin:
       - { label: 'WoW Item Classes', icon: 'list', entity: 'Category'}
       - { label: 'WoW Item Sub-Classes', icon: 'list-alt', entity: 'SubCategory'}
       - { label: 'News Category', icon: 'tags', entity: 'NewsCategory'}
+      - { label: 'Ranks', icon: 'id-badge', entity: 'Rank'}
   entities:
     #        - App\Entity\User
     User:
@@ -73,6 +74,8 @@ easy_admin:
         fields:
           - { property: "name" }
           - { property: "account" }
+          - { property: "rank" }
+          - { property: "twink" }
           - { property: "class", template: "admin/character/class.html.twig" }
           - { property: "spec", template: "admin/character/spec.html.twig" }
       form:
@@ -80,6 +83,8 @@ easy_admin:
           - { type: 'group', css_class: 'col-sm-4', label: 'Basic information' }
           - property: "name"
           - property: "account"
+          - property: "rank"
+          - property: "twink"
           - property: "spec"
             label: 'Spec'
             type: choice
@@ -216,3 +221,5 @@ easy_admin:
           - { property: 'abstract', type: 'text_editor' }
           - { property: 'content', type: 'fos_ckeditor' }
           - { property: 'coverimage', type: 'file_upload', type_options: { upload_dir: 'public/userfiles/covers', upload_filename: '[slug].[randomhash].[extension]', download_path: '/userfiles/covers/'} }
+    Rank:
+      class: App\Entity\Rank
