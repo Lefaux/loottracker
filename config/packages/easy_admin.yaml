@@ -72,6 +72,7 @@ easy_admin:
       list:
         sort: ['class', 'ASC']
         fields:
+          - { property: "hidden" }
           - { property: "name" }
           - { property: "account" }
           - { property: "rank" }
@@ -81,6 +82,7 @@ easy_admin:
       form:
         fields:
           - { type: 'group', css_class: 'col-sm-4', label: 'Basic information' }
+          - property: "hidden"
           - property: "name"
           - property: "account"
           - property: "rank"

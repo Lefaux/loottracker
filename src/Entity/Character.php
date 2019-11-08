@@ -109,9 +109,14 @@ class Character
     private $rank;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="boolean")
      */
     private $twink;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hidden;
 
     public function __construct()
     {
@@ -441,6 +446,18 @@ class Character
     public function setTwink(?bool $twink): self
     {
         $this->twink = $twink;
+
+        return $this;
+    }
+
+    public function getHidden(): ?bool
+    {
+        return $this->hidden;
+    }
+
+    public function setHidden(bool $hidden): self
+    {
+        $this->hidden = $hidden;
 
         return $this;
     }
