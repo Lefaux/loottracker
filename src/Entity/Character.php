@@ -26,12 +26,12 @@ class Character
     /**
      * @ORM\Column(type="integer")
      */
-    private $class;
+    private $class = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $spec;
+    private $spec = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -111,12 +111,12 @@ class Character
     /**
      * @ORM\Column(type="boolean")
      */
-    private $twink;
+    private $twink = false;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $hidden;
+    private $hidden = false;
 
     public function __construct()
     {
