@@ -32,8 +32,6 @@ class CalendarListener
 
     public function load(CalendarEvent $calendar): void
     {
-        $calendar = $this->setMcResets($calendar);
-        $calendar = $this->setOnyResets($calendar);
 
         $events = $this->raidEventRepository->findEventsInGivenMonth($calendar->getStart(), $calendar->getEnd());
 
@@ -47,20 +45,19 @@ class CalendarListener
                 ]
             ));
         }
+        $calendar = $this->setOnyResets($calendar);
+        $this->setMcResets($calendar);
 
     }
 
     public function setMcResets(CalendarEvent $calendar): CalendarEvent
     {
-        $fixedMonth = $calendar->getStart();
-        if ($calendar->getStart()->format('d') !== '01') {
-            $fixedMonth->modify('first day of next month');
-        }
         try {
             $mcResets = new DatePeriod(
-                new DateTime('first wednesday of ' . $fixedMonth->format('Y-m')),
+                $calendar->getStart(),
                 DateInterval::createFromDateString('next wednesday'),
-                new DateTime('last day of ' . $fixedMonth->format('Y-m'))
+                7,
+                DatePeriod::EXCLUDE_START_DATE
             );
             foreach ($mcResets as $index => $mcReset) {
                 $calendar->addEvent(new Event(
@@ -85,15 +82,11 @@ class CalendarListener
         $differenceToCalenderStart = (int)floor($differenceInDays / 5) * 5;
         try {
             $startDateInCalendarView = $initialReset->add(new DateInterval('P' . $differenceToCalenderStart . 'D'));
-
-            $fixedMonth = $calendar->getStart();
-            if ($calendar->getStart()->format('d') !== '01') {
-                $fixedMonth->modify('first day of next month');
-            }
+            
             $onyResets = new DatePeriod(
                 $startDateInCalendarView,
                 new DateInterval('P5D'),
-                new DateTime('last day of ' . $fixedMonth->format('Y-m'))
+                $calendar->getEnd()
             );
             foreach ($onyResets as $index => $mcReset) {
                 $calendar->addEvent(new Event(
