@@ -38,7 +38,13 @@
                             <li class="list-group-item"><a href="{{ path('bis_need_by_zone', {'zoneId': zoneId}) }}">{{ zones.zoneName(zoneId) }}</a><br>
                                 <small>
                                     {% for item in items %}
-                                        <a href="#" data-wowhead="item={{ item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="small">{{ item.name }}</a><br>
+                                        <a href="https://{{wowheaddomain}}.wowhead.com/item={{ item.id }}" target="wowhead" data-wowhead="item={{ item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="small">
+                                            {% if wowheaddomain == 'de.classic' %}
+                                                {{ item.nameDe }}
+                                            {% else %}
+                                                {{ item.name }}
+                                            {% endif %}
+                                        </a><br>
                                     {% endfor %}
                                 </small>
                             </li>
