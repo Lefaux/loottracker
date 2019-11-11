@@ -435,7 +435,7 @@
       </trans-unit>
       <trans-unit id="usS.LKG" resname="Wetlands">
         <source>Wetlands</source>
-        <target>__Wetlands</target>
+        <target>Sumpfland</target>
       </trans-unit>
       <trans-unit id="mcfF291" resname="Elwynn Forest">
         <source>Elwynn Forest</source>
@@ -2139,7 +2139,7 @@
       </trans-unit>
       <trans-unit id="aFPRLtV" resname="Onyxia's Lair">
         <source>Onyxia's Lair</source>
-        <target>__Onyxia's Lair</target>
+        <target>Onyxia's Hort</target>
       </trans-unit>
       <trans-unit id="ut28HmD" resname="Theramore Isle">
         <source>Theramore Isle</source>
@@ -2943,7 +2943,7 @@
       </trans-unit>
       <trans-unit id="HvkgN5M" resname="The Temple of Atal'Hakkar">
         <source>The Temple of Atal'Hakkar</source>
-        <target>__The Temple of Atal'Hakkar</target>
+        <target>Tempel von Atal'Hakkar</target>
       </trans-unit>
       <trans-unit id="P1ZMYh4" resname="Undercity">
         <source>Undercity</source>
@@ -2991,11 +2991,11 @@
       </trans-unit>
       <trans-unit id="OP9UiVi" resname="Blackrock Spire">
         <source>Blackrock Spire</source>
-        <target>__Blackrock Spire</target>
+        <target>Schwarzfelsspitze</target>
       </trans-unit>
       <trans-unit id="o4FrUu5" resname="Blackrock Depths">
         <source>Blackrock Depths</source>
-        <target>__Blackrock Depths</target>
+        <target>Schwarzfels Tiefen</target>
       </trans-unit>
       <trans-unit id=".CadfUo" resname="Raptor Grounds UNUSED">
         <source>Raptor Grounds UNUSED</source>
@@ -3339,7 +3339,7 @@
       </trans-unit>
       <trans-unit id="vCFBWUs" resname="Stratholme">
         <source>Stratholme</source>
-        <target>__Stratholme</target>
+        <target>Stratholme</target>
       </trans-unit>
       <trans-unit id="62zJrQN" resname="Quel'thalas">
         <source>Quel'thalas</source>
@@ -3347,7 +3347,7 @@
       </trans-unit>
       <trans-unit id="OqQytA7" resname="Scholomance">
         <source>Scholomance</source>
-        <target>__Scholomance</target>
+        <target>Scholomance</target>
       </trans-unit>
       <trans-unit id="6JQO3zP" resname="Twilight Vale">
         <source>Twilight Vale</source>
@@ -3375,7 +3375,7 @@
       </trans-unit>
       <trans-unit id="ADh7S0I" resname="Maraudon">
         <source>Maraudon</source>
-        <target>__Maraudon</target>
+        <target>Maraudon</target>
       </trans-unit>
       <trans-unit id="klZkj_k" resname="Stoutlager Inn">
         <source>Stoutlager Inn</source>
@@ -3783,7 +3783,7 @@
       </trans-unit>
       <trans-unit id="pfgk1of" resname="Dire Maul">
         <source>Dire Maul</source>
-        <target>__Dire Maul</target>
+        <target>Düsterbruch</target>
       </trans-unit>
       <trans-unit id="EuY5ZEU" resname="Deadwind Ravine">
         <source>Deadwind Ravine</source>
@@ -3871,7 +3871,7 @@
       </trans-unit>
       <trans-unit id="P5w09bL" resname="Molten Core">
         <source>Molten Core</source>
-        <target>__Molten Core</target>
+        <target>Geschmolzener Kern</target>
       </trans-unit>
       <trans-unit id="K2FT0M5" resname="The Scarab Wall">
         <source>The Scarab Wall</source>
