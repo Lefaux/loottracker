@@ -52,6 +52,7 @@ SELECT
     (SELECT count(id) FROM signup WHERE signed_up = 2 AND raid_event_id = e.id) as cancellations
 FROM raid_event e
 WHERE e.start > \''. $now->format('Y.m.d') .'\'
+ORDER BY e.start
             ';
         try {
             $stmt = $conn->prepare($sql);
