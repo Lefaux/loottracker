@@ -65,7 +65,7 @@ class CharacterType extends AbstractType
             )
             ->add('twink', CheckboxType::class,
                 [
-                    
+                    'required' => false,
                 ]
             )
             ->add('note', TextType::class,
