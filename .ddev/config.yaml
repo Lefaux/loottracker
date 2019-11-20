@@ -1,4 +1,4 @@
-APIVersion: v1.10.2
+APIVersion: v1.11.2
 name: loottracker
 type: php
 docroot: public
@@ -7,6 +7,8 @@ webserver_type: nginx-fpm
 router_http_port: "80"
 router_https_port: "443"
 xdebug_enabled: false
+additional_hostnames:
+- askeria
 additional_fqdns: []
 mariadb_version: "10.2"
 nfs_mount_enabled: false
@@ -15,11 +17,11 @@ use_dns_when_possible: false
 timezone: ""
 
 
-# This config.yaml was created with ddev version v1.10.2 
-# webimage: drud/ddev-webserver:v1.10.2
-# dbimage: drud/ddev-dbserver:v1.10.0-10.2
-# dbaimage: drud/phpmyadmin:v1.10.0
-# bgsyncimage: drud/ddev-bgsync:v1.10.0
+# This config.yaml was created with ddev version v1.11.2 
+# webimage: drud/ddev-webserver:v1.11.0
+# dbimage: drud/ddev-dbserver:v1.11.0-10.2
+# dbaimage: drud/phpmyadmin:v1.11.0
+# bgsyncimage: drud/ddev-bgsync:v1.11.0
 # However we do not recommend explicitly wiring these images into the
 # config.yaml as they may break future versions of ddev.
 # You can update this config.yaml using 'ddev config'.
@@ -33,7 +35,7 @@ timezone: ""
 
 # docroot: <relative_path> # Relative path to the directory containing index.php.
 
-# php_version: "7.2"  # PHP version to use, "5.6", "7.0", "7.1", "7.2", "7.3"
+# php_version: "7.2"  # PHP version to use, "5.6", "7.0", "7.1", "7.2", "7.3", "7.4"
 
 # You can explicitly specify the webimage, dbimage, dbaimage lines but this
 # is not recommended, as the images are often closely tied to ddev's' behavior,
@@ -60,8 +62,8 @@ timezone: ""
 # see https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 # For example Europe/Dublin or MST7MDT
 
-additional_hostnames:
-  - askeria
+# additional_hostnames:
+#  - somename
 #  - someothername
 # would provide http and https URLs for "somename.ddev.site"
 # and "someothername.ddev.site".
