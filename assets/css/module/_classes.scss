@@ -1,0 +1,116 @@
+$color-warrior: #C79C6E;
+$color-priest: #FFFFFF;
+$color-mage: #40C7EB;
+$color-warlock: #8787ED;
+$color-rogue: #FFF569;
+$color-druid: #FF7D0A;
+$color-hunter: #A9D271;
+$color-paladin: #F58CBA;
+.groupbuilder-list, .groupbuilder-raidgroup {
+  padding-left: 0;
+  min-height: 40px;
+}
+
+.raid-group-block {
+  margin-left: 5px;
+  border: 1px solid $gray-200;
+}
+
+.drag-background {
+  background-color: $gray-200;
+}
+
+.handle {
+  cursor: grab;
+}
+
+.groupbuilder-item-player {
+  list-style-type: none;
+  padding: 1px;
+  border-style: solid;
+  border-width: 2px;
+  margin-bottom: 2px;
+  &.twink {
+    border-style: dotted;
+  }
+}
+
+td.counter {
+  text-align: right;
+}
+
+.class-0 {
+  background-color: #FF00FF;
+  border-color: darken(#FF00FF, 20);
+  color: white;
+}
+
+.class-1 {
+  background-color: $color-warrior;
+  border-color: darken($color-warrior, 20);
+  color: black;
+  i {
+    color: darken($color-warrior, 20);
+  }
+}
+
+.class-2 {
+  background-color: $color-priest;
+  border-color: darken($color-priest, 20);
+  i {
+    color: darken($color-priest, 20);
+  }
+}
+
+.class-3 {
+  background-color: $color-mage;
+  border-color: darken($color-mage, 20);
+  i {
+    color: darken($color-mage, 20);
+  }
+}
+
+.class-4 {
+  background-color: $color-warlock;
+  border-color: darken($color-warlock, 20);
+  color: black;
+  i {
+    color: darken($color-warlock, 20);
+  }
+}
+
+.class-5 {
+  background-color: $color-rogue;
+  border-color: darken($color-rogue, 40);
+  i {
+    color: darken($color-rogue, 40);
+  }
+}
+
+.class-6 {
+  background-color: $color-druid;
+  border-color: darken($color-druid, 20);
+  color: black;
+  i {
+    color: darken($color-druid, 20);
+  }
+}
+
+.class-7 {
+  background-color: $color-hunter;
+  border-color: darken($color-hunter, 20);
+  i {
+    color: darken($color-hunter, 20);
+  }
+}
+
+.class-9 {
+  background-color: $color-paladin;
+  border-color: darken($color-paladin, 20);
+  i {
+    color: darken($color-paladin, 20);
+  }
+}
+
+
+

@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Entity\RaidEvent;
 use App\Entity\Signup;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\DBALException;
 
 /**
  * @method Signup|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +22,63 @@ class SignupRepository extends ServiceEntityRepository
         parent::__construct($registry, Signup::class);
     }
 
-    // /**
-    //  * @return Signup[] Returns an array of Signup objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findSignUpsPerAccount(array $characters): array
     {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $output = [];
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT * FROM signup WHERE player_name_id IN (' . implode(',', $characters)  . ')';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            foreach ($result as $item) {
+                $output[$item['player_name_id']][$item['raid_event_id']] = $item['signed_up'];
+            }
+        } catch (DBALException $e) {
+        }
 
-    /*
-    public function findOneBySomeField($value): ?Signup
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        return $output;
     }
-    */
+
+    /**
+     * @param DateTime $start
+     * @param DateTime $end
+     * @return array
+     */
+    public function findSignUpsInRaidWeek(DateTime $start, DateTime $end): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        $query = $qb
+            ->select('s')
+            ->innerJoin('s.raidEvent', 'e')
+            ->innerJoin('s.playerName', 'p')
+            ->where('e.start > :start AND e.end < :end AND s.signedUp = 1')
+            ->addOrderBy('p.spec', 'ASC')
+            ->addOrderBy('p.class','ASC')
+            ->addOrderBy('p.name','ASC')
+            ->setParameter('start', $start)
+            ->setParameter('end', $end)
+            ->getQuery();
+        return $query->getResult();
+    }
+
+    /**
+     * @param RaidEvent $raidEvent
+     * @return array
+     */
+    public function findByRaid(RaidEvent $raidEvent): array
+    {
+        $qb = $this->createQueryBuilder('s');
+        $query = $qb
+            ->select('s')
+            ->innerJoin('s.raidEvent', 'e')
+            ->innerJoin('s.playerName', 'p')
+            ->where('e.id = :event')
+            ->addOrderBy('p.spec', 'ASC')
+            ->addOrderBy('p.class','ASC')
+            ->addOrderBy('p.name','ASC')
+            ->setParameter('event', $raidEvent->getId())
+            ->getQuery();
+        return $query->getResult();
+    }
 }

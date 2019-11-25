@@ -1,0 +1,22 @@
+{% macro raidGroup(group, groupId) %}
+    {% if group[groupId] is defined %}
+        {% for player in group[groupId] %}
+            <li
+                    class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
+                    data-account="{{ player.account.id }}"
+                    data-character="{{ player.id }}"
+                    data-spec="{{ player.spec }}"
+                    data-class="{{ player.class }}"
+            >
+                {% if player.spec == 1 %}
+                    <i class="fa fa-fw fa-shield-alt"></i>
+                {% elseif player.spec == 2 %}
+                    <i class="fa fa-fw fa-band-aid"></i>
+                {% elseif player.spec == 3 %}
+                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                {% endif %}
+                <small>{{ player.name }}</small>
+            </li>
+        {% endfor %}
+    {% endif %}
+{% endmacro %}

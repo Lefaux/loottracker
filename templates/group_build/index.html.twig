@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% trans %}Group Builder{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <div class="row">
+                <table class="table table-striped">
+                    <tr class="table-dark">
+                        <th>Date</th>
+                        <th>Event</th>
+                        <th>Raids</th>
+                    </tr>
+                {% for raid in raids %}
+                    <tr>
+                        <td>
+                             {{ raid.start|date('D, d.m.Y') }}
+                        </td>
+                        <td>
+                            {{ raid.title }}
+                        </td>
+                        <td>
+
+                            <a href="{{ path('group_build', {'raidEvent': raid.id}) }}">Plan</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

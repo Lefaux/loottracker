@@ -150,3 +150,27 @@
         </div>
     {% endif %}
 {% endmacro %}
+
+{% macro signedUpCheckBox(signUps, character, event, status) %}
+    {% if signUps[character.id][event.id] is defined %}
+        {% if signUps[character.id][event.id] == status %}
+            checked
+        {% endif %}
+    {% endif %}
+{% endmacro %}
+
+{% macro tableHighLight(signUps, event, account) %}
+    {% set class = 'table-dark' %}
+    {% for character in account.characters %}
+        {% if signUps[character.id][event.id] is defined %}
+            {% if signUps[character.id][event.id] == 1 %}
+                {% set class = 'table-success' %}
+            {% elseif signUps[character.id][event.id] == 2 %}
+                {% set class = 'table-danger' %}
+            {% else %}
+                {% set class = '' %}
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    {{ class }}
+{% endmacro %}

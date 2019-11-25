@@ -189,6 +189,16 @@ class MenuBuilder
                     ],
                 ]
             );
+            $menu['management']->addChild(
+                'groupbuilder',
+                [
+                    'label' => 'GroupBuilder',
+                    'route' => 'group_index',
+                    'extras' => [
+                        'icon' => 'users',
+                    ],
+                ]
+            );
         }
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $menu->addChild(

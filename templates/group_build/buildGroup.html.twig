@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/groupbuilder.html.twig' as groupBuilderMacros %}
+{% block title %}{% trans %}Group Builder{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <h3 id="raid-id" data-raidid="{{ raid.id }}">{{ raid.title }} {{ raid.start|date('D, d.m.Y') }}</h3>
+        </div>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-6 col-md-2">
+                    <h4><span id="unassigned-players">{{ signUps|length }}</span> unassigned</h4>
+                    <ul class="groupbuilder-list unsorted-players">
+                        {% for signup in signUps %}
+                            <li
+                                    id="{{ signup.playerName.account.id }}-{{ signup.playerName.id }}-{{ raid.id }}"
+                                    class="groupbuilder-item-player class-{{ signup.playerName.class }} {% if signup.playerName.twink == true %}twink{% endif %}"
+                                    data-account="{{ signup.playerName.account.id }}"
+                                    data-character="{{ signup.playerName.id }}"
+                                    data-spec="{{ signup.playerName.spec }}"
+                                    data-weekday="{{signup.raidEvent.start|date('D')}}"
+                                    data-class="{{ signup.playerName.class }}"
+                                    {% if signup.playerName.account.id in assignedPlayers%}
+                                        style="display: none;"
+                                    {% endif %}
+                            >
+                                {% if signup.playerName.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif signup.playerName.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif signup.playerName.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                <small>{{ signup.playerName.name }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-4 raid-group-block-alpha">
+                    <h4>Team Alpha</h4>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <h6>Group 1</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="1" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 1) }}
+                            </ul>
+                            <h6>Group 3</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="3" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 3) }}
+                            </ul>
+                            <h6>Group 5</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="5" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 5) }}
+                            </ul>
+                            <h6>Group 7</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="7" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 7) }}
+                            </ul>
+                        </div>
+                        <div class="col-sm-5">
+                            <h6>Group 2</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="2" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 2) }}
+                            </ul>
+                            <h6>Group 4</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="4" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 4) }}
+                            </ul>
+                            <h6>Group 6</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="6" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 6) }}
+                            </ul>
+                            <h6>Group 8</h6>
+                            <ul class="groupbuilder-raidgroup alpha" data-group="8" data-weekday="{{ raid.start|date('D') }}">
+                                {{ groupBuilderMacros.raidGroup(setup, 8) }}
+                            </ul>
+                        </div>
+                        <div class="col-sm-2">
+                            <table>
+                                <tr><td><i class="fa fa-fw fa-shield-alt"></i></td>                                  <td class="counter" id="count-tank-alpha">0</td></tr>
+                                <tr><td><i class="fa fa-fw fa-band-aid"></i></td>                                    <td class="counter" id="count-heal-alpha">0</td></tr>
+                                <tr><td><i class="fa fa-fw fa-skull-crossbones"></i></td>                            <td class="counter" id="count-dps-alpha">0</td></tr>
+                                <tr><td colspan="2"><hr></td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_1.png') }}" style="width: 20px;"></td><td class="counter" id="count-1-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_2.png') }}" style="width: 20px;"></td><td class="counter" id="count-2-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_3.png') }}" style="width: 20px;"></td><td class="counter" id="count-3-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_4.png') }}" style="width: 20px;"></td><td class="counter" id="count-4-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_5.png') }}" style="width: 20px;"></td><td class="counter" id="count-5-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_6.png') }}" style="width: 20px;"></td><td class="counter" id="count-6-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_7.png') }}" style="width: 20px;"></td><td class="counter" id="count-7-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_9.png') }}" style="width: 20px;"></td><td class="counter" id="count-9-alpha">0</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                    <h4>{{ cancellations|length }} Cancellations</h4>
+                    <ul class="groupbuilder-list">
+                        {% for player in cancellations %}
+                            <li
+                                    class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
+                                    {% if player.account.id in assignedPlayers %}
+                                        style="display: none;"
+                                    {% endif %}
+                            >
+                                {% if player.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif player.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif player.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                <small>{{ player.name }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                    <h4>{{ noFeedback|length }}x No Feedback</h4>
+                    <ul class="groupbuilder-list">
+                        {% for player in noFeedback %}
+                            <li
+                                    class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
+{#                                    {% if player.account.id in assignedPlayers %}#}
+{#                                        style="display: none;"#}
+{#                                    {% endif %}#}
+                            >
+                                {% if player.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif player.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif player.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                <small>{{ player.name }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

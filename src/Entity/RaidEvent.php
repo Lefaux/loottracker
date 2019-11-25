@@ -38,9 +38,15 @@ class RaidEvent
      */
     private $signups;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\RaidGroup", mappedBy="event")
+     */
+    private $raidGroups;
+
     public function __construct()
     {
         $this->signups = new ArrayCollection();
+        $this->raidGroups = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -109,6 +115,37 @@ class RaidEvent
             // set the owning side to null (unless already changed)
             if ($signup->getRaidEvent() === $this) {
                 $signup->setRaidEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|RaidGroup[]
+     */
+    public function getRaidGroups(): Collection
+    {
+        return $this->raidGroups;
+    }
+
+    public function addRaidGroup(RaidGroup $raidGroup): self
+    {
+        if (!$this->raidGroups->contains($raidGroup)) {
+            $this->raidGroups[] = $raidGroup;
+            $raidGroup->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRaidGroup(RaidGroup $raidGroup): self
+    {
+        if ($this->raidGroups->contains($raidGroup)) {
+            $this->raidGroups->removeElement($raidGroup);
+            // set the owning side to null (unless already changed)
+            if ($raidGroup->getEvent() === $this) {
+                $raidGroup->setEvent(null);
             }
         }
 
