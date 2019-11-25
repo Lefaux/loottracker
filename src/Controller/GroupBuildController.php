@@ -71,7 +71,7 @@ class GroupBuildController extends AbstractController
         }
         $cancellations = [];
         $noFeedback = [];
-        $allCharacters = $this->characterRepository->findBy(['hidden' => false]);
+        $allCharacters = $this->characterRepository->findBy(['hidden' => false], ['spec' => 'ASC', 'class' => 'ASC']);
         foreach ($allCharacters as $character) {
             $noFeedback[$character->getId()] = $character;
         }
