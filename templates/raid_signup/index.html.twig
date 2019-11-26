@@ -19,7 +19,7 @@
                     {% for event in events %}
                         <tr class="{{ macros.tableHighLight(signUps, event, account) }}">
                             <td>{{ event.title }}<br>
-                                <small>{{ event.start|date('d.m.Y') }}</small>
+                                <small>{{ event.start|date('D, d.m.Y') }}</small>
                             </td>
                             {% for character in account.characters %}
                                 <td>
