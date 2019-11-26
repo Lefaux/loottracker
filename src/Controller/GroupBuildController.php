@@ -8,6 +8,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidGroupRepository;
 use App\Repository\SignupRepository;
+use App\Service\SignUpService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,18 +32,24 @@ class GroupBuildController extends AbstractController
      * @var CharacterRepository
      */
     private $characterRepository;
+    /**
+     * @var SignUpService
+     */
+    private $signUpService;
 
     public function __construct(
         SignupRepository $signupRepository,
         RaidEventRepository $raidEventRepository,
         RaidGroupRepository $raidGroupRepository,
-        CharacterRepository $characterRepository
+        CharacterRepository $characterRepository,
+        SignUpService $signUpService
     )
     {
         $this->signUpRepository = $signupRepository;
         $this->raidEventRepository = $raidEventRepository;
         $this->raidGroupRepository = $raidGroupRepository;
         $this->characterRepository = $characterRepository;
+        $this->signUpService = $signUpService;
     }
 
     /**
@@ -53,6 +60,15 @@ class GroupBuildController extends AbstractController
     public function indexAction(): Response
     {
         $raids = $this->raidEventRepository->findEventsAndSignUps();
+        foreach ($raids as $index => $raid) {
+            $event = $this->raidEventRepository->find($raid['id']);
+            if ($event) {
+                $signUpData = $this->signUpService->classifySignUpsByRaid($event);
+                $raids[$index]['signUps'] = count($signUpData['signUps']);
+                $raids[$index]['cancellations'] = count($signUpData['cancellations']);
+                $raids[$index]['noFeedback'] = count($signUpData['noFeedback']);
+            }
+        }
         return $this->render('group_build/index.html.twig', [
             'raids' => $raids
         ]);
@@ -69,30 +85,11 @@ class GroupBuildController extends AbstractController
         if(!$raid) {
             return new Response('raid not found', 404);
         }
-        $cancellations = [];
-        $noFeedback = [];
-        $allCharacters = $this->characterRepository->findBy(['hidden' => false], ['spec' => 'ASC', 'class' => 'ASC']);
-        foreach ($allCharacters as $character) {
-            $noFeedback[$character->getId()] = $character;
-        }
-
-        $signUps = $this->signUpRepository->findByRaid($raid);
-        /**
-         * @var integer $index
-         * @var  Signup $signUp
-         */
-        foreach ($signUps as $index => $signUp) {
-            if ($signUp->getSignedUp() === 2) {
-                $cancellations[] = $signUp->getPlayerName();
-                unset($signUps[$index], $noFeedback[$signUp->getPlayerName()->getId()]);
-            }
-            if ($signUp->getSignedUp() === 1) {
-                unset($noFeedback[$signUp->getPlayerName()->getId()]);
-            }
-        }
+        $raidSignUps = $this->signUpService->classifySignUpsByRaid($raid);
         $raidGroup = $this->raidGroupRepository->findOneBy([
             'event' => $raid
         ]);
+        $signUps = $raidSignUps['signUps'];
         $assignedPlayers = [];
         $raidSetup = ['groups' => []];
         if ($raidGroup) {
@@ -123,8 +120,8 @@ class GroupBuildController extends AbstractController
             'signUps' => $signUps,
             'setup' => $raidSetup['groups'],
             'assignedPlayers' => $assignedPlayers,
-            'cancellations' => $cancellations,
-            'noFeedback' => $noFeedback
+            'cancellations' => $raidSignUps['cancellations'],
+            'noFeedback' => $raidSignUps['noFeedback']
         ]);
     }
 

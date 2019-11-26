@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% trans %}Group Builder{% endtrans %}{% endblock %}
+{% block title %}{% trans %}Group Builder Overview{% endtrans %}{% endblock %}
 
 {% block body %}
     <div class="content-section bg-transparent">
@@ -11,18 +11,25 @@
                         <th>Date</th>
                         <th>Event</th>
                         <th>Raids</th>
+                        <th>
+                            <div class="progress" style="height: 22px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 33%">SignUp</div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width: 33%">Cancel</div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width: 33%">No Info</div>
+                            </div>
+                        </th>
                     </tr>
                 {% for raid in raids %}
                     <tr>
+                        <td>{{ raid.start|date('D, d.m.Y') }}</td>
+                        <td>{{ raid.title }}</td>
+                        <td><a class="btn btn-primary" href="{{ path('group_build', {'raidEvent': raid.id}) }}">Plan</a></td>
                         <td>
-                             {{ raid.start|date('D, d.m.Y') }}
-                        </td>
-                        <td>
-                            {{ raid.title }}
-                        </td>
-                        <td>
-
-                            <a href="{{ path('group_build', {'raidEvent': raid.id}) }}">Plan</a>
+                            <div class="progress" style="height: 25px;">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: {{ (raid.signUps/(raid.signUps+raid.cancellations+raid.noFeedback))*100 }}%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100">{{ (raid.signUps/(raid.signUps+raid.cancellations+raid.noFeedback))*100 }}%</div>
+                                <div class="progress-bar bg-warning" role="progressbar" style="width:  {{ (raid.cancellations/(raid.signUps+raid.cancellations+raid.noFeedback))*100 }}%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">{{ (raid.cancellations/(raid.signUps+raid.cancellations+raid.noFeedback))*100 }}%</div>
+                                <div class="progress-bar bg-danger" role="progressbar" style="width:  {{ (raid.noFeedback/(raid.signUps+raid.cancellations+raid.noFeedback))*100 }}%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">{{ (raid.noFeedback/(raid.signUps+raid.cancellations+raid.noFeedback))*100 }}%</div>
+                            </div>
                         </td>
                     </tr>
                 {% endfor %}
