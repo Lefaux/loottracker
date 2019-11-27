@@ -8,6 +8,7 @@ use App\Entity\Signup;
 use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\SignupRepository;
+use App\Service\SignUpService;
 use DateTime;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
@@ -65,7 +66,7 @@ class RaidSignupController extends AbstractController
         $signUps = $this->signUpRepository->findSignUpsPerAccount($charsOnAccount);
         $events = $this->raidEventRepository->findEventsAndSignUps();
         foreach ($events as $index => $event) {
-            $events[$index]['deadline'] = $this->findRaidSignUpEnd($event['start']);
+            $events[$index]['deadline'] = SignUpService::findRaidSignUpEnd($event['start']);
         }
         return $this->render('raid_signup/index.html.twig', [
             'events' => $events,
@@ -122,10 +123,4 @@ class RaidSignupController extends AbstractController
         $this->entityManager->flush();
     }
 
-    private function findRaidSignUpEnd(string $start): DateTime
-    {
-        $eventStart = DateTime::createFromFormat('Y-m-d H:i:s', $start, new DateTimeZone('Europe/Berlin'));
-        $eventStart->modify('last tuesday 8pm');
-        return $eventStart;
-    }
 }

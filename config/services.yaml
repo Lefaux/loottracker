@@ -54,6 +54,9 @@ services:
     App\Listener\CalendarListener:
         tags:
             - { name: 'kernel.event_listener', event: 'calendar.set_data', method: load }
+    App\Listener\SignUpNotifyListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'kernel.controller', method: onKernelController }
     loot_listener:
         class: App\Listener\LootListener
         tags:

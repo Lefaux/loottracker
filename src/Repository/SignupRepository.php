@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\RaidEvent;
 use App\Entity\Signup;
+use App\Service\SignUpService;
 use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
@@ -80,5 +81,34 @@ class SignupRepository extends ServiceEntityRepository
             ->setParameter('event', $raidEvent->getId())
             ->getQuery();
         return $query->getResult();
+    }
+
+    public function checkIfCharIsSignedUpForAllEvents(array $characters): bool
+    {
+        $charList = [];
+        foreach ($characters as $character) {
+            $charList[] = $character->getId();
+        }
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = 'SELECT *
+                FROM raid_event e
+                WHERE e.id NOT IN (SELECT s.raid_event_id FROM signup s WHERE s.player_name_id IN (' . implode(',', $charList)  . '))';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll();
+            foreach ($result as $item) {
+                $deadline = SignUpService::findRaidSignUpEnd($item['start']);
+                $foo= '';
+                if ($deadline->getTimestamp() > time()) {
+                    return false;
+                } else {
+                    $foo = '';
+                }
+            }
+        } catch (DBALException $e) {
+        }
+
+        return true;
     }
 }
