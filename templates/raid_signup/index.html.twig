@@ -15,6 +15,7 @@
                                 <th>{{ character.name }}</th>
                             {% endfor %}
                             <th>Deadline</th>
+                            <th>Setup</th>
                         </tr>
                     {% for event in events %}
                         <tr class="{{ macros.tableHighLight(signUps, event, account) }}">
@@ -38,6 +39,7 @@
                                 </td>
                             {% endfor %}
                             <td>{{ event.deadline|date('d.m.Y H:i') }}</td>
+                            <td><a class="btn btn-primary" href="{{ path('raid_setup', {'raidId': event.id}) }}">Show setup</a></td>
                         </tr>
                     {% endfor %}
                     </table>
