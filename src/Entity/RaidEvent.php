@@ -126,6 +126,9 @@ class RaidEvent
      */
     public function getRaidGroups(): Collection
     {
+        if ($this->raidGroups === null) {
+            return new ArrayCollection();
+        }
         return $this->raidGroups;
     }
 
