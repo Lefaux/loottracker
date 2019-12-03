@@ -9,8 +9,6 @@ use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\SignupRepository;
 use App\Service\SignUpService;
-use DateTime;
-use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
