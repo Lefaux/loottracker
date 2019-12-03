@@ -6,9 +6,12 @@
     <div class="content-section bg-transparent">
         <div class="container">
             <h3 id="raid-id" data-raidid="{{ raid.id }}">{{ raid.title }} {{ raid.start|date('D, d.m.Y') }}</h3><hr>
+            <div class="alert alert-danger" role="alert">
+                <h5>Diese Setups sind VORLÄUFIG!. Bitte lest die Forum Threads. Wir arbeiten an einer Lösung.</h5>
+            </div>
             {% if userCharsInSetup|length == 1 %}
                 <div class="alert alert-success" role="alert">
-                    <h5>Your character
+                    <h5><i class="fa fa-check"></i> Your character
                         {% for toons in userCharsInSetup %}
                             {{ toons.name }}
                         {% endfor %}
