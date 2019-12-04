@@ -39,7 +39,27 @@
                                 </td>
                             {% endfor %}
                             <td>{{ event.deadline|date('d.m.Y H:i') }}</td>
-                            <td><a class="btn btn-primary" href="{{ path('raid_setup', {'raidId': event.id}) }}">Show setup</a></td>
+                            <td>
+                                {% if event.raidGroups is defined %}
+                                    <ul class="list-group">
+                                        {% for raidGroup in event.raidGroups %}
+                                            {% if raidGroup.setup.status is defined and raidGroup.setup.status == 1 %}
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    <a class="btn btn-success btn-sm" href="{{ path('raid_setup', {'raidGroupId': raidGroup.id}) }}">{{ raidGroup.name }}</a>
+                                                    <span class="badge badge-light">{{ zones.zoneName(raidGroup.zone) }}</span>
+                                                    <span class="badge badge-success">Final</span>
+                                                </li>
+                                            {% else %}
+                                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                                    {{ raidGroup.name }}
+                                                    <span class="badge badge-light">{{ zones.zoneName(raidGroup.zone) }}</span>
+                                                    <span class="badge badge-danger">Planung</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}
+                            </td>
                         </tr>
                     {% endfor %}
                     </table>

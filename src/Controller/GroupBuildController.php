@@ -9,6 +9,7 @@ use App\Repository\RaidEventRepository;
 use App\Repository\RaidGroupRepository;
 use App\Repository\SignupRepository;
 use App\Service\SignUpService;
+use App\Utility\WoWZoneUtility;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,13 +37,18 @@ class GroupBuildController extends AbstractController
      * @var SignUpService
      */
     private $signUpService;
+    /**
+     * @var WoWZoneUtility
+     */
+    private $zoneUtility;
 
     public function __construct(
         SignupRepository $signupRepository,
         RaidEventRepository $raidEventRepository,
         RaidGroupRepository $raidGroupRepository,
         CharacterRepository $characterRepository,
-        SignUpService $signUpService
+        SignUpService $signUpService,
+        WoWZoneUtility $zoneUtility
     )
     {
         $this->signUpRepository = $signupRepository;
@@ -50,6 +56,7 @@ class GroupBuildController extends AbstractController
         $this->raidGroupRepository = $raidGroupRepository;
         $this->characterRepository = $characterRepository;
         $this->signUpService = $signUpService;
+        $this->zoneUtility = $zoneUtility;
     }
 
     /**
@@ -67,32 +74,35 @@ class GroupBuildController extends AbstractController
                 $raids[$index]['signUps'] = count($signUpData['signUps']);
                 $raids[$index]['cancellations'] = count($signUpData['cancellations']);
                 $raids[$index]['noFeedback'] = count($signUpData['noFeedback']);
+                $raids[$index]['event'] = $event;
             }
         }
         return $this->render('group_build/index.html.twig', [
-            'raids' => $raids
+            'raids' => $raids,
+            'zones' => $this->zoneUtility
         ]);
     }
 
     /**
-     * @Route("/group/build/setup/{raidEvent}", name="group_build")
-     * @param RaidEvent $raidEvent
+     * @Route("/group/build/setup/{raidEvent}/{raidGroupId?}", name="group_build")
+     * @param int $raidEvent
+     * @param $raidGroupId
      * @return Response
      */
-    public function buildGroupAction($raidEvent): Response
+    public function buildGroupAction(int $raidEvent, $raidGroupId): Response
     {
         $raid = $this->raidEventRepository->find($raidEvent);
         if(!$raid) {
             return new Response('raid not found', 404);
         }
         $raidSignUps = $this->signUpService->classifySignUpsByRaid($raid);
-        $raidGroup = $this->raidGroupRepository->findOneBy([
-            'event' => $raid
-        ]);
+        $raidGroup = null;
+        if ($raidGroupId) {
+            $raidGroup = $this->raidGroupRepository->find($raidGroupId);
+        }
         $signUps = $raidSignUps['signUps'];
         $assignedPlayers = [];
-        $raidSetup = ['groups' => []];
-        if ($raidGroup) {
+        if ($raidGroupId && $raidGroup) {
             $raidSetup = $raidGroup->getSetup();
             /**
              * Find all players currently
@@ -111,6 +121,7 @@ class GroupBuildController extends AbstractController
                     }
                 }
             }
+            $raidGroup->setSetup($raidSetup);
         }
         /**
          * Manage Twinks
@@ -118,19 +129,10 @@ class GroupBuildController extends AbstractController
         return $this->render('group_build/buildGroup.html.twig', [
             'raid' => $raid,
             'signUps' => $signUps,
-            'setup' => $raidSetup['groups'],
+            'raidGroup' => $raidGroup,
             'assignedPlayers' => $assignedPlayers,
             'cancellations' => $raidSignUps['cancellations'],
             'noFeedback' => $raidSignUps['noFeedback']
         ]);
     }
-
-//    /**
-//     * @Route("/group/build/create/{raidEvent}", name="group_create")
-//     * @return Response
-//     */
-//    public function createRaidAction($raidEvent): Response
-//    {
-//        $raid = $this->raidEventRepository->find($raidEvent);
-//    }
 }

@@ -1,6 +1,6 @@
-{% macro raidGroup(group, groupId) %}
-    {% if group[groupId] is defined %}
-        {% for player in group[groupId] %}
+{% macro raidGroup(raidGroup, groupId) %}
+    {% if raidGroup.setup.groups[groupId] is defined %}
+        {% for player in raidGroup.setup.groups[groupId] %}
             <li
                     class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
                     data-account="{{ player.account.id }}"

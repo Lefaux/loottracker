@@ -5,9 +5,41 @@
 {% block body %}
     <div class="content-section bg-transparent">
         <div class="container">
-            <h3 id="raid-id" data-raidid="{{ raid.id }}">{{ raid.title }} {{ raid.start|date('D, d.m.Y') }}</h3>
+            <h3 id="raid-id" data-raidid="{{ raid.id }}" {% if raidGroup is not null %}data-raidgroup="{{ raidGroup.id }}"{% endif %}>{{ raid.title }} {{ raid.start|date('D, d.m.Y') }}</h3>
+            <div id="raidGroupMeta">
+                <form class="form-inline" id="meta-form">
+                    <div class="input-group mr-2">
+                        <label class="sr-only" for="raid-name">Name</label>
+                        <input type="text" class="form-control" id="raid-name" placeholder="Raid Name" value="{% if raidGroup is not null %}{{ raidGroup.name }}{% endif %}">
+                    </div>
+                    <div class="input-group mr-2">
+                        <label class="sr-only" for="raid-zone">Zone</label>
+                        <select class="custom-select form-control form-control-sm d-inline-block" id="raid-zone">
+                            <option selected>Zone</option>
+                            <option value="2717"{% if raidGroup is not null and raidGroup.zone ==  2717%} selected{% endif %}>Molten Core</option>
+                            <option value="2159"{% if raidGroup is not null and raidGroup.zone ==  2159%} selected{% endif %}>Onyxia's Lair</option>
+                            <optgroup label="Future Raids">
+                                <option disabled value="2677"{% if raidGroup is not null and raidGroup.zone ==  2677%} selected{% endif %}>Blackwing Lair</option>
+                                <option disabled value="1977"{% if raidGroup is not null and raidGroup.zone ==  1977%} selected{% endif %}>Zul Gurub</option>
+                                <option disabled value="3454"{% if raidGroup is not null and raidGroup.zone ==  3454%} selected{% endif %}>AQ 20</option>
+                                <option disabled value="3428"{% if raidGroup is not null and raidGroup.zone ==  3428%} selected{% endif %}>AQ 40</option>
+                                <option disabled value="3456"{% if raidGroup is not null and raidGroup.zone ==  3456%} selected{% endif %}>Naxxramas</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="setup-status" id="status-0" value="0" {% if raidGroup.setup.status is defined and raidGroup.setup.status ==  0%} checked{% endif %}>
+                        <label class="form-check-label" for="status-0">Vorläufig</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="setup-status" id="status-1" value="1" {% if raidGroup.setup.status is defined and raidGroup.setup.status ==  1%} checked{% endif %}>
+                        <label class="form-check-label" for="status-1">Final</label>
+                    </div>
+                </form>
+            </div>
         </div>
         <div class="container-fluid">
+            <hr>
             <div class="row">
                 <div class="col-sm-6 col-md-2">
                     <h4><span id="unassigned-players">{{ signUps|length }}</span> unassigned</h4>
@@ -38,49 +70,50 @@
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-4 raid-group-block-alpha">
-                    <h4>Team Alpha</h4>
                     <div class="row">
                         <div class="col-sm-5">
                             <h6>Group 1</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="1" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 1) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 1) }}
                             </ul>
                             <h6>Group 3</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="3" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 3) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 3) }}
                             </ul>
                             <h6>Group 5</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="5" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 5) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 5) }}
                             </ul>
                             <h6>Group 7</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="7" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 7) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 7) }}
                             </ul>
                         </div>
                         <div class="col-sm-5">
                             <h6>Group 2</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="2" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 2) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 2) }}
                             </ul>
                             <h6>Group 4</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="4" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 4) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 4) }}
                             </ul>
                             <h6>Group 6</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="6" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 6) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 6) }}
                             </ul>
                             <h6>Group 8</h6>
                             <ul class="groupbuilder-raidgroup alpha" data-group="8" data-weekday="{{ raid.start|date('D') }}">
-                                {{ groupBuilderMacros.raidGroup(setup, 8) }}
+                                {{ groupBuilderMacros.raidGroup(raidGroup, 8) }}
                             </ul>
                         </div>
                         <div class="col-sm-2">
                             <table>
-                                <tr><td><i class="fa fa-fw fa-shield-alt"></i></td>                                  <td class="counter" id="count-tank-alpha">0</td></tr>
-                                <tr><td><i class="fa fa-fw fa-band-aid"></i></td>                                    <td class="counter" id="count-heal-alpha">0</td></tr>
-                                <tr><td><i class="fa fa-fw fa-skull-crossbones"></i></td>                            <td class="counter" id="count-dps-alpha">0</td></tr>
+                                <tr><td><i class="fa fa-fw fa-biohazard"></i></td>                          <td class="counter" id="count-sum">0</td></tr>
+                                <tr><td colspan="2"><hr></td></tr>
+                                <tr><td><i class="fa fa-fw fa-shield-alt"></i></td>                         <td class="counter" id="count-tank-alpha">0</td></tr>
+                                <tr><td><i class="fa fa-fw fa-band-aid"></i></td>                           <td class="counter" id="count-heal-alpha">0</td></tr>
+                                <tr><td><i class="fa fa-fw fa-skull-crossbones"></i></td>                   <td class="counter" id="count-dps-alpha">0</td></tr>
                                 <tr><td colspan="2"><hr></td></tr>
                                 <tr><td><img src="{{ asset('assets/icons/class_1.png') }}" style="width: 20px;"></td><td class="counter" id="count-1-alpha">0</td></tr>
                                 <tr><td><img src="{{ asset('assets/icons/class_2.png') }}" style="width: 20px;"></td><td class="counter" id="count-2-alpha">0</td></tr>

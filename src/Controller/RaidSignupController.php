@@ -9,6 +9,7 @@ use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\SignupRepository;
 use App\Service\SignUpService;
+use App\Utility\WoWZoneUtility;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,18 +34,24 @@ class RaidSignupController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
+    /**
+     * @var WoWZoneUtility
+     */
+    private $zoneUtility;
 
     public function __construct(
         RaidEventRepository $raidEventRepository,
         CharacterRepository $characterRepository,
         SignupRepository $signUpRepository,
-        EntityManagerInterface $entityManager
+        EntityManagerInterface $entityManager,
+        WoWZoneUtility $zoneUtility
     )
     {
         $this->characterRepository = $characterRepository;
         $this->raidEventRepository = $raidEventRepository;
         $this->signUpRepository = $signUpRepository;
         $this->entityManager = $entityManager;
+        $this->zoneUtility = $zoneUtility;
     }
 
     /**
@@ -64,12 +71,18 @@ class RaidSignupController extends AbstractController
         $signUps = $this->signUpRepository->findSignUpsPerAccount($charsOnAccount);
         $events = $this->raidEventRepository->findEventsAndSignUps();
         foreach ($events as $index => $event) {
+            $eventObject = $this->raidEventRepository->find($event['id']);
+            if (!$eventObject) {
+                return new Response('Error finding a raid event', 500);
+            }
             $events[$index]['deadline'] = SignUpService::findRaidSignUpEnd($event['start']);
+            $events[$index]['raidGroups'] = $eventObject->getRaidGroups();
         }
         return $this->render('raid_signup/index.html.twig', [
             'events' => $events,
             'account' => $user,
-            'signUps' => $signUps
+            'signUps' => $signUps,
+            'zones' => $this->zoneUtility
         ]);
     }
 

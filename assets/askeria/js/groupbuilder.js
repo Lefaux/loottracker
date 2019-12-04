@@ -2,6 +2,7 @@ import Sortable from 'sortablejs';
 
 $(function () {
 
+  let raidGroup = 'new';
   let unsortedPlayers = document.querySelector('.unsorted-players');
   let raidGroups = document.querySelectorAll('.groupbuilder-raidgroup');
   if (unsortedPlayers) {
@@ -76,6 +77,8 @@ $(function () {
       counterHeals.innerText = heals.length.toString();
       let counterDps = document.getElementById('count-dps-'+team);
       counterDps.innerText = dps.length.toString();
+      let counterTotal = document.getElementById('count-sum');
+      counterTotal.innerText = (dps.length + tanks.length + heals.length).toString();
       // ****************** Loop over classes **************//
       let classes = [1,2,3,4,5,6,7,9];
       for(let i = 0; i < classes.length; i++) {
@@ -87,9 +90,20 @@ $(function () {
 
     let saveData = function() {
       let raidElement = document.querySelector('#raid-id');
+      let raidNameElement = document.querySelector('#raid-name');
+      let raidZoneElement = document.querySelector('#raid-zone');
+      let metaForm = document.querySelector('#meta-form');
       let raidId = raidElement.dataset.raidid;
+      let raidGroupDataValue = raidElement.dataset.raidgroup;
+      if (parseInt(raidGroupDataValue) > 0) {
+        raidGroup = raidGroupDataValue;
+      }
       let payLoad = {
         'raidEvent': raidId,
+        'raidGroup': raidGroup,
+        'raidName': raidNameElement.value,
+        'raidZone': raidZoneElement.value,
+        'status': metaForm.elements['setup-status'].value,
         'groups': []
       };
       let raidGroups = document.querySelectorAll('.groupbuilder-raidgroup');
@@ -102,11 +116,12 @@ $(function () {
           counter++;
         }
       }
-      postAjax('/api/groupbuild/save', payLoad, ajaxSuccess)
+      postAjax('/api/groupbuild/save', payLoad, ajaxSuccess);
     };
 
-    let ajaxSuccess = function() {
-      // console.log('upload worked');
+    let ajaxSuccess = function(response) {
+      let responseCode = JSON.parse(response);
+      raidGroup = responseCode.raidGroupId.toString();
     };
 
     /*********************************************** AJAX ***********************************************/
@@ -130,7 +145,7 @@ $(function () {
       new Sortable(raidGroup, {
         group: {
           name: name,
-          put: function (to, from, item) {
+          put: function (to) {
             // let playerDay = item.dataset.weekday;
             return to.el.children.length < 5;
           }
@@ -152,5 +167,14 @@ $(function () {
     });
     updateCounter();
     specCounter('alpha');
+
+    /*********************************************** META FORM ************************************************/
+
+    let metaForm = document.querySelector('#meta-form');
+    metaForm.addEventListener('change', function() {
+      saveData();
+    });
   }
+
+
 });

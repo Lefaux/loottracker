@@ -47,23 +47,34 @@ class GroupBuildController extends AbstractController
         RaidEventRepository $raidEventRepository,
         EntityManagerInterface $entityManager): Response
     {
-        $raidSetup = json_decode($request->getContent(), true);
-        unset($raidSetup['groups'][0]);
-        $raidEvent = $raidEventRepository->find($raidSetup['raidEvent']);
-        $raidGroup = $raidGroupRepository->findOneBy(['event' => $raidSetup['raidEvent']]);
-        if (!$raidGroup) {
+        $payload = json_decode($request->getContent(), true);
+        unset($payload['groups'][0]);
+        $raidEvent = $raidEventRepository->find($payload['raidEvent']);
+        if ($payload['raidGroup'] === 'new') {
             $raidGroup = new RaidGroup();
+        } else {
+            $raidGroup = $raidGroupRepository->find($payload['raidGroup']);
+        }
+        if (!$raidGroup || !$raidEvent) {
+            return $this->json(['error' => 'true'], 500);
         }
         // @todo add these
-        $raidGroup->setZone('kommt noch');
-        $raidGroup->setName('kommt noch');
         $raidGroup->setComment('kommt noch');
+
+        $raidGroup->setZone((int)$payload['raidZone']);
+        $raidGroup->setName($payload['raidName']);
         $raidGroup->setStart(new \DateTime());
 
         $raidGroup->setEvent($raidEvent);
-        $raidGroup->setSetup($raidSetup);
+        $raidGroup->setSetup($payload);
+        if ($payload['raidGroup'] === 'new') {
+            $raidEvent->addRaidGroup($raidGroup);
+        }
         $entityManager->persist($raidGroup);
         $entityManager->flush();
-        return $this->json(['status' => 'saved']);
+        return $this->json([
+            'status' => 'saved',
+            'raidGroupId' => $raidGroup->getId()
+        ]);
     }
 }

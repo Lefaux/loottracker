@@ -79,11 +79,11 @@ class RaidController extends AbstractController
     }
 
     /**
-     * @Route("/raid/setup/{raidId}", name="raid_setup")
-     * @param $raidId
+     * @Route("/raid/setup/{raidGroupId}", name="raid_setup")
+     * @param $raidGroupId
      * @return Response
      */
-    public function showSetupAction($raidId): Response
+    public function showSetupAction($raidGroupId): Response
     {
         $user = $this->getUser();
         if (!$user) {
@@ -94,13 +94,13 @@ class RaidController extends AbstractController
         foreach ($user->getCharacters() as $character) {
             $charsOnAccount[] = $character->getId();
         }
-        $raid = $this->raidEventRepository->find((int) $raidId);
-        if (!$raid) {
-            return new Response('No Raid found', 404);
+        $raidGroup = $this->raidGroupRepository->find($raidGroupId);
+        if (!$raidGroup) {
+            return new Response('error finding raidgroup', 500);
         }
-        $raidGroups = $this->raidGroupRepository->findBy(['event' => $raid->getId()]);
         $hydratedSetup = [];
         $setupCount = [
+            'total' => 0,
             'specs' => [
                 1 => 0,
                 2 => 0,
@@ -119,24 +119,25 @@ class RaidController extends AbstractController
             ]
         ];
         $userCharsInSetup = [];
-        foreach ($raidGroups as $setupIndex => $raidGroup) {
-            foreach ($raidGroup->getSetup()['groups'] as $groupIndex => $group) {
-                foreach ($group as $playerIndex => $playerId) {
-                    $character = $this->characterRepository->find($playerId);
-                    if (in_array((int)$playerId, $charsOnAccount, true)) {
-                        $userCharsInSetup[] = $character;
-                    }
-                    $hydratedSetup['groups'][$groupIndex][$playerIndex] = $character;
-                    $setupCount['specs'][$character->getSpec()]++;
-                    $setupCount['classes'][$character->getClass()]++;
+        foreach ($raidGroup->getSetup()['groups'] as $groupIndex => $group) {
+            foreach ($group as $playerIndex => $playerId) {
+                $character = $this->characterRepository->find($playerId);
+                if (in_array((int)$playerId, $charsOnAccount, true)) {
+                    $userCharsInSetup[] = $character;
                 }
+                $hydratedSetup['groups'][$groupIndex][$playerIndex] = $character;
+                $setupCount['total']++;
+                $setupCount['specs'][$character->getSpec()]++;
+                $setupCount['classes'][$character->getClass()]++;
             }
-            $hydratedSetup['count'] = $setupCount;
-            $raidGroup->setSetup($hydratedSetup);
         }
+        $hydratedSetup['count'] = $setupCount;
+        $hydratedSetup['raidName'] = $raidGroup->getSetup()['raidName'];
+        $hydratedSetup['raidZone'] = $raidGroup->getSetup()['raidZone'];
+        $hydratedSetup['status'] = (isset($raidGroup->getSetup()['status'])) ?: 0;
+        $raidGroup->setSetup($hydratedSetup);
         return $this->render('raid/showSetup.html.twig', [
-            'raid' => $raid,
-            'setups' => $raidGroups,
+            'raidGroup' => $raidGroup,
             'userCharsInSetup' => $userCharsInSetup
         ]);
     }

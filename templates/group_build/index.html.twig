@@ -11,9 +11,10 @@
                         <th>Date</th>
                         <th>Event</th>
                         <th>Raids</th>
+                        <th>Plan</th>
                         <th>
                             <div class="progress" style="height: 22px;">
-                                <div class="progress-bar bg-success" role="progressbar" style="width: 33%">SignUp</div>
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 34%">SignUp</div>
                                 <div class="progress-bar bg-warning" role="progressbar" style="width: 33%">Cancel</div>
                                 <div class="progress-bar bg-danger" role="progressbar" style="width: 33%">No Info</div>
                             </div>
@@ -21,10 +22,22 @@
                     </tr>
                 {% for raid in raids %}
                     <tr>
-                        <td>{{ raid.start|date('D, d.m.Y') }}</td>
-                        <td>{{ raid.title }}</td>
-                        <td><a class="btn btn-primary" href="{{ path('group_build', {'raidEvent': raid.id}) }}">Plan</a></td>
-                        <td>
+                        <td style="white-space: nowrap">{{ raid.start|date('D, d.m.Y') }}</td>
+                        <td style="white-space: nowrap">{{ raid.title }}</td>
+                        <td style="white-space: nowrap">
+                            <ul class="list-group">
+                                {% for raidGroup in raid.event.raidGroups %}
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <a class="" href="{{ path('group_build', {'raidEvent': raid.id, 'raidGroupId': raidGroup.id}) }}">{{ raidGroup.name }}</a>
+                                        <span class="badge badge-light">{{ zones.zoneName(raidGroup.zone) }}</span>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                        <td style="white-space: nowrap">
+                            <a class="btn btn-success btn-sm" href="{{ path('group_build', {'raidEvent': raid.id}) }}">New Raid</a>
+                        </td>
+                        <td style="width: 30%;">
                             <div class="progress" style="height: 25px;">
                                 {% set signUpPercentage = (raid.signUps/(raid.signUps+raid.cancellations+raid.noFeedback))*100 %}
                                 {% set cancelPercentage = (raid.cancellations/(raid.signUps+raid.cancellations+raid.noFeedback))*100 %}
