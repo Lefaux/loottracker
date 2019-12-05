@@ -2,14 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\RaidEvent;
 use App\Entity\Signup;
-use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidGroupRepository;
-use App\Repository\SignupRepository;
 use App\Service\SignUpService;
 use App\Utility\WoWZoneUtility;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,10 +15,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class GroupBuildController extends AbstractController
 {
-    /**
-     * @var SignupRepository
-     */
-    private $signUpRepository;
     /**
      * @var RaidEventRepository
      */
@@ -30,10 +24,6 @@ class GroupBuildController extends AbstractController
      */
     private $raidGroupRepository;
     /**
-     * @var CharacterRepository
-     */
-    private $characterRepository;
-    /**
      * @var SignUpService
      */
     private $signUpService;
@@ -41,22 +31,24 @@ class GroupBuildController extends AbstractController
      * @var WoWZoneUtility
      */
     private $zoneUtility;
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
 
     public function __construct(
-        SignupRepository $signupRepository,
         RaidEventRepository $raidEventRepository,
         RaidGroupRepository $raidGroupRepository,
-        CharacterRepository $characterRepository,
         SignUpService $signUpService,
-        WoWZoneUtility $zoneUtility
+        WoWZoneUtility $zoneUtility,
+        EntityManagerInterface $em
     )
     {
-        $this->signUpRepository = $signupRepository;
         $this->raidEventRepository = $raidEventRepository;
         $this->raidGroupRepository = $raidGroupRepository;
-        $this->characterRepository = $characterRepository;
         $this->signUpService = $signUpService;
         $this->zoneUtility = $zoneUtility;
+        $this->entityManager = $em;
     }
 
     /**
@@ -134,5 +126,26 @@ class GroupBuildController extends AbstractController
             'cancellations' => $raidSignUps['cancellations'],
             'noFeedback' => $raidSignUps['noFeedback']
         ]);
+    }
+
+    /**
+     * @Route("/group/build/delete/{raidGroupId}", name="group_delete")
+     * @param int $raidGroupId
+     * @return Response
+     */
+    public function deleteAction(int $raidGroupId): Response
+    {
+        $raidGroup = $this->raidGroupRepository->find($raidGroupId);
+        if ($raidGroup) {
+            $event = $raidGroup->getEvent();
+            if ($event) {
+                $event->removeRaidGroup($raidGroup);
+                $this->entityManager->remove($raidGroup);
+                $this->entityManager->persist($event);
+                $this->entityManager->flush();
+                $this->addFlash('success', 'Deleted raidgroup "'. $raidGroup->getName()  .'"');
+            }
+        }
+        return $this->redirectToRoute('group_index');
     }
 }
