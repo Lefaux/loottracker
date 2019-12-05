@@ -4,12 +4,14 @@
 namespace App\Service;
 
 use App\Entity\RaidEvent;
+use App\Entity\RaidGroup;
 use App\Entity\Signup;
 use App\Entity\User;
 use App\Repository\CharacterRepository;
 use App\Repository\SignupRepository;
 use DateTime;
 use DateTimeZone;
+use Doctrine\ORM\PersistentCollection;
 
 class SignUpService
 {
@@ -63,5 +65,22 @@ class SignUpService
         $eventStart = DateTime::createFromFormat('Y-m-d H:i:s', $start, new DateTimeZone('Europe/Berlin'));
         $eventStart->modify('last tuesday 8pm');
         return $eventStart;
+    }
+
+    public static function findCharsInSetup($setup, array $characters): array
+    {
+        $charEventMatrix = [];
+        /** @var RaidGroup $raidGroup */
+        foreach ($setup as $raidGroup) {
+            foreach ($raidGroup->getSetup()['groups'] as $groupIndex => $group) {
+                foreach ($group as $playerIndex => $playerId) {
+                    $playerId = (int)$playerId;
+                    if (array_key_exists($playerId, $characters)) {
+                        $charEventMatrix[$raidGroup->getId()][$playerId] = $characters[$playerId];
+                    }
+                }
+            }
+        }
+        return $charEventMatrix;
     }
 }

@@ -64,11 +64,13 @@ class RaidSignupController extends AbstractController
             return $this->redirectToRoute('fos_user_security_login');
         }
         $charsOnAccount = [];
+        $charArray = [];
         /** @var Character $character */
         foreach ($user->getCharacters() as $character) {
-            $charsOnAccount[] = $character->getId();
+            $charsOnAccount[$character->getId()] = $character;
+            $charArray[] = $character->getId();
         }
-        $signUps = $this->signUpRepository->findSignUpsPerAccount($charsOnAccount);
+        $signUps = $this->signUpRepository->findSignUpsPerAccount($charArray);
         $events = $this->raidEventRepository->findEventsAndSignUps();
         foreach ($events as $index => $event) {
             $eventObject = $this->raidEventRepository->find($event['id']);
@@ -77,6 +79,7 @@ class RaidSignupController extends AbstractController
             }
             $events[$index]['deadline'] = SignUpService::findRaidSignUpEnd($event['start']);
             $events[$index]['raidGroups'] = $eventObject->getRaidGroups();
+            $events[$index]['charsInSetup'] = SignUpService::findCharsInSetup($eventObject->getRaidGroups(), $charsOnAccount);
         }
         return $this->render('raid_signup/index.html.twig', [
             'events' => $events,
