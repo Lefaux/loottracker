@@ -4,8 +4,8 @@ security:
         FOS\UserBundle\Model\UserInterface: bcrypt
 
     role_hierarchy:
-        ROLE_RAIDMANAGER: ROLE_USER
-        ROLE_ADMIN:       ROLE_USER
+        ROLE_RAIDMANAGER: [ROLE_USER, ROLE_LOOTTRACKER]
+        ROLE_ADMIN:       ROLE_RAIDMANAGER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
@@ -33,6 +33,6 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }
-        - { path: ^/upload, role: ROLE_RAIDMANAGER }
+        - { path: ^/upload, roles: [ROLE_RAIDMANAGER, ROLE_LOOTTRACKER] }
         - { path: ^/profile/characters, role: ROLE_RAIDER }
         - { path: /bislist/, role: ROLE_RAIDER }

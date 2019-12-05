@@ -31,6 +31,11 @@ class User extends BaseUser
      */
     private $characters;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $discordHandle;
+
     public function __construct()
     {
         parent::__construct();
@@ -77,6 +82,18 @@ class User extends BaseUser
                 $character->setAccount(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDiscordHandle(): ?string
+    {
+        return $this->discordHandle;
+    }
+
+    public function setDiscordHandle(string $discordHandle): self
+    {
+        $this->discordHandle = $discordHandle;
 
         return $this;
     }

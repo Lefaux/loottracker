@@ -179,16 +179,18 @@ class MenuBuilder
                     ]
                 );
             }
-            $menu['management']->addChild(
-                'uploaddkp',
-                [
-                    'label' => $this->translator->trans('Set DKP String (Askeria)'),
-                    'route' => 'page_upload_dkp',
-                    'extras' => [
-                        'icon' => 'upload',
-                    ],
-                ]
-            );
+            if ($this->authorizationChecker->isGranted('ROLE_LOOTTRACKER')) {
+                $menu['management']->addChild(
+                    'uploaddkp',
+                    [
+                        'label' => $this->translator->trans('Set DKP String (Askeria)'),
+                        'route' => 'page_upload_dkp',
+                        'extras' => [
+                            'icon' => 'upload',
+                        ],
+                    ]
+                );
+            }
             $menu['management']->addChild(
                 'groupbuilder',
                 [
