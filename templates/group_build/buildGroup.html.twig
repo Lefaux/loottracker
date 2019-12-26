@@ -5,7 +5,7 @@
 {% block body %}
     <div class="content-section bg-transparent">
         <div class="container">
-            <h3 id="raid-id" data-raidid="{{ raid.id }}" {% if raidGroup is not null %}data-raidgroup="{{ raidGroup.id }}"{% endif %}>{{ raid.title }} {{ raid.start|date('D, d.m.Y') }}</h3>
+            <h3 id="raid-id" data-raidid="{{ raid.id }}" {% if raidGroup is not null %}data-raidgroup="{{ raidGroup.id }}"{% endif %}>{{ raid.title }} {{ raid.start|date('D, d.m.Y') }} <span id="loader" class="text-primary"></span></h3>
             <div id="raidGroupMeta">
                 <form class="form-inline" id="meta-form">
                     <div class="input-group mr-2">
@@ -126,6 +126,13 @@
                             </table>
                         </div>
                     </div>
+                </div>
+                <div class="col-sm-6 col-md-2">
+                    <h4>Item need</h4>
+                    <table id="item-need" class="table table-sm">
+
+                    </table>
+                    <a class="btn btn-info" id="load-bis-info">Load Items</a>
                 </div>
                 <div class="col-sm-6 col-md-2">
                     <h4>{{ cancellations|length }} Cancellations</h4>

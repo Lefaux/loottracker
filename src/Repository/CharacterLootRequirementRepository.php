@@ -131,4 +131,38 @@ GROUP BY i.zone
         }
         return $output;
     }
+
+    public function findItemsByRaidGroup(array $playerIds, int $zone): array
+    {
+        $output = [];
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+SELECT
+    count(bis.id) AS amount,
+     i.id,
+     i.name,
+     group_concat(c.id) as characterIds,
+     c.rank_id,
+     c.twink
+FROM
+    character_loot_requirement bis
+    INNER JOIN item i ON i.id = bis.item_id
+    INNER JOIN characters c on bis.player_character_id = c.id
+WHERE
+    i.zone = '. $zone . '
+    AND bis.has_item = 0
+    AND c.hidden = 0
+    AND bis.player_character_id IN ('. implode(',', $playerIds)  .')
+GROUP BY twink,rank_id,bis.item_id
+ORDER BY rank_id, amount DESC
+            ';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output = $stmt->fetchAll();
+        } catch (DBALException $e) {
+        }
+
+        return $output;
+    }
 }

@@ -156,7 +156,7 @@ class MenuBuilder
                 ],
             ]
         );
-        if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
+        if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER') || $this->authorizationChecker->isGranted('ROLE_LOOTTRACKER')) {
             $menu->addChild(
                 'management',
                 [

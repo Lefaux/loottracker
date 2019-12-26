@@ -89,6 +89,7 @@ $(function () {
     };
 
     let saveData = function() {
+      let loader = document.getElementById('loader');
       let raidElement = document.querySelector('#raid-id');
       let raidNameElement = document.querySelector('#raid-name');
       let raidZoneElement = document.querySelector('#raid-zone');
@@ -106,6 +107,10 @@ $(function () {
         'status': metaForm.elements['setup-status'].value,
         'groups': []
       };
+      let itemCheckPayload = {
+        'raidZone': parseInt(raidZoneElement.value),
+        'players': []
+      };
       let raidGroups = document.querySelectorAll('.groupbuilder-raidgroup');
       for (let raidGroup of raidGroups) {
         payLoad.groups[raidGroup.dataset.group] = Array();
@@ -113,15 +118,59 @@ $(function () {
         let counter = 0;
         for (let char of nodes) {
           payLoad.groups[raidGroup.dataset.group][counter] = char.dataset.character;
+          itemCheckPayload.players.push(parseInt(char.dataset.character));
           counter++;
         }
       }
+      loader.innerHTML = '<i class="fas fa-sync fa-spin"></i> working';
       postAjax('/api/groupbuild/save', payLoad, ajaxSuccess);
+      postAjax('/api/groupbuild/bisitems', itemCheckPayload, bisResponse);
     };
 
     let ajaxSuccess = function(response) {
       let responseCode = JSON.parse(response);
       raidGroup = responseCode.raidGroupId.toString();
+    };
+
+    let bisResponse = function(response) {
+      let responseCode = JSON.parse(response);
+      let needList = document.querySelector('#item-need');
+      // Clear als children
+      while (needList.firstChild) {
+        needList.removeChild(needList.firstChild);
+      }
+      // create new list
+      // let li = document.createElement('li');
+      let nodeContent = '';
+      for (let entry in responseCode) {
+        nodeContent = nodeContent + `
+    <tr class="table-active">
+        <td colspan="2">
+            <small>
+                <a href="#" data-wowhead="item=${responseCode[entry].item.id}&amp;domain=classic" data-wh-icon-size="small" class="">${responseCode[entry].item.name}</a>
+            </small>
+        </td>
+    </tr>`;
+        for (let rank in responseCode[entry].need) {
+          let players = responseCode[entry].need[rank].join(', ');
+          let badgeColor = 'badge-info';
+          if (rank === 'Twink') {
+            badgeColor = 'badge-warning';
+          }
+          nodeContent = nodeContent + `
+          <tr>
+            <td><span class="badge ${badgeColor}">${rank}</span></td>
+            <td><small>${players}</small></td>
+          </tr>
+          `;
+        }
+
+        // li.innerHTML = nodeContent;
+        // li.setAttribute("class", "list-group-item"); // added line
+      }
+      needList.innerHTML = nodeContent;
+      let loader = document.getElementById('loader');
+      loader.innerHTML = '';
     };
 
     /*********************************************** AJAX ***********************************************/
@@ -174,6 +223,11 @@ $(function () {
     metaForm.addEventListener('change', function() {
       saveData();
     });
+
+    let bisButton = document.querySelector('#load-bis-info');
+    bisButton.addEventListener('click', function() {
+      saveData();
+    })
   }
 
 

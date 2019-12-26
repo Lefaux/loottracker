@@ -5,6 +5,8 @@ namespace App\Controller\Api;
 
 
 use App\Entity\RaidGroup;
+use App\Repository\CharacterLootRequirementRepository;
+use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidGroupRepository;
@@ -76,5 +78,52 @@ class GroupBuildController extends AbstractController
             'status' => 'saved',
             'raidGroupId' => $raidGroup->getId()
         ]);
+    }
+
+    /**
+     * @Route("/bisitems", name="bisitems")
+     * @param Request $request
+     * @param CharacterLootRequirementRepository $bisRepository
+     * @param CharacterRepository $characterRepository
+     * @return Response
+     */
+    public function bisItemsAction(
+        Request $request,
+        CharacterLootRequirementRepository $bisRepository,
+        CharacterRepository $characterRepository): Response
+    {
+        $bisItems = [];
+        $payload = json_decode($request->getContent(), true);
+        $items = $bisRepository->findItemsByRaidGroup($payload['players'], $payload['raidZone']);
+        foreach ($items as $item) {
+            switch ($item['rank_id']) {
+                case 2:
+                case 7:
+                case 3:
+                    $rank = 'Core';
+                    break;
+                case 4:
+                    $rank = 'Raider';
+                    break;
+                case 5:
+                    $rank = 'Oldies';
+                    break;
+                case 6:
+                    $rank = 'F&F';
+                    break;
+                default:
+                    $rank = 'Core';
+            }
+            if ((int)$item['twink'] === 1) {
+                $rank = 'Twink';
+            }
+            $bisItems[$item['id']]['item']['id'] = $item['id'];
+            $bisItems[$item['id']]['item']['name'] = $item['name'];
+            $playerIdArray = explode(',', $item['characterIds']);
+            foreach ($playerIdArray as $charId) {
+                $bisItems[$item['id']]['need'][$rank][] = $characterRepository->find($charId)->getName();
+            }
+        }
+        return $this->json($bisItems);
     }
 }
