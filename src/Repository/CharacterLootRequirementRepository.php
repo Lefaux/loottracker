@@ -34,6 +34,8 @@ SELECT
 FROM
     character_loot_requirement bis
     INNER JOIN item i on i.id = bis.item_id
+    INNER JOIN characters c on bis.player_character_id = c.id
+WHERE c.hidden = 0
 GROUP BY bis.item_id
 HAVING amount > available
 ORDER BY amount DESC
@@ -80,7 +82,8 @@ GROUP BY i.zone
         $query = $qb
             ->select('bis')
             ->innerJoin('bis.item', 'i')
-            ->where('bis.hasItem = 0 AND i.zone = :zone')
+            ->innerJoin('bis.playerCharacter', 'c')
+            ->where('bis.hasItem = 0 AND i.zone = :zone AND c.hidden = 0')
             ->groupBy('i.id')
             ->setParameter('zone', $zoneId)
             ->getQuery();
@@ -93,7 +96,7 @@ GROUP BY i.zone
                 $characterLootRequirements = $this->findBy(['item' => $item->getId(), 'hasItem' => false]);
                 foreach ($characterLootRequirements as $characterLootRequirement) {
                     $character = $characterLootRequirement->getPlayerCharacter();
-                    if ($character) {
+                    if ($character && $character->getHidden() === false) {
                         $players[$character->getSpec()][] = $character;
                     }
                 }

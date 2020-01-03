@@ -11,7 +11,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">{{ raid.note }}</h5>
-                            <h6 class="card-subtitle">{{ raid.date|date('d.m.Y H:i') }}</h6>
+                            <h6 class="card-subtitle">{{ raid.date|date('d.m.Y') }}</h6>
                         </div>
                         <div class="card-body">
                             <p>{{ raid.attendances|length }} {% trans %}Players{% endtrans %}</p>

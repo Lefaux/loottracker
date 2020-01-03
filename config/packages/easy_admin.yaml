@@ -8,6 +8,7 @@ easy_admin:
     menu:
       - { label: 'Organizational'}
       - { label: 'Events', icon: 'calendar-alt', entity: 'Events'}
+      - { label: 'Sign Ups', icon: 'user-plus', entity: 'SignUps'}
       - { label: 'News', icon: 'newspaper', entity: 'News'}
       - { label: 'Raids', icon: 'biohazard', entity: 'Raids'}
       - { label: 'Loot', icon: 'dollar-sign', entity: 'Loots'}
@@ -47,7 +48,22 @@ easy_admin:
         fields:
           - { property: 'title' }
           - { property: 'start', type_options: { widget: 'single_text' } }
-          - { property: 'end', type_options: { widget: 'single_text' } }
+    SignUps:
+      class: App\Entity\Signup
+      list:
+        fields: ['raidEvent', 'playerName', 'signedUp']
+      form:
+        fields:
+          - { property: 'playerName', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\Character' } }
+          - { property: 'raidEvent', type: 'easyadmin_autocomplete', type_options: { class: 'App\Entity\RaidEvent' } }
+          - property: "signedUp"
+            label: 'Status'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'yes': 1
+                'cancelled': 2
     Raids:
       class: App\Entity\Raid
       form:

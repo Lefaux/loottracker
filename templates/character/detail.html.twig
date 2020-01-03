@@ -73,7 +73,7 @@
                         {% for attended in raids %}
                             <tr>
                                 <td><a href="{{ path('raid_show', {'raidId': attended.raid.id}) }}">{{ attended.raid.note }}</td>
-                                <td>{{ attended.raid.date|date('d.m.Y H:i') }}</td>
+                                <td>{{ attended.raid.date|date('d.m.Y') }}</td>
                                 <td>
                                     {% for loot in attended.loots %}
                                         <span class="guildbank-item-icon">

@@ -24,14 +24,9 @@ class RaidEvent
     private $title;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $start;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $end;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Signup", mappedBy="raidEvent")
@@ -47,6 +42,11 @@ class RaidEvent
     {
         $this->signups = new ArrayCollection();
         $this->raidGroups = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->title . ' - ' . $this->start->format('D, d.m.Y');
     }
 
     public function getId(): ?int
@@ -74,18 +74,6 @@ class RaidEvent
     public function setStart(\DateTimeInterface $start): self
     {
         $this->start = $start;
-
-        return $this;
-    }
-
-    public function getEnd(): ?\DateTimeInterface
-    {
-        return $this->end;
-    }
-
-    public function setEnd(\DateTimeInterface $end): self
-    {
-        $this->end = $end;
 
         return $this;
     }
