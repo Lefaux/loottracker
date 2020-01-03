@@ -146,20 +146,42 @@ $(function () {
         nodeContent = nodeContent + `
     <tr class="table-active">
         <td colspan="2">
-            <small>
+            <smallx>
                 <a href="#" data-wowhead="item=${responseCode[entry].item.id}&amp;domain=classic" data-wh-icon-size="small" class="">${responseCode[entry].item.name}</a>
-            </small>
+            </smallx>
         </td>
     </tr>`;
         for (let rank in responseCode[entry].need) {
           let players = responseCode[entry].need[rank].join(', ');
-          let badgeColor = 'badge-info';
-          if (rank === 'Twink') {
-            badgeColor = 'badge-warning';
+          let fullBadge = '';
+          let lineColor = '';
+          switch(rank) {
+            case 'Core':
+              fullBadge = '<i class="fa fa-fw fa-copyright" style="color: #B84B9E" title="Core"></i>';
+              lineColor = '#4ec04e';
+              break;
+            case 'Raider':
+              fullBadge = '<i class="fa fa-fw fa-registered" style="color: #93228D" title="Raider"></i>';
+              lineColor = '#a6c34c';
+              break;
+            case 'Oldies':
+              fullBadge = '<i class="fa fa-fw fa-chess-rook" style="color: #FF6EB0" title="Oldies"></i>';
+              lineColor = '#ffc84a';
+              break;
+            case 'F&F':
+              fullBadge = '<i class="fa fa-fw fa-child" style="color: #FFCB00" title="Family & Friends"></i>';
+              lineColor = '#f48847';
+              break;
+            case 'Twink':
+              fullBadge = '<i class="fa fa-fw fa-tenge" style="color: #FFCB00" title="Family & Friends"></i>';
+              lineColor = '#eb4841';
+              break;
+            default:
+              fullBadge = '<i class="fa fa-fw fa-question-circle" style="color: #ff00ff" title="unclear"></i>';
           }
           nodeContent = nodeContent + `
-          <tr>
-            <td><span class="badge ${badgeColor}">${rank}</span></td>
+          <tr style="background-color: ${lineColor}">
+            <td>${fullBadge}</td>
             <td><small>${players}</small></td>
           </tr>
           `;

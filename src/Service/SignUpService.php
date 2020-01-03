@@ -62,7 +62,7 @@ class SignUpService
 
     public static function findRaidSignUpEnd(string $start): DateTime
     {
-        $eventStart = DateTime::createFromFormat('Y-m-d H:i:s', $start, new DateTimeZone('Europe/Berlin'));
+        $eventStart = DateTime::createFromFormat('Y-m-d', $start, new DateTimeZone('Europe/Berlin'));
         $eventStart->modify('last tuesday 8pm');
         return $eventStart;
     }

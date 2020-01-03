@@ -80,11 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
           },
         },
       ],
-      eventTimeFormat: { // like '14:30:00'
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      },
+      displayEventTime: false,
       header: {
         left: 'prev,next today',
         center: 'title',

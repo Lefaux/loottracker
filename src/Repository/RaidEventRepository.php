@@ -30,7 +30,7 @@ class RaidEventRepository extends ServiceEntityRepository
     public function findEventsInGivenMonth(DateTimeInterface $start, DateTimeInterface $end): array
     {
         $qb = $this->createQueryBuilder('e')
-            ->andWhere('e.start > :start AND e.end < :end')
+            ->andWhere('e.start > :start AND e.start < :end')
             ->setParameter('start', $start)
             ->setParameter('end', $end)
             ->getQuery();

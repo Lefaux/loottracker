@@ -39,7 +39,7 @@ class CalendarListener
             $calendar->addEvent(new Event(
                 $event->getTitle(),
                 $event->getStart(),
-                $event->getEnd(),
+                $event->getStart(),
                 [
                     'url' => $this->router->generate('raid_signup', ['event' => $event->getId()])
                 ]

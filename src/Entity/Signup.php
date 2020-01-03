@@ -38,11 +38,6 @@ class Signup
      */
     private $signedUp;
 
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $confirmed;
-
     public function __toString()
     {
         return '';
@@ -97,18 +92,6 @@ class Signup
     public function setSignedUp(?int $signedUp): self
     {
         $this->signedUp = $signedUp;
-
-        return $this;
-    }
-
-    public function getConfirmed(): ?bool
-    {
-        return $this->confirmed;
-    }
-
-    public function setConfirmed(bool $confirmed): self
-    {
-        $this->confirmed = $confirmed;
 
         return $this;
     }
