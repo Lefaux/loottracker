@@ -130,7 +130,6 @@ class RaidSignupController extends AbstractController
             $signUp = new Signup();
             $signUp->setPlayerName($character);
             $signUp->setRaidEvent($event);
-            $signUp->setConfirmed(false);
         }
         $signUp->setSignedUp($status);
         $this->entityManager->persist($signUp);
