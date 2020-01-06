@@ -22,6 +22,16 @@
                 <div class="col-sm-6">
                     {% if bisItems is defined %}
                         <h5>{% trans %}Players with need{% endtrans %}</h5>
+                        <nav aria-label="Page navigation example">
+                            <ul class="pagination">
+                                <li class="page-item disabled"><a class="page-link" href="#"> FILTER</a></li>
+                                <li class="page-item{% if class == 0 %} active{% endif %}"><a class="page-link" href="{{ path('bis_need_by_zone', {zoneId: zone, class: 0}) }}">All</a></li>
+                                {% for i in 1..7 %}
+                                    <li class="page-item{% if class == i %} active{% endif %}"><a class="page-link" href="{{ path('bis_need_by_zone', {zoneId: zone, class: i}) }}"><img src="{{ asset('assets/icons/class_'~i~'.png') }}" height="16"></a></li>
+                                {% endfor %}
+                                <li class="page-item{% if class == 9 %} active{% endif %}"><a class="page-link" href="{{ path('bis_need_by_zone', {zoneId: zone, class: 9}) }}"><img src="{{ asset('assets/icons/class_9.png') }}" height="16"></a></li>
+                            </ul>
+                        </nav>
                         <ul class="list-group">
                         {% for bisEntry in bisItems %}
                             <li class="list-group-item">

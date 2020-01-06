@@ -189,8 +189,12 @@ class BestInSlotController extends AbstractController
     public function needByZone($zoneId, WowSpecUtility $wowSpecUtility, WoWZoneUtility $wowZoneUtility): Response
     {
         $bisItems = null;
+        $class = 0;
+        if (isset($_GET['class'])) {
+            $class = (int)$_GET['class'];
+        }
         if ((int)$zoneId > 0) {
-            $bisItems = $this->bisRepository->findItemsByZoneId($zoneId);
+            $bisItems = $this->bisRepository->findItemsByZoneId($zoneId, $class);
         }
         $items = $this->bisRepository->findItemsByZone();
         return $this->render('best_in_slot/need-by-zone.html.twig', [
@@ -198,7 +202,8 @@ class BestInSlotController extends AbstractController
             'specs' => $wowSpecUtility,
             'items' => $items,
             'bisItems' => $bisItems,
-            'zone' => $zoneId
+            'zone' => $zoneId,
+            'class' => $class
         ]);
     }
 }

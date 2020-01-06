@@ -75,15 +75,19 @@ GROUP BY i.zone
         return $output;
     }
 
-    public function findItemsByZoneId(int $zoneId): array
+    public function findItemsByZoneId(int $zoneId, int $charClass = 0): array
     {
         $output = [];
+        $constraint = '';
         $qb = $this->createQueryBuilder('bis');
+        if ($charClass > 0) {
+            $constraint = ' AND c.class = '.(int)$charClass;
+        }
         $query = $qb
             ->select('bis')
             ->innerJoin('bis.item', 'i')
             ->innerJoin('bis.playerCharacter', 'c')
-            ->where('bis.hasItem = 0 AND i.zone = :zone AND c.hidden = 0')
+            ->where('bis.hasItem = 0 AND i.zone = :zone AND c.hidden = 0' . $constraint)
             ->groupBy('i.id')
             ->setParameter('zone', $zoneId)
             ->getQuery();
