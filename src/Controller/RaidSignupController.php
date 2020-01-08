@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Character;
 use App\Entity\RaidEvent;
 use App\Entity\Signup;
+use App\Entity\User;
 use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\SignupRepository;
@@ -38,13 +39,18 @@ class RaidSignupController extends AbstractController
      * @var WoWZoneUtility
      */
     private $zoneUtility;
+    /**
+     * @var SignUpService
+     */
+    private $signUpService;
 
     public function __construct(
         RaidEventRepository $raidEventRepository,
         CharacterRepository $characterRepository,
         SignupRepository $signUpRepository,
         EntityManagerInterface $entityManager,
-        WoWZoneUtility $zoneUtility
+        WoWZoneUtility $zoneUtility,
+        SignUpService $signUpService
     )
     {
         $this->characterRepository = $characterRepository;
@@ -52,6 +58,7 @@ class RaidSignupController extends AbstractController
         $this->signUpRepository = $signUpRepository;
         $this->entityManager = $entityManager;
         $this->zoneUtility = $zoneUtility;
+        $this->signUpService = $signUpService;
     }
 
     /**
@@ -134,6 +141,41 @@ class RaidSignupController extends AbstractController
         $signUp->setSignedUp($status);
         $this->entityManager->persist($signUp);
         $this->entityManager->flush();
+    }
+
+    /**
+     * @Route("/raid/signup/cancelbyclass/{class?}", name="raid_signup_cancelbyclass")
+     * @param int $class
+     * @return Response
+     */
+    public function listNoFeedbackByClassAction($class = 0): Response
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if (!$user->hasRole('ROLE_RAIDMANAGER')) {
+            return $this->redirectToRoute('fos_user_security_login');
+        }
+        $raids = [];
+        $class = (int)$class;
+        $raidSignUps = $this->raidEventRepository->findEventsAndSignUps();
+        foreach ($raidSignUps as $index => $raid) {
+            $event = $this->raidEventRepository->find($raid['id']);
+            if ($event) {
+                $signUpData = $this->signUpService->classifySignUpsByRaid($event);
+                /** @var Character $player */
+                foreach ($signUpData['noFeedback'] as $player) {
+                    if ($player->getClass() === $class) {
+                        $raids[$index]['noFeedback'][] = $player;
+                        $raids[$index]['event'] = $event;
+                    }
+                }
+
+            }
+        }
+        return $this->render('raid_signup/cancelbyclass.html.twig', [
+            'class' => $class,
+            'raids' => $raids
+        ]);
     }
 
 }

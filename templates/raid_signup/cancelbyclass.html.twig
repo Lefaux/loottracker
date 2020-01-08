@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/macros.html.twig' as macros %}
+{% block title %}{% trans %}No Feedback{% endtrans %}{% endblock %}
+
+{% block body %}
+    <div class="content-section bg-transparent">
+        <div class="container">
+            <h1>Missing Feedback for Raids</h1>
+            <div class="row">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination pagination-lg">
+                        <li class="page-item disabled"><a class="page-link" href="#"> Select Class</a></li>
+                        {% for i in 1..7 %}
+                            <li class="page-item{% if class == i %} active{% endif %}"><a class="page-link" href="{{ path('raid_signup_cancelbyclass', {class: i}) }}"><img src="{{ asset('assets/icons/class_'~i~'.png') }}" height="28"></a></li>
+                        {% endfor %}
+                        <li class="page-item{% if class == 9 %} active{% endif %}"><a class="page-link" href="{{ path('raid_signup_cancelbyclass', {class: 9}) }}"><img src="{{ asset('assets/icons/class_9.png') }}" height="28"></a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="row">
+                {% for raid in raids %}
+                    <div class="col-lg-3 col-md-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ raid.event.title }} {{ raid.event.start|date('D, d.m.Y') }}</h5>
+                                <ul class="groupbuilder-list">
+                                    {% for player in raid.noFeedback %}
+                                        <li class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}">
+                                            {% if player.spec == 1 %}
+                                                <i class="fa fa-fw fa-shield-alt"></i>
+                                            {% elseif player.spec == 2 %}
+                                                <i class="fa fa-fw fa-band-aid"></i>
+                                            {% elseif player.spec == 3 %}
+                                                <i class="fa fa-fw fa-skull-crossbones"></i>
+                                            {% endif %}
+                                            <small>{{ player.name }}</small>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

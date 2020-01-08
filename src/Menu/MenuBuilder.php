@@ -106,6 +106,18 @@ class MenuBuilder
                 ],
             ]
         );
+        if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER')) {
+            $menu['raids']->addChild(
+                'raid_signup_cancelbyclass',
+                [
+                    'label' => 'Missing Feedback',
+                    'route' => 'raid_signup_cancelbyclass',
+                    'extras' => [
+                        'icon' => 'comment-slash',
+                    ],
+                ]
+            );
+        }
         $menu->addChild(
             'roster',
             [
