@@ -152,7 +152,7 @@ class RaidSignupController extends AbstractController
     {
         /** @var User $user */
         $user = $this->getUser();
-        if (!$user->hasRole('ROLE_RAIDMANAGER')) {
+        if (!$user || !$user->hasRole('ROLE_RAIDMANAGER')) {
             return $this->redirectToRoute('fos_user_security_login');
         }
         $raids = [];
