@@ -41,7 +41,7 @@ class RaidEventRepository extends ServiceEntityRepository
     public function findEventsAndSignUps()
     {
         $output = [];
-        $now = new \DateTime();
+        $now = new \DateTime('yesterday');
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
 SELECT
