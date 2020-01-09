@@ -503,6 +503,9 @@
     "twig/twig": {
         "version": "v2.11.3"
     },
+    "woeler/phpdiscord": {
+        "version": "v1.1.1"
+    },
     "zendframework/zend-code": {
         "version": "3.3.1"
     },
