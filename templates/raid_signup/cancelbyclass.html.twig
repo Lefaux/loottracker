@@ -22,18 +22,18 @@
                     <div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="card">
                             <div class="card-body">
-                                <h5 class="card-title">{{ raid.event.title }} {{ raid.event.start|date('D, d.m.Y') }}</h5>
+                                <h5 class="card-title">{{ raid.event.title }} {{ raid.event.start|date('D, d.m.Y') }} <small>(ID: {{ raid.event.id }})</small></h5>
                                 <ul class="groupbuilder-list">
                                     {% for player in raid.noFeedback %}
                                         <li class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}">
                                             {% if player.spec == 1 %}
-                                                <i class="fa fa-fw fa-shield-alt"></i>
+                                                <i class="fa fa-fw fa-shield-alt" title="ID: {{ player.id }}"></i>
                                             {% elseif player.spec == 2 %}
-                                                <i class="fa fa-fw fa-band-aid"></i>
+                                                <i class="fa fa-fw fa-band-aid" title="ID: {{ player.id }}"></i>
                                             {% elseif player.spec == 3 %}
-                                                <i class="fa fa-fw fa-skull-crossbones"></i>
+                                                <i class="fa fa-fw fa-skull-crossbones" title="ID: {{ player.id }}"></i>
                                             {% endif %}
-                                            <small>{{ player.name }}</small>
+                                            <small title="ID: {{ player.id }}">{{ player.name }}</small>
                                         </li>
                                     {% endfor %}
                                 </ul>
