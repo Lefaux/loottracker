@@ -34,7 +34,7 @@ class User extends BaseUser
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $discordHandle;
+    private $discordId;
 
     public function __construct()
     {
@@ -86,15 +86,20 @@ class User extends BaseUser
         return $this;
     }
 
-    public function getDiscordHandle(): ?string
+    public function getDiscordId(): ?string
     {
-        return $this->discordHandle;
+        return $this->discordId;
     }
 
-    public function setDiscordHandle(string $discordHandle): self
+    public function setDiscordId(?string $discordId): self
     {
-        $this->discordHandle = $discordHandle;
+        $this->discordId = $discordId;
 
         return $this;
+    }
+
+    public function getDiscordMention(): string
+    {
+        return '<@' . $this->discordId . '>';
     }
 }

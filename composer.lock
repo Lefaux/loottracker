@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "13615bf2b46118d09709a38dcb1329bd",
+    "content-hash": "7dd8a1e4845dc10d8b997b4118ebc543",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -6335,6 +6335,44 @@
             "time": "2019-11-11T16:52:09+00:00"
         },
         {
+            "name": "woeler/phpdiscord",
+            "version": "v1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Woeler/discord-php.git",
+                "reference": "1f25878610a16fe80be5e06c53359bd50d6d42b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Woeler/discord-php/zipball/1f25878610a16fe80be5e06c53359bd50d6d42b2",
+                "reference": "1f25878610a16fe80be5e06c53359bd50d6d42b2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=7.0.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Woeler\\DiscordPhp\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Woeler",
+                    "email": "woeler@woeler.eu"
+                }
+            ],
+            "description": "A php library to use Discord webhooks and embeds.",
+            "time": "2019-11-25T08:53:30+00:00"
+        },
+        {
             "name": "zendframework/zend-code",
             "version": "3.4.0",
             "source": {
@@ -6385,6 +6423,7 @@
                 "code",
                 "zf"
             ],
+            "abandoned": "laminas/laminas-code",
             "time": "2019-10-05T23:18:22+00:00"
         },
         {
@@ -6439,6 +6478,7 @@
                 "events",
                 "zf2"
             ],
+            "abandoned": "laminas/laminas-eventmanager",
             "time": "2018-04-25T15:33:34+00:00"
         }
     ],

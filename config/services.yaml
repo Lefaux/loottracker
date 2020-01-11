@@ -63,3 +63,13 @@ services:
             - name: doctrine.orm.entity_listener
               event: postPersist
               entity: App\Entity\Loot
+    App\Client\DiscordClient:
+        class: App\Client\DiscordClient
+        arguments:
+            $config:
+                base_uri: 'https://discordapp.com/api/'
+    App\Service\DiscordBotService:
+        class: App\Service\DiscordBotService
+        public: true
+        arguments:
+            $botToken: '%env(DISCORD_BOT_TOKEN)%'

@@ -26,7 +26,8 @@
         "symfony/webpack-encore-bundle": "^1.6",
         "symfony/yaml": "4.3.*",
         "tattali/calendar-bundle": "^1.1",
-        "tetranz/select2entity-bundle": "^3.0"
+        "tetranz/select2entity-bundle": "^3.0",
+        "woeler/phpdiscord": "^1.1"
     },
     "require-dev": {
         "deployer/deployer": "^6.5",
