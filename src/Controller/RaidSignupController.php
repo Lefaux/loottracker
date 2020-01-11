@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\SignupRepository;
+use App\Service\DiscordBotService;
 use App\Service\SignUpService;
 use App\Utility\WoWZoneUtility;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Woeler\DiscordPhp\Message\DiscordEmbedsMessage;
 
 class RaidSignupController extends AbstractController
 {
@@ -145,10 +147,11 @@ class RaidSignupController extends AbstractController
 
     /**
      * @Route("/raid/signup/cancelbyclass/{class?}", name="raid_signup_cancelbyclass")
+     * @param DiscordBotService $discordBotService
      * @param int $class
      * @return Response
      */
-    public function listNoFeedbackByClassAction($class = 0): Response
+    public function listNoFeedbackByClassAction(DiscordBotService $discordBotService, $class = 0): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -156,6 +159,7 @@ class RaidSignupController extends AbstractController
             return $this->redirectToRoute('fos_user_security_login');
         }
         $raids = [];
+        $usersToMention = [];
         $class = (int)$class;
         $raidSignUps = $this->raidEventRepository->findEventsAndSignUps();
         foreach ($raidSignUps as $index => $raid) {
@@ -166,12 +170,29 @@ class RaidSignupController extends AbstractController
                 foreach ($signUpData['noFeedback'] as $player) {
                     if ($player->getClass() === $class) {
                         $raids[$index]['noFeedback'][] = $player;
+                        if ($player->getAccount()) {
+                            $usersToMention[$player->getAccount()->getDiscordMention()][] = $player;
+                        }
                         $raids[$index]['event'] = $event;
                     }
                 }
 
             }
         }
+        // send nag
+        $description = '';
+        foreach ($usersToMention as $mention => $playerToMention) {
+            $description .= 'Hier fehlen noch Anmeldungen von ' . $mention . PHP_EOL;
+        }
+
+
+        $message = new DiscordEmbedsMessage();
+        $message->setTitle('You did not sign up!');
+        $message->setAuthorName('Askeria Nag Bot');
+        $message->setDescription('
+        Test! '. PHP_EOL . $description);
+        //@todo configure channel IDs
+//        $discordBotService->sendMessage('624921527724408842', $message);
         return $this->render('raid_signup/cancelbyclass.html.twig', [
             'class' => $class,
             'raids' => $raids
