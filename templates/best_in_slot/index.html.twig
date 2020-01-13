@@ -42,7 +42,7 @@
                                 {% elseif character.char.spec == 3 %}
                                     <i class="fa fa-fw fa-skull-crossbones"></i>
                                 {% endif %}
-                                <a href="{{ path('character', {'charId': character.char.id}) }}">{{ character.char.name }}</a>
+                                <a class="link-{{ character.char.class }}" href="{{ path('character', {'charId': character.char.id}) }}">{{ character.char.name }}</a>
                                 <br><small>{{ raceUtility.raceName(character.char.race) }}</small>
                             </td>
                             <td class="bis-list-odd">{{ macros.itemicon(character.bisList, 1, 1, wowheaddomain) }}</td>

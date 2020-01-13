@@ -152,7 +152,11 @@ $(function () {
         </td>
     </tr>`;
         for (let rank in responseCode[entry].need) {
-          let players = responseCode[entry].need[rank].join(', ');
+          let playerArray = [];
+          for (let character of responseCode[entry].need[rank]) {
+            playerArray.push(`<a href="/character/${character.id}" class="link-${character.class}" target="_blank">${character.name}</a>`);
+          }
+          let players = playerArray.join(', ');
           let fullBadge = '';
           let lineColor = '';
           switch(rank) {
@@ -180,9 +184,9 @@ $(function () {
               fullBadge = '<i class="fa fa-fw fa-question-circle" style="color: #ff00ff" title="unclear"></i>';
           }
           nodeContent = nodeContent + `
-          <tr style="background-color: ${lineColor}">
+          <tr>
             <td>${fullBadge}</td>
-            <td><small>${players}</small></td>
+            <td width="99%"><small>${players}</small></td>
           </tr>
           `;
         }

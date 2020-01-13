@@ -25,9 +25,9 @@
 @import "~selectize/dist/css/selectize.bootstrap3.css";
 
 
-.autocomplete-suggestions { border: 1px solid #999; background: #FFF; overflow: auto; }
+.autocomplete-suggestions { border: 1px solid #999; background: $gray-800; overflow: auto; }
 .autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
-.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-selected { background: $gray-700; }
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000;}
@@ -65,3 +65,34 @@
   width: 24px;
 }
 
+a.link-1 {
+  color: $color-warrior;
+}
+
+a.link-2 {
+  color: $color-priest;
+}
+
+a.link-3 {
+  color: $color-mage;
+}
+
+a.link-4 {
+  color: $color-warlock;
+}
+
+a.link-5 {
+  color: $color-rogue;
+}
+
+a.link-6 {
+  color: $color-druid;
+}
+
+a.link-7 {
+  color: $color-hunter;
+}
+
+a.link-9 {
+  color: $color-paladin;
+}

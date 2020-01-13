@@ -26,7 +26,8 @@
                                 {% elseif bisEntry.playerCharacter.spec == 3 %}
                                     <i class="fa fa-fw fa-skull-crossbones"></i>
                                 {% endif %}
-                                {{ bisEntry.playerCharacter.name }}<br><small>{{ raceUtility.raceName(bisEntry.playerCharacter.race) }}</small></li>
+                                <a class="link-{{ bisEntry.playerCharacter.class }}" href="{{ path('character', {'charId': bisEntry.playerCharacter.id}) }}">{{ bisEntry.playerCharacter.name }}</a>
+                                </li>
                         {% endfor %}
                     </ul>
                 </div>

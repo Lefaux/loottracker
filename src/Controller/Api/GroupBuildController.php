@@ -121,7 +121,14 @@ class GroupBuildController extends AbstractController
             $bisItems[$item['id']]['item']['name'] = $item['name'];
             $playerIdArray = explode(',', $item['characterIds']);
             foreach ($playerIdArray as $charId) {
-                $bisItems[$item['id']]['need'][$rank][] = $characterRepository->find($charId)->getName();
+                $character = $characterRepository->find($charId);
+                if ($character) {
+                    $bisItems[$item['id']]['need'][$rank][] = [
+                        'id' => $character->getId(),
+                        'class' => $character->getClass(),
+                        'name' => $character->getName()
+                    ];
+                }
             }
         }
         return $this->json($bisItems);

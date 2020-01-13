@@ -13,6 +13,22 @@ $gray-800:  #424242;
 $gray-900:  #2D2D2D;
 $black:     #191919;
 
+$list-group-bg: #000;
+$list-group-color: #ddd;
+//$list-group-active-color: #ff00ff;
+$list-group-active-bg: #222;
+$pagination-bg: #000;
+$pagination-hover-bg: #222;
+$pagination-border-color: lighten($pagination-bg, 30);
+$pagination-disabled-border-color: lighten($pagination-bg, 30);
+$pagination-disabled-bg: #222;
+$card-bg: $list-group-bg;
+$table-bg-level:              9 !default;
+$table-border-level:          6 !default;
+
+$body-bg: #000;
+$body-color: #ddd;
+
 $primary: #ae0010;
 $secondary: #c24147;
 $success:   #37BD74;
@@ -28,9 +44,9 @@ $theme-colors: (
     warning: $warning,
     danger: $danger,
     notice: #efefef,
-    default: $white,
-    light: $gray-100,
-    shaded: $gray-200,
+    default: #ff00ff,
+    light: $gray-900,
+    shaded: $gray-800,
     dark: $gray-900,
     darkest: $secondary
 );

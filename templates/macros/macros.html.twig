@@ -16,6 +16,20 @@
     {% endif %}
 {% endmacro %}
 
+{% macro itemiconAbbreviation(slot, slotNumber, priority, wowheaddomain, size='small') %}
+    {% if slot[slotNumber][priority] is not null %}
+        {% if slot[slotNumber][priority].hasItem %}
+            <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="{{size}}">{{ slot[slotNumber][priority].item.abbreviation }}</a>
+        {% else %}
+            <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="{{size}}" style="color:#444444 !important;">{{ slot[slotNumber][priority].item.abbreviation }}</a>
+        {% endif %}
+    {% else %}
+        <div class="bis-list-icon blank bis-icon-{{ size }}">
+            &nbsp;
+        </div>
+    {% endif %}
+{% endmacro %}
+
 {% macro itemDisplay(priority, bisEntry, slotId, character, wowheaddomain) %}
     <div class="card mt-0">
         <div class="card-body">
@@ -61,7 +75,7 @@
 
 {% macro bisSelection(character, slot, activeSlot, slotUtility, bisItems, wowheaddomain) %}
     {% import _self as itemIcons %}
-    <li class="list-group-item {% if slot == activeSlot %} list-group-item-secondary{% endif %}">
+    <li class="list-group-item {% if slot == activeSlot %} active{% endif %}">
         <div class="d-flex justify-content-between">
             <div class="p-2 bd-highlight">
                 <a class="btn btn-outline-primary btn-block" title="{{ slotUtility.slotName(slot)}}" href="{{ path('character_bislist', {'charId': character, 'slotId': slot}) }}">{{ slotUtility.slotName(slot)}}</a>

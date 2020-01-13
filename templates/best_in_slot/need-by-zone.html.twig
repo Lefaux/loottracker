@@ -47,7 +47,7 @@
                                     {% endif %}
                                     <small>
                                     {% for player in playersInSpec %}
-                                        <a href="{{ path('character', {'charId': player.id}) }}">{{ player.name }}</a>{% if not loop.last %}, {% endif %}
+                                        <a class="link-{{ player.class }}" href="{{ path('character', {'charId': player.id}) }}">{{ player.name }}</a>{% if not loop.last %}, {% endif %}
                                     {% endfor %}
                                     </small><br>
                                 {% endfor %}

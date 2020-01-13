@@ -9,16 +9,16 @@ $color-paladin: #F58CBA;
 .groupbuilder-list, .groupbuilder-raidgroup {
   padding-left: 0;
   min-height: 162px;
-  border: 1px solid $gray-200;
+  border: 1px solid $gray-900;
 }
 
 .raid-group-block {
   margin-left: 5px;
-  border: 1px solid $gray-200;
+  border: 1px solid $gray-900;
 }
 
 .drag-background {
-  background-color: $gray-200;
+  background-color: $gray-900;
 }
 
 .handle {
@@ -49,68 +49,49 @@ td.counter {
 .class-1 {
   background-color: $color-warrior;
   border-color: darken($color-warrior, 20);
-  color: black;
-  i {
-    color: darken($color-warrior, 20);
-  }
+  color: darken($color-warrior, 30);
 }
 
 .class-2 {
   background-color: $color-priest;
   border-color: darken($color-priest, 20);
-  i {
-    color: darken($color-priest, 20);
-  }
+  color: darken($color-priest, 70);
 }
 
 .class-3 {
   background-color: $color-mage;
   border-color: darken($color-mage, 20);
-  i {
-    color: darken($color-mage, 20);
-  }
+  color: darken($color-mage, 30);
 }
 
 .class-4 {
   background-color: $color-warlock;
   border-color: darken($color-warlock, 20);
-  color: black;
-  i {
-    color: darken($color-warlock, 20);
-  }
+  color: darken($color-warlock, 30);
 }
 
 .class-5 {
   background-color: $color-rogue;
   border-color: darken($color-rogue, 40);
-  i {
-    color: darken($color-rogue, 40);
-  }
+  color: darken($color-rogue, 50);
 }
 
 .class-6 {
   background-color: $color-druid;
   border-color: darken($color-druid, 20);
-  color: black;
-  i {
-    color: darken($color-druid, 20);
-  }
+  color: darken($color-druid, 30);
 }
 
 .class-7 {
   background-color: $color-hunter;
   border-color: darken($color-hunter, 20);
-  i {
-    color: darken($color-hunter, 20);
-  }
+  color: darken($color-hunter, 30);
 }
 
 .class-9 {
   background-color: $color-paladin;
   border-color: darken($color-paladin, 20);
-  i {
-    color: darken($color-paladin, 20);
-  }
+  color: darken($color-paladin, 30);
 }
 
 

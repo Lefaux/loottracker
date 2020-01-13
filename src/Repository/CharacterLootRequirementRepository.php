@@ -61,8 +61,9 @@ ORDER BY amount DESC
 SELECT 
     count(bis.id) as amount, i.zone
 FROM `character_loot_requirement` bis 
-    INNER JOIN item i on i.id = bis.item_id 
-WHERE bis.has_item = 0 AND i.zone IS NOT NULL ' . $charConstraint .'
+    INNER JOIN item i on i.id = bis.item_id
+    INNER JOIN characters c on bis.player_character_id = c.id
+WHERE c.hidden = 0 AND bis.has_item = 0 AND i.zone IS NOT NULL ' . $charConstraint .'
 GROUP BY i.zone
             ';
         try {
