@@ -172,6 +172,11 @@ class RaidSignupController extends AbstractController
                 foreach ($signUpData['noFeedback'] as $player) {
                     if ($player->getClass() === $class) {
                         $raids[$index]['noFeedback'][] = $player;
+                        if ($player->getAccount() && $player->getAccount()->getDiscordId()) {
+                            $raids[$index]['noFeedbackMentions'][] = $player->getAccount()->getDiscordMention();
+                        } elseif ($player->getAccount()) {
+                            $raids[$index]['noFeedbackMentions'][] = $player->getAccount()->getUsername();
+                        }
                         $raids[$index]['event'] = $event;
                     }
                 }
@@ -190,19 +195,21 @@ class RaidSignupController extends AbstractController
                 }
                 $discordRaids[] = $raids[str_replace('raid_', '', $key)];
             }
-            $description = '';
-            foreach ($discordRaids as $raid) {
-                $description .= '*'.$raid['event']->__toString().'*'.PHP_EOL;
-                $description .= 'Missing signups from: '.implode(', ', $raid['noFeedback']).PHP_EOL.PHP_EOL;
-            }
+            if (count($discordRaids) !== 0) {
+                $description = '';
+                foreach ($discordRaids as $raid) {
+                    $description .= '*' . $raid['event']->__toString() . '*' . PHP_EOL;
+                    $description .= 'Missing signups from: ' . implode(', ', $raid['noFeedbackMentions'] ?? []) . PHP_EOL . PHP_EOL;
+                }
 
-            $message = new DiscordTextMessage();
-            $message->setContent($description);
-            try {
-                $discordBotService->sendMessage('624921527724408842', $message);
-                $this->addFlash('success', 'Discord message sent');
-            } catch (UnexpectedDiscordApiResponseException $e) {
-                $this->addFlash('danger', 'Failed to send Discord message');
+                $message = new DiscordTextMessage();
+                $message->setContent($description);
+                try {
+                    $discordBotService->sendMessage('632560076284100619', $message);
+                    $this->addFlash('success', 'Discord message sent');
+                } catch (UnexpectedDiscordApiResponseException $e) {
+                    $this->addFlash('danger', 'Failed to send Discord message');
+                }
             }
         }
 

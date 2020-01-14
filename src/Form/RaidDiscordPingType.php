@@ -23,10 +23,10 @@ class RaidDiscordPingType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        foreach ($options['raids'] as $raid) {
+        foreach ($options['raids'] as $key => $raid) {
             $builder
                 ->add(
-                    'raid_'.$raid['event']->getId(),
+                    'raid_'.$key,
                     CheckboxType::class,
                     [
                         'required' => false,
