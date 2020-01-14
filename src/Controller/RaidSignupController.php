@@ -6,6 +6,8 @@ use App\Entity\Character;
 use App\Entity\RaidEvent;
 use App\Entity\Signup;
 use App\Entity\User;
+use App\Exception\UnexpectedDiscordApiResponseException;
+use App\Form\RaidDiscordPingType;
 use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\SignupRepository;
@@ -18,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Woeler\DiscordPhp\Message\DiscordEmbedsMessage;
+use Woeler\DiscordPhp\Message\DiscordTextMessage;
 
 class RaidSignupController extends AbstractController
 {
@@ -147,11 +150,11 @@ class RaidSignupController extends AbstractController
 
     /**
      * @Route("/raid/signup/cancelbyclass/{class?}", name="raid_signup_cancelbyclass")
-     * @param DiscordBotService $discordBotService
+     * @param Request $request
      * @param int $class
      * @return Response
      */
-    public function listNoFeedbackByClassAction(DiscordBotService $discordBotService, $class = 0): Response
+    public function listNoFeedbackByClassAction(Request $request, DiscordBotService $discordBotService, $class = 0): Response
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -159,7 +162,6 @@ class RaidSignupController extends AbstractController
             return $this->redirectToRoute('fos_user_security_login');
         }
         $raids = [];
-        $usersToMention = [];
         $class = (int)$class;
         $raidSignUps = $this->raidEventRepository->findEventsAndSignUps();
         foreach ($raidSignUps as $index => $raid) {
@@ -170,33 +172,44 @@ class RaidSignupController extends AbstractController
                 foreach ($signUpData['noFeedback'] as $player) {
                     if ($player->getClass() === $class) {
                         $raids[$index]['noFeedback'][] = $player;
-                        if ($player->getAccount()) {
-                            $usersToMention[$player->getAccount()->getDiscordMention()][] = $player;
-                        }
                         $raids[$index]['event'] = $event;
                     }
                 }
 
             }
         }
-        // send nag
-        $description = '';
-        foreach ($usersToMention as $mention => $playerToMention) {
-            $description .= 'Hier fehlen noch Anmeldungen von ' . $mention . PHP_EOL;
+
+        // Discord logic
+        $form = $this->createForm(RaidDiscordPingType::class, null, ['raids' => $raids]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $discordRaids = [];
+            foreach ($form->getData() as $key => $value) {
+                if (true !== $value) {
+                    continue;
+                }
+                $discordRaids[] = $raids[str_replace('raid_', '', $key)];
+            }
+            $description = '';
+            foreach ($discordRaids as $raid) {
+                $description .= '*'.$raid['event']->__toString().'*'.PHP_EOL;
+                $description .= 'Missing signups from: '.implode(', ', $raid['noFeedback']).PHP_EOL.PHP_EOL;
+            }
+
+            $message = new DiscordTextMessage();
+            $message->setContent($description);
+            try {
+                $discordBotService->sendMessage('624921527724408842', $message);
+                $this->addFlash('success', 'Discord message sent');
+            } catch (UnexpectedDiscordApiResponseException $e) {
+                $this->addFlash('danger', 'Failed to send Discord message');
+            }
         }
 
-
-        $message = new DiscordEmbedsMessage();
-        $message->setTitle('You did not sign up!');
-        $message->setAuthorName('Askeria Nag Bot');
-        $message->setDescription('
-        Test! '. PHP_EOL . $description);
-        //@todo configure channel IDs
-//        $discordBotService->sendMessage('624921527724408842', $message);
         return $this->render('raid_signup/cancelbyclass.html.twig', [
             'class' => $class,
-            'raids' => $raids
+            'raids' => $raids,
+            'form' => $form->createView()
         ]);
     }
-
 }
