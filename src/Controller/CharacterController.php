@@ -235,6 +235,15 @@ class CharacterController extends AbstractController
                 1 => null,
                 2 => null,
                 3 => null,
+                31 => null,
+                32 => null,
+                33 => null,
+                41 => null,
+                42 => null,
+                43 => null,
+                51 => null,
+                52 => null,
+                53 => null,
             ];
         }
         foreach ($items as $item) {
@@ -271,6 +280,15 @@ class CharacterController extends AbstractController
         $this->processBisItem($bisItem[1], 1, $charId, $slot);
         $this->processBisItem($bisItem[2], 2, $charId, $slot);
         $this->processBisItem($bisItem[3], 3, $charId, $slot);
+        $this->processBisItem($bisItem[31], 31, $charId, $slot);
+        $this->processBisItem($bisItem[32], 32, $charId, $slot);
+        $this->processBisItem($bisItem[33], 33, $charId, $slot);
+        $this->processBisItem($bisItem[41], 41, $charId, $slot);
+        $this->processBisItem($bisItem[42], 42, $charId, $slot);
+        $this->processBisItem($bisItem[43], 43, $charId, $slot);
+        $this->processBisItem($bisItem[51], 51, $charId, $slot);
+        $this->processBisItem($bisItem[52], 52, $charId, $slot);
+        $this->processBisItem($bisItem[53], 53, $charId, $slot);
         return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
     }
 

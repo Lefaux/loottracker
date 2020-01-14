@@ -24,10 +24,32 @@
                     {% else %}
                         <form action="{{ path('save_bis', {charId: character.id, slot: slotId}) }}" method="post">
                         <h3 id="slots" data-slotids="{{ slotId }}">{{ slotUtility.slotName(slotId) }}</h3>
+                        <h4>Phase 1</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(1, bisItems[slotId].1, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(2, bisItems[slotId].2, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(3, bisItems[slotId].3, slotId, character.id, wowheaddomain) }}
+                        </div>
+                        <hr>
+                        <h4>Phase 3</h4>
+                        <div class="card-deck">
+                            {{ macros.itemDisplay(31, bisItems[slotId].31, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(32, bisItems[slotId].32, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(33, bisItems[slotId].33, slotId, character.id, wowheaddomain) }}
+                        </div>
+                        <hr>
+                        <h4>Phase 4</h4>
+                        <div class="card-deck">
+                            {{ macros.itemDisplay(41, bisItems[slotId].41, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(42, bisItems[slotId].42, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(43, bisItems[slotId].43, slotId, character.id, wowheaddomain) }}
+                        </div>
+                        <hr>
+                        <h4>Phase 5</h4>
+                        <div class="card-deck">
+                            {{ macros.itemDisplay(51, bisItems[slotId].51, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(52, bisItems[slotId].52, slotId, character.id, wowheaddomain) }}
+                            {{ macros.itemDisplay(53, bisItems[slotId].53, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
                         <input type="submit" class="btn btn-success" value="{% trans %}Save{% endtrans %}">

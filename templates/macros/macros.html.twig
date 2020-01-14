@@ -81,9 +81,32 @@
                 <a class="btn btn-outline-primary btn-block" title="{{ slotUtility.slotName(slot)}}" href="{{ path('character_bislist', {'charId': character, 'slotId': slot}) }}">{{ slotUtility.slotName(slot)}}</a>
             </div>
             <div class="p-2 bd-highlight d-flex">
-                <div class="mr-1">{{ itemIcons.itemicon(bisItems, slot, 1, wowheaddomain, 'medium') }}</div>
-                <div class="mr-1">{{ itemIcons.itemicon(bisItems, slot, 2, wowheaddomain, 'medium') }}</div>
-                <div class="">{{ itemIcons.itemicon(bisItems, slot, 3, wowheaddomain, 'medium') }}</div>
+                <table class="table table-sm table-borderless">
+                    <tr>
+                        <td>P1</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 1, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 2, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 3, wowheaddomain, 'medium') }}</td>
+                    </tr>
+                    <tr>
+                        <td>P3</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 31, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 32, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 33, wowheaddomain, 'medium') }}</td>
+                    </tr>
+                    <tr>
+                        <td>P4</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 41, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 42, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 43, wowheaddomain, 'medium') }}</td>
+                    </tr>
+                    <tr>
+                        <td>P5</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 51, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 52, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 53, wowheaddomain, 'medium') }}</td>
+                    </tr>
+                </table>
             </div>
         </div>
     </li>
