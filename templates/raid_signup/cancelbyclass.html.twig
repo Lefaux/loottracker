@@ -5,6 +5,10 @@
 {% block body %}
     <div class="content-section bg-transparent">
         <div class="container">
+            {{ form_start(form) }}
+            <div class="float-right">
+                {{ form_widget(form.submit) }}
+            </div>
             <h1>Missing Feedback for Raids</h1>
             <div class="row">
                 <nav aria-label="Page navigation example">
@@ -17,8 +21,17 @@
                     </ul>
                 </nav>
             </div>
+            {% if accountsWithoutDiscordHandles|length > 0 %}
+                <div class="row">
+                    <p>Accounts without Discord ID:
+                        {% for account in accountsWithoutDiscordHandles %}
+                    {{ account }},
+                {% endfor %}
+                    </p>
+                </div>
+            {% endif %}
             <div class="row">
-                {% for raid in raids %}
+                {% for raidId, raid in raids %}
                     <div class="col-lg-3 col-md-4 col-sm-12">
                         <div class="card">
                             <div class="card-body">
@@ -37,11 +50,13 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
+                                {{ form_widget(attribute(form, 'raid_'~raidId)) }} Ping people on discord
                             </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
+            {{ form_end(form) }}
         </div>
     </div>
 {% endblock %}
