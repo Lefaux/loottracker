@@ -42,7 +42,7 @@
             <hr>
             <div class="row">
                 <div class="col-sm-6 col-md-2">
-                    <h4><span id="unassigned-players">{{ signUps|length }}</span> unassigned</h4>
+                    <h6><span id="unassigned-players">{{ signUps|length }}</span> unassigned</h6>
                     <ul class="groupbuilder-list unsorted-players">
                         {% for signup in signUps %}
                             <li
@@ -128,14 +128,14 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-2">
-                    <h4>Item need</h4>
+                    <h6>Item need</h6>
                     <table id="item-need" class="table table-sm">
 
                     </table>
                     <a class="btn btn-info" id="load-bis-info">Load Items</a>
                 </div>
                 <div class="col-sm-6 col-md-2">
-                    <h4>{{ cancellations|length }} Cancellations</h4>
+                    <h6>{{ cancellations|length }} Cancellations</h6>
                     <ul class="groupbuilder-list">
                         {% for player in cancellations %}
                             <li
@@ -157,7 +157,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-6 col-md-2">
-                    <h4>{{ noFeedback|length }}x No Feedback</h4>
+                    <h6>{{ noFeedback|length }}x No Feedback</h6>
                     <ul class="groupbuilder-list">
                         {% for player in noFeedback %}
                             <li
