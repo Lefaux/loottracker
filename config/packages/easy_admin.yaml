@@ -28,7 +28,7 @@ easy_admin:
     User:
       class: App\Entity\User
       list:
-        fields: ['id', 'username', 'roles', 'enabled']
+        fields: ['id', 'username', 'roles', 'enabled', 'discordId']
     Loots:
       class: App\Entity\Loot
       form:
