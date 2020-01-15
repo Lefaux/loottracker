@@ -19,7 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Woeler\DiscordPhp\Message\DiscordEmbedsMessage;
 use Woeler\DiscordPhp\Message\DiscordTextMessage;
 
 class RaidSignupController extends AbstractController
@@ -151,6 +150,7 @@ class RaidSignupController extends AbstractController
     /**
      * @Route("/raid/signup/cancelbyclass/{class?}", name="raid_signup_cancelbyclass")
      * @param Request $request
+     * @param DiscordBotService $discordBotService
      * @param int $class
      * @return Response
      */
@@ -161,7 +161,19 @@ class RaidSignupController extends AbstractController
         if (!$user || !$user->hasRole('ROLE_RAIDMANAGER')) {
             return $this->redirectToRoute('fos_user_security_login');
         }
+        $classToChannel = [
+            1 => '624921527724408842',
+            2 => '626119075113730052',
+            3 => '626129875060785185',
+            4 => '626129839522447377',
+            5 => '627240257707966522',
+            6 => '633239721060990976',
+            7 => '627240214007644179',
+            9 => '633239519872811018'
+        ];
         $raids = [];
+        $missingFeedback = [];
+        $accountsWithoutDiscordHandles = [];
         $class = (int)$class;
         $raidSignUps = $this->raidEventRepository->findEventsAndSignUps();
         foreach ($raidSignUps as $index => $raid) {
@@ -173,9 +185,10 @@ class RaidSignupController extends AbstractController
                     if ($player->getClass() === $class) {
                         $raids[$index]['noFeedback'][] = $player;
                         if ($player->getAccount() && $player->getAccount()->getDiscordId()) {
-                            $raids[$index]['noFeedbackMentions'][] = $player->getAccount()->getDiscordMention();
+                            $missingFeedback[$player->getAccount()->getDiscordMention()][$event->getId()]['event'] = $event;
+                            $missingFeedback[$player->getAccount()->getDiscordMention()][$event->getId()]['chars'][] = $player;
                         } elseif ($player->getAccount()) {
-                            $raids[$index]['noFeedbackMentions'][] = $player->getAccount()->getUsername();
+                            $accountsWithoutDiscordHandles[$player->getAccount()->getId()] = $player->getAccount()->getUsername();
                         }
                         $raids[$index]['event'] = $event;
                     }
@@ -195,17 +208,27 @@ class RaidSignupController extends AbstractController
                 }
                 $discordRaids[] = $raids[str_replace('raid_', '', $key)];
             }
-            if (count($discordRaids) !== 0) {
-                $description = '';
-                foreach ($discordRaids as $raid) {
-                    $description .= '*' . $raid['event']->__toString() . '*' . PHP_EOL;
-                    $description .= 'Missing signups from: ' . implode(', ', $raid['noFeedbackMentions'] ?? []) . PHP_EOL . PHP_EOL;
+            if (count($discordRaids) !== 0 && !empty($missingFeedback)) {
+                $description = 'Es fehlt noch Feedback zu Raids von:' . PHP_EOL;
+                foreach ($missingFeedback as $mention => $events) {
+                    $description .= $mention . PHP_EOL;
+                    foreach ($events as $eventWithNoFeedback) {
+                        $description .= $eventWithNoFeedback['event']->getTitle() . ' ' . $eventWithNoFeedback['event']->getStart()->format('D, d.m.Y') . ' mit ';
+                        /** @var Character $char */
+                        foreach ($eventWithNoFeedback['chars'] as $char) {
+                            $description .= $char->getName() . ', ';
+                        }
+                        $description .= PHP_EOL . PHP_EOL;
+                    }
                 }
+
+                $description .= 'Bitte gebt mit ALLEN euren Chars Feedback, damit wir planen können.' . PHP_EOL;
+                $description .= 'https://askeria.net/raid/signup';
 
                 $message = new DiscordTextMessage();
                 $message->setContent($description);
                 try {
-                    $discordBotService->sendMessage('632560076284100619', $message);
+                    $discordBotService->sendMessage($classToChannel[$class], $message);
                     $this->addFlash('success', 'Discord message sent');
                 } catch (UnexpectedDiscordApiResponseException $e) {
                     $this->addFlash('danger', 'Failed to send Discord message');
@@ -216,6 +239,7 @@ class RaidSignupController extends AbstractController
         return $this->render('raid_signup/cancelbyclass.html.twig', [
             'class' => $class,
             'raids' => $raids,
+            'accountsWithoutDiscordHandles' => $accountsWithoutDiscordHandles,
             'form' => $form->createView()
         ]);
     }

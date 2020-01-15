@@ -21,6 +21,15 @@
                     </ul>
                 </nav>
             </div>
+            {% if accountsWithoutDiscordHandles|length > 0 %}
+                <div class="row">
+                    <p>Accounts without Discord ID:
+                        {% for account in accountsWithoutDiscordHandles %}
+                    {{ account }},
+                {% endfor %}
+                    </p>
+                </div>
+            {% endif %}
             <div class="row">
                 {% for raidId, raid in raids %}
                     <div class="col-lg-3 col-md-4 col-sm-12">
@@ -41,7 +50,7 @@
                                         </li>
                                     {% endfor %}
                                 </ul>
-                                {{ form_widget(attribute(form, 'raid_'~raidId)) }}
+                                {{ form_widget(attribute(form, 'raid_'~raidId)) }} Ping people on discord
                             </div>
                         </div>
                     </div>
