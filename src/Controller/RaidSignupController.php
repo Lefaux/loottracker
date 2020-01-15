@@ -185,6 +185,7 @@ class RaidSignupController extends AbstractController
                     if ($player->getClass() === $class) {
                         $raids[$index]['noFeedback'][] = $player;
                         $raids[$index]['event'] = $event;
+                        $raids[$index]['deadline'] = SignUpService::findRaidSignUpEnd($event->getStart()->format('Y-m-d'));
                     }
                 }
 

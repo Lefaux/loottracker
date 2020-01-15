@@ -36,6 +36,9 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title">{{ raid.event.title }} {{ raid.event.start|date('D, d.m.Y') }} <small>(ID: {{ raid.event.id }})</small></h5>
+                                {% if raid.deadline|date('U') < "now"|date('U') %}
+                                    <span class="badge badge-danger">Over deadline</span>
+                                {% endif %}
                                 <ul class="groupbuilder-list">
                                     {% for player in raid.noFeedback %}
                                         <li class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}">
