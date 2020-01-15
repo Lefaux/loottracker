@@ -184,12 +184,6 @@ class RaidSignupController extends AbstractController
                 foreach ($signUpData['noFeedback'] as $player) {
                     if ($player->getClass() === $class) {
                         $raids[$index]['noFeedback'][] = $player;
-                        if ($player->getAccount() && $player->getAccount()->getDiscordId()) {
-                            $missingFeedback[$player->getAccount()->getDiscordMention()][$event->getId()]['event'] = $event;
-                            $missingFeedback[$player->getAccount()->getDiscordMention()][$event->getId()]['chars'][] = $player;
-                        } elseif ($player->getAccount()) {
-                            $accountsWithoutDiscordHandles[$player->getAccount()->getId()] = $player->getAccount()->getUsername();
-                        }
                         $raids[$index]['event'] = $event;
                     }
                 }
@@ -208,30 +202,41 @@ class RaidSignupController extends AbstractController
                 }
                 $discordRaids[] = $raids[str_replace('raid_', '', $key)];
             }
-            if (count($discordRaids) !== 0 && !empty($missingFeedback)) {
-                $description = 'Es fehlt noch Feedback zu Raids von:' . PHP_EOL;
-                foreach ($missingFeedback as $mention => $events) {
-                    $description .= $mention . PHP_EOL;
-                    foreach ($events as $eventWithNoFeedback) {
-                        $description .= $eventWithNoFeedback['event']->getTitle() . ' ' . $eventWithNoFeedback['event']->getStart()->format('D, d.m.Y') . ' mit ';
-                        /** @var Character $char */
-                        foreach ($eventWithNoFeedback['chars'] as $char) {
-                            $description .= $char->getName() . ', ';
+            if (count($discordRaids) !== 0) {
+                foreach ($discordRaids as $discordRaid) {
+                    foreach ($discordRaid['noFeedback'] as $player) {
+                        if ($player->getAccount() && $player->getAccount()->getDiscordId()) {
+                            $missingFeedback[$player->getAccount()->getDiscordMention()][$discordRaid['event']->getId()]['event'] = $discordRaid['event'];
+                            $missingFeedback[$player->getAccount()->getDiscordMention()][$discordRaid['event']->getId()]['chars'][] = $player;
+                        } elseif ($player->getAccount()) {
+                            $accountsWithoutDiscordHandles[$player->getAccount()->getId()] = $player->getAccount()->getUsername();
                         }
-                        $description .= PHP_EOL . PHP_EOL;
                     }
                 }
 
-                $description .= 'Bitte gebt mit ALLEN euren Chars Feedback, damit wir planen können.' . PHP_EOL;
-                $description .= 'https://askeria.net/raid/signup';
-
-                $message = new DiscordTextMessage();
-                $message->setContent($description);
-                try {
-                    $discordBotService->sendMessage($classToChannel[$class], $message);
-                    $this->addFlash('success', 'Discord message sent');
-                } catch (UnexpectedDiscordApiResponseException $e) {
-                    $this->addFlash('danger', 'Failed to send Discord message');
+                if (!empty($missingFeedback)) {
+                    $description = 'Es fehlt noch Feedback zu Raids von:' . PHP_EOL;
+                    foreach ($missingFeedback as $mention => $events) {
+                        $description .= $mention . PHP_EOL;
+                        foreach ($events as $eventWithNoFeedback) {
+                            $description .= $eventWithNoFeedback['event']->getTitle() . ' ' . $eventWithNoFeedback['event']->getStart()->format('D, d.m.Y') . ' mit ';
+                            /** @var Character $char */
+                            foreach ($eventWithNoFeedback['chars'] as $char) {
+                                $description .= $char->getName() . ', ';
+                            }
+                            $description .= PHP_EOL . PHP_EOL;
+                        }
+                    }
+                    $description .= 'Bitte gebt mit ALLEN euren Chars Feedback, damit wir planen können.' . PHP_EOL;
+                    $description .= 'https://askeria.net/raid/signup';
+                    $message = new DiscordTextMessage();
+                    $message->setContent($description);
+                    try {
+                        $discordBotService->sendMessage($classToChannel[$class], $message);
+                        $this->addFlash('success', 'Discord message sent');
+                    } catch (UnexpectedDiscordApiResponseException $e) {
+                        $this->addFlash('danger', 'Failed to send Discord message: ' . $e->getMessage());
+                    }
                 }
             }
         }
