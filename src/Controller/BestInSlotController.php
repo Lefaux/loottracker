@@ -169,6 +169,11 @@ class BestInSlotController extends AbstractController
                 'hasItem' => false
             ]
         );
+        foreach ($chars as $index => $char) {
+            if ($char->getPlayerCharacter()->getHidden() === true) {
+                unset($chars[$index]);
+            }
+        }
         return $this->render('best_in_slot/need-by-item.html.twig',
             [
                 'chars' => $chars,
