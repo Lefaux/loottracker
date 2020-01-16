@@ -19,40 +19,42 @@
                     </ul>
                 </div>
                 <div class="col-9">
+                    <p>Tragt in die Phasen ein, was in den Phasen <u>jeweils</u> droppt. Also Loot aus P1 auch in P1 lassen.</p>
+                    <p>Bitte keine Items 2x eintragen, die ihr nicht auch 2x tragen könnt.</p>
                     {% if slotId == '' %}
                         <h1>{% trans %}Please select a slot{% endtrans %}</h1>
                     {% else %}
                         <form action="{{ path('save_bis', {charId: character.id, slot: slotId}) }}" method="post">
                         <h3 id="slots" data-slotids="{{ slotId }}">{{ slotUtility.slotName(slotId) }}</h3>
-                        <h4>Phase 1</h4>
+                        <h4>Phase 1 (MC, Onyxia)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(1, bisItems[slotId].1, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(2, bisItems[slotId].2, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(3, bisItems[slotId].3, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
-                        <h4>Phase 3</h4>
+                        <h4>Phase 3 (BWL)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(31, bisItems[slotId].31, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(32, bisItems[slotId].32, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(33, bisItems[slotId].33, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
-                        <h4>Phase 4</h4>
+                        <h4>Phase 4 (Zul Gurrub)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(41, bisItems[slotId].41, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(42, bisItems[slotId].42, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(43, bisItems[slotId].43, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
-                        <h4>Phase 5</h4>
+                        <h4>Phase 5 (Ahn'Qiraj)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(51, bisItems[slotId].51, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(52, bisItems[slotId].52, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(53, bisItems[slotId].53, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
-                        <h4>Phase 6</h4>
+                        <h4>Phase 6 (Naxxramas)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(61, bisItems[slotId].61, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(62, bisItems[slotId].62, slotId, character.id, wowheaddomain) }}
