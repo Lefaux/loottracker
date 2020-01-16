@@ -39,4 +39,5 @@ security:
         - { path: /roster, role: ROLE_RAIDER }
         - { path: /bis, role: ROLE_RAIDER }
         - { path: /raid, role: ROLE_RAIDER }
+        - { path: /calendar, role: ROLE_RAIDER }
         - { path: /bislist/, role: ROLE_RAIDER }

@@ -249,4 +249,56 @@ class RaidSignupController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/raid/signup/signin/{eventId}/{characterId}", name="raid_signup_signin")
+     * @param Request $request
+     * @param int $eventId
+     * @param int $characterId
+     * @return Response
+     */
+    public function signInCharacterAction(Request $request, int $eventId, int $characterId): Response
+    {
+        $signUp = $this->signUpRepository->findOneBy([
+            'raidEvent' => $eventId,
+            'playerName' => $characterId
+        ]);
+        if ($signUp === null) {
+            $event = $this->raidEventRepository->find($eventId);
+            $character = $this->characterRepository->find($characterId);
+            if ($event && $character) {
+                $this->handleSignUp($character, $event, 1);
+            }
+        } else {
+            $this->handleSignUp($signUp->getPlayerName(), $signUp->getRaidEvent(), 1);
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
+
+    /**
+     * @Route("/raid/signup/cancel/{eventId}/{characterId}", name="raid_signup_cancel")
+     * @param Request $request
+     * @param int $eventId
+     * @param int $characterId
+     * @return Response
+     */
+    public function cancelCharacterAction(Request $request, int $eventId, int $characterId): Response
+    {
+        $signUp = $this->signUpRepository->findOneBy([
+            'raidEvent' => $eventId,
+            'playerName' => $characterId
+        ]);
+        if ($signUp === null) {
+            $event = $this->raidEventRepository->find($eventId);
+            $character = $this->characterRepository->find($characterId);
+            if ($event && $character) {
+                $this->handleSignUp($character, $event, 2);
+            }
+        } else {
+            $this->handleSignUp($signUp->getPlayerName(), $signUp->getRaidEvent(), 2);
+        }
+        $referer = $request->headers->get('referer');
+        return $this->redirect($referer);
+    }
 }

@@ -243,6 +243,67 @@ $(function () {
     updateCounter();
     specCounter('alpha');
 
+    /********** CONTEXT MENU ********/
+    Array.from(document.getElementsByClassName('groupbuilder-item-player')).forEach(function(element) {
+      element.addEventListener('contextmenu', contextMenu);
+    });
+
+    window.addEventListener('click', e => {
+      if (menuVisible)toggleMenu('hide');
+    });
+
+    let menuVisible = false;
+    let menu = document.querySelector('#contextmenu');
+    const toggleMenu = command => {
+      menu.style.display = command === "show" ? "block" : "none";
+      menuVisible = !menuVisible;
+    };
+    const setPosition = ({top, left}) => {
+      menu.style.left = `${left}px`;
+      menu.style.top = `${top}px`;
+      toggleMenu('show');
+    };
+
+    function contextMenu(event) {
+      event.preventDefault();
+      const origin = {
+        left: event.pageX,
+        top: event.pageY
+      };
+      setPosition(origin);
+
+      let raidElement = document.querySelector('#raid-id');
+      // Show all action buttons
+      Array.from(document.getElementsByClassName('context-button')).forEach(function(element) {
+        element.style.display = 'block';
+      });
+      // Set Player name on action buttons
+      Array.from(document.getElementsByClassName('context-playername')).forEach(function(element) {
+        element.innerText = event.currentTarget.innerText;
+      });
+      // Create Links on buttons
+      Array.from(document.getElementsByClassName('context-button-1')).forEach(function(element) {
+        element.href = `/raid/signup/signin/${raidElement.dataset.raidid}/${event.currentTarget.dataset.playerId}`;
+      });
+      Array.from(document.getElementsByClassName('context-button-2')).forEach(function(element) {
+        element.href = `/raid/signup/cancel/${raidElement.dataset.raidid}/${event.currentTarget.dataset.playerId}`;
+      });
+
+      switch (event.currentTarget.dataset.playerStatus) {
+        case '1':
+          Array.from(document.getElementsByClassName('context-button-1')).forEach(function(element) {
+            element.style.display = 'none';
+          });
+          break;
+        case '2':
+          Array.from(document.getElementsByClassName('context-button-2')).forEach(function(element) {
+            element.style.display = 'none';
+          });
+          break;
+      }
+      return false;
+    }
+
     /*********************************************** META FORM ************************************************/
 
     let metaForm = document.querySelector('#meta-form');

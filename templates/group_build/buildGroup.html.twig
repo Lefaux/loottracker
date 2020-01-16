@@ -53,6 +53,8 @@
                                     data-spec="{{ signup.playerName.spec }}"
                                     data-weekday="{{signup.raidEvent.start|date('D')}}"
                                     data-class="{{ signup.playerName.class }}"
+                                    data-player-id="{{ signup.playerName.id }}"
+                                    data-player-status="1"
                                     {% if signup.playerName.account.id in assignedPlayers%}
                                         style="display: none;"
                                     {% endif %}
@@ -140,6 +142,8 @@
                         {% for player in cancellations %}
                             <li
                                     class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
+                                    data-player-id="{{ player.id }}"
+                                    data-player-status="2"
 {#                                    {% if player.account.id in assignedPlayers %}#}
 {#                                        style="display: none;"#}
 {#                                    {% endif %}#}
@@ -162,6 +166,8 @@
                         {% for player in noFeedback %}
                             <li
                                     class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
+                                    data-player-id="{{ player.id }}"
+                                    data-player-status="0"
 {#                                    {% if player.account.id in assignedPlayers %}#}
 {#                                        style="display: none;"#}
 {#                                    {% endif %}#}
@@ -177,6 +183,12 @@
                             </li>
                         {% endfor %}
                     </ul>
+                </div>
+            </div>
+            <div id="contextmenu" style="position: absolute; width: 180px; display: none">
+                <div class="btn-group-vertical btn-group-sm">
+                    <a href="" class="btn btn-success context-button context-button-1"><span class="context-playername">Spieler</span> &nbsp;anmelden</a>
+                    <a href="" class="btn btn-danger  context-button context-button-2"><span class="context-playername">Spieler</span> &nbsp;abmelden</a>
                 </div>
             </div>
         </div>
