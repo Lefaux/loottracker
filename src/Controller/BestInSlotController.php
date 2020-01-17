@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
+use App\Repository\LootRepository;
 use App\Utility\WowClassUtility;
 use App\Utility\WowRaceUtility;
 use App\Utility\WowSpecUtility;
@@ -27,16 +28,22 @@ class BestInSlotController extends AbstractController
      * @var ItemRepository
      */
     private $itemRepository;
+    /**
+     * @var LootRepository
+     */
+    private $lootRepository;
 
     public function __construct(
         CharacterLootRequirementRepository $characterLootRequirementRepository,
         CharacterRepository $characterRepository,
-        ItemRepository $itemRepository
+        ItemRepository $itemRepository,
+        LootRepository $lootRepository
     )
     {
         $this->bisRepository = $characterLootRequirementRepository;
         $this->characterRepository = $characterRepository;
         $this->itemRepository = $itemRepository;
+        $this->lootRepository = $lootRepository;
     }
 
     /**
@@ -182,6 +189,32 @@ class BestInSlotController extends AbstractController
                 'raceUtility' => $wowRaceUtility
             ]
         );
+    }
+
+    /**
+     * @Route("/bis/dropbyzone/{zoneId?}", name="bis_drops_by_zone")
+     * @param $zoneId
+     * @param WowSpecUtility $wowSpecUtility
+     * @param WoWZoneUtility $wowZoneUtility
+     * @return Response
+     */
+    public function dropsCountAction($zoneId, WowSpecUtility $wowSpecUtility, WoWZoneUtility $wowZoneUtility): Response
+    {
+        $bisItems = null;
+        $class = 0;
+        $items = $this->lootRepository->countItemsByZone((int)$zoneId);
+        foreach ($items as $index => $item) {
+            $bisItems[$item['className']][$item['subClassName']][] = $item;
+        }
+        $itemsInZones = $this->lootRepository->countZone();
+        return $this->render('best_in_slot/drop-by-zone.html.twig', [
+            'zones' => $wowZoneUtility,
+            'specs' => $wowSpecUtility,
+            'items' => $bisItems,
+            'itemsInZones' => $itemsInZones,
+            'zone' => $zoneId,
+            'class' => $class
+        ]);
     }
 
     /**

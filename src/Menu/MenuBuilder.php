@@ -168,6 +168,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu['bis']->addChild(
+            'drops-by-zone',
+            [
+                'label' => $this->translator->trans('Drops by Zone'),
+                'route' => 'bis_drops_by_zone',
+                'extras' => [
+                    'icon' => 'cart-arrow-down',
+                ],
+            ]
+        );
         if ($this->authorizationChecker->isGranted('ROLE_RAIDMANAGER') || $this->authorizationChecker->isGranted('ROLE_LOOTTRACKER')) {
             $menu->addChild(
                 'management',

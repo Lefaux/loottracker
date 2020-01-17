@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Loot;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\DBAL\DBALException;
 
 /**
  * @method Loot|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +20,52 @@ class LootRepository extends ServiceEntityRepository
         parent::__construct($registry, Loot::class);
     }
 
-    // /**
-    //  * @return Loot[] Returns an array of Loot objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function countItemsByZone(int $zoneId): array
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('l.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        $output = [];
+        $zoneConstraint = '';
+        if ($zoneId > 0) {
+            $zoneConstraint = ' AND i.zone = ' . $zoneId;
+        }
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+SELECT 
+    count(loot.id) as amount, loot.item_id, i.name, i.zone, i.sub_class_id, i.class_id, sc.name AS subClassName, c.name AS className
+FROM loot
+    INNER JOIN item i on i.id = loot.item_id
+    INNER JOIN sub_category sc on i.sub_class_id = sc.id
+    INNER JOIN category c on i.class_id = c.id
+WHERE 1 ' . $zoneConstraint .'
+GROUP BY i.id
+ORDER BY amount DESC
+            ';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output = $stmt->fetchAll();
+        } catch (DBALException $e) {
+        }
+        return $output;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Loot
+    public function countZone(): array
     {
-        return $this->createQueryBuilder('l')
-            ->andWhere('l.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $output = [];
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+SELECT 
+    count(loot.id) as amount, i.zone
+FROM loot
+    INNER JOIN item i on i.id = loot.item_id
+WHERE 1
+GROUP BY i.zone
+            ';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output = $stmt->fetchAll();
+        } catch (DBALException $e) {
+        }
+        return $output;
     }
-    */
 }
