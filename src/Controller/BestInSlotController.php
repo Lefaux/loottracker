@@ -2,15 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Character;
 use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
 use App\Repository\ItemRepository;
 use App\Repository\LootRepository;
 use App\Utility\WowClassUtility;
 use App\Utility\WowRaceUtility;
+use App\Utility\WowSlotUtility;
 use App\Utility\WowSpecUtility;
 use App\Utility\WoWZoneUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -55,86 +58,10 @@ class BestInSlotController extends AbstractController
     public function indexAction(WowClassUtility $wowClassUtility, WowRaceUtility $wowRaceUtility): Response
     {
         $bisListAndPlayers = [];
-        $chars = $this->characterRepository->findAll();
+        $chars = $this->characterRepository->findBy(['hidden' => false]);
         foreach ($chars as $char) {
+            $bisList = [];
             $bisItems = $char->getLootRequirements();
-            $bisList = [
-                1 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                2 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                3 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                5 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                6 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                7 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                8 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                9 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                10 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                11 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                12 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                13 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                14 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                15 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-                16 => [
-                    1 => null,
-                    2 => null,
-                    3 => null
-                ],
-            ];
             foreach ($bisItems as $bisItem) {
                 $bisList[$bisItem->getSlot()][$bisItem->getPriority()] = $bisItem;
             }
@@ -147,6 +74,106 @@ class BestInSlotController extends AbstractController
             'bis' => $bisListAndPlayers,
             'classUtility' => $wowClassUtility,
             'raceUtility' => $wowRaceUtility
+        ]);
+    }
+
+    /**
+     * @Route("/bisnew", name="best_in_slot_new")
+     * @param Request $request
+     * @param WowClassUtility $wowClassUtility
+     * @param WowRaceUtility $wowRaceUtility
+     * @param WowSlotUtility $wowSlotUtility
+     * @return Response
+     */
+    public function indexNewAction(Request $request, WowClassUtility $wowClassUtility, WowRaceUtility $wowRaceUtility, WowSlotUtility $wowSlotUtility): Response
+    {
+        $filters = $request->get('f');
+        if (!is_array($filters)) {
+            $filters = [];
+        }
+        if (!isset($filters['phase'])) {
+            $filters['phase'] = [
+                1 => true
+            ];
+        }
+        $bisListAndPlayers = [];
+        $bisItems = [];
+        $bisList = [];
+        $characters = $this->characterRepository->findByClass(array_keys($filters['class']));
+        $usedSlots = [];
+        $maxPhaseItems = $this->bisRepository->findBiSByFilter($filters, false);
+        foreach ($maxPhaseItems as $maxPhaseItem) {
+            if ($maxPhaseItem['priority'] < 10) {
+                $maxPhaseItem['priority'] += 10;
+            }
+            switch ($maxPhaseItem['priority']) {
+                case 11:
+                case 21:
+                case 31:
+                case 41:
+                case 51:
+                case 61:
+                    $maxSlotId = 'maxA';
+                    break;
+                case 12:
+                case 22:
+                case 32:
+                case 42:
+                case 52:
+                case 62:
+                    $maxSlotId = 'maxB';
+                    break;
+                case 13:
+                case 23:
+                case 33:
+                case 43:
+                case 53:
+                case 63:
+                    $maxSlotId = 'maxC';
+                    break;
+                case 14:
+                case 24:
+                case 34:
+                case 44:
+                case 54:
+                case 64:
+                    $maxSlotId = 'maxD';
+                    break;
+                default:
+                    $maxSlotId = 'missing';
+            }
+            $bisList[$maxPhaseItem['player_character_id']][$maxPhaseItem['slot']][$maxSlotId] = $this->bisRepository->find($maxPhaseItem['id']);
+        }
+        $items = $this->bisRepository->findBiSByFilter($filters);
+        foreach ($items as $item) {
+            if (!in_array($item['item_id'], $bisItems, true)) {
+                $bisItem = $this->bisRepository->find($item['id']);
+                if ($bisItem) {
+                    $bisList[$item['player_character_id']][$bisItem->getSlot()][$bisItem->getPriority()] = $bisItem;
+                    $usedSlots[$bisItem->getSlot()] = true;
+                }
+                $bisItems[$item['item_id']] = $bisItem;
+            }
+        }
+        ksort($usedSlots);
+        /** @var Character $character */
+        foreach ($characters as $character) {
+            if (!isset($bisList[$character->getId()])) {
+                $bisList[$character->getId()] = [];
+            }
+            $bisListAndPlayers[$character->getClass()][] = [
+                'char' => $character,
+                'bisList' => $bisList[$character->getId()]
+            ];
+        }
+        $foo = '';
+        return $this->render('best_in_slot/indexNew.html.twig', [
+            'bis' => $bisListAndPlayers,
+            'usedSlots' => $usedSlots,
+            'filters' => $filters,
+            'classUtility' => $wowClassUtility,
+            'raceUtility' => $wowRaceUtility,
+            'slotUtility' => $wowSlotUtility
         ]);
     }
 
@@ -177,7 +204,7 @@ class BestInSlotController extends AbstractController
             ]
         );
         foreach ($chars as $index => $char) {
-            if ($char->getPlayerCharacter()->getHidden() === true) {
+            if ($char->getPlayerCharacter() && $char->getPlayerCharacter()->getHidden() === true) {
                 unset($chars[$index]);
             }
         }

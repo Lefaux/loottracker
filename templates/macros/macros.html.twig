@@ -1,5 +1,5 @@
 {% macro itemicon(slot, slotNumber, priority, wowheaddomain, size='small') %}
-    {% if slot[slotNumber][priority] is not null %}
+    {% if slot[slotNumber][priority] is defined and slot[slotNumber][priority] is not null %}
         {% if slot[slotNumber][priority].hasItem %}
             <div class="bis-list-icon hasitem bis-icon-{{ size }}">
                 <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="{{size}}"></a>
@@ -37,9 +37,11 @@
                 {% if priority == 1 %}
                   Best
                 {% elseif priority == 2 %}
-                  Option A
+                  Option
                 {% elseif priority == 3 %}
-                  Option B
+                  Tank Best
+                {% elseif priority == 4 %}
+                  Tank Option
                 {% endif %}
             </h5>
             {% if bisEntry is not null %}
@@ -87,30 +89,35 @@
                         <td>{{ itemIcons.itemicon(bisItems, slot, 1, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 2, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 3, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 4, wowheaddomain, 'medium') }}</td>
                     </tr>
                     <tr>
                         <td>P3</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 31, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 32, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 33, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 34, wowheaddomain, 'medium') }}</td>
                     </tr>
                     <tr>
                         <td>P4</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 41, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 42, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 43, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 44, wowheaddomain, 'medium') }}</td>
                     </tr>
                     <tr>
                         <td>P5</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 51, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 52, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 53, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 54, wowheaddomain, 'medium') }}</td>
                     </tr>
                     <tr>
                         <td>P6</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 61, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 62, wowheaddomain, 'medium') }}</td>
                         <td>{{ itemIcons.itemicon(bisItems, slot, 63, wowheaddomain, 'medium') }}</td>
+                        <td>{{ itemIcons.itemicon(bisItems, slot, 64, wowheaddomain, 'medium') }}</td>
                     </tr>
                 </table>
             </div>

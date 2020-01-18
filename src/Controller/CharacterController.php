@@ -235,18 +235,23 @@ class CharacterController extends AbstractController
                 1 => null,
                 2 => null,
                 3 => null,
+                4 => null,
                 31 => null,
                 32 => null,
                 33 => null,
+                34 => null,
                 41 => null,
                 42 => null,
                 43 => null,
+                44 => null,
                 51 => null,
                 52 => null,
                 53 => null,
+                54 => null,
                 61 => null,
                 62 => null,
                 63 => null,
+                64 => null,
             ];
         }
         foreach ($items as $item) {
@@ -283,18 +288,23 @@ class CharacterController extends AbstractController
         $this->processBisItem($bisItem[1], 1, $charId, $slot);
         $this->processBisItem($bisItem[2], 2, $charId, $slot);
         $this->processBisItem($bisItem[3], 3, $charId, $slot);
+        $this->processBisItem($bisItem[4], 4, $charId, $slot);
         $this->processBisItem($bisItem[31], 31, $charId, $slot);
         $this->processBisItem($bisItem[32], 32, $charId, $slot);
         $this->processBisItem($bisItem[33], 33, $charId, $slot);
+        $this->processBisItem($bisItem[34], 34, $charId, $slot);
         $this->processBisItem($bisItem[41], 41, $charId, $slot);
         $this->processBisItem($bisItem[42], 42, $charId, $slot);
         $this->processBisItem($bisItem[43], 43, $charId, $slot);
+        $this->processBisItem($bisItem[44], 44, $charId, $slot);
         $this->processBisItem($bisItem[51], 51, $charId, $slot);
         $this->processBisItem($bisItem[52], 52, $charId, $slot);
         $this->processBisItem($bisItem[53], 53, $charId, $slot);
+        $this->processBisItem($bisItem[54], 54, $charId, $slot);
         $this->processBisItem($bisItem[61], 61, $charId, $slot);
         $this->processBisItem($bisItem[62], 62, $charId, $slot);
         $this->processBisItem($bisItem[63], 63, $charId, $slot);
+        $this->processBisItem($bisItem[64], 64, $charId, $slot);
         return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
     }
 

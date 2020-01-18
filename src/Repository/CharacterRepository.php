@@ -28,4 +28,18 @@ class CharacterRepository extends ServiceEntityRepository
             ['spec' => 'DESC', 'name' => 'ASC']
         );
     }
+
+    public function findByClass(array $classes): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.hidden = 0')
+            ->andWhere('c.class IN (:classIds)')
+            ->setParameter('classIds', $classes)
+            ->orderBy('c.class')
+            ->addOrderBy('c.spec', 'DESC')
+            ->addOrderBy('c.name')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

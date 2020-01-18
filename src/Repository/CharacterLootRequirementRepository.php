@@ -173,4 +173,53 @@ ORDER BY rank_id, amount DESC
 
         return $output;
     }
+
+    public function findBiSByFilter(array $filters, bool $filterPhases = true): array
+    {
+        $output = [];
+        $constraints = [];
+        $constraints['hiddenPlayer'] = 'c.hidden = 0';
+        /**
+         * Build Filter Constraints
+         */
+        if (isset($filters['class'])) {
+            $constraints['class'] = 'c.class IN ('. implode(', ', array_keys($filters['class']))  .')';
+        }
+        if (!$filterPhases) {
+            $constraints['hasItem'] = 'bis.has_item = 1';
+        }
+        if ($filterPhases && isset($filters['phase'])) {
+            $constraints['phase'] = '(';
+            $phaseBlocks = [];
+            foreach ($filters['phase'] as $index => $_) {
+                if ($index === 1) {
+                    $index = '';
+                }
+                $phaseBlocks[] = ' bis.priority BETWEEN ' . $index . '1 AND ' . $index . '4';
+            }
+            $constraints['phase'] .= implode(' OR ', $phaseBlocks);
+            $constraints['phase'] .= ')';
+        }
+        if (isset($filters['slot'])) {
+            $constraints['slot'] = 'i.inventory_slot IN ('. implode(', ', array_keys($filters['slot']))  .')';
+        }
+
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = '
+SELECT bis.*
+FROM character_loot_requirement bis
+    INNER JOIN characters c on bis.player_character_id = c.id
+    INNER JOIN item i on bis.item_id = i.id
+WHERE '. implode(' AND ', $constraints)  .'
+ORDER BY c.class, c.spec, bis.priority
+            ';
+        try {
+            $stmt = $conn->prepare($sql);
+            $stmt->execute();
+            $output = $stmt->fetchAll();
+        } catch (DBALException $e) {
+        }
+
+        return $output;
+    }
 }

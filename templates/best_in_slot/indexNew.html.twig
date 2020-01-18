@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/bis.html.twig' as bisMacros %}
+{% import 'macros/macros.html.twig' as macros %}
+{% block title %}BiS List{% endblock %}
+{% set class = 1 %}
+
+{% block body %}
+    <div class="content-section bg-transparent">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form action="{{ path('best_in_slot_new') }}" method="get">
+                        <table class="table table-sm">
+                            <tr>
+                                <td>Phase</td>
+                                <td>
+                                    {{ bisMacros.checkbox('Phase 1', 'phase', 1, filters) }}
+                                    {{ bisMacros.checkbox('Phase 3', 'phase', 3, filters) }}
+                                    {{ bisMacros.checkbox('Phase 4', 'phase', 4, filters) }}
+                                    {{ bisMacros.checkbox('Phase 5', 'phase', 5, filters) }}
+                                    {{ bisMacros.checkbox('Phase 6', 'phase', 6, filters) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Class</td>
+                                <td>
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_1.png" height="20">', 'class', 1, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_5.png" height="20">', 'class', 5, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_7.png" height="20">', 'class', 7, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_2.png" height="20">', 'class', 2, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_9.png" height="20">', 'class', 9, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_6.png" height="20">', 'class', 6, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_4.png" height="20">', 'class', 4, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_3.png" height="20">', 'class', 3, filters) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Slot</td>
+                                <td>
+                                    {{ bisMacros.checkbox('Head', 'slot', 1, filters) }}
+                                    {{ bisMacros.checkbox('Neck', 'slot', 2, filters) }}
+                                    {{ bisMacros.checkbox('Shoulder', 'slot', 3, filters) }}
+                                    {{ bisMacros.checkbox('Back', 'slot', 16, filters) }}
+                                    {{ bisMacros.checkbox('Chest', 'slot', 5, filters) }}
+                                    {{ bisMacros.checkbox('Wrist', 'slot', 9, filters) }}
+                                    {{ bisMacros.checkbox('Hands', 'slot', 10, filters) }}
+                                    {{ bisMacros.checkbox('Belt', 'slot', 6, filters) }}
+                                    {{ bisMacros.checkbox('Legs', 'slot', 7, filters) }}
+                                    {{ bisMacros.checkbox('Feet', 'slot', 8, filters) }}
+                                    {{ bisMacros.checkbox('Finger', 'slot', 11, filters) }}
+                                    {{ bisMacros.checkbox('Trinket', 'slot', 12, filters) }}
+                                    {{ bisMacros.checkbox('Main Hand', 'slot', 13, filters) }}
+                                    {{ bisMacros.checkbox('Off Hand', 'slot', 14, filters) }}
+                                    {{ bisMacros.checkbox('Ranged', 'slot', 15, filters) }}
+                                </td>
+                            </tr>
+                        </table>
+                        <input type="submit" name="apply" value="Set Filters" class="btn btn-success">
+                    </form>
+                </div>
+                <div class="col-12">
+                    <table class="bis-list-table">
+                        {% for classId,players in bis %}
+                            <tr>
+                                <th>{{ classUtility.className(classId)}}</th>
+                                {% for slotId,slotBlank in usedSlots %}
+                                    <th colspan="4">{{ slotUtility.slotName(slotId) }}</th>
+                                {% endfor %}
+                            </tr>
+                            {% for character in players %}
+                                {% if character.char.twink == true %}
+                                    {% set rowClass = 'bg-twink' %}
+                                {% else %}
+                                    {% set rowClass = 'bg-main' %}
+                                {% endif %}
+                                <tr class="{{ rowClass }}">
+                                    <td class="bis-list-name">
+                                        {% if character.char.spec == 1 %}
+                                            <i class="fa fa-fw fa-shield-alt"></i>
+                                        {% elseif character.char.spec == 2 %}
+                                            <i class="fa fa-fw fa-band-aid"></i>
+                                        {% elseif character.char.spec == 3 %}
+                                            <i class="fa fa-fw fa-skull-crossbones"></i>
+                                        {% endif %}
+                                        <a class="link-{{ character.char.class }}" title="Updated:{{ character.char.lastUpdate|date("d.m.y") }}" href="{{ path('character', {'charId': character.char.id}) }}">{{ character.char.name }}</a>
+                                        <br><small>{{ raceUtility.raceName(character.char.race) }}</small>
+                                    </td>
+                                    {% for slotId,slotBlank in usedSlots %}
+                                        {% if loop.index is odd %}
+                                            {% set cellClass = 'bis-list-odd' %}
+                                        {% else %}
+                                            {% set cellClass = '' %}
+                                        {% endif %}
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxA', wowheaddomain) }}</td>
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxB', wowheaddomain) }}</td>
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain) }}</td>
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain) }}</td>
+                                    {% endfor %}
+                                </tr>
+                                {% for phaseId, phaseBlank in filters.phase %}
+                                    <tr class="bg-phase-{{ loop.index }}">
+                                        <td class="bis-list-name">Phase {{ phaseId }}</td>
+                                        {% for slotId,slotBlank in usedSlots %}
+                                            {% if loop.index is odd %}
+                                                {% set cellClass = 'bis-list-odd' %}
+                                            {% else %}
+                                                {% set cellClass = '' %}
+                                            {% endif %}
+                                            {% if phaseId == 1 %}
+                                                {% set phaseId = '' %}
+                                            {% endif %}
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~1, wowheaddomain) }}</td>
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~2, wowheaddomain) }}</td>
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~3, wowheaddomain) }}</td>
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~4, wowheaddomain) }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

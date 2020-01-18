@@ -297,4 +297,14 @@ class Item
 
         return $this;
     }
+
+    public function getAbbreviation()
+    {
+        $shortName = [];
+        $parts = explode(' ', $this->name);
+        foreach ($parts as $part) {
+            $shortName[] = substr($part, 0, 1);
+        }
+        return implode('', $shortName);
+    }
 }

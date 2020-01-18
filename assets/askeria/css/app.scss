@@ -96,3 +96,29 @@ a.link-7 {
 a.link-9 {
   color: $color-paladin;
 }
+
+tr.bg-phase-1 {
+  background-color: darken($color-priest, 90);
+}
+tr.bg-phase-2 {
+  background-color: darken($color-priest, 87.5);
+}
+tr.bg-phase-3 {
+  background-color: darken($color-priest, 85);
+}
+tr.bg-phase-4 {
+  background-color: darken($color-priest, 82.5);
+}
+tr.bg-phase-5 {
+  background-color: darken($color-priest, 80);
+}
+tr.bg-phase-6 {
+  background-color: darken($color-priest, 77.5);
+}
+tr.bg-main {
+  background-color: darken($primary, 20);
+}
+
+tr.bg-twink {
+  background-color: darken($success, 35);
+}
