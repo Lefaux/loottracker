@@ -92,7 +92,7 @@ class SignupRepository extends ServiceEntityRepository
         $conn = $this->getEntityManager()->getConnection();
         $sql = 'SELECT *
                 FROM raid_event e
-                WHERE e.id NOT IN (SELECT s.raid_event_id FROM signup s WHERE s.player_name_id IN (' . implode(',', $charList)  . '))';
+                WHERE e.id NOT IN (SELECT s.raid_event_id FROM signup s WHERE s.player_name_id IN (' . implode(',', $charList)  . ')) AND e.start < \'' . date('Y-m-d', time()+(86400*28)) . '\'';
         try {
             $stmt = $conn->prepare($sql);
             $stmt->execute();
