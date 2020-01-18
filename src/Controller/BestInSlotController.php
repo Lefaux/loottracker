@@ -96,6 +96,11 @@ class BestInSlotController extends AbstractController
                 1 => true
             ];
         }
+        if (!isset($filters['class'])) {
+            $filters['class'] = [
+                1 => true
+            ];
+        }
         $bisListAndPlayers = [];
         $bisItems = [];
         $bisList = [];

@@ -66,6 +66,7 @@
                                 {% for slotId,slotBlank in usedSlots %}
                                     <th colspan="4">{{ slotUtility.slotName(slotId) }}</th>
                                 {% endfor %}
+                                <th>Updated</th>
                             </tr>
                             {% for character in players %}
                                 {% if character.char.twink == true %}
@@ -82,7 +83,7 @@
                                         {% elseif character.char.spec == 3 %}
                                             <i class="fa fa-fw fa-skull-crossbones"></i>
                                         {% endif %}
-                                        <a class="link-{{ character.char.class }}" title="Updated:{{ character.char.lastUpdate|date("d.m.y") }}" href="{{ path('character', {'charId': character.char.id}) }}">{{ character.char.name }}</a>
+                                        <a class="link-{{ character.char.class }}" href="{{ path('character', {'charId': character.char.id}) }}">{{ character.char.name }}</a>
                                         <br><small>{{ raceUtility.raceName(character.char.race) }}</small>
                                     </td>
                                     {% for slotId,slotBlank in usedSlots %}
@@ -96,6 +97,7 @@
                                         <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain) }}</td>
                                         <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain) }}</td>
                                     {% endfor %}
+                                    <td>{{ character.char.lastUpdate|date("d.m.y") }}</td>
                                 </tr>
                                 {% for phaseId, phaseBlank in filters.phase %}
                                     <tr class="bg-phase-{{ loop.index }}">
@@ -114,6 +116,7 @@
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~3, wowheaddomain) }}</td>
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~4, wowheaddomain) }}</td>
                                         {% endfor %}
+                                        <td></td>
                                     </tr>
                                 {% endfor %}
                             {% endfor %}
