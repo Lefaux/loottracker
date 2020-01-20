@@ -45,7 +45,8 @@ class SignUpService
          * @var  Signup $signUp
          */
         foreach ($signUps as $index => $signUp) {
-            if ($signUp->getSignedUp() === 2 || $signUp->getPlayerName()->getHidden() === true) {
+            if ($signUp->getSignedUp() === 2) {
+                $cancellations[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
                 unset($signUps[$index], $noFeedback[$signUp->getPlayerName()->getId()]);
             }
             if ($signUp->getSignedUp() === 1) {
