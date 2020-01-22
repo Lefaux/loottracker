@@ -6,12 +6,10 @@ namespace App\Service;
 use App\Entity\RaidEvent;
 use App\Entity\RaidGroup;
 use App\Entity\Signup;
-use App\Entity\User;
 use App\Repository\CharacterRepository;
 use App\Repository\SignupRepository;
 use DateTime;
 use DateTimeZone;
-use Doctrine\ORM\PersistentCollection;
 
 class SignUpService
 {
@@ -45,12 +43,14 @@ class SignUpService
          * @var  Signup $signUp
          */
         foreach ($signUps as $index => $signUp) {
-            if ($signUp->getSignedUp() === 2) {
-                $cancellations[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
-                unset($signUps[$index], $noFeedback[$signUp->getPlayerName()->getId()]);
-            }
-            if ($signUp->getSignedUp() === 1) {
-                unset($noFeedback[$signUp->getPlayerName()->getId()]);
+            if ($signUp->getPlayerName()) {
+                if ($signUp->getSignedUp() === 2) {
+                    $cancellations[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
+                    unset($signUps[$index], $noFeedback[$signUp->getPlayerName()->getId()]);
+                }
+                if ($signUp->getSignedUp() === 1) {
+                    unset($noFeedback[$signUp->getPlayerName()->getId()]);
+                }
             }
         }
         return [
