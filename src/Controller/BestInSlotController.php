@@ -51,41 +51,13 @@ class BestInSlotController extends AbstractController
 
     /**
      * @Route("/bis", name="best_in_slot")
-     * @param WowClassUtility $wowClassUtility
-     * @param WowRaceUtility $wowRaceUtility
-     * @return Response
-     */
-    public function indexAction(WowClassUtility $wowClassUtility, WowRaceUtility $wowRaceUtility): Response
-    {
-        $bisListAndPlayers = [];
-        $chars = $this->characterRepository->findBy(['hidden' => false]);
-        foreach ($chars as $char) {
-            $bisList = [];
-            $bisItems = $char->getLootRequirements();
-            foreach ($bisItems as $bisItem) {
-                $bisList[$bisItem->getSlot()][$bisItem->getPriority()] = $bisItem;
-            }
-            $bisListAndPlayers[$char->getClass()][] = [
-                'char' => $char,
-                'bisList' => $bisList
-            ];
-        }
-        return $this->render('best_in_slot/index.html.twig', [
-            'bis' => $bisListAndPlayers,
-            'classUtility' => $wowClassUtility,
-            'raceUtility' => $wowRaceUtility
-        ]);
-    }
-
-    /**
-     * @Route("/bisnew", name="best_in_slot_new")
      * @param Request $request
      * @param WowClassUtility $wowClassUtility
      * @param WowRaceUtility $wowRaceUtility
      * @param WowSlotUtility $wowSlotUtility
      * @return Response
      */
-    public function indexNewAction(Request $request, WowClassUtility $wowClassUtility, WowRaceUtility $wowRaceUtility, WowSlotUtility $wowSlotUtility): Response
+    public function indexAction(Request $request, WowClassUtility $wowClassUtility, WowRaceUtility $wowRaceUtility, WowSlotUtility $wowSlotUtility): Response
     {
         $filters = $request->get('f');
         if (!is_array($filters)) {
@@ -171,8 +143,7 @@ class BestInSlotController extends AbstractController
                 'bisList' => $bisList[$character->getId()]
             ];
         }
-        $foo = '';
-        return $this->render('best_in_slot/indexNew.html.twig', [
+        return $this->render('best_in_slot/index.html.twig', [
             'bis' => $bisListAndPlayers,
             'usedSlots' => $usedSlots,
             'filters' => $filters,
