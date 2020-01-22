@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Repository\CharacterRepository;
 use App\Repository\RankRepository;
 use App\Service\LuaParser;
-use App\Utility\WowClassUtility;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

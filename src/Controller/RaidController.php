@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Character;
 use App\Repository\CharacterRepository;
-use App\Repository\RaidEventRepository;
 use App\Repository\RaidGroupRepository;
 use App\Repository\RaidRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,10 +17,6 @@ class RaidController extends AbstractController
      */
     private $raidRepository;
     /**
-     * @var RaidEventRepository
-     */
-    private $raidEventRepository;
-    /**
      * @var RaidGroupRepository
      */
     private $raidGroupRepository;
@@ -32,12 +27,10 @@ class RaidController extends AbstractController
 
     public function __construct(
         RaidRepository $raidRepository,
-        RaidEventRepository $raidEventRepository,
         RaidGroupRepository $raidGroupRepository,
         CharacterRepository $characterRepository
     ) {
         $this->raidRepository = $raidRepository;
-        $this->raidEventRepository = $raidEventRepository;
         $this->raidGroupRepository = $raidGroupRepository;
         $this->characterRepository = $characterRepository;
     }

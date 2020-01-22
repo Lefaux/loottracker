@@ -178,7 +178,7 @@ class RaidSignupController extends AbstractController
         $raidSignUps = $this->raidEventRepository->findEventsAndSignUps();
         foreach ($raidSignUps as $index => $raid) {
             $event = $this->raidEventRepository->find($raid['id']);
-            if ($event) {
+            if ($event && $event->getStart()) {
                 $signUpData = $this->signUpService->classifySignUpsByRaid($event);
                 /** @var Character $player */
                 foreach ($signUpData['noFeedback'] as $player) {

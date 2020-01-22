@@ -18,8 +18,10 @@ use App\Utility\WowRaceUtility;
 use App\Utility\WowSlotUtility;
 use App\Utility\WowSpecUtility;
 use App\Utility\WoWZoneUtility;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use RuntimeException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -217,13 +219,12 @@ class CharacterController extends AbstractController
     /**
      * @Route("/character/{charId}/bislist/{slotId?}", name="character_bislist")
      *
-     * @param Request $request
-     * @param int $charId
+      * @param int $charId
      * @param int $slotId
      * @param WowSlotUtility $wowSlotUtility
      * @return Response
      */
-    public function bisListViewAction(Request $request, int $charId, $slotId, WowSlotUtility $wowSlotUtility): Response
+    public function bisListViewAction(int $charId, $slotId, WowSlotUtility $wowSlotUtility): Response
     {
         $character = $this->characterRepository->find($charId);
         $items = $this->lootRequirementRepository->findBy([
@@ -257,7 +258,6 @@ class CharacterController extends AbstractController
         foreach ($items as $item) {
             $bisItems[$item->getSlot()][$item->getPriority()] = $item;
         }
-        $foo = '';
         return $this->render('character/bis_list.html.twig', [
             'character' => $character,
             'bisItems' => $bisItems,
@@ -268,11 +268,10 @@ class CharacterController extends AbstractController
 
     private function findLootsPerRaidAndChar(Raid $raid, Character $character): array
     {
-        $lootsPerRaid = $this->lootRepository->findBy([
+        return $this->lootRepository->findBy([
             'raid' => $raid,
             'player' => $character
         ]);
-        return $lootsPerRaid;
     }
 
     /**
@@ -334,7 +333,7 @@ class CharacterController extends AbstractController
         if ($bisEntry->getPlayerCharacter() === $character && $bisEntry->getPlayerCharacter()->getAccount() === $this->getUser()) {
             $this->entityManager->remove($bisEntry);
             $this->entityManager->flush();
-            $character->setLastUpdate(new \DateTime());
+            $character->setLastUpdate(new DateTime());
             $this->entityManager->persist($character);
         }
         return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
@@ -356,7 +355,7 @@ class CharacterController extends AbstractController
     {
         $character = $this->characterRepository->find($charId);
         if ($character === null) {
-            throw new \RuntimeException('No character found for id');
+            throw new RuntimeException('No character found for id');
         }
         foreach ($item as $index => $processInfo) {
             if (is_int($index)) {
@@ -370,7 +369,7 @@ class CharacterController extends AbstractController
 //                    throw new \RuntimeException('Duplicate Item per slot');
                 }
                 if (count($lootEntry) === 0) {
-                    throw new \RuntimeException('Hacking attempt');
+                    throw new RuntimeException('Hacking attempt');
                 }
                 if ($lootEntry[0]->hasItem() === true && $processInfo['hasItem'] === '0') {
                     $lootEntry[0]->setHasItem(false);
@@ -379,7 +378,7 @@ class CharacterController extends AbstractController
                 if ($lootEntry[0]->hasItem() === false && $processInfo['hasItem'] === 'on') {
                     $lootEntry[0]->setHasItem(true);
                     $this->entityManager->persist($lootEntry[0]);
-                    $character->setLastUpdate(new \DateTime());
+                    $character->setLastUpdate(new DateTime());
                     $this->entityManager->persist($character);
                 }
 
@@ -387,7 +386,7 @@ class CharacterController extends AbstractController
                 // todo insert
                 $itemFromDb = $this->itemRepository->find((int)$processInfo);
                 if ($character->getAccount() !== $this->getUser()) {
-                    throw new \RuntimeException('Hacking attempt... trying to add item to foreign character');
+                    throw new RuntimeException('Hacking attempt... trying to add item to foreign character');
                 }
                 if ($item) {
                     $bisEntry = new CharacterLootRequirement();
@@ -397,7 +396,7 @@ class CharacterController extends AbstractController
                     $bisEntry->setHasItem(false);
                     $bisEntry->setPriority($priority);
                     $this->entityManager->persist($bisEntry);
-                    $character->setLastUpdate(new \DateTime());
+                    $character->setLastUpdate(new DateTime());
                     $this->entityManager->persist($character);
                 }
             }
