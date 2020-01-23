@@ -16,7 +16,6 @@ easy_admin:
       - { label: 'Items', icon: 'biohazard', entity: 'Item'}
       - { label: 'WoW Item Classes', icon: 'list', entity: 'Category'}
       - { label: 'WoW Item Sub-Classes', icon: 'list-alt', entity: 'SubCategory'}
-      - { label: 'News Category', icon: 'tags', entity: 'NewsCategory'}
       - { label: 'Ranks', icon: 'id-badge', entity: 'Rank'}
   entities:
     #        - App\Entity\User
