@@ -44,11 +44,6 @@ class PageController extends AbstractController
      * @var EntityManagerInterface
      */
     private $entityManager;
-    /**
-     * @var NewsRepository
-     */
-    private $newsRepository;
-
 
     public function __construct(
         RaidTrackerParsingService $raidTrackerParsingService,
@@ -56,7 +51,6 @@ class PageController extends AbstractController
         Environment $twig,
         LootRepository $lootRepository,
         CharacterRepository $characterRepository,
-        NewsRepository $newsRepository,
         EntityManagerInterface $entityManager
     )
     {
@@ -65,27 +59,7 @@ class PageController extends AbstractController
         $this->loader = $twig->getLoader();
         $this->lootRepository = $lootRepository;
         $this->characterRepository = $characterRepository;
-        $this->newsRepository = $newsRepository;
         $this->entityManager = $entityManager;
-    }
-
-    /**
-     * @Route("/old-index", name="page_index")
-     * @return Response
-     */
-    public function indexAction(): Response
-    {
-        $newsEntries = $this->newsRepository->findBy(
-            [],
-            [
-                'publishedOn' => 'DESC'
-            ],
-            10
-        );
-        return $this->renderTemplate(
-            'page/index.html.twig',
-            ['news' => $newsEntries]
-        );
     }
 
     /**
