@@ -111,6 +111,10 @@ class GroupBuildController extends AbstractController
                             unset($signUps[$signUpIndex]);
                         }
                     }
+                    // Check if somebody cancelled after being put into the raid setup
+                    if (array_key_exists((int)$playerId, $raidSignUps['cancellations'])) {
+                        unset($raidSetup['groups'][$groupId][$playerIndex]);
+                    }
                 }
             }
             $raidGroup->setSetup($raidSetup);

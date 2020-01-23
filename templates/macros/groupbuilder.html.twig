@@ -3,7 +3,9 @@
         {% for player in raidGroup.setup.groups[groupId] %}
             <li
                     class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
+                {% if player.account is not null %}
                     data-account="{{ player.account.id }}"
+                {% endif %}
                     data-character="{{ player.id }}"
                     data-spec="{{ player.spec }}"
                     data-class="{{ player.class }}"
