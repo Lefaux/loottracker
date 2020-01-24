@@ -51,7 +51,6 @@
                                     data-account="{{ signup.playerName.account.id }}"
                                     data-character="{{ signup.playerName.id }}"
                                     data-spec="{{ signup.playerName.spec }}"
-                                    data-weekday="{{signup.raidEvent.start|date('D')}}"
                                     data-class="{{ signup.playerName.class }}"
                                     data-player-id="{{ signup.playerName.id }}"
                                     data-player-status="1"
@@ -67,6 +66,33 @@
                                     <i class="fa fa-fw fa-skull-crossbones"></i>
                                 {% endif %}
                                 <small>{{ signup.playerName.name }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <h6><span id="inother-players">{{ playersInOtherSetups|length }}</span> signed up, but in other setups (incl. hidden twinks)</h6>
+                    <ul class="groupbuilder-list inother-players">
+                        {% for playerInOtherSetup in playersInOtherSetups %}
+                            <li
+                                    id="{{ playerInOtherSetup.account.id }}-{{ playerInOtherSetup.id }}-{{ raid.id }}"
+                                    class="groupbuilder-item-player class-{{ playerInOtherSetup.class }} {% if playerInOtherSetup.twink == true %}twink{% endif %}"
+                                    data-account="{{ playerInOtherSetup.account.id }}"
+                                    data-character="{{ playerInOtherSetup.id }}"
+                                    data-spec="{{ playerInOtherSetup.spec }}"
+                                    data-class="{{ playerInOtherSetup.class }}"
+                                    data-player-id="{{ playerInOtherSetup.id }}"
+                                    data-player-status="1"
+                                    {% if playerInOtherSetup.account.id in assignedPlayers%}
+                                        style="display: none;"
+                                    {% endif %}
+                            >
+                                {% if playerInOtherSetup.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif playerInOtherSetup.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif playerInOtherSetup.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                <small>{{ playerInOtherSetup.name }}</small>
                             </li>
                         {% endfor %}
                     </ul>
@@ -117,14 +143,14 @@
                                 <tr><td><i class="fa fa-fw fa-band-aid"></i></td>                           <td class="counter" id="count-heal-alpha">0</td></tr>
                                 <tr><td><i class="fa fa-fw fa-skull-crossbones"></i></td>                   <td class="counter" id="count-dps-alpha">0</td></tr>
                                 <tr><td colspan="2"><hr></td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_1.png') }}" style="width: 20px;"></td><td class="counter" id="count-1-alpha">0</td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_2.png') }}" style="width: 20px;"></td><td class="counter" id="count-2-alpha">0</td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_3.png') }}" style="width: 20px;"></td><td class="counter" id="count-3-alpha">0</td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_4.png') }}" style="width: 20px;"></td><td class="counter" id="count-4-alpha">0</td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_5.png') }}" style="width: 20px;"></td><td class="counter" id="count-5-alpha">0</td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_6.png') }}" style="width: 20px;"></td><td class="counter" id="count-6-alpha">0</td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_7.png') }}" style="width: 20px;"></td><td class="counter" id="count-7-alpha">0</td></tr>
-                                <tr><td><img src="{{ asset('assets/icons/class_9.png') }}" style="width: 20px;"></td><td class="counter" id="count-9-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_1.png') }}" style="width: 20px;" alt="Warrior"></td><td class="counter" id="count-1-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_2.png') }}" style="width: 20px;" alt="Priest"></td><td class="counter" id="count-2-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_3.png') }}" style="width: 20px;" alt="Mage"></td><td class="counter" id="count-3-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_4.png') }}" style="width: 20px;" alt="Warlock"></td><td class="counter" id="count-4-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_5.png') }}" style="width: 20px;" alt="Rogue"></td><td class="counter" id="count-5-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_6.png') }}" style="width: 20px;" alt="Druid"></td><td class="counter" id="count-6-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_7.png') }}" style="width: 20px;" alt="Hunter"></td><td class="counter" id="count-7-alpha">0</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_9.png') }}" style="width: 20px;" alt="Paladin"></td><td class="counter" id="count-9-alpha">0</td></tr>
                             </table>
                         </div>
                     </div>

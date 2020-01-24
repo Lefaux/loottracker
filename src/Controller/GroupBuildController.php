@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Signup;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidGroupRepository;
+use App\Service\RaidGroupService;
 use App\Service\SignUpService;
 use App\Utility\WoWZoneUtility;
 use Doctrine\ORM\EntityManagerInterface;
@@ -77,11 +78,12 @@ class GroupBuildController extends AbstractController
 
     /**
      * @Route("/group/build/setup/{raidEvent}/{raidGroupId?}", name="group_build")
+     * @param RaidGroupService $raidGroupService
      * @param int $raidEvent
      * @param $raidGroupId
      * @return Response
      */
-    public function buildGroupAction(int $raidEvent, $raidGroupId): Response
+    public function buildGroupAction(RaidGroupService $raidGroupService, int $raidEvent, $raidGroupId): Response
     {
         $raid = $this->raidEventRepository->find($raidEvent);
         if(!$raid) {
@@ -91,9 +93,13 @@ class GroupBuildController extends AbstractController
         $raidGroup = null;
         if ($raidGroupId) {
             $raidGroup = $this->raidGroupRepository->find($raidGroupId);
+            $otherRaidGroupsInThisId = $raidGroupService->findPlayersInOtherRaidGroupsInThisIdAndZone($raidGroup);
+        } else {
+            $otherRaidGroupsInThisId = [];
         }
         $signUps = $raidSignUps['signUps'];
         $assignedPlayers = [];
+        $playersInOtherSetups = [];
         if ($raidGroupId && $raidGroup) {
             $raidSetup = $raidGroup->getSetup();
             /**
@@ -119,6 +125,13 @@ class GroupBuildController extends AbstractController
             }
             $raidGroup->setSetup($raidSetup);
         }
+        $foo = '';
+        foreach ($signUps as $signUpIndex => $signUp) {
+            if (in_array((int)$signUp->getPlayerName()->getId(), $otherRaidGroupsInThisId, true)) {
+                $playersInOtherSetups[] = $signUp->getPlayerName();
+                unset($signUps[$signUpIndex]);
+            }
+        }
         /**
          * Manage Twinks
          */
@@ -127,6 +140,7 @@ class GroupBuildController extends AbstractController
             'signUps' => $signUps,
             'raidGroup' => $raidGroup,
             'assignedPlayers' => $assignedPlayers,
+            'playersInOtherSetups' => $playersInOtherSetups,
             'cancellations' => $raidSignUps['cancellations'],
             'noFeedback' => $raidSignUps['noFeedback']
         ]);
