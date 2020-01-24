@@ -76,7 +76,7 @@ class BestInSlotController extends AbstractController
         $bisListAndPlayers = [];
         $bisItems = [];
         $bisList = [];
-        $characters = $this->characterRepository->findByClass(array_keys($filters['class']));
+        $characters = $this->characterRepository->findByClass($filters);
         $usedSlots = [];
         $maxPhaseItems = $this->bisRepository->findBiSByFilter($filters, false);
         foreach ($maxPhaseItems as $maxPhaseItem) {

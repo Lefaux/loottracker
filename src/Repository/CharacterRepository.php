@@ -29,13 +29,45 @@ class CharacterRepository extends ServiceEntityRepository
         );
     }
 
-    public function findByClass(array $classes): array
+    public function findByClass(array $filters): array
     {
-        return $this->createQueryBuilder('c')
-            ->where('c.hidden = 0')
-            ->andWhere('c.class IN (:classIds)')
-            ->setParameter('classIds', $classes)
-            ->orderBy('c.class')
+        $constraints[] = 'c.twink IN (:twink)';
+        $includeTwinks[] = 0;
+        $query = $this->createQueryBuilder('c');
+        $query->where('c.hidden = 0');
+        // Filter for Character Class
+        if (array_key_exists('class', $filters)) {
+            $constraints[] = 'c.class IN (:classIds)';
+            $query->setParameter('classIds', array_keys($filters['class']));
+        }
+        // Filter for Character Spec
+        if (array_key_exists('spec', $filters)) {
+            $constraints[] = 'c.spec IN (:specIds)';
+            $query->setParameter('specIds', array_keys($filters['spec']));
+        }
+        // Filter for Character Rank
+        if (array_key_exists('rank', $filters)) {
+            $ranksToShow = [];
+            foreach ($filters['rank'] as $ranks => $_) {
+                if ($ranks === 'twink') {
+                    // special twink handling
+                    $includeTwinks[] = 1;
+                } else {
+                    $singleRanks = explode(',', $ranks);
+                    foreach ($singleRanks as $singleRank) {
+                        $ranksToShow[] = (int)$singleRank;
+                    }
+                }
+            }
+            $constraints[] = 'c.rank IN (:rankIds)';
+            $query->setParameter('rankIds', $ranksToShow);
+        }
+        $query->setParameter('twink', $includeTwinks);
+        // Apply constraints if available
+        if (!empty($constraints)) {
+            $query->andWhere(implode(' AND ', $constraints));
+        }
+        return $query->orderBy('c.class')
             ->addOrderBy('c.spec', 'DESC')
             ->addOrderBy('c.name')
             ->getQuery()
