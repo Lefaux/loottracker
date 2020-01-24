@@ -7,6 +7,7 @@ namespace App\Listener;
 use App\Repository\CharacterRepository;
 use App\Repository\SignupRepository;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\Security\Core\Security;
 
 class SignUpNotifyListener
@@ -36,8 +37,14 @@ class SignUpNotifyListener
         $this->characterRepository = $characterRepository;
     }
 
-    public function onKernelController(): void
+    public function onKernelController(ControllerEvent $event): void
     {
+        $controller = $event->getController();
+        $name = get_class($controller[0]);
+        $method = $controller[1];
+        if ($name === 'App\Controller\Api\SelectController') {
+            return;
+        }
         $user = $this->security->getUser();
         if ($user) {
             $characters = $this->characterRepository->findBy(['account' => $user]);
