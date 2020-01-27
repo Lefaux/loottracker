@@ -7,6 +7,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class WoWZoneUtility
 {
 
+    public const ZONE_AV_PVP_REWARDS_BLUE = 2597;
+
     public const ZONE_DUNMOROGH = 1;
     public const ZONE_LONGSHORE = 2;
     public const ZONE_BADLANDS = 3;
@@ -1473,6 +1475,8 @@ class WoWZoneUtility
     public static function getZoneName($zoneId): string
     {
         switch ($zoneId) {
+            case self::ZONE_AV_PVP_REWARDS_BLUE:
+                return 'AV Rewards Blue';
             case self::ZONE_DUNMOROGH:
                 return self::$translator->trans('Dun Morogh');
             case self::ZONE_LONGSHORE:
