@@ -236,7 +236,19 @@ class BestInSlotController extends AbstractController
         }
         if (!isset($filters['class'])) {
             $filters['class'] = [
-                1 => true
+                1 => true,
+                2 => true,
+                3 => true,
+                4 => true,
+                5 => true,
+                6 => true,
+                7 => true,
+                9 => true,
+            ];
+        }
+        if (!isset($filters['rank'])) {
+            $filters['rank'] = [
+                '7,1,3' => true,
             ];
         }
         $bisItems = $this->bisRepository->findItemsByZoneId($filters);
