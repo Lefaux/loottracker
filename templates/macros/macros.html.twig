@@ -224,3 +224,38 @@
     {% endfor %}
     {{ class }}
 {% endmacro %}
+
+{% macro bisProgressBar(bisList, phaseId) %}
+    {% set total = 0 %}
+    {% set has = 0 %}
+    {% if phaseId == '' %}
+        {% set startPriority = 0 %}
+        {% set endPriority = 5 %}
+    {% else %}
+        {% set startPriority = phaseId * 10 %}
+        {% set endPriority = (phaseId * 10 ) + 5 %}
+    {% endif %}
+    {% for slot in bisList %}
+        {% for priority, entry in slot %}
+            {% if 'max' not in priority %}
+
+                {% if priority > startPriority and priority < endPriority %}
+                    {% set total = total + 1 %}
+                    {% if entry.hasItem == true %}
+                        {% set has = has + 1 %}
+                    {% endif %}
+                {% endif %}
+
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+    {% if total == 0 %}
+        {% set percentage = 100 %}
+    {% else %}
+        {% set percentage = (has/total)*100 %}
+    {% endif %}
+    <div class="progress">
+        <div class="progress-bar bg-success" role="progressbar" style="width: {{ percentage }}%;" aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">{{ has }}/{{ total }}</div>
+{#        <div class="progress-bar" role="progressbar" style="width: {{ 100 - percentage }}%;" aria-valuenow="{{ 100 - percentage }}" aria-valuemin="0" aria-valuemax="100"></div>#}
+    </div>
+{% endmacro %}

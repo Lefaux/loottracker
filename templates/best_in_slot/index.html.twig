@@ -133,7 +133,7 @@
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~3, wowheaddomain) }}</td>
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~4, wowheaddomain) }}</td>
                                         {% endfor %}
-                                        <td></td>
+                                        <td>{{ macros.bisProgressBar(character.bisList, phaseId) }}</td>
                                     </tr>
                                 {% endfor %}
                             {% endfor %}

@@ -65,7 +65,8 @@ class BestInSlotController extends AbstractController
         }
         if (!isset($filters['phase'])) {
             $filters['phase'] = [
-                1 => true
+                1 => true,
+                3 => true,
             ];
         }
         if (!isset($filters['class'])) {
