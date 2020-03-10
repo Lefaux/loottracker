@@ -68,7 +68,7 @@ easy_admin:
       show:
         max_results: 10
       list:
-        fields: ['id', 'name', 'quality', 'class', 'subClass']
+        fields: ['id', 'hidden', 'name', 'quality', 'class', 'subClass']
     Category:
       class: App\Entity\Category
       list:

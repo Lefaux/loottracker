@@ -90,6 +90,11 @@ class Item
      */
     private $icon;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hidden;
+
     public function __construct()
     {
         $this->loots = new ArrayCollection();
@@ -306,5 +311,17 @@ class Item
             $shortName[] = substr($part, 0, 1);
         }
         return implode('', $shortName);
+    }
+
+    public function getHidden(): ?bool
+    {
+        return $this->hidden;
+    }
+
+    public function setHidden(bool $hidden): self
+    {
+        $this->hidden = $hidden;
+
+        return $this;
     }
 }

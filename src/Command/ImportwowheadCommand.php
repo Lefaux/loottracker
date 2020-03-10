@@ -100,7 +100,7 @@ class ImportwowheadCommand extends Command
             $today = new DateTime();
             if ($item->getLastImport()) {
                 $interval = $item->getLastImport()->diff($today);
-                if ($interval->d < 7) {
+                if ($interval->days < 7) {
                     $output->overwrite('item '. $itemId . ' imported recently');
                     return;
                 }
