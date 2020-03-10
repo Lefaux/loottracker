@@ -47,7 +47,7 @@ class SignUpNotifyListener
         }
         $user = $this->security->getUser();
         if ($user) {
-            $characters = $this->characterRepository->findBy(['account' => $user]);
+            $characters = $this->characterRepository->findBy(['account' => $user, 'hidden' => false]);
             $check = $this->signUpRepository->checkIfCharIsSignedUpForAllEvents($characters);
             $foo = '';
             if ($check === false && !isset($GLOBALS['askeria-flash-message-signup'])) {

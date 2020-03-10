@@ -12,7 +12,9 @@
                         <tr>
                             <th>From</th>
                             {% for character in account.characters %}
-                                <th>{{ character.name }}</th>
+                                {% if character.hidden == false %}
+                                    <th>{{ character.name }}</th>
+                                {% endif %}
                             {% endfor %}
                             <th>Deadline</th>
                             <th>Setup</th>
@@ -23,20 +25,22 @@
                                 <small>{{ event.start|date('D, d.m.Y') }}</small>
                             </td>
                             {% for character in account.characters %}
-                                <td>
-                                    {% if event.deadline|date('U') > "now"|date('U') %}
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupTrue_{{ character.id }}_{{ event.id }}" value="yes" {{ macros.signedUpCheckbox(signUps, character, event, '1') }}>
-                                        <label class="form-check-label" for="signupTrue_{{ character.id }}_{{ event.id }}">Yes</label>
-                                    </div>
-                                    <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupFalse_{{ character.id }}_{{ event.id }}" value="no" {{ macros.signedUpCheckbox(signUps, character, event, '2') }}>
-                                        <label class="form-check-label" for="signupFalse_{{ character.id }}_{{ event.id }}">No</label>
-                                    </div>
-                                    {% else %}
-                                        SignUp Closed!
-                                    {% endif %}
-                                </td>
+                                {% if character.hidden == false %}
+                                    <td>
+                                        {% if event.deadline|date('U') > "now"|date('U') %}
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupTrue_{{ character.id }}_{{ event.id }}" value="yes" {{ macros.signedUpCheckbox(signUps, character, event, '1') }}>
+                                            <label class="form-check-label" for="signupTrue_{{ character.id }}_{{ event.id }}">Yes</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupFalse_{{ character.id }}_{{ event.id }}" value="no" {{ macros.signedUpCheckbox(signUps, character, event, '2') }}>
+                                            <label class="form-check-label" for="signupFalse_{{ character.id }}_{{ event.id }}">No</label>
+                                        </div>
+                                        {% else %}
+                                            SignUp Closed!
+                                        {% endif %}
+                                    </td>
+                                {% endif %}
                             {% endfor %}
                             <td>{{ event.deadline|date('d.m.Y H:i') }}</td>
                             <td>
