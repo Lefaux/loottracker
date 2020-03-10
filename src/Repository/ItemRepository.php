@@ -21,19 +21,6 @@ class ItemRepository extends ServiceEntityRepository
         parent::__construct($registry, Item::class);
     }
 
-    public function findMaxImportedItem(): int
-    {
-        $result = 1;
-        $qb = $this->createQueryBuilder('u');
-        $qb->select('MAX(u.id) as idMax');
-        try {
-            $result = $qb->getQuery()->getSingleResult();
-        } catch (NoResultException $e) {
-        } catch (NonUniqueResultException $e) {
-        }
-        return (int)$result['idMax'];
-    }
-
     public function findDistinctIcons(): array
     {
         $qb = $this->createQueryBuilder('i');

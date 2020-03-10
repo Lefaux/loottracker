@@ -9,6 +9,7 @@ use App\Repository\SubCategoryRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
@@ -57,19 +58,13 @@ class ImportwowheadCommand extends Command
 
     protected function configure(): void
     {
-        $this
-            ->setDescription('Attempts to import all items from classic wowhead')
-        ;
+        $this->setDescription('Attempts to import all items from classic wowhead');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $lastImportedItem = 29041;
-        $startAt = $this->findLastImportedItem();
-        if ($startAt < $lastImportedItem) {
-            $startAt = $lastImportedItem;
-        }
+        $startAt = 1;
         $progressSection = $output->section();
         $outputSection = $output->section();
         $progressBar = new ProgressBar($progressSection);
@@ -77,7 +72,6 @@ class ImportwowheadCommand extends Command
         $progressBar->setMaxSteps($this->maxItemId);
         $output->writeln('Starting at '. $startAt);
         $progressBar->setProgress($startAt);
-//        $this->importItemFromWoWHead(7976, $output);
         while($startAt < $this->maxItemId) {
             $startAt++;
             try {
@@ -92,11 +86,6 @@ class ImportwowheadCommand extends Command
         $io->success('Done importing from wowhead');
     }
 
-    private function findLastImportedItem(): int
-    {
-        return $this->itemRepository->findMaxImportedItem();
-    }
-
     /**
      * @param int $itemId
      * @param OutputInterface $output
@@ -104,24 +93,41 @@ class ImportwowheadCommand extends Command
      */
     private function importItemFromWoWHead(int $itemId, OutputInterface $output): void
     {
-        $item = new Item();
+        $item = $this->itemRepository->find($itemId);
+        if (!$item) {
+            $item = new Item();
+        } else {
+            $today = new DateTime();
+            if ($item->getLastImport()) {
+                $interval = $item->getLastImport()->diff($today);
+                if ($interval->d < 7) {
+                    $output->overwrite('item '. $itemId . ' imported recently');
+                    return;
+                }
+            }
+        }
         $item->setId($itemId);
         $liveData = file_get_contents('https://www.wowhead.com/item=' . $itemId . '&xml');
-        $classicData = file_get_contents('https://classic.wowhead.com/item=' . $itemId . '&xml');
-        $crawlerToolTip = new Crawler($classicData);
         if (strpos($liveData, 'Item not found') !== false) {
             $output->overwrite('item '. $itemId . ' not found');
             return;
         }
+        $classicData = file_get_contents('https://classic.wowhead.com/item=' . $itemId . '&xml');
+        $crawlerToolTip = new Crawler($classicData);
         if (strpos($classicData, 'Item not found') !== false) {
             $output->overwrite('item '. $itemId . ' not found in classic');
             return;
         }
-        $crawler = new Crawler($liveData);
+        $crawler = new Crawler($classicData);
         $name = $crawler->filter('name');
         $output->overwrite(date('d.m.Y h:i:s') . ' ' .$name->html());
-
         $item->setName($name->html());
+
+        $germanData = file_get_contents('https://de.classic.wowhead.com/item=' . $itemId . '&xml');
+        $germanCrawler = new Crawler($germanData);
+        $germanName = $germanCrawler->filter('name');
+        $item->setNameDe($germanName->html());
+
 
 
         // Try to find an error
@@ -132,9 +138,22 @@ class ImportwowheadCommand extends Command
         $level = $crawler->filter('level');
         $item->setItemLevel((int)$level->html());
 
+        $icon = $crawler->filter('icon');
+        $item->setIcon($icon->html());
+
         $quality = $crawler->filter('quality');
         $qualityValue = (int)$quality->attr('id');
         $item->setQuality($qualityValue);
+
+        $inventorySlot = $crawler->filter('inventorySlot');
+        $inventorySlotValue = (int)$inventorySlot->attr('id');
+        $item->setInventorySlot($inventorySlotValue);
+
+        $jsonRaw = $crawler->filter('json');
+        $json = json_decode('{' . $jsonRaw->html() .'}', true);
+        if (isset($json['sourcemore'][0]['z']) && (strpos($jsonRaw->html(), 'sourcemore') !== false)) {
+            $item->setZone((int)$json['sourcemore'][0]['z']);
+        }
 
         // Set main category
         $category = $crawler->filter('class');
@@ -144,7 +163,7 @@ class ImportwowheadCommand extends Command
             'identifier' => $categoryValue
         ]);
         if ($class === null) {
-            throw new \RuntimeException('No entry found for class "' . $categoryValue . '"');
+            throw new RuntimeException('No entry found for class "' . $categoryValue . '"');
         }
         // Set subcategory
         $subCategory = $crawler->filter('subclass');
@@ -155,7 +174,7 @@ class ImportwowheadCommand extends Command
             'parentClass' => $class->getId()
         ]);
         if ($subClass === null) {
-            throw new \RuntimeException('No entry found for class "' . $categoryValue . '"');
+            throw new RuntimeException('No entry found for class "' . $categoryValue . '"');
         }
 
         $item->setClass($class);
