@@ -13,6 +13,7 @@ use RuntimeException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\DomCrawler\Crawler;
@@ -58,13 +59,16 @@ class ImportwowheadCommand extends Command
 
     protected function configure(): void
     {
-        $this->setDescription('Attempts to import all items from classic wowhead');
+        $this
+            ->setDescription('Attempts to import all items from classic wowhead')
+            ->addOption('start', 's', InputOption::VALUE_OPTIONAL, 'Which item ID to start with importing', 1)
+        ;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new SymfonyStyle($input, $output);
-        $startAt = 1;
+        $startAt = (int)$input->getOption('start');
         $progressSection = $output->section();
         $outputSection = $output->section();
         $progressBar = new ProgressBar($progressSection);
