@@ -185,6 +185,7 @@ FROM
     INNER JOIN characters c on bis.player_character_id = c.id
 WHERE
     i.zone = '. $zone . '
+    AND i.hidden = 0
     AND bis.has_item = 0
     AND c.hidden = 0
     AND bis.player_character_id IN ('. implode(',', $playerIds)  .')
@@ -206,6 +207,7 @@ ORDER BY rank_id, amount DESC
         $output = [];
         $constraints = [];
         $constraints['hiddenPlayer'] = 'c.hidden = 0';
+        $constraints['hiddenItem'] = 'i.hidden = 0';
         /**
          * Build Filter Constraints
          */

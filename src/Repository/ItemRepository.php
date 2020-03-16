@@ -59,7 +59,7 @@ class ItemRepository extends ServiceEntityRepository
                 $searchSlots = [(int)$slots];
         }
         $query1 = $this->createQueryBuilder('a')
-            ->andWhere('(a.name LIKE :word OR a.name_de LIKE :word OR a.id LIKE :word) AND a.inventorySlot IN ('.implode(',', $searchSlots).')')
+            ->andWhere('(a.name LIKE :word OR a.name_de LIKE :word OR a.id LIKE :word) AND a.hidden = 0 AND a.inventorySlot IN ('.implode(',', $searchSlots).')')
             ->setParameter('word', '%' . addcslashes($query, '%_') . '%')
             ->orderBy('a.name', 'ASC')
             ->getQuery();
