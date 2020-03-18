@@ -35,6 +35,7 @@ security:
         - { path: ^/admin/, role: ROLE_ADMIN }
         - { path: ^/upload, roles: [ROLE_RAIDMANAGER, ROLE_LOOTTRACKER] }
         - { path: ^/group, roles: [ROLE_RAIDMANAGER] }
+        - { path: ^/quest, roles: [ROLE_RAIDMANAGER] }
         - { path: ^/profile/characters, role: ROLE_RAIDER }
         - { path: /roster, role: ROLE_RAIDER }
         - { path: /bis, role: ROLE_RAIDER }
