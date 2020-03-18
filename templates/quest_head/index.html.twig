@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+{% import 'macros/questheads.html.twig' as macros %}
+{% import 'macros/bis.html.twig' as bisMacros %}
+{% block title %}Quest Head Overview{% endblock %}
+
+{% block body %}
+<div class="content-section bg-transparent">
+    <div class="container">
+            <form action="{{ path('quest_head') }}" method="get">
+                <table class="table table-sm">
+                    <tr>
+                        <th>Show</th>
+                        <td>
+                            {{ bisMacros.checkbox('<i class="fa fa-times-circle text-danger"></i> Can take', 'mode', 0, filters) }}
+                            {{ bisMacros.checkbox('<i class="fa fa-exclamation-circle text-warning"></i> Can turn in', 'mode', 1, filters) }}
+                            {{ bisMacros.checkbox('<i class="fa fa-check-circle text-success"></i> Has turned in', 'mode', 2, filters) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Heads</td>
+                        <td>
+                            {{ bisMacros.checkbox('Ony', 'head', 1, filters) }}
+                            {{ bisMacros.checkbox('Nef', 'head', 2, filters) }}
+                            {{ bisMacros.checkbox('Lash', 'head', 3, filters) }}
+                            {{ bisMacros.checkbox('Hakkar', 'head', 4, filters) }}
+                            {{ bisMacros.checkbox('CThun', 'head', 5, filters) }}
+                        </td>
+                        <td><input type="submit" name="apply" value="Set Filters" class="btn btn-success"></td>
+                    </tr>
+                </table>
+
+            </form>
+        <hr>
+        <table class="table table-sm">
+            <tr>
+                <th>Name</th>
+                <th class="text-center">Onyxia's Head</th>
+                <th class="text-center">Nefarian's Head</th>
+                <th class="text-center">Lashlayer's Head</th>
+                <th class="text-center">Heart of Hakkar</th>
+                <th class="text-center">Eye of C'Thun</th>
+            </tr>
+            {% for char in characters %}
+                {% if char.twink == true %}
+                    {% set rowClass = 'bg-twink' %}
+                {% else %}
+                    {% set rowClass = 'bg-main' %}
+                {% endif %}
+                <tr class="{{ rowClass }}">
+                    <td class="bis-list-name">
+                        {% if char.spec == 1 %}
+                            <i class="fa fa-fw fa-shield-alt"></i>
+                        {% elseif char.spec == 2 %}
+                            <i class="fa fa-fw fa-band-aid"></i>
+                        {% elseif char.spec == 3 %}
+                            <i class="fa fa-fw fa-skull-crossbones"></i>
+                        {% endif %}
+                        <a class="link-{{ char.class }}" href="{{ path('character', {'charId': char.id}) }}">{{ char.name }}</a>
+                    </td>
+                    <td class="text-center">{{ macros.questhead(char.headOny) }}</td>
+                    <td class="text-center">{{ macros.questhead(char.headNef) }}</td>
+                    <td class="text-center">{{ macros.questhead(char.headLash) }}</td>
+                    <td class="text-center">{{ macros.questhead(char.headHakkar) }}</td>
+                    <td class="text-center">{{ macros.questhead(char.headCthun) }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}

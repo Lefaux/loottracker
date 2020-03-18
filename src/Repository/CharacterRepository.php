@@ -29,6 +29,48 @@ class CharacterRepository extends ServiceEntityRepository
         );
     }
 
+    public function findByHead(array $filters): array
+    {
+        $query = $this->createQueryBuilder('c');
+        $query->where('c.hidden = 0');
+        // Filter for Character Class
+        foreach ($filters['head'] as $index => $filter) {
+            $preparedValueName = 'param_Head_' . $index;
+            switch ($index) {
+                case 1:
+                    $constraints[] = 'c.HeadOny IN (:' . $preparedValueName .')';
+                    $query->setParameter($preparedValueName, array_keys($filters['mode']));
+                    break;
+                case 2:
+                    $constraints[] = 'c.HeadNef IN (:' . $preparedValueName .')';
+                    $query->setParameter($preparedValueName, array_keys($filters['mode']));
+                    break;
+                case 3:
+                    $constraints[] = 'c.HeadLash IN (:' . $preparedValueName .')';
+                    $query->setParameter($preparedValueName, array_keys($filters['mode']));
+                    break;
+                case 4:
+                    $constraints[] = 'c.headHakkar IN (:' . $preparedValueName .')';
+                    $query->setParameter($preparedValueName, array_keys($filters['mode']));
+                    break;
+                case 5:
+                    $constraints[] = 'c.headCthun IN (:' . $preparedValueName .')';
+                    $query->setParameter($preparedValueName, array_keys($filters['mode']));
+                    break;
+            }
+        }
+        // Apply constraints if available
+        if (!empty($constraints)) {
+            $query->andWhere(implode(' OR ', $constraints));
+        }
+        return $query->orderBy('c.class')
+            ->addOrderBy('c.spec', 'DESC')
+            ->addOrderBy('c.name')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     public function findByClass(array $filters): array
     {
         $constraints[] = 'c.twink IN (:twink)';

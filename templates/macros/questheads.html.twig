@@ -1,0 +1,11 @@
+{% macro questhead(value) %}
+    {% if value == 0 %}
+        <i class="fa fa-lg fa-times-circle text-danger"></i>
+    {% elseif value == 1 %}
+        <i class="fa fa-lg fa-exclamation-circle text-warning"></i>
+    {% elseif value == 2 %}
+        <i class="fa fa-lg fa-check-circle text-success"></i>
+    {% else %}
+        wtf?
+    {% endif %}
+{% endmacro %}

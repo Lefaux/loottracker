@@ -118,6 +118,31 @@ class Character
      */
     private $hidden = false;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $HeadOny;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $HeadNef;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $HeadLash;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $headHakkar;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $headCthun;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -458,6 +483,66 @@ class Character
     public function setHidden(bool $hidden): self
     {
         $this->hidden = $hidden;
+
+        return $this;
+    }
+
+    public function getHeadOny(): ?int
+    {
+        return $this->HeadOny;
+    }
+
+    public function setHeadOny(int $HeadOny): self
+    {
+        $this->HeadOny = $HeadOny;
+
+        return $this;
+    }
+
+    public function getHeadNef(): ?int
+    {
+        return $this->HeadNef;
+    }
+
+    public function setHeadNef(int $HeadNef): self
+    {
+        $this->HeadNef = $HeadNef;
+
+        return $this;
+    }
+
+    public function getHeadLash(): ?int
+    {
+        return $this->HeadLash;
+    }
+
+    public function setHeadLash(int $HeadLash): self
+    {
+        $this->HeadLash = $HeadLash;
+
+        return $this;
+    }
+
+    public function getHeadHakkar(): ?int
+    {
+        return $this->headHakkar;
+    }
+
+    public function setHeadHakkar(int $headHakkar): self
+    {
+        $this->headHakkar = $headHakkar;
+
+        return $this;
+    }
+
+    public function getHeadCthun(): ?int
+    {
+        return $this->headCthun;
+    }
+
+    public function setHeadCthun(int $headCthun): self
+    {
+        $this->headCthun = $headCthun;
 
         return $this;
     }

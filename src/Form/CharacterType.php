@@ -68,6 +68,61 @@ class CharacterType extends AbstractType
                     'required' => false,
                 ]
             )
+            ->add('headOny', ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'Onyxia\'s Head',
+                    'choices' => [
+                        'I don\'t have it' => 0,
+                        'I have it on me' => 1,
+                        'I turned the quest in' => 2,
+                    ]
+                ]
+            )
+            ->add('headNef', ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'Nefarian\'s Head',
+                    'choices' => [
+                        'I don\'t have it' => 0,
+                        'I have it on me' => 1,
+                        'I turned the quest in' => 2,
+                    ]
+                ]
+            )
+            ->add('headLash', ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'Lashlayer\'s Head',
+                    'choices' => [
+                        'I don\'t have it' => 0,
+                        'I have it on me' => 1,
+                        'I turned the quest in' => 2,
+                    ]
+                ]
+            )
+            ->add('headHakkar', ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'Heart of Hakkar',
+                    'choices' => [
+                        'I don\'t have it' => 0,
+                        'I have it on me' => 1,
+                        'I turned the quest in' => 2,
+                    ]
+                ]
+            )
+            ->add('headCthun', ChoiceType::class,
+                [
+                    'required' => true,
+                    'label' => 'Eye of C\'Thun',
+                    'choices' => [
+                        'I don\'t have it' => 0,
+                        'I have it on me' => 1,
+                        'I turned the quest in' => 2,
+                    ]
+                ]
+            )
             ->add('note', TextType::class,
                 [
                     'required' => true,

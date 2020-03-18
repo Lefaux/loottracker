@@ -223,6 +223,16 @@ class MenuBuilder
                     ],
                 ]
             );
+            $menu['management']->addChild(
+                'questHeads',
+                [
+                    'label' => 'Quest Heads',
+                    'route' => 'quest_head',
+                    'extras' => [
+                        'icon' => 'horse-head',
+                    ],
+                ]
+            );
         }
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $menu->addChild(

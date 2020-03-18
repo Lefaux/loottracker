@@ -5,9 +5,36 @@
 {% block body %}
     <div class="content-section bg-transparent">
         <div class="container">
-            <h3>Loot requirement</h3>
+            <h3>Your Character</h3>
             {{ form_start(form) }}
-            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+            <div class="form-row">
+                <div class="col">{{ form_row(form.name) }}</div>
+            </div>
+            <div class="form-row">
+                <div class="col">{{ form_row(form.race) }}</div>
+                <div class="col">{{ form_row(form.class) }}</div>
+                <div class="col">{{ form_row(form.spec) }}</div>
+                <div class="col">{{ form_row(form.note) }}</div>
+            </div>
+            <div class="form-row">
+                <div class="col">{{ form_row(form.twink) }}</div>
+            </div>
+            <h3>Professions</h3>
+            <div class="form-row">
+                <div class="col">{{ form_row(form.profession1) }}</div>
+                <div class="col">{{ form_row(form.profession1skill) }}</div>
+                <div class="col">{{ form_row(form.profession2) }}</div>
+                <div class="col">{{ form_row(form.profession2skill) }}</div>
+            </div>
+            <h3>Quest Items</h3>
+            <div class="form-row">
+                <div class="col">{{ form_row(form.headOny) }}</div>
+                <div class="col">{{ form_row(form.headNef) }}</div>
+                <div class="col">{{ form_row(form.headLash) }}</div>
+                <div class="col">{{ form_row(form.headHakkar) }}</div>
+                <div class="col">{{ form_row(form.headCthun) }}</div>
+            </div>
             {{ form_end(form) }}
         </div>
     </div>
