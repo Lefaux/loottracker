@@ -30,11 +30,11 @@ class QuestHeadController extends AbstractController
         $filters = $request->get('f');
         if (!is_array($filters)) {
             $filters['head'] = [
-                2 => true,
-                3 => true
+                1 => true,
+                2 => true
             ];
             $filters['mode'] = [
-                1 => true,
+                2 => true,
             ];
             $filters['class'] = [
                 1 => true,
@@ -47,8 +47,10 @@ class QuestHeadController extends AbstractController
                 9 => true,
             ];
         }
+        $byHead = $this->characterRepository->findByHead($filters);
+        $foo = '';
         return $this->render('quest_head/index.html.twig', [
-            'characters' => $this->characterRepository->findByHead($filters),
+            'characters' => $byHead,
             'filters' => $filters
         ]);
     }
