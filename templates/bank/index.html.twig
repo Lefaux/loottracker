@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Guildbank{% endblock %}
+
+{% block body %}
+<div class="content-section bg-transparent">
+    <div class="container">
+        <h1>Guildbank</h1>
+        <h4>{{ gold }} Gold</h4>
+        <div class="row">
+        {% for slot in bankItems %}
+                <div class="col-1 bank-item">
+                    <div class="bank-item-item q{{ slot.item.quality }}">
+                        <a href="#" data-wowhead="item={{ slot.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="large"></a>
+                    </div>
+                    <div class="bank-item-amount">{{ slot.amount }}</div>
+                </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

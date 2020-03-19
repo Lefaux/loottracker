@@ -138,6 +138,16 @@ class MenuBuilder
                 ],
             ]
         );
+        $menu['roster']->addChild(
+            'roster-bank',
+            [
+                'label' => $this->translator->trans('Guildbank'),
+                'route' => 'bank',
+                'extras' => [
+                    'icon' => 'dollar-sign',
+                ],
+            ]
+        );
         $menu->addChild(
             'bis',
             [
@@ -230,6 +240,16 @@ class MenuBuilder
                     'route' => 'quest_head',
                     'extras' => [
                         'icon' => 'horse-head',
+                    ],
+                ]
+            );
+            $menu['management']->addChild(
+                'bank-upload',
+                [
+                    'label' => 'Update bank',
+                    'route' => 'bank_upload',
+                    'extras' => [
+                        'icon' => 'dollar-sign',
                     ],
                 ]
             );

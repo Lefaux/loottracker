@@ -122,3 +122,39 @@ tr.bg-main {
 tr.bg-twink {
   background-color: darken($success, 35);
 }
+
+
+div.bank-item-item {
+  border: 4px solid;
+  width: 74px;
+  height: 74px;
+  .q1 {
+    border-color: #ffffff;
+  }
+  .q2 {
+    border-color: #1eff00;
+  }
+  .q3 {
+    border-color: #0070dd;
+  }
+  .q4 {
+    border-color: #a335ee;
+  }
+  .q5 {
+    border-color: #ff8000;
+  }
+}
+
+.bank-item {
+  position: relative;
+  margin-bottom: 7px;
+}
+
+.bank-item-amount {
+  position: absolute;
+  bottom: 7px;
+  right: 19px;
+  color: white;
+  text-shadow: -1px 2px 0 #000, 1px 2px 0 #000, 1px -1px 0 #000, -1px -1px 0 #000;
+  font-size: 130%;
+}
