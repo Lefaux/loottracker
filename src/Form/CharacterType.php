@@ -73,9 +73,10 @@ class CharacterType extends AbstractType
                     'required' => true,
                     'label' => 'Onyxia\'s Head',
                     'choices' => [
-                        'I don\'t have it' => 0,
-                        'I have it on me' => 1,
-                        'I turned the quest in' => 2,
+                        'no feedback' => 0,
+                        'I don\'t have it' => 1,
+                        'I have it on me' => 2,
+                        'I turned the quest in' => 3,
                     ]
                 ]
             )
@@ -84,9 +85,10 @@ class CharacterType extends AbstractType
                     'required' => true,
                     'label' => 'Nefarian\'s Head',
                     'choices' => [
-                        'I don\'t have it' => 0,
-                        'I have it on me' => 1,
-                        'I turned the quest in' => 2,
+                        'no feedback' => 0,
+                        'I don\'t have it' => 1,
+                        'I have it on me' => 2,
+                        'I turned the quest in' => 3,
                     ]
                 ]
             )
@@ -95,9 +97,10 @@ class CharacterType extends AbstractType
                     'required' => true,
                     'label' => 'Lashlayer\'s Head',
                     'choices' => [
-                        'I don\'t have it' => 0,
-                        'I have it on me' => 1,
-                        'I turned the quest in' => 2,
+                        'no feedback' => 0,
+                        'I don\'t have it' => 1,
+                        'I have it on me' => 2,
+                        'I turned the quest in' => 3,
                     ]
                 ]
             )
@@ -106,9 +109,10 @@ class CharacterType extends AbstractType
                     'required' => true,
                     'label' => 'Heart of Hakkar',
                     'choices' => [
-                        'I don\'t have it' => 0,
-                        'I have it on me' => 1,
-                        'I turned the quest in' => 2,
+                        'no feedback' => 0,
+                        'I don\'t have it' => 1,
+                        'I have it on me' => 2,
+                        'I turned the quest in' => 3,
                     ]
                 ]
             )
@@ -117,9 +121,10 @@ class CharacterType extends AbstractType
                     'required' => true,
                     'label' => 'Eye of C\'Thun',
                     'choices' => [
-                        'I don\'t have it' => 0,
-                        'I have it on me' => 1,
-                        'I turned the quest in' => 2,
+                        'no feedback' => 0,
+                        'I don\'t have it' => 1,
+                        'I have it on me' => 2,
+                        'I turned the quest in' => 3,
                     ]
                 ]
             )

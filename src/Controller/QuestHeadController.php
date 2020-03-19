@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Repository\CharacterRepository;
-use App\Utility\WowRaceUtility;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,8 +30,8 @@ class QuestHeadController extends AbstractController
         $filters = $request->get('f');
         if (!is_array($filters)) {
             $filters['head'] = [
-                1 => true,
-                2 => true
+                2 => true,
+                3 => true
             ];
             $filters['mode'] = [
                 1 => true,
