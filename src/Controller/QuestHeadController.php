@@ -37,6 +37,16 @@ class QuestHeadController extends AbstractController
             $filters['mode'] = [
                 1 => true,
             ];
+            $filters['class'] = [
+                1 => true,
+                2 => true,
+                3 => true,
+                4 => true,
+                5 => true,
+                6 => true,
+                7 => true,
+                9 => true,
+            ];
         }
         return $this->render('quest_head/index.html.twig', [
             'characters' => $this->characterRepository->findByHead($filters),

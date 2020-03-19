@@ -32,7 +32,12 @@ class CharacterRepository extends ServiceEntityRepository
     public function findByHead(array $filters): array
     {
         $query = $this->createQueryBuilder('c');
-        $query->where('c.hidden = 0');
+        $classConstraint = '';
+        if (array_key_exists('class', $filters)) {
+            $classConstraint .= ' AND c.class IN (:classIds)';
+            $query->setParameter('classIds', array_keys($filters['class']));
+        }
+        $query->where('c.hidden = 0' . $classConstraint);
         // Filter for Character Class
         foreach ($filters['head'] as $index => $filter) {
             $preparedValueName = 'param_Head_' . $index;
