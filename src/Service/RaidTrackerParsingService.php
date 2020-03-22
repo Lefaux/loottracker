@@ -134,6 +134,11 @@ class RaidTrackerParsingService
                 $character->setName($charName);
                 $character->setClass(0);
                 $character->setSpec(0);
+                $character->setHeadCthun(0);
+                $character->setHeadLash(0);
+                $character->setHeadHakkar(0);
+                $character->setHeadNef(0);
+                $character->setHeadOny(0);
                 $this->entityManager->persist($character);
                 $this->entityManager->flush();
             } else {
