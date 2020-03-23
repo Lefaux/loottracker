@@ -216,6 +216,10 @@ ORDER BY rank_id, amount DESC
         }
         if (!$filterPhases) {
             $constraints['hasItem'] = 'bis.has_item = 1';
+        } else {
+            if (isset($filters['need']) && $filters['need'][1] === '1') {
+                $constraints['hasItem'] = 'bis.has_item = 0';
+            }
         }
         if ($filterPhases && isset($filters['phase'])) {
             $constraints['phase'] = '(';
