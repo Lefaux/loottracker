@@ -78,6 +78,11 @@ class BestInSlotController extends AbstractController
         $bisItems = [];
         $bisList = [];
         $characters = $this->characterRepository->findByClass($filters);
+        $cleanedFilters = $filters;
+        unset($cleanedFilters['phase'], $cleanedFilters['rank'], $cleanedFilters['slot'], $cleanedFilters['spec']);
+        $cleanedFilters['rank']['twink'] = 1;
+        $unFilteredCharacters = $this->characterRepository->findByClass($cleanedFilters);
+        $filteredCharacters = array_diff($unFilteredCharacters, $characters);
         $usedSlots = [];
         $maxPhaseItems = $this->bisRepository->findBiSByFilter($filters, false);
         foreach ($maxPhaseItems as $maxPhaseItem) {
@@ -150,7 +155,8 @@ class BestInSlotController extends AbstractController
             'filters' => $filters,
             'classUtility' => $wowClassUtility,
             'raceUtility' => $wowRaceUtility,
-            'slotUtility' => $wowSlotUtility
+            'slotUtility' => $wowSlotUtility,
+            'filteredCharacters' => $filteredCharacters
         ]);
     }
 

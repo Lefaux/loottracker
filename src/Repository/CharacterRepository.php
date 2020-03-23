@@ -106,8 +106,10 @@ class CharacterRepository extends ServiceEntityRepository
                     }
                 }
             }
-            $constraints[] = 'c.rank IN (:rankIds)';
-            $query->setParameter('rankIds', $ranksToShow);
+            if (count($ranksToShow) > 0) {
+                $constraints[] = 'c.rank IN (:rankIds)';
+                $query->setParameter('rankIds', $ranksToShow);
+            }
         }
         $query->setParameter('twink', $includeTwinks);
         // Apply constraints if available
