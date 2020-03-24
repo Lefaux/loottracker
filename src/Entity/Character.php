@@ -121,27 +121,27 @@ class Character
     /**
      * @ORM\Column(type="integer")
      */
-    private $HeadOny;
+    private $HeadOny = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $HeadNef;
+    private $HeadNef = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $HeadLash;
+    private $HeadLash = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $headHakkar;
+    private $headHakkar = 0;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $headCthun;
+    private $headCthun = 0;
 
     public function __construct()
     {
