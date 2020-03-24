@@ -8,12 +8,28 @@
         <h1>Update Guildbank</h1>
         <form action="{{ path('bank_upload') }}" method="post">
             <div class="form-group">
-                <textarea cols="40" rows="10" name="bankstring" class="form-control"></textarea>
+                <textarea cols="40" rows="5" name="bankstring" class="form-control"></textarea>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-success" value="Upload">
+                <button type="submit" class="btn btn-primary start">
+                        <span class="btn-icon">
+                            <i class="fa fa-upload"></i>
+                        </span>
+                    <span class="btn-text">Start upload</span>
+                </button>
             </div>
         </form>
+        <hr>
+        <h3>How To:</h3>
+        <ol>
+            <li>Download GBC (GuildBankClassic) on Twitch (<a href="https://www.curseforge.com/wow/addons/guildbankclassic">https://www.curseforge.com/wow/addons/guildbankclassic</a>)</li>
+            <li>Enable the Addon</li>
+            <li>Log Into WoW</li>
+            <li>Go to your bank and open both your bank and your bags</li>
+            <li>Click the GBC button that appears in your lower center of your screen</li>
+            <li>Copy all text in that window  and paste it into the field above</li>
+            <li>Press <kbd>Start upload</kbd></li>
+        </ol>
     </div>
 </div>
 {% endblock %}
