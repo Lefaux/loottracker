@@ -160,6 +160,7 @@
 
 {% macro professions(skill) %}
     {% set percentage =  skill / 3.33333|round%}
+    {% set color = 'bg-secondary' %}
     {% if skill < 100 %}
         {% set color = 'bg-danger' %}
     {% elseif skill < 200 %}
@@ -183,6 +184,7 @@
             </div>
             <div class="tradeskill-progress">
                 {% set percentage =  skill / 3.33333|round%}
+                {% set color = 'bg-secondary' %}
                 {% if skill < 100 %}
                     {% set color = 'bg-danger' %}
                 {% elseif skill < 200 %}
