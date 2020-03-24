@@ -6,78 +6,126 @@
 {% block body %}
 <div class="content-section bg-transparent">
     <div class="container">
-            <form action="{{ path('quest_head') }}" method="get">
+        <div class="row">
+            <div class="col-3">
+                <form action="{{ path('quest_head') }}" method="get">
+                    <table class="table table-sm table-borderless">
+                        <tr>
+                            <th>Show</th>
+                            <td>{{ bisMacros.checkbox('<i class="fa fa-skull text-danger"></i> no feedback', 'mode', 0, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ bisMacros.checkbox('<i class="fa fa-times-circle text-danger"></i> Can take', 'mode', 1, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ bisMacros.checkbox('<i class="fa fa-exclamation-circle text-warning"></i> Can turn in', 'mode', 2, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ bisMacros.checkbox('<i class="fa fa-check-circle text-success"></i> Has turned in', 'mode', 3, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Heads</td>
+                            <td>{{ bisMacros.checkbox('Ony', 'head', 1, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ bisMacros.checkbox('Nef', 'head', 2, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ bisMacros.checkbox('Lash', 'head', 3, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ bisMacros.checkbox('Hakkar', 'head', 4, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>{{ bisMacros.checkbox('CThun', 'head', 5, filters) }}</td>
+                        </tr>
+                        <tr>
+                            <td>Class</td>
+                            <td>
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_1.png" height="20">', 'class', 1, filters) }}
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_5.png" height="20">', 'class', 5, filters) }}
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_7.png" height="20">', 'class', 7, filters) }}
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_2.png" height="20">', 'class', 2, filters) }}
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_9.png" height="20">', 'class', 9, filters) }}
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_6.png" height="20">', 'class', 6, filters) }}
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_4.png" height="20">', 'class', 4, filters) }}
+                                {{ bisMacros.checkbox('<img src="/assets/icons/class_3.png" height="20">', 'class', 3, filters) }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                    <input type="submit" name="apply" value="Set Filters" class="btn btn-success">
+                </form>
+            </div>
+            <div class="col-9">
                 <table class="table table-sm">
                     <tr>
-                        <th>Show</th>
-                        <td>
-                            {{ bisMacros.checkbox('<i class="fa fa-skull text-danger"></i> no feedback', 'mode', 0, filters) }}
-                            {{ bisMacros.checkbox('<i class="fa fa-times-circle text-danger"></i> Can take', 'mode', 1, filters) }}
-                            {{ bisMacros.checkbox('<i class="fa fa-exclamation-circle text-warning"></i> Can turn in', 'mode', 2, filters) }}
-                            {{ bisMacros.checkbox('<i class="fa fa-check-circle text-success"></i> Has turned in', 'mode', 3, filters) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Heads</td>
-                        <td>
-                            {{ bisMacros.checkbox('Ony', 'head', 1, filters) }}
-                            {{ bisMacros.checkbox('Nef', 'head', 2, filters) }}
-                            {{ bisMacros.checkbox('Lash', 'head', 3, filters) }}
-                            {{ bisMacros.checkbox('Hakkar', 'head', 4, filters) }}
-                            {{ bisMacros.checkbox('CThun', 'head', 5, filters) }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Class</td>
-                        <td>
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_1.png" height="20">', 'class', 1, filters) }}
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_5.png" height="20">', 'class', 5, filters) }}
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_7.png" height="20">', 'class', 7, filters) }}
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_2.png" height="20">', 'class', 2, filters) }}
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_9.png" height="20">', 'class', 9, filters) }}
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_6.png" height="20">', 'class', 6, filters) }}
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_4.png" height="20">', 'class', 4, filters) }}
-                            {{ bisMacros.checkbox('<img src="/assets/icons/class_3.png" height="20">', 'class', 3, filters) }}
-                        </td>
-                    </tr>
-                </table>
-                <input type="submit" name="apply" value="Set Filters" class="btn btn-success">
-            </form>
-        <hr>
-        <table class="table table-sm">
-            <tr>
-                <th>Name</th>
-                <th class="text-center">Onyxia's Head</th>
-                <th class="text-center">Nefarian's Head</th>
-                <th class="text-center">Lashlayer's Head</th>
-                <th class="text-center">Heart of Hakkar</th>
-                <th class="text-center">Eye of C'Thun</th>
-            </tr>
-            {% for char in characters %}
-                {% if char.twink == true %}
-                    {% set rowClass = 'bg-twink' %}
-                {% else %}
-                    {% set rowClass = 'bg-main' %}
-                {% endif %}
-                <tr class="{{ rowClass }}">
-                    <td class="bis-list-name">
-                        {% if char.spec == 1 %}
-                            <i class="fa fa-fw fa-shield-alt"></i>
-                        {% elseif char.spec == 2 %}
-                            <i class="fa fa-fw fa-band-aid"></i>
-                        {% elseif char.spec == 3 %}
-                            <i class="fa fa-fw fa-skull-crossbones"></i>
+                        <th>Name</th>
+                        {% if filters.head.1 is defined %}
+                            <th class="text-center">Onyxia</th>
                         {% endif %}
-                        <a class="link-{{ char.class }}" href="{{ path('character', {'charId': char.id}) }}">{{ char.name }}</a>
-                    </td>
-                    <td class="text-center">{{ macros.questhead(char.headOny) }}</td>
-                    <td class="text-center">{{ macros.questhead(char.headNef) }}</td>
-                    <td class="text-center">{{ macros.questhead(char.headLash) }}</td>
-                    <td class="text-center">{{ macros.questhead(char.headHakkar) }}</td>
-                    <td class="text-center">{{ macros.questhead(char.headCthun) }}</td>
-                </tr>
-            {% endfor %}
-        </table>
+                        {% if filters.head.2 is defined %}
+                            <th class="text-center">Nefarian</th>
+                        {% endif %}
+                        {% if filters.head.3 is defined %}
+                            <th class="text-center">Lashlayer</th>
+                        {% endif %}
+                        {% if filters.head.4 is defined %}
+                            <th class="text-center">Heart of Hakkar</th>
+                        {% endif %}
+                        {% if filters.head.5 is defined %}
+                            <th class="text-center">Eye of C'Thun</th>
+                        {% endif %}
+                    </tr>
+                    {% for char in characters %}
+                        {% if char.twink == true %}
+                            {% set rowClass = 'bg-twink' %}
+                        {% else %}
+                            {% set rowClass = 'bg-main' %}
+                        {% endif %}
+                        <tr class="{{ rowClass }}">
+                            <td class="bis-list-name">
+                                {% if char.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif char.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif char.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                <a class="link-{{ char.class }}" href="{{ path('character', {'charId': char.id}) }}">{{ char.name }}</a>
+                            </td>
+                            {% if filters.head.1 is defined %}
+                                <td class="text-center">{{ macros.questhead(char.headOny) }}</td>
+                            {% endif %}
+                            {% if filters.head.2 is defined %}
+                                <td class="text-center">{{ macros.questhead(char.headNef) }}</td>
+                            {% endif %}
+                            {% if filters.head.3 is defined %}
+                                <td class="text-center">{{ macros.questhead(char.headLash) }}</td>
+                            {% endif %}
+                            {% if filters.head.4 is defined %}
+                                <td class="text-center">{{ macros.questhead(char.headHakkar) }}</td>
+                            {% endif %}
+                            {% if filters.head.5 is defined %}
+                                <td class="text-center">{{ macros.questhead(char.headCthun) }}</td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
     </div>
 </div>
 {% endblock %}

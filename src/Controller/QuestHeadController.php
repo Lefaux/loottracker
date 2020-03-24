@@ -48,7 +48,6 @@ class QuestHeadController extends AbstractController
             ];
         }
         $byHead = $this->characterRepository->findByHead($filters);
-        $foo = '';
         return $this->render('quest_head/index.html.twig', [
             'characters' => $byHead,
             'filters' => $filters
