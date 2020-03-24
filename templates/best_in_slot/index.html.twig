@@ -115,10 +115,10 @@
                                         {% else %}
                                             {% set cellClass = '' %}
                                         {% endif %}
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxA', wowheaddomain) }}</td>
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxB', wowheaddomain) }}</td>
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain) }}</td>
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain) }}</td>
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxA', wowheaddomain, 'small', false) }}</td>
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxB', wowheaddomain, 'small', false) }}</td>
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain, 'small', false) }}</td>
+                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain, 'small', false) }}</td>
                                     {% endfor %}
                                     <td>{{ character.char.lastUpdate|date("d.m.y") }}</td>
                                 </tr>

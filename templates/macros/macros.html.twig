@@ -1,7 +1,7 @@
-{% macro itemicon(slot, slotNumber, priority, wowheaddomain, size='small') %}
+{% macro itemicon(slot, slotNumber, priority, wowheaddomain, size='small', highlight='true') %}
     {% if slot[slotNumber][priority] is defined and slot[slotNumber][priority] is not null %}
         {% if slot[slotNumber][priority].hasItem %}
-            <div class="bis-list-icon hasitem bis-icon-{{ size }}">
+            <div class="bis-list-icon {% if highlight == 'true' %}hasitem{% endif %} bis-icon-{{ size }}">
                 <a href="#" data-wowhead="item={{ slot[slotNumber][priority].item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="{{size}}"></a>
             </div>
         {% else %}
