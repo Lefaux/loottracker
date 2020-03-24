@@ -215,7 +215,7 @@ class MenuBuilder
                 $menu['management']->addChild(
                     'uploaddkp',
                     [
-                        'label' => $this->translator->trans('Set DKP String (Askeria)'),
+                        'label' => $this->translator->trans('Import RC Lootcouncil'),
                         'route' => 'page_upload_dkp',
                         'extras' => [
                             'icon' => 'upload',

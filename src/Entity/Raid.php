@@ -31,25 +31,24 @@ class Raid
     private $date;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Attendance", mappedBy="raidnight", orphanRemoval=true)
-     */
-    private $attendances;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Loot", mappedBy="raid")
      */
     private $loots;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $zone;
+
     public function __construct()
     {
-        $this->attendances = new ArrayCollection();
         $this->loots = new ArrayCollection();
         $this->date = new DateTime();
     }
 
     public function __toString()
     {
-        return (string) $this->getNote() . ' (' . $this->getDate()->format('d.m.Y') . ')';
+        return $this->getNote() . ' (' . $this->getDate()->format('d.m.Y') . ')';
     }
 
     public function getId(): ?int
@@ -82,37 +81,6 @@ class Raid
     }
 
     /**
-     * @return Collection|Attendance[]
-     */
-    public function getAttendances(): Collection
-    {
-        return $this->attendances;
-    }
-
-    public function addAttendance(Attendance $attendance): self
-    {
-        if (!$this->attendances->contains($attendance)) {
-            $this->attendances[] = $attendance;
-            $attendance->setRaidnight($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAttendance(Attendance $attendance): self
-    {
-        if ($this->attendances->contains($attendance)) {
-            $this->attendances->removeElement($attendance);
-            // set the owning side to null (unless already changed)
-            if ($attendance->getRaidnight() === $this) {
-                $attendance->setRaidnight(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Loot[]
      */
     public function getLoots(): Collection
@@ -139,6 +107,18 @@ class Raid
                 $loot->setRaid(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getZone(): ?string
+    {
+        return $this->zone;
+    }
+
+    public function setZone(string $zone): self
+    {
+        $this->zone = $zone;
 
         return $this;
     }

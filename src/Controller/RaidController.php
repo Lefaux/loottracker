@@ -66,8 +66,10 @@ class RaidController extends AbstractController
     public function editAction($raidId): Response
     {
         $raid = $this->raidRepository->find((int) $raidId);
+        $allPlayers = $this->characterRepository->findBy(['hidden' => false]);
         return $this->render('page/lootresult.html.twig', [
             'raid' => $raid,
+            'attendances' => $allPlayers
         ]);
     }
 

@@ -3,21 +3,12 @@
 {% block head %}{% endblock %}
 {% block body %}
 
-    <div class="content-section bg-primary text-white">
-        <div class="container">
-            <h1>Upload DKP String</h1>
-        </div>
-    </div>
-
     <div class="content-section bg-transparent">
         <div class="container">
             <h1>Update raid data</h1>
             <form method="POST" action="{{ path('page_parse_dkp') }}" enctype="multipart/form-data">
                 <div class="form-group">
-                    <label for="dkpstring">Enter DKP String here </label>
-                    <textarea id="dkpstring" name="dkpstring" class="form-control">
-
-                    </textarea>
+                    <textarea id="dkpstring" name="dkpstring"  cols="40" rows="5" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <button type="submit" class="btn btn-primary start">
@@ -28,6 +19,16 @@
                     </button>
                 </div>
             </form>
+            <hr>
+            <h3>How To:</h3>
+            <ol>
+                <li>Log into WoW</li>
+                <li>Type <code>/rc his</code> to open the raid loot history</li>
+                <li>on the top right select <kbd>JSON</kbd> as the export format</li>
+                <li>Select the raid you want to import from the left</li>
+                <li class="bg-danger">Double check if all items have been given to the correct people</li>
+                <li>Copy the string and paste it into the field above</li>
+            </ol>
         </div>
     </div>
 

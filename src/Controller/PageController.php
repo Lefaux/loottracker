@@ -2,16 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Raid;
 use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
-use App\Repository\NewsRepository;
 use App\Service\RaidTrackerParsingService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -63,14 +61,6 @@ class PageController extends AbstractController
     }
 
     /**
-     * @Route("/upload", name="page_upload")
-     */
-    public function uploadAction(): Response
-    {
-        return $this->renderTemplate('page/upload.html.twig');
-    }
-
-    /**
      * @Route("/upload/dkpstring", name="page_upload_dkp")
      */
     public function dkpStringAction(): Response
@@ -86,21 +76,20 @@ class PageController extends AbstractController
     public function parseDkpString(Request $request): Response
     {
         $dkpString = $request->request->get('dkpstring');
-        $xml = simplexml_load_string($dkpString);
-        $xml_array = unserialize(
-            serialize(
-                json_decode(
-                    json_encode(
-                        (array) $xml), 1)
-            ), [false]
-        );
+        $json = json_decode($dkpString, true);
+        if (!$json) {
+            $this->addFlash('danger', 'RC Council string was no valid JSON. Make sure you copied ALL text');
+        }
         try {
-            $raidData = $this->parser->parseDkpString($xml_array);
+            $raidData = $this->parser->parseDkpString($json);
+            /** @var Raid $raid */
+            foreach ($raidData as $raid) {
+                $this->addFlash('success', 'Raid in ' . $raid->getZone() . ' on ' . $raid->getDate()->format('d.m.Y H:i:s') . ' imported');
+            }
         } catch (Exception $e) {
             $this->addFlash('danger', $e->getMessage());
-            $raidData = ['note' => 'ERROR', 'loots' => [], 'id' => 0];
         }
-        return $this->render('page/lootresult.html.twig', ['raid' => $raidData]);
+        return $this->redirectToRoute('raid');
     }
 
     /**
@@ -124,57 +113,6 @@ class PageController extends AbstractController
             }
         }
         return $this->redirectToRoute('raid');
-    }
-
-    /**
-     * @Route("/storedata")
-     * @param Request $request
-     * @return JsonResponse|Response
-     */
-    public function storeData(Request $request): Response
-    {
-        $fileData = $request->files->getIterator()->current();
-        if ($fileData) {
-            return $this->parseAction($fileData[0]);
-        }
-        return new Response('no file given');
-    }
-
-    /**
-     * @param UploadedFile $file
-     * @return Response
-     */
-    public function parseAction(UploadedFile $file): Response
-    {
-        $filename = $this->params->get('kernel.project_dir') . '/var/' . date('Y-m-d_h:i:s') . '-' . uniqid('', false) . '.lua';
-        if ($file->getClientOriginalName() !== 'CT_RaidTracker.lua') {
-            return new JsonResponse(
-                [
-                    'files' => [
-                        [
-                            'name' => $file->getClientOriginalName(),
-                            'size' => $file->getSize(),
-                            'error' => 'This is not the bank LUA file'
-                        ]
-                    ]
-                ],
-                200
-            );
-        }
-        // store file to disk
-        copy($file->getPathname(), $filename);
-        $this->parser->parse($filename);
-        return new JsonResponse(
-            [
-                'files' => [
-                    [
-                        'name' => $file->getClientOriginalName(),
-                        'size' => $file->getSize(),
-                    ]
-                ]
-            ],
-            200
-        );
     }
 
     /**

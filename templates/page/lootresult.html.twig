@@ -25,8 +25,8 @@
                             <td>looted by / given to</td>
                             <td>
                                 <select name="loot[{{ loots.id }}][{{ loots.player.id }}]" class="form-control selectize">
-                                    {% for attendance in raid.attendances %}
-                                        <option value="{{ attendance.player.id }}" {% if attendance.player.id == loots.player.id %} selected{% endif %}>{{ attendance.player.name }}</option>
+                                    {% for attendance in attendances %}
+                                        <option value="{{ attendance.id }}" {% if attendance.id == loots.player.id %} selected{% endif %}>{{ attendance.name }}</option>
                                     {%  endfor %}
                                 </select>
                             </td>
