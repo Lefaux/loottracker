@@ -253,6 +253,16 @@ class MenuBuilder
                     ],
                 ]
             );
+            $menu['management']->addChild(
+                'guild-upload',
+                [
+                    'label' => 'Update guild ranks',
+                    'route' => 'guild',
+                    'extras' => [
+                        'icon' => 'restroom',
+                    ],
+                ]
+            );
         }
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $menu->addChild(
