@@ -67,9 +67,12 @@ class RaidTrackerParsingService
             if (array_key_exists($normalizedCharacterName, $this->specialCharacterMappingBullshit)) {
                 $normalizedCharacterName = $this->specialCharacterMappingBullshit[$normalizedCharacterName];
             }
-
-
-            $timestamp = DateTime::createFromFormat('d.m.y H:i:s', $lootedItem['date'] . ' ' . $lootedItem['time']);
+            $dateFormat = 'd.n.y H:i:s';
+            if (strpos($lootedItem['date'], '/') !== 0) {
+                // US format
+                $dateFormat = 'd/m/y H:i:s';
+            }
+            $timestamp = DateTime::createFromFormat($dateFormat, $lootedItem['date'] . ' ' . $lootedItem['time']);
             if (array_key_exists($lootedItem['instance'], $raids) && $timestamp < $raids[$lootedItem['instance']]['datetime']) {
                 $raids[$lootedItem['instance']]['datetime'] = $timestamp;
             }
