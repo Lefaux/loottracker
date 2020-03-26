@@ -37,7 +37,8 @@ class RaidTrackerParsingService
     private $itemRepository;
 
     private $specialCharacterMappingBullshit = [
-        'øleg' => 'Øleg'
+        'øleg' => 'Øleg',
+        'ævø' => 'Ævø'
     ];
 
     public function __construct(
