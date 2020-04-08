@@ -218,14 +218,14 @@ class RaidSignupController extends AbstractController
                 if (!empty($missingFeedback)) {
                     $description = 'Es fehlt noch Feedback zu Raids von:' . PHP_EOL;
                     foreach ($missingFeedback as $mention => $events) {
-                        $description .= $mention . PHP_EOL;
+                        $description .= PHP_EOL . $mention . PHP_EOL;
                         foreach ($events as $eventWithNoFeedback) {
                             $description .= $eventWithNoFeedback['event']->getTitle() . ' ' . $eventWithNoFeedback['event']->getStart()->format('D, d.m.Y') . ' mit ';
                             /** @var Character $char */
                             foreach ($eventWithNoFeedback['chars'] as $char) {
                                 $description .= $char->getName() . ', ';
                             }
-                            $description .= PHP_EOL . PHP_EOL;
+                            $description .= PHP_EOL;
                         }
                     }
                     $description .= 'Bitte gebt mit ALLEN euren Chars Feedback, damit wir planen können.' . PHP_EOL;
