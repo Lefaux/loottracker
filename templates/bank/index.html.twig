@@ -4,19 +4,36 @@
 
 {% block body %}
 <div class="content-section bg-transparent">
-    <div class="container">
-        <h1>Guildbank</h1>
+    <div class="container bank">
+        <h1>Guildbank <small>({{ lastUpdate|date('d.m.Y H:i') }})</small></h1>
         <h4>{{ gold }} Gold</h4>
-        <div class="row">
-        {% for slot in bankItems %}
-                <div class="col-1 bank-item">
-                    <div class="bank-item-item q{{ slot.item.quality }}">
-                        <a href="#" data-wowhead="item={{ slot.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="large"></a>
-                    </div>
-                    <div class="bank-item-amount">{{ slot.amount }}</div>
+            {% for category, itemsPerCategory in bankItems %}
+                <h2>{{ category }}</h2>
+                <div class="card-deck">
+                    {% for subCategory, itemsPerSubCategory in itemsPerCategory %}
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ subCategory }} ({{ itemsPerSubCategory|length }})</h5>
+                                <div class="card-text">
+                                    <div class="guildbank-category-block">
+                                        {% for item in itemsPerSubCategory %}
+                                            <div class="guildbank-item q{{ item.quality }}" data-itemid="{{ item.itemId }}">
+                                                <div class="guildbank-item-amount">{{ item.amount }}</div>
+                                                {% if item.required_level > 0 %}
+                                                    <div class="guildbank-item-level">{{ item.required_level }}</div>
+                                                {% endif %}
+                                                <div class="guildbank-item-icon">
+                                                    <a href="#" data-wowhead="item={{ item.itemId }}&amp;domain=classic" data-wh-icon-size="medium"></a>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-        {% endfor %}
-        </div>
+            {% endfor %}
     </div>
 </div>
 {% endblock %}

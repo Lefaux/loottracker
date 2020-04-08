@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\BankItem;
 use App\Repository\BankItemRepository;
 use App\Repository\ItemRepository;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,18 +39,22 @@ class BankController extends AbstractController
      */
     public function indexAction(): Response
     {
-        $bankItems = $this->bankRepository->findBy(
-            []
-        );
+        $bankItems = $this->bankRepository->listBankSlots();
+
         $dir = $this->getParameter('kernel.project_dir') . '/var';
+        $lastUpdate = filemtime($dir . '/guild-bank-gold.txt');
         $gold = file_get_contents($dir . '/guild-bank-gold.txt');
         return $this->render('bank/index.html.twig', [
             'bankItems' => $bankItems,
-            'gold' => $gold
+            'gold' => $gold,
+            'lastUpdate' => $lastUpdate
         ]);
     }
+
     /**
      * @Route("/upload/bank", name="bank_upload")
+     * @param Request $request
+     * @return Response
      */
     public function uploadAction(Request $request): Response
     {
@@ -71,14 +76,14 @@ class BankController extends AbstractController
         ];
         $lines = explode(chr(10), trim($bankString));
         $gold = array_pop($lines);
-        $pattern = '/(?<gold>[0-9]+)g/m';
+        $pattern = '/(?<gold>[\d]+)g/m';
         preg_match_all($pattern, $gold, $matches, PREG_SET_ORDER, 0);
-        if (isset($matches[0], $matches[0]['gold']) && is_numeric($matches[0]['gold'])) {
+        if (isset($matches[0]['gold']) && is_numeric($matches[0]['gold'])) {
             $bankArray['gold'] = (int)$matches[0]['gold'];
         }
 
         $exportDate = array_pop($lines);
-        $exportDateTime = \DateTime::createFromFormat('D M j H:i:s Y', trim($exportDate));
+        $exportDateTime = DateTime::createFromFormat('D M j H:i:s Y', trim($exportDate));
         foreach ($lines as $lineNumber => $line) {
             if (trim($line) !== '') {
                 $lineParts = explode(chr(9), $line);
