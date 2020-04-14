@@ -1,5 +1,5 @@
 {% extends "base.html.twig" %}
-{% block title %}TABC{% endblock %}
+{% block title %}Askeria - Rezorfen EU-PvE{% endblock %}
 {% block head %}{% endblock %}
 {% block body %}
 
@@ -11,9 +11,122 @@
 
     <div class="content-section bg-transparent">
         <div class="container">
-            <h1>Ale to the King, Baby!</h1>
-            <p>This site is used to track our (cross-faction) raids at <a href="https://turtle-wow.org/" target="_blank">Turtle WoW - a private World of Warcraft PvE-RP realm</a>.</p>
-            <p>If you play on Turtle-WoW and would like to raid with us, get in touch with Gifted (Alliance).</p>
+            <div class="row">
+                <div class="col-9">
+                    <h2>Unsere Historie</h2>
+                    <p>Askeria ist eine Gilde die schon vor 15 Jahren auf Sen’jin-WoW gegründet wurde und im Bereich PvE-“Progress” und PvP viele Erfolge feiern konnte.Auf Razorfen soll nun das alte Classic Feeling mit neuen und alten Leuten, die Spaß an Classic haben, wieder gelebt werden.</p>
+                    <p>Dazu hat Dexia, der schon zu alten Zeiten Raid-/ und Gildenleiter war, das Zepter in die Hand genommen und die Gilde erneut gegründet. Nach und nach schlossen sich neue und alte Spieler, die sich in der Level-Phase, in Inigruppen oder aus früherer Zeit kennengelernt haben an und verleihen der Gilde ein aktives und freundliches miteinander. Der aufgebaute Raid rundet das ganze miteinander ab! Mittlerweile sind natürlich 15 Jahre vergangen, was sich durch überwiegend “mitten im Leben stehende” Member ausdrückt. Wir sind mitnichten als “Massengilde” zu bezeichnen, da wir nur neue Member bei Bedarf und vorherigem kennenlernen (Discord) aufnehmen. Dabei achten wir primär darauf, dass stets das Miteinander, die Gilde und der Spaß im Vordergrund steht. Unsere aktuelle Memberstruktur ist eine sehr heterogene Gemeinschaft! <em>“Fluktuation” ist in unserer Gilde quasi nicht vorhanden.</em></p>
+                    <h2>Raids</h2>
+                    <h3>Unsere aktuellen Raidtage:</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">Donnerstag</li>
+                        <li class="list-group-item">Dienstag</li>
+                    </ul>
+                    <hr>
+                    <h3>Uhrzeiten:</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">18.50 Uhr, Invite</li>
+                        <li class="list-group-item">19.00 Uhr, pünktlicher Raidbeginn</li>
+                        <li class="list-group-item">23.00 Uhr, spätestes Ende</li>
+                    </ul>
+                    <hr>
+                    <h2>We want you!</h2>
+                    <p>Aktuell suchen wir für unsere Gilde & BWL-Runs (Core-Spieler und Raider!):</p>
+                    <ul class="list-group">
+                        {% for position in recruitment %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <img src="/assets/icons/class_{{ position.class }}.png" width="22" height="22" />
+                                {{ classes.className(position.class) }}
+                                ({{ specs.specName(position.spec) }})
+                                <span class="badge badge-primary">{{ position.amount }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <hr>
+                    <p>Außergewöhnliche Spieler erhalten bei uns jederzeit die Möglichkeit sich vorzustellen unabhängig von der Klasse!</p>
+                    <h2>What we want as a Community</h2>
+                    <h3>Erwartungen an uns selbst:</h3>
+                    <p>Wir sind eine (semi-)progress orientierte Gilde. Das heißt für uns, dass wir unsere Raidtage effizient nutzen wollen.
+                        Das bedeutet, dass die (Core-)Member alle <strong>vorgegebenen</strong> Consumables nutzen.</p>
+                    <h3>Was ihr von uns erwarten könnt:</h3>
+                    <ul>
+                        <li>Aktuell zwei Raidtage (2 x full BWL, MC, Ony als Splitraid)</li>
+                        <li>Derzeit benötigen wir in BWL ca. 1h mit 36 Spielern (Splitraids)</li>
+                        <li>Alle 4-6 Wochen „Speedraids“</li>
+                        <li>Eine sehr erfahrene und organisierte Gilden/- und Raidleitung</li>
+                        <li>Sehr erfahrene Member und Offiziere jeder Klasse, welche euch mit Rat und Tat zur Seite stehen</li>
+                        <li>Einen sehr leichten Einstieg in unser Gildenleben, durch freundliche und unterstützende Member</li>
+                        <li>Eine faire und vor allem sinnvolle Lootverteilung durch Absprache zwischen den Klassen</li>
+                        <li>Neue Mitglieder werden durch unser Loot Council sehr schnell integriert (kein DKP-System!)</li>
+                        <li>Ein eigens entwickeltes Raidplanungstool</li>
+                        <li>Eine aktive Community (Discord, Forum)</li>
+                    </ul>
+                    <hr>
+                    <h3>What we want from you / Was wir von euch erwarten:</h3>
+                    <ul>
+                        <li>Einbringen in das Gildenleben!</li>
+                        <li>Die entsprechende Erfahrung bzgl. eurer Klasse (und Lernbereitschaft)</li>
+                        <li>Raidansagen werden von euch umgesetzt</li>
+                        <li>Vorbereitungen für die Raids</li>
+                        <li>Habt Spaß (es muss niemand mehr 5-6 Tage die Woche raiden um effizient zu sein)!</li>
+                        <li><strong>Zuverlässigkeit</strong></li>
+                    </ul>
+                    <hr>
+                    <p>Dazu: Raiden war, ist und wird immer nur als Team erfolgreich sein. Ganz oben auf der Prioritätenliste steht somit, dass individuelle Herausforderungen wie temporärer Zeitmangel, Demotivation durch Content oder der Klasse o.ä. besprochen werden -> <strong>wir wollen “miteinander reden!”</strong>. </p>
+                    <p>Ein offener und ehrlicher Umgang ist die Voraussetzung um solche Phasen gemeinsam zu meistern!</p>
+                    <p>Ihr könnt euch vorstellen zusammen mit uns die alten/neuen Abenteuer zu erleben?<br>
+                        Dann meldet euch doch einfach Ingame bei:</p>
+                    <ul>
+                        <li><span class="badge badge-primary">GM</span> Dexia/Dexía oder unter Dexia#2759</li>
+                        <li><span class="badge badge-primary">Warrior</span> Lefaux/Bubblehearth/Hiheelz oder unter Lefaux#2236</li>
+                        <li><span class="badge badge-primary">Paladin</span> Thyrim/Inyon</li>
+                        <li><span class="badge badge-primary">Rogue</span> Krawallo</li>
+                        <li><span class="badge badge-primary">Hunter</span> Teren</li>
+                        <li><span class="badge badge-primary">Druid</span> Blackrabbit</li>
+                        <li><span class="badge badge-primary">Mage</span> Zarasotra</li>
+                        <li><span class="badge badge-primary">Warlock</span> Paradoxim</li>
+                        <li><span class="badge badge-primary">Priest</span> Nishea</li>
+                    </ul>
+                    <p>Alternativ schaut auf unserem Discord Server vorbei <a href="https://discord.gg/qVHYWZK">https://discord.gg/qVHYWZK</a> </p>
+                    <p>Wir wünschen ALLEN Spielern auf Razorfen eine tolle Zeit, gemeinsame Höhen und Tiefen, und besonders viel Spaß!</p>
+                    <p>Im Namen der Gildenleitung, den Offizieren und allen Membern von Askeria, euer Dex</p>
+
+                </div>
+                <div class="col-3">
+                    <h2>Quick Facts:</h2>
+                    <h3>Aktuell gesucht:</h3>
+                    <ul class="list-group">
+                    {% for position in recruitment %}
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <img src="/assets/icons/class_{{ position.class }}.png" width="22" height="22" />
+                            {{ classes.className(position.class) }}
+                            ({{ specs.specName(position.spec) }})
+                            <span class="badge badge-primary">{{ position.amount }}</span>
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    <hr>
+                    <h3>Raids</h3>
+                    <ul class="list-group">
+                        {% for raid in progress %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {{ raid.raid }}<br>
+                                <small>{{ raid.status }}</small>
+                                <span class="badge badge-primary">{{ raid.time }}</span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <hr>
+                    <h3>Loot</h3>
+                    <ul class="list-group">
+                        <li class="list-group-item">Lootcouncil</li>
+                        <li class="list-group-item">Split-Raids</li>
+                        <li class="list-group-item">Viel Erfahrung</li>
+                        <li class="list-group-item">Raum für Theorycrafting</li>
+                        <li class="list-group-item">Friends & Family welcome</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 

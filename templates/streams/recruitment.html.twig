@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Welcome{% endblock %} - {{ layout|upper }}</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Marcellus:300,400,600&display=swap">
+    {{ encore_entry_link_tags('app', null, layout) }}
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/{{layout}}/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/{{layout}}/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/{{layout}}/favicon-16x16.png">
+    <link rel="manifest" href="/favicon/{{layout}}/site.webmanifest">
+    {% block head %}{% endblock %}
+</head>
+<body class="bg-primary">
+
+<div style="padding-top: 10px; padding-left: 10px;">
+    <h1 style="margin-bottom: 0;" class="text-center">&lt;Askeria&gt;</h1>
+    <p class="text-center">Razorfen-EU PvE</p>
+    <h4 class="text-center">OPEN RAID SLOTS</h4>
+    <div class="container">
+        <div class="row">
+        {% for position in recruitment %}
+            <div class="col-6 mb-2">
+                <h5 class="mb-0 mt-0">
+                    <img src="/assets/icons/class_{{ position.class }}.png" width="30" height="30" />
+                    {{ classes.className(position.class) }}
+                    ({{ specs.specName(position.spec) }})
+                </h5>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+
+{{ encore_entry_script_tags('app', null, layout) }}
+</body>
+</html>

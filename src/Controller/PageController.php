@@ -6,6 +6,8 @@ use App\Entity\Raid;
 use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
 use App\Service\RaidTrackerParsingService;
+use App\Utility\WowClassUtility;
+use App\Utility\WowSpecUtility;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -140,6 +142,37 @@ class PageController extends AbstractController
     public function legalAction(): Response
     {
         return $this->renderTemplate('page/legal.html.twig');
+    }
+
+    /**
+     * @Route("/", name="index")
+     * @param WowSpecUtility $wowSpecUtility
+     * @param WowClassUtility $wowClassUtility
+     * @return Response
+     */
+    public function indexAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility): Response
+    {
+        return $this->render('page/index.html.twig', [
+            'recruitment' => $this->params->get('recruitment'),
+            'progress' => $this->params->get('progress'),
+            'specs' => $wowSpecUtility,
+            'classes' => $wowClassUtility
+        ]);
+    }
+
+    /**
+     * @Route("/streams/recruitment", name="streams_recruitment")
+     * @param WowSpecUtility $wowSpecUtility
+     * @param WowClassUtility $wowClassUtility
+     * @return Response
+     */
+    public function recruitmentAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility): Response
+    {
+        return $this->render('streams/recruitment.html.twig', [
+            'recruitment' => $this->params->get('recruitment'),
+            'specs' => $wowSpecUtility,
+            'classes' => $wowClassUtility
+        ]);
     }
 
     private function renderTemplate(string $name, array $params = []): Response

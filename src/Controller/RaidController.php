@@ -35,7 +35,7 @@ class RaidController extends AbstractController
         $this->characterRepository = $characterRepository;
     }
     /**
-     * @Route("/", name="raid")
+     * @Route("/raids", name="raid")
      */
     public function indexAction(): Response
     {
