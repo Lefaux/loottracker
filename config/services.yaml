@@ -23,16 +23,16 @@ parameters:
     recruitment:
         - class: 6
           spec: 2
-          amount: 2
-        - class: 2
-          spec: 2
-          amount: 2
-        - class: 9
-          spec: 2
-          amount: 2
+          amount: 1
+#        - class: 2
+#          spec: 2
+#          amount: 2
+#        - class: 9
+#          spec: 2
+#          amount: 2
         - class: 3
           spec: 3
-          amount: 2
+          amount: 1
     progress:
         - raid: Molten Core
           status: clear
