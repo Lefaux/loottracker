@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         {
           url: "/fc-load-events",
           method: "POST",
-          color: '#c24147',
+          // color: '#c24147',
           textColor: 'white',
           extraParams: {
             filters: JSON.stringify({})

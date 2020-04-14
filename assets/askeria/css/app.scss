@@ -41,14 +41,37 @@
   margin-top: 1em;
 }
 
-.calendar-raid-moltencore {
-  background-image: url("/assets/backgrounds/raid-moltencore.jpg") !important;
+.calendar-raid-40 {
+  background-image: url("/assets/backgrounds/overlay-40s.png") !important;
   background-size: cover !important;
 }
 
 .calendar-raid-onyxia {
-  background-image: url("/assets/backgrounds/raid-onyxia.jpg") !important;
+  background-image: url("/assets/backgrounds/overlay-ony.png") !important;
   background-size: cover !important;
+}
+
+.calendar-raid-zg {
+  background-image: url("/assets/backgrounds/overlay-zg.png") !important;
+  background-size: cover !important;
+}
+
+a.fc-event {
+  margin-left: 45px;
+  background-color: #c24147;
+  border-color: #913136;
+}
+.fc-unthemed td.fc-today {
+  background: none !important;
+  background-color: #000 !important;
+}
+
+td.fc-day-top.fc-tue.fc-today {
+  background: none !important;
+}
+
+.fc-bgevent {
+  background-color: transparent !important;
 }
 
 .tradeskill {
