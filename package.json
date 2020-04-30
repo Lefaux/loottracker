@@ -10,7 +10,7 @@
         "canvas-to-blob": "^0.0.0",
         "copy-webpack-plugin": "^5.0.3",
         "core-js": "^3.0.1",
-        "jquery": "^3.3.1",
+        "jquery": "^3.5.0",
         "jquery.ui.widget": "^1.10.3",
         "node-sass": "^4.11.0",
         "popper.js": "^1.15.0",
