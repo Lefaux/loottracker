@@ -109,7 +109,7 @@ class CalendarListener
 
     public function setZgResets(CalendarEvent $calendar): CalendarEvent
     {
-        $initialReset = new DateTime('2020-04-15 05:00:00');
+        $initialReset = new DateTime('2020-04-16 05:00:00');
         $differenceInDays = $initialReset->diff($calendar->getStart())->format('%a');
         $differenceToCalenderStart = (int)floor($differenceInDays / 3) * 3;
         try {
