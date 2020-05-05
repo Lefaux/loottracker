@@ -25,7 +25,7 @@ class CharacterRepository extends ServiceEntityRepository
     {
         return $this->findBy(
             ['hidden' => false],
-            ['spec' => 'DESC', 'name' => 'ASC']
+            ['name' => 'ASC']
         );
     }
 
