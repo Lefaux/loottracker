@@ -21,18 +21,21 @@ parameters:
         '2': 'Healer'
         '3': 'DPS'
     recruitment:
-        - class: 6
-          spec: 2
-          amount: 1
-#        - class: 2
-#          spec: 2
-#          amount: 2
-#        - class: 9
-#          spec: 2
-#          amount: 2
-        - class: 3
+        - class: 4
           spec: 3
           amount: 1
+        - class: 2
+          spec: 2
+          amount: 1
+        - class: 1
+          spec: 3
+          amount: 1
+        - class: 9
+          spec: 2
+          amount: 1
+        - class: 3
+          spec: 3
+          amount: 2
     progress:
         - raid: Molten Core
           status: clear
