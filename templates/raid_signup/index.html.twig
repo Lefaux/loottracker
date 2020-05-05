@@ -21,19 +21,24 @@
                         </tr>
                     {% for event in events %}
                         <tr class="{{ macros.tableHighLight(signUps, event, account) }}">
-                            <td>{{ event.title }}<br>
-                                <small>{{ event.start|date('D, d.m.Y') }}</small>
+                            <td>
+                                {% if event.deadline|date('U') > "now"|date('U') %}
+                                    <span class="btn btn-outline-success multisignup-row" data-response="yes" data-event="{{ event.id }}"><i class="fa fa-angle-double-right"></i></span>
+                                    <span class="btn btn-outline-danger multisignup-row" data-response="no" data-event="{{ event.id }}"><i class="fa fa-angle-double-right"></i></span>
+                                {% endif %}
+                                {{ event.title }}<br>
+                                <small>{{ event.start|date('D, d.m.Y') }} 19:00</small>
                             </td>
                             {% for character in account.characters %}
                                 {% if character.hidden == false %}
                                     <td>
                                         {% if event.deadline|date('U') > "now"|date('U') %}
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupTrue_{{ character.id }}_{{ event.id }}" value="yes" {{ macros.signedUpCheckbox(signUps, character, event, '1') }}>
+                                            <input data-character="{{ character.id }}" data-response="yes" data-event="{{ event.id }}" class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupTrue_{{ character.id }}_{{ event.id }}" value="yes" {{ macros.signedUpCheckbox(signUps, character, event, '1') }}>
                                             <label class="form-check-label" for="signupTrue_{{ character.id }}_{{ event.id }}">Yes</label>
                                         </div>
                                         <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupFalse_{{ character.id }}_{{ event.id }}" value="no" {{ macros.signedUpCheckbox(signUps, character, event, '2') }}>
+                                            <input data-character="{{ character.id }}" data-response="no" data-event="{{ event.id }}" class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupFalse_{{ character.id }}_{{ event.id }}" value="no" {{ macros.signedUpCheckbox(signUps, character, event, '2') }}>
                                             <label class="form-check-label" for="signupFalse_{{ character.id }}_{{ event.id }}">No</label>
                                         </div>
                                         {% else %}
@@ -42,7 +47,13 @@
                                     </td>
                                 {% endif %}
                             {% endfor %}
-                            <td>{{ event.deadline|date('d.m.Y H:i') }}</td>
+                            <td>
+                                {% if event.deadline|date('U') < "now"|date('U') %}
+                                    <small class="text-danger">{{ event.deadline|date('d.m.Y H:i') }}</small>
+                                {% else %}
+                                    <small class="text-success">{{ event.deadline|date('d.m.Y H:i') }}</small>
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if event.raidGroups is defined %}
                                     <table class="table table-sm">
@@ -77,7 +88,21 @@
                             </td>
                         </tr>
                     {% endfor %}
-                    </table>
+                        <tr>
+                            <td></td>
+                            {% for character in account.characters %}
+                                {% if character.hidden == false %}
+                                    <th>
+                                        <span class="btn btn-outline-success multisignup-col" data-response="yes" data-character="{{ character.id }}"><i class="fa fa-angle-double-up"></i></span>
+                                        <span class="btn btn-outline-danger multisignup-col" data-response="no" data-character="{{ character.id }}"><i class="fa fa-angle-double-up"></i></span>
+                                    </th>
+                                {% endif %}
+                            {% endfor %}
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table><hr>
+                    <span class="btn btn-warning multisignup-all">Sign Up All Chars for all Events</span><hr>
                     <input type="submit" value="Save" class="btn btn-success">
                 </div>
             </form>
