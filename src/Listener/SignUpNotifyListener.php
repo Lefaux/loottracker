@@ -41,15 +41,16 @@ class SignUpNotifyListener
     {
         $controller = $event->getController();
         $name = get_class($controller[0]);
-        $method = $controller[1];
         if ($name === 'App\Controller\Api\SelectController') {
+            return;
+        }
+        if ($name === 'App\Controller\RaidSignupController') {
             return;
         }
         $user = $this->security->getUser();
         if ($user) {
             $characters = $this->characterRepository->findBy(['account' => $user, 'hidden' => false]);
             $check = $this->signUpRepository->checkIfCharIsSignedUpForAllEvents($characters);
-            $foo = '';
             if ($check === false && !isset($GLOBALS['askeria-flash-message-signup'])) {
                 $this->session->getFlashBag()->add('danger', '<h3>There are events you haven\'t signup up for or cancelled yet.<br><a href="/raid/signup" class="btn btn-danger">Click here</a></h3>');
                 $GLOBALS['askeria-flash-message-signup'] = true;
