@@ -21,8 +21,7 @@
 @import "../../css/module/section";
 @import "../../css/module/bislist";
 @import "../../css/module/classes";
-@import "~selectize/dist/css/selectize.css";
-@import "~selectize/dist/css/selectize.bootstrap3.css";
+@import "~select2/dist/css/select2.min.css";
 
 
 .autocomplete-suggestions { border: 1px solid #999; background: $gray-800; overflow: auto; }
@@ -31,6 +30,16 @@
 .autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
 .autocomplete-group { padding: 2px 5px; }
 .autocomplete-group strong { display: block; border-bottom: 1px solid #000;}
+
+.bis-list-remove {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
+.bis-list-remove-button {
+  font-size: 1.7rem;
+  margin-right: 0.4rem;
+}
 
 .class-spec {
   font-size: 29px;

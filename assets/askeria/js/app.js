@@ -15,7 +15,6 @@ require('blueimp-file-upload/js/jquery.fileupload-process');
 require('blueimp-file-upload/js/jquery.fileupload-validate');
 require('blueimp-file-upload/js/jquery.fileupload-ui');
 require('devbridge-autocomplete/dist/jquery.autocomplete.min');
-require('selectize/dist/js/selectize.min');
 require('./groupbuilder');
 require('./multi-signup');
 
@@ -37,26 +36,21 @@ $(function () {
     acceptFileTypes: /(\.)(lua)$/i
   });
 
-  $('.typeahead').autocomplete({
-    serviceUrl: '/api/select/items',
-    paramName: 'q',
-    params: {
-      'slots': $('#slots').data('slotids')
+  $('.typeahead').select2({
+    ajax: {
+      url: '/api/select/items',
+      dataType: 'json',
+      data: function (params) {
+        return {
+          search: params.term,
+          slots: $('#slots').data('slotids')
+        };
+      }
     },
-    onSelect: function (suggestion) {
-      let priorityId = this.id.split('_').pop();
-      let formField = $('#priority_' + priorityId);
-      //console.log(formField);
-      formField.val(suggestion.data);
-      //alert('You selected: ' + suggestion.value + ', ' + suggestion.data);
-    }
+    minimumInputLength: 3,
+    placeholder: 'Search for an item',
+    theme: 'default'
   });
-
-  $('.selectize').selectize({
-    create: false,
-    sortField: 'text'
-  });
-
 });
 
 document.addEventListener('DOMContentLoaded', () => {

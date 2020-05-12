@@ -45,15 +45,17 @@
                 {% endif %}
             </h5>
             {% if bisEntry is not null %}
+                <div class="bis-list-remove">
+                    <a class="bis-list-remove-button" href="{{ path('delete_bis', {bis: bisEntry.id, charId: character, slot: slotId}) }}"><i class="fa fa-window-close"></i></a>
+                </div>
+            {% endif %}
+            {% if bisEntry is not null %}
                 <div class="item-view-with-item">
                     <div class="bis-list d-flex justify-content-between">
                         <div class="bis-list-iconx">
                             <span class="guildbank-item-icon">
                                 <a href="#" data-wowhead="item={{ bisEntry.item.id }}&amp;domain={{wowheaddomain}}" data-wh-icon-size="medium"></a>
                             </span>
-                        </div>
-                        <div class="bis-list-remove">
-                            <a class="btn btn-outline-primary" href="{{ path('delete_bis', {bis: bisEntry.id, charId: character, slot: slotId}) }}">X</a>
                         </div>
                     </div>
                     <div class="bis-list-name">
@@ -67,8 +69,7 @@
                 </div>
             {% else %}
                 <div class="item-view-without-item">
-                    <input type="text" class="form-control typeahead" id="autocomplete_{{ priority }}" placeholder="Type to search">
-                    <input type="hidden" id="priority_{{ priority }}" name="bisItem[{{ priority }}][itemId]" value="0">
+                    <select type="text" class="form-control typeahead" id="autocomplete_{{ priority }}" name="bisItem[{{ priority }}][itemId]" style=""></select>
                 </div>
             {% endif %}
         </div>

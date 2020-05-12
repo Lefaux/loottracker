@@ -284,26 +284,9 @@ class CharacterController extends AbstractController
     public function saveBisAction(Request $request, int $charId, int $slot): Response
     {
         $bisItem = $request->request->get('bisItem');
-        $this->processBisItem($bisItem[1], 1, $charId, $slot);
-        $this->processBisItem($bisItem[2], 2, $charId, $slot);
-        $this->processBisItem($bisItem[3], 3, $charId, $slot);
-        $this->processBisItem($bisItem[4], 4, $charId, $slot);
-        $this->processBisItem($bisItem[31], 31, $charId, $slot);
-        $this->processBisItem($bisItem[32], 32, $charId, $slot);
-        $this->processBisItem($bisItem[33], 33, $charId, $slot);
-        $this->processBisItem($bisItem[34], 34, $charId, $slot);
-        $this->processBisItem($bisItem[41], 41, $charId, $slot);
-        $this->processBisItem($bisItem[42], 42, $charId, $slot);
-        $this->processBisItem($bisItem[43], 43, $charId, $slot);
-        $this->processBisItem($bisItem[44], 44, $charId, $slot);
-        $this->processBisItem($bisItem[51], 51, $charId, $slot);
-        $this->processBisItem($bisItem[52], 52, $charId, $slot);
-        $this->processBisItem($bisItem[53], 53, $charId, $slot);
-        $this->processBisItem($bisItem[54], 54, $charId, $slot);
-        $this->processBisItem($bisItem[61], 61, $charId, $slot);
-        $this->processBisItem($bisItem[62], 62, $charId, $slot);
-        $this->processBisItem($bisItem[63], 63, $charId, $slot);
-        $this->processBisItem($bisItem[64], 64, $charId, $slot);
+        foreach ($bisItem as $index => $item) {
+            $this->processBisItem($item, $index, $charId, $slot);
+        }
         return $this->redirectToRoute('character_bislist', ['charId' => $charId, 'slotId' => $slot]);
     }
 
