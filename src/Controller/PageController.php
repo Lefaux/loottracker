@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Raid;
 use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
+use App\Repository\RecruitmentEntryRepository;
 use App\Service\RaidTrackerParsingService;
 use App\Utility\WowClassUtility;
 use App\Utility\WowSpecUtility;
@@ -150,10 +151,10 @@ class PageController extends AbstractController
      * @param WowClassUtility $wowClassUtility
      * @return Response
      */
-    public function indexAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility): Response
+    public function indexAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility, RecruitmentEntryRepository $recruitmentEntryRepository): Response
     {
         return $this->render('page/index.html.twig', [
-            'recruitment' => $this->params->get('recruitment'),
+            'recruitment' => $recruitmentEntryRepository->findBy([], ['demand' => 'ASC']),
             'progress' => $this->params->get('progress'),
             'specs' => $wowSpecUtility,
             'classes' => $wowClassUtility

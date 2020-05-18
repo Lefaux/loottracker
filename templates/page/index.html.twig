@@ -35,6 +35,13 @@
                     <ul class="list-group">
                         {% for position in recruitment %}
                             <li class="list-group-item d-flex justify-content-between align-items-center">
+                                {% if position.demand == 1 %}
+                                    <span class="text-success"><i class="fa fa-fw fa-chevron-circle-up" title="high"></i></span>
+                                {% elseif position.demand == 2 %}
+                                    <span class="text-warning"><i class="fa fa-fw fa-circle" title="medium"></i></span>
+                                {% elseif position.demand == 3 %}
+                                    <span class="text-danger"><i class="fa fa-fw fa-chevron-circle-down" title="low"></i></span>
+                                {% endif %}
                                 <img src="/assets/icons/class_{{ position.class }}.png" width="22" height="22" />
                                 {{ classes.className(position.class) }}
                                 ({{ specs.specName(position.spec) }})
@@ -98,6 +105,13 @@
                     <ul class="list-group">
                     {% for position in recruitment %}
                         <li class="list-group-item d-flex justify-content-between align-items-center">
+                            {% if position.demand == 1 %}
+                                <span class="text-success"><i class="fa fa-fw fa-chevron-circle-up" title="high"></i></span>
+                            {% elseif position.demand == 2 %}
+                                <span class="text-warning"><i class="fa fa-fw fa-circle" title="medium"></i></span>
+                            {% elseif position.demand == 3 %}
+                                <span class="text-danger"><i class="fa fa-fw fa-chevron-circle-down" title="low"></i></span>
+                            {% endif %}
                             <img src="/assets/icons/class_{{ position.class }}.png" width="22" height="22" />
                             {{ classes.className(position.class) }}
                             ({{ specs.specName(position.spec) }})

@@ -8,6 +8,7 @@ easy_admin:
       - { label: 'Raids', icon: 'biohazard', entity: 'Raids'}
       - { label: 'Loot', icon: 'dollar-sign', entity: 'Loots'}
       - { label: 'Recipes', icon: 'receipt', entity: 'Recipes'}
+      - { label: 'Recruitment', icon: 'binoculars', entity: 'RecruitmentEntry'}
       - { label: 'Users'}
       - { label: 'Users', icon: 'user', entity: 'User'}
       - { label: 'Characters', icon: 'id-badge', entity: 'Character'}
@@ -23,6 +24,53 @@ easy_admin:
       class: App\Entity\User
       list:
         fields: ['id', 'username', 'roles', 'enabled', 'discordId']
+    RecruitmentEntry:
+      class: App\Entity\RecruitmentEntry
+      list:
+        fields:
+          - { property: "id" }
+          - { property: "amount" }
+          - { property: "demand", template: "admin/character/demand.html.twig" }
+          - { property: "class", template: "admin/character/class.html.twig" }
+          - { property: "spec", template: "admin/character/spec.html.twig" }
+      form:
+        fields:
+          - property: "class"
+            label: 'Class'
+            type: choice
+            type_options:
+              expanded: false
+              choices:
+                'Druid': 6
+                'Hunter': 7
+                'Mage': 3
+                'Paladin': 9
+                'Priest': 2
+                'Rogue': 5
+                'Shaman': 8
+                'Warlock': 4
+                'Warrior': 1
+          - property: "spec"
+            label: 'Spec'
+            type: choice
+            type_options:
+              expanded: false
+              choices:
+                'Tank': 1
+                'Healer': 2
+                'DPS': 3
+          - property: "amount"
+            label: 'Amount'
+            type: integer
+          - property: "demand"
+            label: 'Demand'
+            type: choice
+            type_options:
+              expanded: true
+              choices:
+                'high': 1
+                'medium': 2
+                'low': 3
     Loots:
       class: App\Entity\Loot
       form:
