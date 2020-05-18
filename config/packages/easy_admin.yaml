@@ -9,6 +9,7 @@ easy_admin:
       - { label: 'Loot', icon: 'dollar-sign', entity: 'Loots'}
       - { label: 'Recipes', icon: 'receipt', entity: 'Recipes'}
       - { label: 'Recruitment', icon: 'binoculars', entity: 'RecruitmentEntry'}
+      - { label: 'Progress', icon: 'chart-line', entity: 'Progress'}
       - { label: 'Users'}
       - { label: 'Users', icon: 'user', entity: 'User'}
       - { label: 'Characters', icon: 'id-badge', entity: 'Character'}
@@ -24,6 +25,38 @@ easy_admin:
       class: App\Entity\User
       list:
         fields: ['id', 'username', 'roles', 'enabled', 'discordId']
+    Progress:
+      class: App\Entity\Progress
+      list:
+        fields:
+          - { property: "id" }
+          - { property: "instance", template: "admin/character/zones.html.twig" }
+          - { property: "status" }
+          - { property: "clearTime"}
+      form:
+        fields:
+          - property: "instance"
+            label: 'Instance'
+            type: choice
+            type_options:
+              expanded: false
+              choices:
+                'Molten Core': 2717
+                'Onyxia': 2159
+                'Blackwing Lair': 2677
+                'Zul Gurub': 1977
+                'AQ20': 3454
+                'AQ40': 3428
+                'Naxxramas': 3456
+          - property: "status"
+            label: 'Status'
+            type: text
+          - property: "clearTime"
+            label: 'Clear Time'
+            type: time
+            type_options:
+              with_seconds: true
+              input: timestamp
     RecruitmentEntry:
       class: App\Entity\RecruitmentEntry
       list:

@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\Raid;
 use App\Repository\CharacterRepository;
 use App\Repository\LootRepository;
+use App\Repository\ProgressRepository;
 use App\Repository\RecruitmentEntryRepository;
 use App\Service\RaidTrackerParsingService;
 use App\Utility\WowClassUtility;
 use App\Utility\WowSpecUtility;
+use App\Utility\WoWZoneUtility;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -149,16 +151,25 @@ class PageController extends AbstractController
      * @Route("/", name="index")
      * @param WowSpecUtility $wowSpecUtility
      * @param WowClassUtility $wowClassUtility
+     * @param WoWZoneUtility $woWZoneUtility
      * @param RecruitmentEntryRepository $recruitmentEntryRepository
+     * @param ProgressRepository $progressRepository
      * @return Response
      */
-    public function indexAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility, RecruitmentEntryRepository $recruitmentEntryRepository): Response
+    public function indexAction(
+        WowSpecUtility $wowSpecUtility,
+        WowClassUtility $wowClassUtility,
+        WoWZoneUtility $woWZoneUtility,
+        RecruitmentEntryRepository $recruitmentEntryRepository,
+        ProgressRepository $progressRepository
+    ): Response
     {
         return $this->render('page/index.html.twig', [
             'recruitment' => $recruitmentEntryRepository->findBy([], ['demand' => 'ASC']),
-            'progress' => $this->params->get('progress'),
+            'progress' => $progressRepository->findAll(),
             'specs' => $wowSpecUtility,
-            'classes' => $wowClassUtility
+            'classes' => $wowClassUtility,
+            'zones' => $woWZoneUtility
         ]);
     }
 

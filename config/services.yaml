@@ -20,29 +20,6 @@ parameters:
         '1': 'Tank'
         '2': 'Healer'
         '3': 'DPS'
-    progress:
-        - raid: Molten Core
-          status: clear
-          time: 40:23
-        - raid: Onyxia
-          status: clear
-          time: 2:17
-        - raid: Blackwing Lair
-          status: clear
-          time: 34:32
-        - raid: Zul Gurub
-          status: clear (duh)
-          time: 55:06
-        - raid: AQ20
-          status: --
-          time: --:--
-        - raid: AQ40
-          status: --
-          time: --:--
-        - raid: Naxxramas
-          status: --
-          time: --:--
-
     layout: '%env(LAYOUT)%'
     app.supported_locales: ['en', 'de']
 
