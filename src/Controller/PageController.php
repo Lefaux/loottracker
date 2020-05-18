@@ -149,6 +149,7 @@ class PageController extends AbstractController
      * @Route("/", name="index")
      * @param WowSpecUtility $wowSpecUtility
      * @param WowClassUtility $wowClassUtility
+     * @param RecruitmentEntryRepository $recruitmentEntryRepository
      * @return Response
      */
     public function indexAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility, RecruitmentEntryRepository $recruitmentEntryRepository): Response
@@ -165,12 +166,13 @@ class PageController extends AbstractController
      * @Route("/streams/recruitment", name="streams_recruitment")
      * @param WowSpecUtility $wowSpecUtility
      * @param WowClassUtility $wowClassUtility
+     * @param RecruitmentEntryRepository $recruitmentEntryRepository
      * @return Response
      */
-    public function recruitmentAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility): Response
+    public function recruitmentAction(WowSpecUtility $wowSpecUtility, WowClassUtility $wowClassUtility, RecruitmentEntryRepository $recruitmentEntryRepository): Response
     {
         return $this->render('streams/recruitment.html.twig', [
-            'recruitment' => $this->params->get('recruitment'),
+            'recruitment' => $recruitmentEntryRepository->findBy([], ['demand' => 'ASC']),
             'specs' => $wowSpecUtility,
             'classes' => $wowClassUtility
         ]);
