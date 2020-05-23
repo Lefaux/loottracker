@@ -76,8 +76,15 @@
                                                 <td>{{ statusLabel|raw }}</td>
                                                 <td>
                                                     {% if event.charsInSetup[raidGroup.id] is defined %}
+                                                        PLANNED:<br>
                                                         {% for character in event.charsInSetup[raidGroup.id] %}
                                                             {{ character.name }}
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                    {% if event.bench|length > 0 %}
+                                                        BENCH:<br>
+                                                        {% for benchedCharacter in event.bench %}
+                                                            {{ benchedCharacter.name }}
                                                         {% endfor %}
                                                     {% endif %}
                                                 </td>

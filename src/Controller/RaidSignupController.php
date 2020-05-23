@@ -89,8 +89,16 @@ class RaidSignupController extends AbstractController
                 return new Response('Error finding a raid event', 500);
             }
             $events[$index]['deadline'] = SignUpService::findRaidSignUpEnd($event['start']);
+            $events[$index]['bench'] = [];
             $events[$index]['raidGroups'] = $eventObject->getRaidGroups();
-            $events[$index]['charsInSetup'] = SignUpService::findCharsInSetup($eventObject->getRaidGroups(), $charsOnAccount);
+            $charsInSetups = $events[$index]['charsInSetup'] = SignUpService::findCharsInSetup($eventObject->getRaidGroups(), $charsOnAccount);
+            if (empty($charsInSetups)) {
+                foreach ($signUps as $characterWhoSignedUpId => $eventsTheCharacterIsSignedUpFor) {
+                    if (array_key_exists($event['id'], $eventsTheCharacterIsSignedUpFor) && $eventsTheCharacterIsSignedUpFor[$event['id']] === '1') {
+                        $events[$index]['bench'][] = $this->characterRepository->find($characterWhoSignedUpId);
+                    }
+                }
+            }
         }
         return $this->render('raid_signup/index.html.twig', [
             'events' => $events,
