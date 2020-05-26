@@ -9,30 +9,90 @@
             <form action="{{ path('raid_signup_edit') }}" method="post">
                 <div class="row">
                     <table class="table table-sm table-striped">
+                        <!-- Events past deadline-->
                         <tr>
-                            <th>From</th>
-                            {% for character in account.characters %}
-                                {% if character.hidden == false %}
-                                    <th>{{ character.name }}</th>
-                                {% endif %}
+                            <th colspan="{{ characters|length + 1 }}"><h2>Events past due deadline</h2></th>
+                        </tr>
+                        <tr>
+                            <th>Event</th>
+                            <th colspan="{{ characters|length }}">Setups</th>
+                        </tr>
+                        {% for event in events %}
+                            {% if event.deadline|date('U') < "now"|date('U') %}
+                                <tr class="{{ macros.tableHighLight(signUps, event, characters) }}">
+                                    <td>
+                                        {{ event.title }}<br>
+                                        <small>{{ event.start|date('D, d.m.Y') }} 19:00</small><br>
+                                        <small class="text-danger">Deadline: {{ event.deadline|date('d.m.Y H:i') }}</small>
+                                    </td>
+                                    <td colspan="{{ characters|length }}">
+                                        {% if event.raidGroups is defined and event.raidGroups|length > 0 %}
+                                            <table class="table table-sm table-borderless">
+                                                {% for raidGroup in event.raidGroups %}
+                                                    {% set statusLabel = '<span class="badge badge-danger" style="font-size:90%;">Planung</span>' %}
+                                                    {% set groupLink = raidGroup.name %}
+                                                    {% set buttonColor = 'btn-warning' %}
+                                                    {% set buttonState = 'disabled' %}
+                                                    {% set buttonIcon = 'eye-slash' %}
+                                                    {% if raidGroup.setup.status is defined and raidGroup.setup.status == 1 %}
+                                                        {% set statusLabel = '<span class="badge badge-success" style="font-size:90%;">Final</span>' %}
+                                                        {% set groupLink = '' %}
+                                                        {% set buttonColor = 'btn-success' %}
+                                                        {% set buttonState =  '' %}
+                                                        {% set buttonIcon = 'eye' %}
+                                                    {% endif %}
+                                                    <tr>
+                                                        <td style="width:10%;">
+                                                            <a class="btn {{ buttonColor }} {{ buttonState }} btn-sm" href="{{ path('raid_setup', {'raidGroupId': raidGroup.id}) }}">
+                                                                <i class="fa fa-{{ buttonIcon }}"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td style="width:30%;">{{ zones.zoneName(raidGroup.zone) }}</td>
+                                                        <td style="width:10%;">{{ statusLabel|raw }}</td>
+                                                        <td style="width:50%;">
+                                                            {% if event.charsInSetup[raidGroup.id] is defined %}
+                                                                <b class="text-success">You are planned with:</b><br>
+                                                                {% for character in event.charsInSetup[raidGroup.id] %}
+                                                                    {{ character.name }}
+                                                                {% endfor %}
+                                                            {% endif %}
+                                                            {% if event.bench|length > 0 %}
+                                                                <b class="text-warning">You're backup with:</b><br>
+                                                                {{ event.bench|join(", ") }}
+                                                            {% endif %}
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            </table>
+                                        {% else %}
+                                            <h5 class="text-danger">SignUp Closed! Setups will follow.</h5>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% endfor %}
+                        <!-- Events to sign up for -->
+                        <tr>
+                            <th colspan="{{ characters|length + 1 }}"><h2>Events you can sign up for</h2></th>
+                        </tr>
+                        <tr>
+                            <th>Event</th>
+                            {% for character in characters %}
+                                <th>{{ character.name }}</th>
                             {% endfor %}
-                            <th>Deadline</th>
-                            <th>Setup</th>
                         </tr>
                     {% for event in events %}
-                        <tr class="{{ macros.tableHighLight(signUps, event, account) }}">
-                            <td>
-                                {% if event.deadline|date('U') > "now"|date('U') %}
-                                    <span class="btn btn-outline-success multisignup-row" data-response="yes" data-event="{{ event.id }}"><i class="fa fa-angle-double-right"></i></span>
-                                    <span class="btn btn-outline-danger multisignup-row" data-response="no" data-event="{{ event.id }}"><i class="fa fa-angle-double-right"></i></span>
-                                {% endif %}
-                                {{ event.title }}<br>
-                                <small>{{ event.start|date('D, d.m.Y') }} 19:00</small>
-                            </td>
-                            {% for character in account.characters %}
-                                {% if character.hidden == false %}
+                        {% if event.deadline|date('U') > "now"|date('U') %}
+                            <tr class="{{ macros.tableHighLight(signUps, event, characters) }}">
+                                <td>
+                                        <span class="btn btn-outline-success multisignup-row" data-response="yes" data-event="{{ event.id }}"><i class="fa fa-angle-double-right"></i></span>
+                                        <span class="btn btn-outline-danger multisignup-row" data-response="no" data-event="{{ event.id }}"><i class="fa fa-angle-double-right"></i></span>
+                                    {{ event.title }}<br>
+                                    <small>{{ event.start|date('D, d.m.Y') }} 19:00</small><br>
+                                    <small class="text-success">Deadline: {{ event.deadline|date('d.m.Y H:i') }}</small>
+                                </td>
+                                {% for character in characters %}
                                     <td>
-                                        {% if event.deadline|date('U') > "now"|date('U') %}
                                         <div class="form-check form-check-inline">
                                             <input data-character="{{ character.id }}" data-response="yes" data-event="{{ event.id }}" class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupTrue_{{ character.id }}_{{ event.id }}" value="yes" {{ macros.signedUpCheckbox(signUps, character, event, '1') }}>
                                             <label class="form-check-label" for="signupTrue_{{ character.id }}_{{ event.id }}">Yes</label>
@@ -41,72 +101,19 @@
                                             <input data-character="{{ character.id }}" data-response="no" data-event="{{ event.id }}" class="form-check-input" type="radio" name="signup[{{ character.id }}][{{ event.id }}]" id="signupFalse_{{ character.id }}_{{ event.id }}" value="no" {{ macros.signedUpCheckbox(signUps, character, event, '2') }}>
                                             <label class="form-check-label" for="signupFalse_{{ character.id }}_{{ event.id }}">No</label>
                                         </div>
-                                        {% else %}
-                                            SignUp Closed!
-                                        {% endif %}
                                     </td>
-                                {% endif %}
-                            {% endfor %}
-                            <td>
-                                {% if event.deadline|date('U') < "now"|date('U') %}
-                                    <small class="text-danger">{{ event.deadline|date('d.m.Y H:i') }}</small>
-                                {% else %}
-                                    <small class="text-success">{{ event.deadline|date('d.m.Y H:i') }}</small>
-                                {% endif %}
-                            </td>
-                            <td>
-                                {% if event.raidGroups is defined %}
-                                    <table class="table table-sm">
-                                        {% for raidGroup in event.raidGroups %}
-                                            {% set statusLabel = '<span class="badge badge-danger">Planung</span>' %}
-                                            {% set groupLink = raidGroup.name %}
-                                            {% if raidGroup.setup.status is defined and raidGroup.setup.status == 1 %}
-                                                {% set statusLabel = '<span class="badge badge-success">Final</span>' %}
-                                                {% set groupLink = '' %}
-                                            {% endif %}
-                                            <tr>
-                                                <td>
-                                                    {% if raidGroup.setup.status is defined and raidGroup.setup.status == 1 %}
-                                                        <a class="btn btn-success btn-sm" href="{{ path('raid_setup', {'raidGroupId': raidGroup.id}) }}">
-                                                    {% endif %}
-                                                        {{ raidGroup.name }}
-                                                    </a>
-                                                </td>
-                                                <td><span class="badge badge-light">{{ zones.zoneName(raidGroup.zone) }}</span></td>
-                                                <td>{{ statusLabel|raw }}</td>
-                                                <td>
-                                                    {% if event.charsInSetup[raidGroup.id] is defined %}
-                                                        PLANNED:<br>
-                                                        {% for character in event.charsInSetup[raidGroup.id] %}
-                                                            {{ character.name }}
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                    {% if event.bench|length > 0 %}
-                                                        BENCH:<br>
-                                                        {% for benchedCharacter in event.bench %}
-                                                            {{ benchedCharacter.name }}
-                                                        {% endfor %}
-                                                    {% endif %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </table>
-                                {% endif %}
-                            </td>
-                        </tr>
+                                {% endfor %}
+                            </tr>
+                        {% endif %}
                     {% endfor %}
                         <tr>
                             <td></td>
-                            {% for character in account.characters %}
-                                {% if character.hidden == false %}
-                                    <th>
-                                        <span class="btn btn-outline-success multisignup-col" data-response="yes" data-character="{{ character.id }}"><i class="fa fa-angle-double-up"></i></span>
-                                        <span class="btn btn-outline-danger multisignup-col" data-response="no" data-character="{{ character.id }}"><i class="fa fa-angle-double-up"></i></span>
-                                    </th>
-                                {% endif %}
+                            {% for character in characters %}
+                                <th>
+                                    <span class="btn btn-outline-success multisignup-col" data-response="yes" data-character="{{ character.id }}"><i class="fa fa-angle-double-up"></i></span>
+                                    <span class="btn btn-outline-danger multisignup-col" data-response="no" data-character="{{ character.id }}"><i class="fa fa-angle-double-up"></i></span>
+                                </th>
                             {% endfor %}
-                            <td></td>
-                            <td></td>
                         </tr>
                     </table><hr>
                     <span class="btn btn-warning multisignup-all">Sign Up All Chars for all Events</span><hr>

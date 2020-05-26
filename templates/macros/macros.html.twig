@@ -212,16 +212,16 @@
     {% endif %}
 {% endmacro %}
 
-{% macro tableHighLight(signUps, event, account) %}
-    {% set class = 'table-dark' %}
-    {% for character in account.characters %}
+{% macro tableHighLight(signUps, event, characters) %}
+    {% set class = 'table-danger' %}
+    {% for character in characters %}
         {% if signUps[character.id][event.id] is defined %}
             {% if signUps[character.id][event.id] == 1 %}
                 {% set class = 'table-success' %}
             {% elseif signUps[character.id][event.id] == 2 %}
-                {% set class = 'table-danger' %}
+                {% set class = 'table-dark' %}
             {% else %}
-                {% set class = '' %}
+                {% set class = 'table-danger' %}
             {% endif %}
         {% endif %}
     {% endfor %}

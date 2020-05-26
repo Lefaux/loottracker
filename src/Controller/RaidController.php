@@ -87,11 +87,21 @@ class RaidController extends AbstractController
         $charsOnAccount = [];
         /** @var Character $character */
         foreach ($user->getCharacters() as $character) {
-            $charsOnAccount[] = $character->getId();
+            if ($character->getHidden() === false) {
+                $charsOnAccount[$character->getId()] = $character;
+            }
         }
         $raidGroup = $this->raidGroupRepository->find($raidGroupId);
         if (!$raidGroup) {
             return new Response('error finding raidgroup', 500);
+        }
+        /**
+         * get all signUps
+         */
+        $signUps = $raidGroup->getEvent()->getSignups();
+        $allSignedUpPlayers = [];
+        foreach ($signUps as $signUp) {
+            $allSignedUpPlayers[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
         }
         $hydratedSetup = [];
         $setupCount = [
@@ -117,13 +127,17 @@ class RaidController extends AbstractController
         foreach ($raidGroup->getSetup()['groups'] as $groupIndex => $group) {
             foreach ($group as $playerIndex => $playerId) {
                 $character = $this->characterRepository->find($playerId);
-                if (in_array((int)$playerId, $charsOnAccount, true)) {
-                    $userCharsInSetup[] = $character;
+                if ($character) {
+                    if (in_array((int)$playerId, $charsOnAccount, true)) {
+                        $userCharsInSetup[] = $character;
+                        unset($charsOnAccount[$character->getId()]);
+                    }
+                    unset($allSignedUpPlayers[$playerId]);
+                    $hydratedSetup['groups'][$groupIndex][$playerIndex] = $character;
+                    $setupCount['total']++;
+                    $setupCount['specs'][$character->getSpec()]++;
+                    $setupCount['classes'][$character->getClass()]++;
                 }
-                $hydratedSetup['groups'][$groupIndex][$playerIndex] = $character;
-                $setupCount['total']++;
-                $setupCount['specs'][$character->getSpec()]++;
-                $setupCount['classes'][$character->getClass()]++;
             }
         }
         $hydratedSetup['count'] = $setupCount;
@@ -133,7 +147,9 @@ class RaidController extends AbstractController
         $raidGroup->setSetup($hydratedSetup);
         return $this->render('raid/showSetup.html.twig', [
             'raidGroup' => $raidGroup,
-            'userCharsInSetup' => $userCharsInSetup
+            'userCharsInSetup' => $userCharsInSetup,
+            'userCharsNotInSetup' => $charsOnAccount,
+            'bench' => $allSignedUpPlayers,
         ]);
     }
 }

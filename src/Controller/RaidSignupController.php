@@ -100,9 +100,18 @@ class RaidSignupController extends AbstractController
                 }
             }
         }
+        /**
+         * Remove hidden chars from dataset
+         */
+        $charactersOnAccount = [];
+        foreach ($user->getCharacters() as $index => $character) {
+            if ($character->getHidden() === false) {
+                $charactersOnAccount[] = $character;
+            }
+        }
         return $this->render('raid_signup/index.html.twig', [
             'events' => $events,
-            'account' => $user,
+            'characters' => $charactersOnAccount,
             'signUps' => $signUps,
             'zones' => $this->zoneUtility
         ]);
