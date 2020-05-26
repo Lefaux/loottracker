@@ -100,8 +100,14 @@ class RaidController extends AbstractController
          */
         $signUps = $raidGroup->getEvent()->getSignups();
         $allSignedUpPlayers = [];
+        $userCharsInSignUp = [];
         foreach ($signUps as $signUp) {
-            $allSignedUpPlayers[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
+            if ($signUp->getSignedUp() === 1) {
+                $allSignedUpPlayers[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
+                if (array_key_exists($signUp->getPlayerName()->getId(), $charsOnAccount)) {
+                    $userCharsInSignUp[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
+                }
+            }
         }
         $hydratedSetup = [];
         $setupCount = [
@@ -148,7 +154,7 @@ class RaidController extends AbstractController
         return $this->render('raid/showSetup.html.twig', [
             'raidGroup' => $raidGroup,
             'userCharsInSetup' => $userCharsInSetup,
-            'userCharsNotInSetup' => $charsOnAccount,
+            'userCharsNotInSetup' => $userCharsInSignUp,
             'bench' => $allSignedUpPlayers,
         ]);
     }
