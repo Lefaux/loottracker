@@ -14,6 +14,7 @@
                         {% endfor %}
                         is planned in this setup</h5>
                 </div>
+                <hr>
             {% elseif userCharsInSetup|length > 1 %}
                 <div class="alert alert-danger" role="alert">
                     <h5>Multiple of your characters are planned in this setup. Please get in touch with Dexia.
@@ -24,6 +25,7 @@
                         </ul>
                         </h5>
                 </div>
+                <hr>
             {% elseif userCharsInSetup|length == 0 %}
                 <div class="alert alert-info" role="alert">
                     <h5>None of your characters are planned in this setup</h5>
