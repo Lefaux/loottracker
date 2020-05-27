@@ -134,9 +134,9 @@ class RaidController extends AbstractController
             foreach ($group as $playerIndex => $playerId) {
                 $character = $this->characterRepository->find($playerId);
                 if ($character) {
-                    if (in_array((int)$playerId, $charsOnAccount, true)) {
+                    if (array_key_exists((int)$playerId, $charsOnAccount)) {
                         $userCharsInSetup[] = $character;
-                        unset($charsOnAccount[$character->getId()]);
+                        unset($charsOnAccount[$character->getId()], $userCharsInSignUp[$character->getId()]);
                     }
                     unset($allSignedUpPlayers[$playerId]);
                     $hydratedSetup['groups'][$groupIndex][$playerIndex] = $character;
