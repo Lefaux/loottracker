@@ -100,13 +100,9 @@ class RaidController extends AbstractController
          */
         $signUps = $raidGroup->getEvent()->getSignups();
         $allSignedUpPlayers = [];
-        $userCharsInSignUp = [];
         foreach ($signUps as $signUp) {
             if ($signUp->getSignedUp() === 1) {
                 $allSignedUpPlayers[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
-                if (array_key_exists($signUp->getPlayerName()->getId(), $charsOnAccount)) {
-                    $userCharsInSignUp[$signUp->getPlayerName()->getId()] = $signUp->getPlayerName();
-                }
             }
         }
         $hydratedSetup = [];
@@ -136,7 +132,7 @@ class RaidController extends AbstractController
                 if ($character) {
                     if (array_key_exists((int)$playerId, $charsOnAccount)) {
                         $userCharsInSetup[] = $character;
-                        unset($charsOnAccount[$character->getId()], $userCharsInSignUp[$character->getId()]);
+                        unset($charsOnAccount[$character->getId()]);
                     }
                     unset($allSignedUpPlayers[$playerId]);
                     $hydratedSetup['groups'][$groupIndex][$playerIndex] = $character;
@@ -144,6 +140,13 @@ class RaidController extends AbstractController
                     $setupCount['specs'][$character->getSpec()]++;
                     $setupCount['classes'][$character->getClass()]++;
                 }
+            }
+        }
+        $hydratedSetup['bench'] = [];
+        foreach ($raidGroup->getSetup()['bench'] as $benchId => $bench) {
+            $character = $this->characterRepository->find($bench);
+            if ($character && array_key_exists($character->getId(), $charsOnAccount)) {
+                $hydratedSetup['bench'][$benchId] = $character;
             }
         }
         $hydratedSetup['count'] = $setupCount;
@@ -154,8 +157,7 @@ class RaidController extends AbstractController
         return $this->render('raid/showSetup.html.twig', [
             'raidGroup' => $raidGroup,
             'userCharsInSetup' => $userCharsInSetup,
-            'userCharsNotInSetup' => $userCharsInSignUp,
-            'bench' => $allSignedUpPlayers,
+            'bench' => $hydratedSetup['bench'],
         ]);
     }
 }

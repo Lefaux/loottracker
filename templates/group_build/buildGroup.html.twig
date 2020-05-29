@@ -69,6 +69,33 @@
                             </li>
                         {% endfor %}
                     </ul>
+                    <h6><span id="bench">{{ playersOnBench|length }}</span> on the bench</h6>
+                    <ul class="groupbuilder-list benched-players">
+                        {% for playerOnBench in playersOnBench %}
+                            <li
+                                    id="{{ playerOnBench.account.id }}-{{ playerOnBench.id }}-{{ raid.id }}"
+                                    class="groupbuilder-item-player class-{{ playerOnBench.class }} {% if playerOnBench.twink == true %}twink{% endif %}"
+                                    data-account="{{ playerOnBench.account.id }}"
+                                    data-character="{{ playerOnBench.id }}"
+                                    data-spec="{{ playerOnBench.spec }}"
+                                    data-class="{{ playerOnBench.class }}"
+                                    data-player-id="{{ playerOnBench.id }}"
+                                    data-player-status="1"
+                                    {% if playerOnBench.account.id in assignedPlayers%}
+                                        style="display: none;"
+                                    {% endif %}
+                            >
+                                {% if playerOnBench.spec == 1 %}
+                                    <i class="fa fa-fw fa-shield-alt"></i>
+                                {% elseif playerOnBench.spec == 2 %}
+                                    <i class="fa fa-fw fa-band-aid"></i>
+                                {% elseif playerOnBench.spec == 3 %}
+                                    <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% endif %}
+                                <small>{{ playerOnBench.name }}</small>
+                            </li>
+                        {% endfor %}
+                    </ul>
                     <h6><span id="inother-players">{{ playersInOtherSetups|length }}</span> signed up, but in other setups (incl. hidden twinks)</h6>
                     <ul class="groupbuilder-list inother-players">
                         {% for playerInOtherSetup in playersInOtherSetups %}

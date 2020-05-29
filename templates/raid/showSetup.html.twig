@@ -94,10 +94,10 @@
                     </div>
                 </div>
                 <div class="col-sm-6 col-md-3">
-                    {% if userCharsNotInSetup|length > 0 %}
+                    {% if bench|length > 0 %}
                         <h6>Your chars planned as backup:</h6>
                         <ul class="groupbuilder-raidgroup alpha" style="border: none">
-                            {% for player in userCharsNotInSetup %}
+                            {% for player in bench %}
                                 <li
                                         class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}"
                                         {% if player.account is not null %}

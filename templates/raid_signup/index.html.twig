@@ -56,9 +56,13 @@
                                                                     {{ character.name }}
                                                                 {% endfor %}
                                                             {% endif %}
-                                                            {% if event.bench|length > 0 %}
+                                                            {% if raidGroup.setup.bench is defined and raidGroup.setup.bench|length > 0 %}
                                                                 <b class="text-warning">You're backup with:</b><br>
-                                                                {{ event.bench|join(", ") }}
+                                                                {% for character in characters %}
+                                                                    {% if character.id in raidGroup.setup.bench %}
+                                                                        {{ character.name }}<br>
+                                                                    {% endif %}
+                                                                {% endfor %}
                                                             {% endif %}
                                                         </td>
                                                     </tr>

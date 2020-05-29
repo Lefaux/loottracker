@@ -4,6 +4,7 @@ $(function () {
 
   let raidGroup = 'new';
   let unsortedPlayers = document.querySelector('.unsorted-players');
+  let benchedPlayers = document.querySelector('.benched-players');
   let raidGroups = document.querySelectorAll('.groupbuilder-raidgroup');
   if (unsortedPlayers) {
     /*********************************************** FUNCTIONS ***********************************************/
@@ -49,6 +50,7 @@ $(function () {
         }
       }
       updateCounter();
+      updateBenchCounter();
       specCounter('alpha');
       // specCounter('bravo');
     };
@@ -60,6 +62,16 @@ $(function () {
         return getComputedStyle(el).display !== "none"
       });
       let counterContainer = document.getElementById('unassigned-players');
+      counterContainer.innerText = displayShow.length.toString();
+    };
+
+    let updateBenchCounter = function() {
+      let divs = benchedPlayers.children;
+      let divsArray = [].slice.call(divs);
+      let displayShow = divsArray.filter(function(el) {
+        return getComputedStyle(el).display !== "none"
+      });
+      let counterContainer = document.getElementById('bench');
       counterContainer.innerText = displayShow.length.toString();
     };
 
@@ -105,6 +117,7 @@ $(function () {
         'raidName': raidNameElement.value,
         'raidZone': raidZoneElement.value,
         'status': metaForm.elements['setup-status'].value,
+        'bench': [],
         'groups': []
       };
       let itemCheckPayload = {
@@ -121,6 +134,13 @@ $(function () {
           itemCheckPayload.players.push(parseInt(char.dataset.character));
           counter++;
         }
+      }
+      /**  BENCH  **/
+      let benchNodes = benchedPlayers.children;
+      let benchCounter = 0;
+      for (let benchedChar of benchNodes) {
+        payLoad.bench[benchCounter] = benchedChar.dataset.character;
+        benchCounter++;
       }
       loader.innerHTML = '<i class="fas fa-sync fa-spin"></i> working';
       postAjax('/api/groupbuild/save', payLoad, ajaxSuccess);
@@ -232,6 +252,15 @@ $(function () {
       });
     }
     new Sortable(unsortedPlayers, {
+      animation: 150,
+      group: {
+        put: true
+      },
+      onStart: onStart,
+      onEnd: onEnd,
+      onAdd: onAddList
+    });
+    new Sortable(benchedPlayers, {
       animation: 150,
       group: {
         put: true

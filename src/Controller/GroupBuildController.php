@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Signup;
+use App\Repository\CharacterRepository;
 use App\Repository\RaidEventRepository;
 use App\Repository\RaidGroupRepository;
 use App\Service\RaidGroupService;
@@ -79,11 +80,12 @@ class GroupBuildController extends AbstractController
     /**
      * @Route("/group/build/setup/{raidEvent}/{raidGroupId?}", name="group_build")
      * @param RaidGroupService $raidGroupService
+     * @param CharacterRepository $characterRepository
      * @param int $raidEvent
      * @param $raidGroupId
      * @return Response
      */
-    public function buildGroupAction(RaidGroupService $raidGroupService, int $raidEvent, $raidGroupId): Response
+    public function buildGroupAction(RaidGroupService $raidGroupService, CharacterRepository $characterRepository, int $raidEvent, $raidGroupId): Response
     {
         $raid = $this->raidEventRepository->find($raidEvent);
         if(!$raid) {
@@ -123,9 +125,18 @@ class GroupBuildController extends AbstractController
                     }
                 }
             }
+            if (isset($raidSetup['bench'])) {
+                foreach ($raidSetup['bench'] as $benchId => $bench) {
+                    $character = $characterRepository->find($bench);
+                    if ($character) {
+                        $raidSetup['bench'][$benchId] = $character;
+                    }
+                }
+            } else {
+                $raidSetup['bench'] = [];
+            }
             $raidGroup->setSetup($raidSetup);
         }
-        $foo = '';
         foreach ($signUps as $signUpIndex => $signUp) {
             if (in_array((int)$signUp->getPlayerName()->getId(), $otherRaidGroupsInThisId, true)) {
                 $playersInOtherSetups[] = $signUp->getPlayerName();
@@ -141,6 +152,7 @@ class GroupBuildController extends AbstractController
             'raidGroup' => $raidGroup,
             'assignedPlayers' => $assignedPlayers,
             'playersInOtherSetups' => $playersInOtherSetups,
+            'playersOnBench' => $raidSetup['bench'] ?? [],
             'cancellations' => $raidSignUps['cancellations'],
             'noFeedback' => $raidSignUps['noFeedback']
         ]);
