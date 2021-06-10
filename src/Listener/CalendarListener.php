@@ -45,8 +45,6 @@ class CalendarListener
                 ]
             ));
         }
-        $calendar = $this->setOnyResets($calendar);
-        $calendar = $this->setZgResets($calendar);
         $this->setMcResets($calendar);
 
     }
@@ -67,78 +65,12 @@ class CalendarListener
                     null,
                     [
                         'rendering' => 'background',
-                        'className' => ['calendar-raid-40']
+                        'className' => ['calendar-raid-weekly']
                     ]
                 ));
             }
         } catch (Exception $e) {
         }
-        return $calendar;
-    }
-
-    public function setOnyResets(CalendarEvent $calendar): CalendarEvent
-    {
-        $initialReset = new DateTime('2019-09-26 05:00:00');
-        $differenceInDays = $initialReset->diff($calendar->getStart())->format('%a');
-        $differenceToCalenderStart = (int)floor($differenceInDays / 5) * 5;
-        try {
-            $startDateInCalendarView = $initialReset->add(new DateInterval('P' . $differenceToCalenderStart . 'D'));
-            
-            $onyResets = new DatePeriod(
-                $startDateInCalendarView,
-                new DateInterval('P5D'),
-                $calendar->getEnd()
-            );
-            foreach ($onyResets as $index => $mcReset) {
-                $calendar->addEvent(new Event(
-                    'OL',
-                    $mcReset,
-                    null,
-                    [
-                        'rendering' => 'background',
-                        'className' => ['calendar-raid-onyxia']
-                    ]
-                ));
-            }
-        } catch (Exception $e) {
-        }
-
-
-        return $calendar;
-    }
-
-    public function setZgResets(CalendarEvent $calendar): CalendarEvent
-    {
-        $initialReset = new DateTime('2020-04-16 05:00:00');
-        $differenceInDays = $initialReset->diff($calendar->getStart())->format('%a');
-        $differenceToCalenderStart = (int)floor($differenceInDays / 3) * 3;
-        try {
-            if ($calendar->getStart()->format('m') === '03') {
-                $startDateInCalendarView = $initialReset;
-            } else {
-                $startDateInCalendarView = $initialReset->add(new DateInterval('P' . $differenceToCalenderStart . 'D'));
-            }
-
-            $onyResets = new DatePeriod(
-                $startDateInCalendarView,
-                new DateInterval('P3D'),
-                $calendar->getEnd()
-            );
-            foreach ($onyResets as $index => $mcReset) {
-                $calendar->addEvent(new Event(
-                    'ZG',
-                    $mcReset,
-                    null,
-                    [
-                        'rendering' => 'background',
-                        'className' => ['calendar-raid-zg']
-                    ]
-                ));
-            }
-        } catch (Exception $e) {
-        }
-
-
         return $calendar;
     }
 }
