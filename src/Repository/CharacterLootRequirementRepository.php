@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\CharacterLootRequirement;
+use App\Entity\Zone;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\DBAL\DBALException;
@@ -127,10 +128,9 @@ ORDER BY amount DESC
             if (!$item && !$character) {
                 break;
             }
-            $zone = $item->getZone();
-            if ($zone < 1) {
-                $zone = 0;
-            }
+            /** @var Zone $zone */
+            $zoneEntity = $item->getZone();
+            $zone = $zoneEntity->getId();
             if (!isset($output['zones'][$zone])) {
                 $output['zones'][$zone] = 0;
             }

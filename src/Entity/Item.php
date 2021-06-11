@@ -81,7 +81,7 @@ class Item
     private $inventorySlot;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\ManyToOne(targetEntity=Zone::class, inversedBy="items")
      */
     private $zone;
 
@@ -98,6 +98,7 @@ class Item
     public function __construct()
     {
         $this->loots = new ArrayCollection();
+        $this->zone = new ArrayCollection();
     }
 
     public function __toString()
@@ -279,12 +280,12 @@ class Item
         return $this;
     }
 
-    public function getZone(): ?int
+    public function getZone(): ?Zone
     {
         return $this->zone;
     }
 
-    public function setZone(?int $zone): self
+    public function setZone(?Zone $zone): self
     {
         $this->zone = $zone;
 
