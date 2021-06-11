@@ -237,6 +237,10 @@ class CharacterController extends AbstractController
                 2 => null,
                 3 => null,
                 4 => null,
+                21 => null,
+                22 => null,
+                23 => null,
+                24 => null,
                 31 => null,
                 32 => null,
                 33 => null,
@@ -249,10 +253,6 @@ class CharacterController extends AbstractController
                 52 => null,
                 53 => null,
                 54 => null,
-                61 => null,
-                62 => null,
-                63 => null,
-                64 => null,
             ];
         }
         foreach ($items as $item) {
