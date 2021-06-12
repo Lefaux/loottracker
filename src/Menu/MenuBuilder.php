@@ -234,16 +234,6 @@ class MenuBuilder
                 ]
             );
             $menu['management']->addChild(
-                'questHeads',
-                [
-                    'label' => 'Quest Heads',
-                    'route' => 'quest_head',
-                    'extras' => [
-                        'icon' => 'horse-head',
-                    ],
-                ]
-            );
-            $menu['management']->addChild(
                 'bank-upload',
                 [
                     'label' => 'Update bank',
