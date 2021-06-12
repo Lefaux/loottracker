@@ -13,13 +13,15 @@ class WowRaceUtility
     public const RACE_HUMAN = 2;
     public const RACE_DWARF = 3;
     public const RACE_GNOME = 4;
+    public const RACE_DRAENAI = 5;
 
     public const ALL = [
         self::RACE_UNSPECIFIED,
         self::RACE_NIGHTELF,
         self::RACE_HUMAN,
         self::RACE_DWARF,
-        self::RACE_GNOME
+        self::RACE_GNOME,
+        self::RACE_DRAENAI
     ];
 
     /**
@@ -47,6 +49,8 @@ class WowRaceUtility
                 return self::$translator->trans('Dwarf');
             case self::RACE_GNOME:
                 return self::$translator->trans('Gnome');
+            case self::RACE_DRAENAI:
+                return self::$translator->trans('Draenai');
             default:
                 return self::$translator->trans('Unspecified');
         }
