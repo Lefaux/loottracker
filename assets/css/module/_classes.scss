@@ -6,6 +6,7 @@ $color-rogue: #FFF569;
 $color-druid: #FF7D0A;
 $color-hunter: #A9D271;
 $color-paladin: #F58CBA;
+$color-shaman: #0070DD;
 .groupbuilder-list, .groupbuilder-raidgroup {
   padding-left: 0;
   min-height: 162px;
@@ -86,6 +87,12 @@ td.counter {
   background-color: $color-hunter;
   border-color: darken($color-hunter, 20);
   color: darken($color-hunter, 30);
+}
+
+.class-8 {
+  background-color: $color-shaman;
+  border-color: darken($color-shaman, 20);
+  color: lighten($color-shaman, 30);
 }
 
 .class-9 {

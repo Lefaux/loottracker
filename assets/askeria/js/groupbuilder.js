@@ -92,7 +92,7 @@ $(function () {
       let counterTotal = document.getElementById('count-sum');
       counterTotal.innerText = (dps.length + tanks.length + heals.length).toString();
       // ****************** Loop over classes **************//
-      let classes = [1,2,3,4,5,6,7,9];
+      let classes = [1,2,3,4,5,6,7,8,9];
       for(let i = 0; i < classes.length; i++) {
         let playerClass = document.querySelectorAll('.groupbuilder-raidgroup.'+team+' li[data-class="' + classes[i]  + '"]');
         let counterClass = document.getElementById('count-' + classes[i]  + '-'+team);
