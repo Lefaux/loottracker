@@ -21,6 +21,7 @@ class WowProfessionUtility
     public const PROFESSION_LW_DRAGON = 10;
     public const PROFESSION_LW_TRIBAL = 11;
     public const PROFESSION_LW_ELEMENTAL = 12;
+    public const PROFESSION_JEWELCRAFTER = 13;
 
     private const ALL = [
         self::PROFESSION_UNSPECIFIED,
@@ -36,6 +37,7 @@ class WowProfessionUtility
         self::PROFESSION_LW_DRAGON,
         self::PROFESSION_LW_TRIBAL,
         self::PROFESSION_LW_ELEMENTAL,
+        self::PROFESSION_JEWELCRAFTER
     ];
 
     /**
@@ -79,6 +81,8 @@ class WowProfessionUtility
                 return self::$translator->trans('Tribal Leatherworker');
             case self::PROFESSION_LW_ELEMENTAL:
                 return self::$translator->trans('Elemental Leatherworker');
+            case self::PROFESSION_JEWELCRAFTER:
+                return self::$translator->trans('Jewelcrafter');
             default:
                 return self::$translator->trans('Unspecified');
         }
