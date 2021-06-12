@@ -53,7 +53,10 @@ ORDER BY amount DESC
 
     public function findItemsByZoneId(array $filters): array
     {
-        $output = [];
+        $output = [
+            'items' => [],
+            'zones' => []
+        ];
         $constraints = [];
         $constraints['hiddenPlayer'] = 'c.hidden = 0';
         /**
@@ -130,7 +133,11 @@ ORDER BY amount DESC
             }
             /** @var Zone $zone */
             $zoneEntity = $item->getZone();
-            $zone = $zoneEntity->getId();
+            if ($zoneEntity === null) {
+                $zone = 0;
+            } else {
+                $zone = $zoneEntity->getId();
+            }
             if (!isset($output['zones'][$zone])) {
                 $output['zones'][$zone] = 0;
             }

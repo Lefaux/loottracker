@@ -196,6 +196,9 @@ class BestInSlotController extends AbstractController
     {
         $bisItems = null;
         $class = 0;
+        if (!$zoneId) {
+            $zoneId = -1;
+        }
         $items = $this->lootRepository->countItemsByZone((int)$zoneId);
         foreach ($items as $index => $item) {
             $bisItems[$item['className']][$item['subClassName']][] = $item;
@@ -234,6 +237,7 @@ class BestInSlotController extends AbstractController
                 5 => true,
                 6 => true,
                 7 => true,
+                8 => true,
                 9 => true,
             ];
         }

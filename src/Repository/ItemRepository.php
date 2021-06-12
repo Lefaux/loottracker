@@ -5,8 +5,6 @@ namespace App\Repository;
 use App\Entity\Item;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\NonUniqueResultException;
-use Doctrine\ORM\NoResultException;
 
 /**
  * @method Item|null find($id, $lockMode = null, $lockVersion = null)

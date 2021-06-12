@@ -25,7 +25,7 @@ class LootRepository extends ServiceEntityRepository
         $output = [];
         $zoneConstraint = '';
         if ($zoneId > 0) {
-            $zoneConstraint = ' AND i.zone = ' . $zoneId;
+            $zoneConstraint = ' AND i.zone_id = ' . $zoneId;
         }
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
@@ -54,11 +54,11 @@ ORDER BY amount DESC
         $conn = $this->getEntityManager()->getConnection();
         $sql = '
 SELECT 
-    count(loot.id) as amount, i.zone
+    count(loot.id) as amount, i.zone_id AS zone
 FROM loot
     INNER JOIN item i on i.id = loot.item_id
 WHERE 1
-GROUP BY i.zone
+GROUP BY i.zone_id
             ';
         try {
             $stmt = $conn->prepare($sql);
