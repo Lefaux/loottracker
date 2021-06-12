@@ -68,64 +68,7 @@
                     <input type="submit" name="apply" value="Set Filters" class="btn btn-success">
                 </form>
             </div>
-            <div class="col-9">
-                <table class="table table-sm">
-                    <tr>
-                        <th>Name</th>
-                        {% if filters.head.1 is defined %}
-                            <th class="text-center">Onyxia</th>
-                        {% endif %}
-                        {% if filters.head.2 is defined %}
-                            <th class="text-center">Nefarian</th>
-                        {% endif %}
-                        {% if filters.head.3 is defined %}
-                            <th class="text-center">Lashlayer</th>
-                        {% endif %}
-                        {% if filters.head.4 is defined %}
-                            <th class="text-center">Heart of Hakkar</th>
-                        {% endif %}
-                        {% if filters.head.5 is defined %}
-                            <th class="text-center">Eye of C'Thun</th>
-                        {% endif %}
-                    </tr>
-                    {% for char in characters %}
-                        {% if char.twink == true %}
-                            {% set rowClass = 'bg-twink' %}
-                        {% else %}
-                            {% set rowClass = 'bg-main' %}
-                        {% endif %}
-                        <tr class="{{ rowClass }}">
-                            <td class="bis-list-name">
-                                {% if char.spec == 1 %}
-                                    <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif char.spec == 2 %}
-                                    <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif char.spec == 3 %}
-                                    <i class="fa fa-fw fa-skull-crossbones"></i>
-                                {% endif %}
-                                <a class="link-{{ char.class }}" href="{{ path('character', {'charId': char.id}) }}">{{ char.name }}</a>
-                            </td>
-                            {% if filters.head.1 is defined %}
-                                <td class="text-center">{{ macros.questhead(char.headOny) }}</td>
-                            {% endif %}
-                            {% if filters.head.2 is defined %}
-                                <td class="text-center">{{ macros.questhead(char.headNef) }}</td>
-                            {% endif %}
-                            {% if filters.head.3 is defined %}
-                                <td class="text-center">{{ macros.questhead(char.headLash) }}</td>
-                            {% endif %}
-                            {% if filters.head.4 is defined %}
-                                <td class="text-center">{{ macros.questhead(char.headHakkar) }}</td>
-                            {% endif %}
-                            {% if filters.head.5 is defined %}
-                                <td class="text-center">{{ macros.questhead(char.headCthun) }}</td>
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
         </div>
-
     </div>
 </div>
 {% endblock %}
