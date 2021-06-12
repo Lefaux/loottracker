@@ -5,7 +5,7 @@
 {% block body %}
     <div class="content-section bg-transparent">
         <div class="container-fluid">
-            <p><a class="btn btn-outline-primary" href="https://classic.wowhead.com/gear-planner" target="_blank">{% trans %}BiS Gear Planner{% endtrans %}</a></p>
+            <p><a class="btn btn-outline-primary" href="https://wowtbc.gg/bis-list/balance-druid/" target="_blank">{% trans %}BiS Gear Planner{% endtrans %}</a></p>
             <hr>
         </div>
         <div class="container-fluid">
@@ -30,40 +30,30 @@
                         <div class="card-deck">
                             {{ macros.itemDisplay(1, bisItems[slotId].1, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(2, bisItems[slotId].2, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(3, bisItems[slotId].3, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(4, bisItems[slotId].4, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
                         <h4>Phase 2 (Serpentshrine, Tempest Keep)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(21, bisItems[slotId].21, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(22, bisItems[slotId].22, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(23, bisItems[slotId].23, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(24, bisItems[slotId].24, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
                         <h4>Phase 3 (Mount Hyjal, Black Temple)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(31, bisItems[slotId].31, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(32, bisItems[slotId].32, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(33, bisItems[slotId].33, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(34, bisItems[slotId].34, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
                         <h4>Phase 4 (Zul'Aman)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(41, bisItems[slotId].41, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(42, bisItems[slotId].42, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(43, bisItems[slotId].43, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(44, bisItems[slotId].44, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
                         <h4>Phase 5 (Sunwell)</h4>
                         <div class="card-deck">
                             {{ macros.itemDisplay(51, bisItems[slotId].51, slotId, character.id, wowheaddomain) }}
                             {{ macros.itemDisplay(52, bisItems[slotId].52, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(53, bisItems[slotId].53, slotId, character.id, wowheaddomain) }}
-                            {{ macros.itemDisplay(54, bisItems[slotId].54, slotId, character.id, wowheaddomain) }}
                         </div>
                         <hr>
                         <input type="submit" class="btn btn-success" value="{% trans %}Save{% endtrans %}">

@@ -235,24 +235,14 @@ class CharacterController extends AbstractController
             $bisItems[$slotIdFromUtility] = [
                 1 => null,
                 2 => null,
-                3 => null,
-                4 => null,
                 21 => null,
                 22 => null,
-                23 => null,
-                24 => null,
                 31 => null,
                 32 => null,
-                33 => null,
-                34 => null,
                 41 => null,
                 42 => null,
-                43 => null,
-                44 => null,
                 51 => null,
                 52 => null,
-                53 => null,
-                54 => null,
             ];
         }
         foreach ($items as $item) {

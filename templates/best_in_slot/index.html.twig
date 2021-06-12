@@ -117,8 +117,6 @@
                                         {% endif %}
                                         <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxA', wowheaddomain, 'small', false) }}</td>
                                         <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxB', wowheaddomain, 'small', false) }}</td>
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain, 'small', false) }}</td>
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain, 'small', false) }}</td>
                                     {% endfor %}
                                     <td>{{ character.char.lastUpdate|date("d.m.y") }}</td>
                                 </tr>
@@ -136,8 +134,6 @@
                                             {% endif %}
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~1, wowheaddomain) }}</td>
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~2, wowheaddomain) }}</td>
-                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~3, wowheaddomain) }}</td>
-                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~4, wowheaddomain) }}</td>
                                         {% endfor %}
                                         <td>{{ macros.bisProgressBar(character.bisList, phaseId) }}</td>
                                     </tr>

@@ -106,22 +106,6 @@ class BestInSlotController extends AbstractController
                 case 62:
                     $maxSlotId = 'maxB';
                     break;
-                case 13:
-                case 23:
-                case 33:
-                case 43:
-                case 53:
-                case 63:
-                    $maxSlotId = 'maxC';
-                    break;
-                case 14:
-                case 24:
-                case 34:
-                case 44:
-                case 54:
-                case 64:
-                    $maxSlotId = 'maxD';
-                    break;
                 default:
                     $maxSlotId = 'missing';
             }
