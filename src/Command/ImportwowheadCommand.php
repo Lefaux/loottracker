@@ -3,9 +3,11 @@
 namespace App\Command;
 
 use App\Entity\Item;
+use App\Entity\Zone;
 use App\Repository\CategoryRepository;
 use App\Repository\ItemRepository;
 use App\Repository\SubCategoryRepository;
+use App\Repository\ZoneRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -42,19 +44,26 @@ class ImportwowheadCommand extends Command
      */
     protected $subCategoryRepository;
 
-    protected $maxItemId = 30000;
+    protected $maxItemId = 55000;
+
+    /**
+     * @var ZoneRepository
+     */
+    private $zoneRepository;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ItemRepository $itemRepository,
         CategoryRepository $categoryRepository,
-        SubCategoryRepository $subCategoryRepository
+        SubCategoryRepository $subCategoryRepository,
+        ZoneRepository $zoneRepository
     ) {
         parent::__construct();
         $this->entityManager = $entityManager;
         $this->itemRepository = $itemRepository;
         $this->categoryRepository = $categoryRepository;
         $this->subCategoryRepository = $subCategoryRepository;
+        $this->zoneRepository = $zoneRepository;
     }
 
     protected function configure(): void
@@ -78,11 +87,11 @@ class ImportwowheadCommand extends Command
         $progressBar->setProgress($startAt);
         while($startAt < $this->maxItemId) {
             $startAt++;
-            try {
+//            try {
                 $this->importItemFromWoWHead($startAt, $outputSection);
-            } catch (Exception $e) {
-                $output->writeln('ERROR IN ITEM '. $startAt);
-            }
+//            } catch (Exception $e) {
+//                $output->writeln('ERROR IN ITEM '. $startAt);
+//            }
             $progressBar->advance(1);
         }
 
@@ -99,7 +108,21 @@ class ImportwowheadCommand extends Command
     {
         $item = $this->itemRepository->find($itemId);
         if (!$item) {
+            $dummyClass = $this->categoryRepository->find(1);
+            $dummySubClass = $this->subCategoryRepository->find(1);
             $item = new Item();
+            $item->setZone(null);
+            $item->setClass(null);
+            $item->setHidden(false);
+            $item->setLastImport(new DateTime());
+            $item->setId($itemId);
+            $item->setItemLevel(0);
+            $item->setRequiredLevel(0);
+            $item->setQuality(-1);
+            $item->setClassFromWH(-1000);
+            $item->setSubClassFromWH(-1000);
+            $item->setClass($dummyClass);
+            $item->setSubClass($dummySubClass);
         } else {
             $today = new DateTime();
             if ($item->getLastImport()) {
@@ -110,24 +133,29 @@ class ImportwowheadCommand extends Command
                 }
             }
         }
-        $item->setId($itemId);
         $liveData = file_get_contents('https://www.wowhead.com/item=' . $itemId . '&xml');
         if (strpos($liveData, 'Item not found') !== false) {
             $output->overwrite('item '. $itemId . ' not found');
+            $item->setName('not found');
+            $this->entityManager->persist($item);
+            $this->entityManager->flush();
             return;
         }
-        $classicData = file_get_contents('https://classic.wowhead.com/item=' . $itemId . '&xml');
+        $classicData = file_get_contents('https://tbc.wowhead.com/item=' . $itemId . '&xml');
         $crawlerToolTip = new Crawler($classicData);
         if (strpos($classicData, 'Item not found') !== false) {
             $output->overwrite('item '. $itemId . ' not found in classic');
+            $item->setName('not found in classic');
+            $this->entityManager->persist($item);
+            $this->entityManager->flush();
             return;
         }
         $crawler = new Crawler($classicData);
         $name = $crawler->filter('name');
-        $output->overwrite(date('d.m.Y h:i:s') . ' ' .$name->html());
+
         $item->setName($name->html());
 
-        $germanData = file_get_contents('https://de.classic.wowhead.com/item=' . $itemId . '&xml');
+        $germanData = file_get_contents('https://de.tbc.wowhead.com/item=' . $itemId . '&xml');
         $germanCrawler = new Crawler($germanData);
         $germanName = $germanCrawler->filter('name');
         $item->setNameDe($germanName->html());
@@ -156,8 +184,11 @@ class ImportwowheadCommand extends Command
         $jsonRaw = $crawler->filter('json');
         $json = json_decode('{' . $jsonRaw->html() .'}', true);
         if (isset($json['sourcemore'][0]['z']) && (strpos($jsonRaw->html(), 'sourcemore') !== false)) {
-            $item->setZone((int)$json['sourcemore'][0]['z']);
+            $zone = $this->findOrInsertZone((int)$json['sourcemore'][0]['z']);
+        } else {
+            $zone = $this->zoneRepository->find(0);
         }
+        $item->setZone($zone);
 
         // Set main category
         $category = $crawler->filter('class');
@@ -184,9 +215,47 @@ class ImportwowheadCommand extends Command
         $item->setClass($class);
         $item->setSubClass($subClass);
 
+        if ($item->getQuality() < 3 || $item->getItemLevel() < 88) {
+            $item->setHidden(true);
+        }
+
+        $output->overwrite(date('d.m.Y h:i:s') . ' ' .$name->html());
+
+        $item->setHidden(false);
         $item->setLastImport(new DateTime());
         $this->entityManager->persist($item);
         $this->entityManager->flush();
+    }
+
+    private function findOrInsertZone(int $zoneId): Zone
+    {
+        $markup = file_get_contents('https://tbc.wowhead.com/zone=' . $zoneId);
+        $zoneName = $this->extractZoneName($markup);
+        $markup = file_get_contents('https://de.tbc.wowhead.com/zone=' . $zoneId);
+        $zoneNameDe = $this->extractZoneName($markup);
+        $zone = $this->zoneRepository->find($zoneId);
+        if ($zone === null) {
+            $zone = new Zone();
+            $zone->setId($zoneId);
+            $zone->setName($zoneName);
+            $zone->setDe($zoneNameDe);
+            $this->entityManager->persist($zone);
+            $this->entityManager->flush();
+            $zone = $this->zoneRepository->find($zoneId);
+        }
+        return $zone;
+    }
+
+    private function extractZoneName(string $markup): string
+    {
+        $crawler = new Crawler($markup);
+        $titleTag = $crawler->filter('title')->text();
+        $re = '/(.*)\s-\sZone/mU';
+        preg_match_all($re, $titleTag, $matches, PREG_SET_ORDER, 0);
+        if (isset($matches[0][1])) {
+            return trim($matches[0][1]);
+        }
+        return '-';
     }
 
     private function setRequiredLevel(string $toolTip): int
