@@ -139,6 +139,7 @@ class ImportwowheadCommand extends Command
             $item->setName('not found');
             $this->entityManager->persist($item);
             $this->entityManager->flush();
+            sleep(1);
             return;
         }
         $classicData = file_get_contents('https://tbc.wowhead.com/item=' . $itemId . '&xml');
@@ -148,6 +149,7 @@ class ImportwowheadCommand extends Command
             $item->setName('not found in classic');
             $this->entityManager->persist($item);
             $this->entityManager->flush();
+            sleep(1);
             return;
         }
         $crawler = new Crawler($classicData);
@@ -225,6 +227,7 @@ class ImportwowheadCommand extends Command
         $item->setLastImport(new DateTime());
         $this->entityManager->persist($item);
         $this->entityManager->flush();
+        sleep(1);
     }
 
     private function findOrInsertZone(int $zoneId): Zone
