@@ -245,6 +245,29 @@ class CharacterController extends AbstractController
                 52 => null,
             ];
         }
+        /**
+         * Add rings and trinkets
+         */
+        $bisItems[11][3] = null;
+        $bisItems[11][4] = null;
+        $bisItems[11][23] = null;
+        $bisItems[11][24] = null;
+        $bisItems[11][33] = null;
+        $bisItems[11][34] = null;
+        $bisItems[11][43] = null;
+        $bisItems[11][44] = null;
+        $bisItems[11][53] = null;
+        $bisItems[11][54] = null;
+        $bisItems[12][3] = null;
+        $bisItems[12][4] = null;
+        $bisItems[12][23] = null;
+        $bisItems[12][24] = null;
+        $bisItems[12][33] = null;
+        $bisItems[12][34] = null;
+        $bisItems[12][43] = null;
+        $bisItems[12][44] = null;
+        $bisItems[12][53] = null;
+        $bisItems[12][54] = null;
         foreach ($items as $item) {
             $bisItems[$item->getSlot()][$item->getPriority()] = $item;
         }

@@ -29,6 +29,7 @@
                                     {{ bisMacros.checkbox('<img src="/assets/icons/class_7.png" height="20">', 'class', 7, filters) }}
                                     {{ bisMacros.checkbox('<img src="/assets/icons/class_2.png" height="20">', 'class', 2, filters) }}
                                     {{ bisMacros.checkbox('<img src="/assets/icons/class_9.png" height="20">', 'class', 9, filters) }}
+                                    {{ bisMacros.checkbox('<img src="/assets/icons/class_8.png" height="20">', 'class', 8, filters) }}
                                     {{ bisMacros.checkbox('<img src="/assets/icons/class_6.png" height="20">', 'class', 6, filters) }}
                                     {{ bisMacros.checkbox('<img src="/assets/icons/class_4.png" height="20">', 'class', 4, filters) }}
                                     {{ bisMacros.checkbox('<img src="/assets/icons/class_3.png" height="20">', 'class', 3, filters) }}
@@ -87,7 +88,11 @@
                             <tr>
                                 <th>{{ classUtility.className(classId)}}</th>
                                 {% for slotId,slotBlank in usedSlots %}
-                                    <th colspan="4">{{ slotUtility.slotName(slotId) }}</th>
+                                    {% if slotId == 11 or slotId == 12 %}
+                                        <th colspan="4">{{ slotUtility.slotName(slotId) }}</th>
+                                    {% else %}
+                                        <th colspan="2">{{ slotUtility.slotName(slotId) }}</th>
+                                    {% endif %}
                                 {% endfor %}
                                 <th>Updated</th>
                             </tr>
@@ -117,6 +122,10 @@
                                         {% endif %}
                                         <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxA', wowheaddomain, 'small', false) }}</td>
                                         <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxB', wowheaddomain, 'small', false) }}</td>
+                                        {% if slotId == 11 or slotId == 12 %}
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain, 'small', false) }}</td>
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain, 'small', false) }}</td>
+                                        {% endif %}
                                     {% endfor %}
                                     <td>{{ character.char.lastUpdate|date("d.m.y") }}</td>
                                 </tr>
@@ -134,6 +143,10 @@
                                             {% endif %}
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~1, wowheaddomain) }}</td>
                                             <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~2, wowheaddomain) }}</td>
+                                            {% if slotId == 11 or slotId == 12 %}
+                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~3, wowheaddomain) }}</td>
+                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~4, wowheaddomain) }}</td>
+                                            {% endif %}
                                         {% endfor %}
                                         <td>{{ macros.bisProgressBar(character.bisList, phaseId) }}</td>
                                     </tr>
