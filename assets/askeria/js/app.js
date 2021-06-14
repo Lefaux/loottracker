@@ -49,9 +49,36 @@ $(function () {
     },
     minimumInputLength: 3,
     placeholder: 'Search for an item',
-    theme: 'default'
+    theme: 'default',
+    templateResult: formatState
   });
 });
+
+/**
+ * Format BiS Item Search Result
+ * @param state
+ * @returns {*|jQuery|HTMLElement}
+ */
+function formatState (state) {
+  if (!state.id) {
+    return state.text;
+  }
+  var baseUrl = "https://wow.zamimg.com/images/wow/icons/medium";
+  var $state = $(
+      '<div class="searchresult-container">' +
+      '  <div class="searchresult-icon">' +
+      '    <img src="' + baseUrl + '/' + state.icon + '.jpg" class="img-flag" />' +
+      '  </div> ' +
+      '  <div class="searchresult-text">' +
+      '    <span class="q' +state.quality+ '" data-wowhead="item='+state.id+'"> ' + state.text + '</span> (ID: '+state.id+')' +
+      '    <br>' +
+      '    <span class="ilvl q' +state.quality+ '">LvL: '+state.ilvl+'</span> ('+state.zone+')' +
+      '  </div> ' +
+      '</div>'
+
+  );
+  return $state;
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   let calendarEl = document.getElementById('calendar-holder');

@@ -246,3 +246,23 @@ tr.bg-twink {
     display: table-row;
   }
 }
+
+.select2-results__option {
+  color: black !important;
+}
+
+.select2-selection__placeholder {
+  color: black;
+}
+
+.select2-dropdown {
+  //background-color: #333 !important;
+}
+
+.searchresult-container {
+  display: flex;
+}
+
+.searchresult-icon {
+  padding-right: 10px;
+}

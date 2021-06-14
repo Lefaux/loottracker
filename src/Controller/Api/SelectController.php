@@ -26,7 +26,20 @@ class SelectController extends AbstractController
         $items = $itemRepository->searchByName($request->get('search'), $request->get('slots'));
         $return = [];
         foreach ($items as $item) {
-            $return[] = ['id' => $item->getId(), 'text' => $item->getName()];
+            $zone = $item->getZone();
+            if ($zone === null) {
+                $zone = 'unclear';
+            } else {
+                $zone = $zone->getName();
+            }
+            $return[] = [
+                'id' => $item->getId(),
+                'text' => $item->getName(),
+                'icon' => $item->getIcon(),
+                'quality' => $item->getQuality(),
+                'ilvl' => $item->getItemLevel(),
+                'zone' => $zone
+            ];
         }
 
         return $this->json(['results' => $return]);
