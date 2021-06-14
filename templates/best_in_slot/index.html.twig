@@ -15,10 +15,10 @@
                                 <td>Phase</td>
                                 <td>
                                     {{ bisMacros.checkbox('Phase 1', 'phase', 1, filters) }}
+                                    {{ bisMacros.checkbox('Phase 2', 'phase', 2, filters) }}
                                     {{ bisMacros.checkbox('Phase 3', 'phase', 3, filters) }}
                                     {{ bisMacros.checkbox('Phase 4', 'phase', 4, filters) }}
                                     {{ bisMacros.checkbox('Phase 5', 'phase', 5, filters) }}
-                                    {{ bisMacros.checkbox('Phase 6', 'phase', 6, filters) }}
                                 </td>
                             </tr>
                             <tr>
@@ -89,9 +89,9 @@
                                 <th>{{ classUtility.className(classId)}}</th>
                                 {% for slotId,slotBlank in usedSlots %}
                                     {% if slotId == 11 or slotId == 12 %}
-                                        <th colspan="4">{{ slotUtility.slotName(slotId) }}</th>
+                                        <th colspan="4"><img src="assets/bistracker/slot_{{ slotId }}.png" alt="{{ slotUtility.slotName(slotId) }}" title="{{ slotUtility.slotName(slotId) }}"></th>
                                     {% else %}
-                                        <th colspan="2">{{ slotUtility.slotName(slotId) }}</th>
+                                        <th colspan="2"><img src="assets/bistracker/slot_{{ slotId }}.png" alt="{{ slotUtility.slotName(slotId) }}" title="{{ slotUtility.slotName(slotId) }}"></th>
                                     {% endif %}
                                 {% endfor %}
                                 <th>Updated</th>
