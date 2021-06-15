@@ -52,7 +52,25 @@ $(function () {
     theme: 'default',
     templateResult: formatState
   });
+
+  $('.recipe-typeahead').select2({
+    ajax: {
+      url: '/api/select/recipe',
+      dataType: 'json',
+      data: function (params) {
+        return {
+          search: params.term
+        };
+      }
+    },
+    minimumInputLength: 3,
+    placeholder: 'Search for a recipe',
+    theme: 'default',
+    templateResult: formatState
+  });
 });
+
+
 
 /**
  * Format BiS Item Search Result
@@ -63,19 +81,18 @@ function formatState (state) {
   if (!state.id) {
     return state.text;
   }
-  var baseUrl = "https://wow.zamimg.com/images/wow/icons/medium";
-  var $state = $(
+  let baseUrl = "https://wow.zamimg.com/images/wow/icons/medium";
+  let $state = $(
       '<div class="searchresult-container">' +
       '  <div class="searchresult-icon">' +
-      '    <img src="' + baseUrl + '/' + state.icon + '.jpg" class="img-flag" />' +
+      '    <img src="' + baseUrl + '/' + state.icon + '.jpg" />' +
       '  </div> ' +
       '  <div class="searchresult-text">' +
-      '    <span class="q' +state.quality+ '" data-wowhead="item='+state.id+'"> ' + state.text + '</span> (ID: '+state.id+')' +
+      '    <span class="q' + state.quality + '" data-wowhead="item=' + state.id + '"> ' + state.text + '</span> (ID: ' + state.id + ')' +
       '    <br>' +
-      '    <span class="ilvl q' +state.quality+ '">LvL: '+state.ilvl+'</span> ('+state.zone+')' +
+      '    <span class="ilvl q' + state.quality + '">LvL: ' + state.ilvl + '</span> (' + state.zone + ')' +
       '  </div> ' +
       '</div>'
-
   );
   return $state;
 }

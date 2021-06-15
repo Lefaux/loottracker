@@ -6,6 +6,7 @@ use App\Entity\Attendance;
 use App\Entity\Character;
 use App\Entity\CharacterLootRequirement;
 use App\Entity\Raid;
+use App\Entity\Recipe;
 use App\Form\CharacterType;
 use App\Repository\CharacterLootRequirementRepository;
 use App\Repository\CharacterRepository;
@@ -213,7 +214,52 @@ class CharacterController extends AbstractController
             $this->addFlash('danger', 'That character name is already taken.');
         }
 
-        return $this->render('loot_requirement/form.html.twig', ['form' => $form->createView()]);
+        /**
+         * Add recipes
+         */
+        $recipe = $request->get('recipe');
+        if (isset($recipe['itemId'])) {
+            $recipeItem = $this->itemRepository->find((int)$recipe['itemId']);
+            if ($recipeItem !== null) {
+                $checkIfEntryExists = $this->recipeRepository->findBy(
+                    [
+                        'Player' => $character->getId(),
+                        'recipe' => $recipeItem
+                    ]
+                );
+                if (count($checkIfEntryExists) === 0) {
+                    $entry = new Recipe();
+                    $entry->setPlayer($character);
+                    $entry->setRecipe($recipeItem);
+                    $character->addRecipe($entry);
+                    $this->entityManager->persist($entry);
+                    $this->entityManager->persist($character);
+                    $this->entityManager->flush();
+                    $this->addFlash('success', 'Added recipe ' . $recipeItem->getName());
+                return $this->redirectToRoute('character_update', ['charId' => $character->getId()]);
+                }
+            }
+        }
+
+        /**
+         * Remove Recipes
+         */
+        $removeRecipeId = $request->get('removeRecipeId');
+        if ($removeRecipeId !== null) {
+            $recipeItem = $this->recipeRepository->find((int)$removeRecipeId);
+            if ($recipeItem !== null) {
+                $this->entityManager->remove($recipeItem);
+                $this->entityManager->flush();
+                $this->addFlash('success', 'Removed recipe ' . $recipeItem->getRecipe()->getName());
+            }
+        }
+        return $this->render(
+            'loot_requirement/form.html.twig',
+            [
+                'form' => $form->createView(),
+                'character' => $character
+            ]
+        );
     }
 
     /**

@@ -28,6 +28,35 @@
                 <div class="col">{{ form_row(form.profession2skill) }}</div>
             </div>
             {{ form_end(form) }}
+            <div class="container">
+
+                <h3>Special Recipes</h3>
+                <form action="{{ path('character_update', {charId: character.id}) }}" method="post" class="form">
+                    <div class="row">
+                        <div class="col-10">
+                            <select type="text" class="form-control recipe-typeahead" id="autocomplete_recipe" name="recipe[itemId]" style=""></select>
+                        </div>
+                        <div class="col">
+                            <input type="submit" name="recipe-submit" class="btn btn-success" value="Add recipe">
+                        </div>
+                    </div>
+                </form>
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    {% for entry in character.recipes %}
+                        <div class="col">
+                            <div class="card" style="width: 18rem;">
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="#" data-wowhead="item={{ entry.recipe.id }}">{{ entry.recipe.name }}</a></h5>
+                                    <form action="{{ path('character_update', {charId: character.id}) }}" method="post" class="form">
+                                        <input type="hidden" name="removeRecipeId" value="{{ entry.id }}">
+                                        <input type="submit" value="remove recipe" href="#" class="card-link btn btn-primary">
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

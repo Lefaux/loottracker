@@ -64,4 +64,21 @@ class ItemRepository extends ServiceEntityRepository
         return $query1
             ->getResult();
     }
+
+    /**
+     * @param string $query
+     * @return array|Item[]
+     */
+    public function searchRecipeByName(string $query): array
+    {
+        $query1 = $this->createQueryBuilder('a')
+            ->andWhere('(a.name LIKE :word OR a.name_de LIKE :word OR a.id LIKE :word) AND a.hidden = 0 AND a.class = :class AND a.subClass NOT IN (:blacklist)')
+            ->setParameter('word', '%' . addcslashes($query, '%_') . '%')
+            ->setParameter('class', 10)
+            ->setParameter('blacklist', '100,107,109')
+            ->orderBy('a.name', 'ASC')
+            ->getQuery();
+        return $query1
+            ->getResult();
+    }
 }

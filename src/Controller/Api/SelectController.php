@@ -44,4 +44,34 @@ class SelectController extends AbstractController
 
         return $this->json(['results' => $return]);
     }
+
+    /**
+     * @Route("/recipe", name="recipe")
+     * @param Request $request
+     * @param ItemRepository $itemRepository
+     * @return Response
+     */
+    public function recipe(Request $request, ItemRepository $itemRepository): Response
+    {
+        $items = $itemRepository->searchRecipeByName($request->get('search'));
+        $return = [];
+        foreach ($items as $item) {
+            $zone = $item->getZone();
+            if ($zone === null) {
+                $zone = 'unclear';
+            } else {
+                $zone = $zone->getName();
+            }
+            $return[] = [
+                'id' => $item->getId(),
+                'text' => $item->getName(),
+                'icon' => $item->getIcon(),
+                'quality' => $item->getQuality(),
+                'ilvl' => $item->getItemLevel(),
+                'zone' => $zone
+            ];
+        }
+
+        return $this->json(['results' => $return]);
+    }
 }
