@@ -112,45 +112,58 @@
                                             <i class="fa fa-fw fa-skull-crossbones"></i>
                                         {% endif %}
                                         <a class="link-{{ character.char.class }}" href="{{ path('character', {'charId': character.char.id}) }}">{{ character.char.name }}</a>
-                                        <br><small>{{ raceUtility.raceName(character.char.race) }}</small>
                                     </td>
-                                    {% for slotId,slotBlank in usedSlots %}
-                                        {% if loop.index is odd %}
-                                            {% set cellClass = 'bis-list-odd' %}
-                                        {% else %}
-                                            {% set cellClass = '' %}
+                                    {% if  character.bisList|length == 0 %}
+                                        {% set additionalCols = 0 %}
+                                        {% if usedSlots.11 is defined %}
+                                            {% set additionalCols = additionalCols + 2 %}
                                         {% endif %}
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxA', wowheaddomain, 'small', false) }}</td>
-                                        <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxB', wowheaddomain, 'small', false) }}</td>
-                                        {% if slotId == 11 or slotId == 12 %}
-                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain, 'small', false) }}</td>
-                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain, 'small', false) }}</td>
+                                        {% if usedSlots.12 is defined %}
+                                            {% set additionalCols = additionalCols + 2 %}
                                         {% endif %}
-                                    {% endfor %}
-                                    <td>{{ character.char.lastUpdate|date("d.m.y") }}</td>
-                                </tr>
-                                {% for phaseId, phaseBlank in filters.phase %}
-                                    <tr class="bg-phase-{{ loop.index }}">
-                                        <td class="bis-list-name">Phase {{ phaseId }}</td>
+                                        <td colspan="{{ (usedSlots|length * 2) + additionalCols }}" style="background-color: red;border-bottom: 1px solid black">NO BIS</td>
+                                    {% else %}
                                         {% for slotId,slotBlank in usedSlots %}
                                             {% if loop.index is odd %}
                                                 {% set cellClass = 'bis-list-odd' %}
                                             {% else %}
                                                 {% set cellClass = '' %}
                                             {% endif %}
-                                            {% if phaseId == 1 %}
-                                                {% set phaseId = '' %}
-                                            {% endif %}
-                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~1, wowheaddomain) }}</td>
-                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~2, wowheaddomain) }}</td>
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxA', wowheaddomain, 'small', false) }}</td>
+                                            <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxB', wowheaddomain, 'small', false) }}</td>
                                             {% if slotId == 11 or slotId == 12 %}
-                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~3, wowheaddomain) }}</td>
-                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~4, wowheaddomain) }}</td>
+                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxC', wowheaddomain, 'small', false) }}</td>
+                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, 'maxD', wowheaddomain, 'small', false) }}</td>
                                             {% endif %}
                                         {% endfor %}
-                                        <td>{{ macros.bisProgressBar(character.bisList, phaseId) }}</td>
-                                    </tr>
-                                {% endfor %}
+                                    {% endif %}
+                                    <td>{{ character.char.lastUpdate|date("d.m.y") }}</td>
+                                </tr>
+                                {% if  character.bisList|length == 0 %}
+                                {% else %}
+                                    {% for phaseId, phaseBlank in filters.phase %}
+                                        <tr class="bg-phase-{{ loop.index }}">
+                                            <td class="bis-list-name">Phase {{ phaseId }}</td>
+                                            {% for slotId,slotBlank in usedSlots %}
+                                                {% if loop.index is odd %}
+                                                    {% set cellClass = 'bis-list-odd' %}
+                                                {% else %}
+                                                    {% set cellClass = '' %}
+                                                {% endif %}
+                                                {% if phaseId == 1 %}
+                                                    {% set phaseId = '' %}
+                                                {% endif %}
+                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~1, wowheaddomain) }}</td>
+                                                <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~2, wowheaddomain) }}</td>
+                                                {% if slotId == 11 or slotId == 12 %}
+                                                    <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~3, wowheaddomain) }}</td>
+                                                    <td class="{{ cellClass  }}">{{ macros.itemicon(character.bisList, slotId, phaseId~4, wowheaddomain) }}</td>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <td>{{ macros.bisProgressBar(character.bisList, phaseId) }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
                             {% endfor %}
                         {% endfor %}
                     </table>
