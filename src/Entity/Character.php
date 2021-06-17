@@ -143,6 +143,16 @@ class Character
      */
     private $headCthun = 0;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $allegience;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $metaspec;
+
     public function __construct()
     {
         $this->attendances = new ArrayCollection();
@@ -543,6 +553,33 @@ class Character
     public function setHeadCthun(int $headCthun): self
     {
         $this->headCthun = $headCthun;
+
+        return $this;
+    }
+
+    public function getAllegience(): ?string
+    {
+        if (!$this->allegience) {
+            $this->allegience = 'none';
+        }
+        return $this->allegience;
+    }
+
+    public function setAllegience(?string $allegience): self
+    {
+        $this->allegience = $allegience;
+
+        return $this;
+    }
+
+    public function getMetaspec(): ?int
+    {
+        return $this->metaspec;
+    }
+
+    public function setMetaspec(int $metaspec): self
+    {
+        $this->metaspec = $metaspec;
 
         return $this;
     }

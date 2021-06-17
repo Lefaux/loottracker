@@ -63,6 +63,16 @@ class CharacterType extends AbstractType
                     'choices' => array_flip($this->spec::toArray())
                 ]
             )
+            ->add('allegience', ChoiceType::class,
+                [
+                    'required' => true,
+                    'choices' => [
+                        'none' => 'none',
+                        'Aldor' => 'aldor',
+                        'Scryer' => 'scryer'
+                    ]
+                ]
+            )
             ->add('twink', CheckboxType::class,
                 [
                     'required' => false,
