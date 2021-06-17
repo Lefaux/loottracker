@@ -57,13 +57,7 @@
                                         style="display: none;"
                                     {% endif %}
                             >
-                                {% if signup.playerName.spec == 1 %}
-                                    <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif signup.playerName.spec == 2 %}
-                                    <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif signup.playerName.spec == 3 %}
-                                    <i class="fa fa-fw fa-skull-crossbones"></i>
-                                {% endif %}
+                                <i class="spec"><img src="/assets/icons/spec_{{ player.spec }}.jpg" width="18"></i>
                                 <small>{{ signup.playerName.name }}</small>
                             </li>
                         {% endfor %}
@@ -84,13 +78,7 @@
                                         style="display: none;"
                                     {% endif %}
                             >
-                                {% if playerOnBench.spec == 1 %}
-                                    <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif playerOnBench.spec == 2 %}
-                                    <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif playerOnBench.spec == 3 %}
-                                    <i class="fa fa-fw fa-skull-crossbones"></i>
-                                {% endif %}
+                                <i class="spec"><img src="/assets/icons/spec_{{ player.spec }}.jpg" width="18"></i>
                                 <small>{{ playerOnBench.name }}</small>
                             </li>
                         {% endfor %}
@@ -111,13 +99,7 @@
                                         style="display: none;"
                                     {% endif %}
                             >
-                                {% if playerInOtherSetup.spec == 1 %}
-                                    <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif playerInOtherSetup.spec == 2 %}
-                                    <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif playerInOtherSetup.spec == 3 %}
-                                    <i class="fa fa-fw fa-skull-crossbones"></i>
-                                {% endif %}
+                                <i class="spec"><img src="/assets/icons/spec_{{ player.spec }}.jpg" width="18"></i>
                                 <small>{{ playerInOtherSetup.name }}</small>
                             </li>
                         {% endfor %}
@@ -189,13 +171,7 @@
 {#                                        style="display: none;"#}
 {#                                    {% endif %}#}
                             >
-                                {% if player.spec == 1 %}
-                                    <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif player.spec == 2 %}
-                                    <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif player.spec == 3 %}
-                                    <i class="fa fa-fw fa-skull-crossbones"></i>
-                                {% endif %}
+                                <i class="spec"><img src="/assets/icons/spec_{{ player.spec }}.jpg" width="18"></i>
                                 <small>{{ player.name }}</small>
                             </li>
                         {% endfor %}
@@ -213,13 +189,7 @@
 {#                                        style="display: none;"#}
 {#                                    {% endif %}#}
                             >
-                                {% if player.spec == 1 %}
-                                    <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif player.spec == 2 %}
-                                    <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif player.spec == 3 %}
-                                    <i class="fa fa-fw fa-skull-crossbones"></i>
-                                {% endif %}
+                                <i class="spec"><img src="/assets/icons/spec_{{ player.spec }}.jpg" width="18"></i>
                                 <small>{{ player.name }}</small>
                             </li>
                         {% endfor %}

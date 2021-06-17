@@ -10,13 +10,7 @@
                     data-spec="{{ player.spec }}"
                     data-class="{{ player.class }}"
             >
-                {% if player.spec == 1 %}
-                    <i class="fa fa-fw fa-shield-alt"></i>
-                {% elseif player.spec == 2 %}
-                    <i class="fa fa-fw fa-band-aid"></i>
-                {% elseif player.spec == 3 %}
-                    <i class="fa fa-fw fa-skull-crossbones"></i>
-                {% endif %}
+                <i class="spec"><img src="/assets/icons/spec_{{ player.spec }}.jpg" width="18"></i>
                 <small>{{ player.name }}</small>
             </li>
         {% endfor %}
