@@ -51,7 +51,7 @@
                                     <td>
                                         <i class="fa fa-fw fa-{{ player.rank.icon|default('') }}" style="color: {{ player.rank.color|default('') }}" title="{{ player.rank.name|default('') }}"></i>
                                     </td>
-                                    <td>
+                                    <td><img src="assets/icons/spec_{{ player.spec }}.jpg" width="20" height="20">
                                         {% if player.spec == 1 %}
                                             <i class="fa fa-fw fa-shield-alt"></i>
                                         {% elseif player.spec == 2 %}
