@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CharacterRepository")
  * @ORM\Table(name="characters")
+ * @ORM\EntityListeners({"App\Listener\CharacterListener"})
  */
 class Character
 {

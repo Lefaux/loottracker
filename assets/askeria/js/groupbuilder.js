@@ -83,14 +83,17 @@ $(function () {
       let tanks = document.querySelectorAll('.groupbuilder-raidgroup.'+team+' li[data-spec="1"]');
       let heals = document.querySelectorAll('.groupbuilder-raidgroup.'+team+' li[data-spec="2"]');
       let dps = document.querySelectorAll('.groupbuilder-raidgroup.'+team+' li[data-spec="3"]');
+      let ranged = document.querySelectorAll('.groupbuilder-raidgroup.'+team+' li[data-spec="4"]');
       let counterTanks = document.getElementById('count-tank-'+team);
       counterTanks.innerText = tanks.length.toString();
       let counterHeals = document.getElementById('count-heal-'+team);
       counterHeals.innerText = heals.length.toString();
       let counterDps = document.getElementById('count-dps-'+team);
       counterDps.innerText = dps.length.toString();
+      let counterRanged = document.getElementById('count-ranged-'+team);
+      counterRanged.innerText = ranged.length.toString();
       let counterTotal = document.getElementById('count-sum');
-      counterTotal.innerText = (dps.length + tanks.length + heals.length).toString();
+      counterTotal.innerText = (dps.length + tanks.length + heals.length + ranged.length).toString();
       // ****************** Loop over classes **************//
       let classes = [1,2,3,4,5,6,7,8,9];
       for(let i = 0; i < classes.length; i++) {

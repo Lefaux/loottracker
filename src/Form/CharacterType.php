@@ -51,12 +51,6 @@ class CharacterType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, ['required' => true])
-            ->add('class', ChoiceType::class,
-                [
-                    'required' => true,
-                    'choices' => array_flip($this->class::toArray())
-                ]
-            )
             ->add('spec', ChoiceType::class,
                 [
                     'required' => true,
