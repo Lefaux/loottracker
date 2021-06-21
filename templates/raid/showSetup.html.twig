@@ -50,10 +50,6 @@
                             <ul class="groupbuilder-raidgroup alpha">
                                 {{ groupBuilderMacros.raidGroup(raidGroup, 5) }}
                             </ul>
-                            <h6>Group 7</h6>
-                            <ul class="groupbuilder-raidgroup alpha">
-                                {{ groupBuilderMacros.raidGroup(raidGroup, 7) }}
-                            </ul>
                         </div>
                         <div class="col-sm-5">
                             <h6>Group 2</h6>
@@ -64,14 +60,6 @@
                             <ul class="groupbuilder-raidgroup alpha">
                                 {{ groupBuilderMacros.raidGroup(raidGroup, 4) }}
                             </ul>
-                            <h6>Group 6</h6>
-                            <ul class="groupbuilder-raidgroup alpha">
-                                {{ groupBuilderMacros.raidGroup(raidGroup, 6) }}
-                            </ul>
-                            <h6>Group 8</h6>
-                            <ul class="groupbuilder-raidgroup alpha">
-                                {{ groupBuilderMacros.raidGroup(raidGroup, 8) }}
-                            </ul>
                         </div>
                         <div class="col-sm-2">
                             <table>
@@ -80,6 +68,7 @@
                                 <tr><td><i class="fa fa-fw fa-shield-alt"></i></td>                                  <td class="counter" id="count-tank-alpha">{{ raidGroup.setup.count['specs'][1] }}</td></tr>
                                 <tr><td><i class="fa fa-fw fa-band-aid"></i></td>                                    <td class="counter" id="count-heal-alpha">{{ raidGroup.setup.count['specs'][2] }}</td></tr>
                                 <tr><td><i class="fa fa-fw fa-skull-crossbones"></i></td>                            <td class="counter" id="count-dps-alpha">{{ raidGroup.setup.count['specs'][3] }}</td></tr>
+                                <tr><td><i class="fa fa-fw fa-crosshairs"></i></td>                            <td class="counter" id="count-dps-alpha">{{ raidGroup.setup.count['specs'][4] }}</td></tr>
                                 <tr><td colspan="2"><hr></td></tr>
                                 <tr><td><img src="{{ asset('assets/icons/class_1.png') }}" style="width: 20px;"></td><td class="counter" id="count-1-alpha">{{ raidGroup.setup.count['classes'][1] }}</td></tr>
                                 <tr><td><img src="{{ asset('assets/icons/class_2.png') }}" style="width: 20px;"></td><td class="counter" id="count-2-alpha">{{ raidGroup.setup.count['classes'][2] }}</td></tr>
@@ -88,6 +77,7 @@
                                 <tr><td><img src="{{ asset('assets/icons/class_5.png') }}" style="width: 20px;"></td><td class="counter" id="count-5-alpha">{{ raidGroup.setup.count['classes'][5] }}</td></tr>
                                 <tr><td><img src="{{ asset('assets/icons/class_6.png') }}" style="width: 20px;"></td><td class="counter" id="count-6-alpha">{{ raidGroup.setup.count['classes'][6] }}</td></tr>
                                 <tr><td><img src="{{ asset('assets/icons/class_7.png') }}" style="width: 20px;"></td><td class="counter" id="count-7-alpha">{{ raidGroup.setup.count['classes'][7] }}</td></tr>
+                                <tr><td><img src="{{ asset('assets/icons/class_8.png') }}" style="width: 20px;"></td><td class="counter" id="count-7-alpha">{{ raidGroup.setup.count['classes'][8] }}</td></tr>
                                 <tr><td><img src="{{ asset('assets/icons/class_9.png') }}" style="width: 20px;"></td><td class="counter" id="count-9-alpha">{{ raidGroup.setup.count['classes'][9] }}</td></tr>
                             </table>
                         </div>

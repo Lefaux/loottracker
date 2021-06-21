@@ -112,6 +112,7 @@ class RaidController extends AbstractController
                 1 => 0,
                 2 => 0,
                 3 => 0,
+                4 => 0,
             ],
             'classes' => [
                 1 => 0,
@@ -137,7 +138,7 @@ class RaidController extends AbstractController
                     unset($allSignedUpPlayers[$playerId]);
                     $hydratedSetup['groups'][$groupIndex][$playerIndex] = $character;
                     $setupCount['total']++;
-                    $setupCount['specs'][$character->getSpec()]++;
+                    $setupCount['specs'][$character->getMetaspec()]++;
                     $setupCount['classes'][$character->getClass()]++;
                 }
             }
