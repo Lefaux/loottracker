@@ -51,13 +51,15 @@
                                     <td>
                                         <i class="fa fa-fw fa-{{ player.rank.icon|default('') }}" style="color: {{ player.rank.color|default('') }}" title="{{ player.rank.name|default('') }}"></i>
                                     </td>
-                                    <td><img src="assets/icons/spec_{{ player.spec }}.jpg" width="20" height="20">
-                                        {% if player.spec == 1 %}
+                                    <td><img src="/assets/icons/spec_{{ player.spec }}.jpg" width="20" height="20">
+                                        {% if player.metaSpec == 1 %}
                                             <i class="fa fa-fw fa-shield-alt"></i>
-                                        {% elseif player.spec == 2 %}
+                                        {% elseif player.metaSpec == 2 %}
                                             <i class="fa fa-fw fa-band-aid"></i>
-                                        {% elseif player.spec == 3 %}
+                                        {% elseif player.metaSpec == 3 %}
                                             <i class="fa fa-fw fa-skull-crossbones"></i>
+                                        {% elseif player.metaSpec == 4 %}
+                                            <i class="fa fa-fw fa-crosshairs"></i>
                                         {% endif %}
                                     </td>
                                     <td>
@@ -69,7 +71,7 @@
                                     <td>
                                         {{ macros.tradeskills(player.profession2, player.profession2skill) }}
                                     </td>
-                                    <td><img src="assets/icons/icon_{{ player.allegience }}.png" height="24" alt="{{ player.allegience }}" title="{{ player.allegience }}"></td>
+                                    <td><img src="/assets/icons/icon_{{ player.allegience }}.png" height="24" alt="{{ player.allegience }}" title="{{ player.allegience }}"></td>
                                 </tr>
                             {% endfor %}
                         </table>
