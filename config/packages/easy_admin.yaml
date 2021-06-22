@@ -187,6 +187,33 @@ easy_admin:
                 'Tank': 1
                 'Healer': 2
                 'DPS': 3
+                'DRUID_BALANCE': 4
+                'DRUID_FERAL': 5
+                'DRUID_RESTORATION': 6
+                'HUNTER_BEASTMASTERY': 7
+                'HUNTER_MARKSMANSHIP': 8
+                'HUNTER_SURVIVAL': 9
+                'MAGE_ARCANE': 10
+                'MAGE_FIRE': 11
+                'MAGE_FROST': 12
+                'PALADIN_HOLY': 13
+                'PALADIN_PROTECTION': 14
+                'PALADIN_RETRIBUTION': 15
+                'PRIEST_DISCIPLINE': 16
+                'PRIEST_HOLY': 17
+                'PRIEST_SHADOW': 18
+                'ROGUE_ASSASSINATION': 19
+                'ROGUE_COMBAT': 20
+                'ROGUE_SUBTLETY': 21
+                'SHAMAN_ELEMENTAL': 22
+                'SHAMAN_ENHANCEMENT': 23
+                'SHAMAN_RESTORATION': 24
+                'WARLOCK_AFFLICTION': 25
+                'WARLOCK_DEMONOLOGY': 26
+                'WARLOCK_DESTRUCTION': 27
+                'WARRIOR_ARMS': 28
+                'WARRIOR_FURY': 29
+                'WARRIOR_PROTECTION': 30
           - property: "race"
             label: 'Race'
             type: choice
@@ -197,6 +224,15 @@ easy_admin:
                 'Human': 2
                 'Dwarf': 3
                 'Gnome': 4
+          - property: "allegience"
+            label: 'Allegiance'
+            type: choice
+            type_options:
+              expanded: false
+              choices:
+                'None': 'none'
+                'Aldor': 'aldor'
+                'Scryer': 'scryer'
           - property: "class"
             label: 'Class'
             type: choice
