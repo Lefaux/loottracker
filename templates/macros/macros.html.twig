@@ -170,15 +170,15 @@
 {% endmacro %}
 
 {% macro professions(skill) %}
-    {% set percentage =  skill / 3.33333|round%}
+    {% set percentage =  (skill / 375)*100|round%}
     {% set color = 'bg-secondary' %}
     {% if skill < 100 %}
         {% set color = 'bg-danger' %}
     {% elseif skill < 200 %}
         {% set color = 'bg-warning' %}
-    {% elseif skill < 299 %}
+    {% elseif skill < 374 %}
         {% set color = 'bg-info' %}
-    {% elseif skill > 299 %}
+    {% elseif skill > 374 %}
         {% set color = 'bg-success' %}
         {% set percentage = 100 %}
     {% endif %}
@@ -194,15 +194,15 @@
                 <img src="{{ asset('assets/icons/tradeskills/tradeskill_'~skillId~'.png') }}" alt="{{ skill }}" title="{{ skill }}">
             </div>
             <div class="tradeskill-progress">
-                {% set percentage =  skill / 3.33333|round%}
+                {% set percentage =  (skill / 375)*100|round%}
                 {% set color = 'bg-secondary' %}
                 {% if skill < 100 %}
                     {% set color = 'bg-danger' %}
                 {% elseif skill < 200 %}
                     {% set color = 'bg-warning' %}
-                {% elseif skill < 299 %}
+                {% elseif skill < 374 %}
                     {% set color = 'bg-info' %}
-                {% elseif skill > 299 %}
+                {% elseif skill > 374 %}
                     {% set color = 'bg-success' %}
                     {% set percentage = 100 %}
                 {% endif %}
