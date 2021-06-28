@@ -38,7 +38,7 @@
         "chart.js": "^2.8.0",
         "devbridge-autocomplete": "^1.4.10",
         "luxon": "^1.17.2",
-        "prismjs": "^1.17.1",
+        "prismjs": "^1.24.0",
         "select2": "^4.0.10",
         "sortablejs": "^1.10.1",
         "sprintf-js": "^1.1.2"
