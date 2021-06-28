@@ -42,12 +42,14 @@
                                 <ul class="groupbuilder-list">
                                     {% for player in raid.noFeedback %}
                                         <li class="groupbuilder-item-player class-{{ player.class }} {% if player.twink == true %}twink{% endif %}">
-                                            {% if player.spec == 1 %}
+                                            {% if player.metaSpec == 1 %}
                                                 <i class="fa fa-fw fa-shield-alt" title="ID: {{ player.id }}"></i>
-                                            {% elseif player.spec == 2 %}
+                                            {% elseif player.metaSpec == 2 %}
                                                 <i class="fa fa-fw fa-band-aid" title="ID: {{ player.id }}"></i>
-                                            {% elseif player.spec == 3 %}
+                                            {% elseif player.metaSpec == 3 %}
                                                 <i class="fa fa-fw fa-skull-crossbones" title="ID: {{ player.id }}"></i>
+                                            {% elseif player.metaSpec == 4 %}
+                                                <i class="fa fa-fw fa-crosshairs" title="ID: {{ player.id }}"></i>
                                             {% endif %}
                                             <small title="ID: {{ player.id }}">{{ player.name }}</small>
                                         </li>

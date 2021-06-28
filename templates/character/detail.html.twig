@@ -9,12 +9,14 @@
             <h1>
                 <span class="wow-class-icon"><img class="rounded" src="/assets/icons/class_{{ character.class }}.png" width="44" height="44" /></span>
                 <span class="class-spec">
-                            {% if character.spec == 1 %}
+                            {% if character.metaSpec == 1 %}
                                 <i class="fa fa-fw fa-shield-alt"></i>
-                            {% elseif character.spec == 2 %}
+                            {% elseif character.metaSpec == 2 %}
                                 <i class="fa fa-fw fa-band-aid"></i>
-                            {% elseif character.spec == 3 %}
+                            {% elseif character.metaSpec == 3 %}
                                 <i class="fa fa-fw fa-skull-crossbones"></i>
+                            {% elseif character.metaSpec == 4 %}
+                                <i class="fa fa-fw fa-crosshairs"></i>
                             {% endif %}
                             </span>
                 {{character.name}} {{ character.note }}

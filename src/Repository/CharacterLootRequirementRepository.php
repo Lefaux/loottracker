@@ -76,7 +76,7 @@ ORDER BY amount DESC
         }
         // Filter for Character Spec
         if (array_key_exists('spec', $filters)) {
-            $constraints[] = 'c.spec IN (:specIds)';
+            $constraints[] = 'c.metaSpec IN (:specIds)';
             $query->setParameter('specIds', array_keys($filters['spec']));
         }
         // Filter for Character Rank
@@ -144,7 +144,7 @@ ORDER BY amount DESC
             $output['zones'][$zone]++;
             // Listing
             $output['items'][$zone][$item->getId()]['item'] = $item;
-            $output['items'][$zone][$item->getId()]['players'][$character->getSpec()][] = $character;
+            $output['items'][$zone][$item->getId()]['players'][$character->getMetaspec()][] = $character;
         }
         return $output;
     }
@@ -164,9 +164,11 @@ ORDER BY amount DESC
         foreach ($bisItems as $bisItem) {
             $item = $bisItem->getItem();
             if ($item) {
-                $zone = $item->getZone();
-                if ($zone === null) {
+                $zoneEntity = $item->getZone();
+                if ($zoneEntity === null) {
                     $zone = 0;
+                } else {
+                    $zone = $zoneEntity->getId();
                 }
                 $output[$zone][] = $item;
             }

@@ -55,12 +55,14 @@
                                 {% if signup.playerName.twink == true %}
                                     <span class="text-warning">
                                 {% endif %}
-                                {% if signup.playerName.spec == 1 %}
+                                {% if signup.playerName.metaSpec == 1 %}
                                     <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif signup.playerName.spec == 2 %}
+                                {% elseif signup.playerName.metaSpec == 2 %}
                                     <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif signup.playerName.spec == 3 %}
+                                {% elseif signup.playerName.metaSpec == 3 %}
                                     <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% elseif signup.playerName.metaSpec == 4 %}
+                                    <i class="fa fa-fw fa-crosshairs"></i>
                                 {% endif %}
                                     {{ signup.playerName.name }}
                                 {% if signup.playerName.twink == true %}
@@ -93,12 +95,14 @@
                     <ul class="list-group">
                     {% for signup in cancellations %}
                         <li class="list-group-item">
-                            {% if signup.playerName.spec == 1 %}
+                            {% if signup.playerName.metaSpec == 1 %}
                                 <i class="fa fa-fw fa-shield-alt"></i>
-                            {% elseif signup.playerName.spec == 2 %}
+                            {% elseif signup.playerName.metaSpec == 2 %}
                                 <i class="fa fa-fw fa-band-aid"></i>
-                            {% elseif signup.playerName.spec == 3 %}
+                            {% elseif signup.playerName.metaSpec == 3 %}
                                 <i class="fa fa-fw fa-skull-crossbones"></i>
+                            {% elseif signup.playerName.metaSpec == 4 %}
+                                <i class="fa fa-fw fa-crosshairs"></i>
                             {% endif %}
                             {{ signup.playerName.name }}
                             </li>

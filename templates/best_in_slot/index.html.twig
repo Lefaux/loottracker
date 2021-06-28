@@ -104,12 +104,14 @@
                                 {% endif %}
                                 <tr class="{{ rowClass }}">
                                     <td class="bis-list-name">
-                                        {% if character.char.spec == 1 %}
+                                        {% if character.char.metaSpec == 1 %}
                                             <i class="fa fa-fw fa-shield-alt"></i>
-                                        {% elseif character.char.spec == 2 %}
+                                        {% elseif character.char.metaSpec == 2 %}
                                             <i class="fa fa-fw fa-band-aid"></i>
-                                        {% elseif character.char.spec == 3 %}
+                                        {% elseif character.char.metaSpec == 3 %}
                                             <i class="fa fa-fw fa-skull-crossbones"></i>
+                                        {% elseif character.char.metaSpec == 4 %}
+                                            <i class="fa fa-fw fa-crosshairs"></i>
                                         {% endif %}
                                         <a class="link-{{ character.char.class }}" href="{{ path('character', {'charId': character.char.id}) }}">{{ character.char.name }}</a>
                                     </td>
@@ -174,12 +176,14 @@
                         <h5>Characters in class that have been filtered:</h5>
                         <p>
                             {% for filteredCharacter in filteredCharacters %}
-                                {% if filteredCharacter.spec == 1 %}
+                                {% if filteredCharacter.metaSpec== 1 %}
                                     <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif filteredCharacter.spec == 2 %}
+                                {% elseif filteredCharacter.metaSpec == 2 %}
                                     <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif filteredCharacter.spec == 3 %}
+                                {% elseif filteredCharacter.metaSpec == 3 %}
                                     <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% elseif filteredCharacter.metaSpec == 4 %}
+                                    <i class="fa fa-fw fa-crosshairs"></i>
                                 {% endif %}
                                 {% if filteredCharacter.twink == 1 %}
                                     <i>

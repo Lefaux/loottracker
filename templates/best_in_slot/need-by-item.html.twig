@@ -19,12 +19,14 @@
                         <li class="list-group-item active">{% trans %}Players still needing this item{% endtrans %}</li>
                         {% for bisEntry in chars %}
                             <li class="list-group-item">
-                                {% if bisEntry.playerCharacter.spec == 1 %}
+                                {% if bisEntry.playerCharacter.metaSpec == 1 %}
                                     <i class="fa fa-fw fa-shield-alt"></i>
-                                {% elseif bisEntry.playerCharacter.spec == 2 %}
+                                {% elseif bisEntry.playerCharacter.metaSpec == 2 %}
                                     <i class="fa fa-fw fa-band-aid"></i>
-                                {% elseif bisEntry.playerCharacter.spec == 3 %}
+                                {% elseif bisEntry.playerCharacter.metaSpec == 3 %}
                                     <i class="fa fa-fw fa-skull-crossbones"></i>
+                                {% elseif bisEntry.playerCharacter.metaSpec == 4 %}
+                                    <i class="fa fa-fw fa-crosshairs"></i>
                                 {% endif %}
                                 <a class="link-{{ bisEntry.playerCharacter.class }}" href="{{ path('character', {'charId': bisEntry.playerCharacter.id}) }}">{{ bisEntry.playerCharacter.name }}</a>
                                 </li>
